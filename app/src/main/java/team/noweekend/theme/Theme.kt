@@ -1,4 +1,4 @@
-package team.noweekend.ui.theme
+package team.noweekend.theme
 
 import android.app.Activity
 import android.os.Build
