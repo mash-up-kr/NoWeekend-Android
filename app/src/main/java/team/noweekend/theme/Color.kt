@@ -1,4 +1,4 @@
-package team.noweekend.ui.theme
+package team.noweekend.theme
 
 import androidx.compose.ui.graphics.Color
 
