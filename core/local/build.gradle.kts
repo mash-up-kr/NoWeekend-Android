@@ -11,9 +11,4 @@ android {
 dependencies {
     implementation(project(":core:common-android"))
     implementation(project(":core:common-kotlin"))
-    implementation(project(":core:model"))
-    
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
 }
