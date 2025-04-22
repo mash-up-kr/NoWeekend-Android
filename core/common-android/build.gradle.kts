@@ -7,12 +7,6 @@ android {
     namespace = "team.noweekend.core.common.android"
 }
 
-dependencies {
-    implementation(project(":core:common-kotlin"))
+dependencies{
     implementation(project(":core:model"))
-    implementation(project(":core:remote"))
-    
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
 }

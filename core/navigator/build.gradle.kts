@@ -7,9 +7,6 @@ android {
 }
 
 dependencies {
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
     // hilt navigation compose
     implementation(libs.hilt.navigation.compose)
     // navigation compose

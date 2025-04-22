@@ -4,6 +4,5 @@ plugins {
 }
 
 dependencies{
-    implementation(project(":core:common-android"))
     implementation(project(":core:model"))
 }

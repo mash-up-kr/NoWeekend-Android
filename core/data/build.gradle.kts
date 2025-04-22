@@ -16,9 +16,6 @@ dependencies {
     implementation(project(":core:local"))
     implementation(project(":core:domain"))
     
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
     // ktor
     implementation(libs.bundles.network)
     // coroutine

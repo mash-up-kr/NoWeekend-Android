@@ -11,6 +11,7 @@ dependencies {
     implementation(project(":core:common-kotlin"))
     implementation(project(":core:common-ui"))
     implementation(project(":core:model"))
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.material3)
