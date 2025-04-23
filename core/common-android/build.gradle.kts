@@ -7,6 +7,6 @@ android {
     namespace = "team.noweekend.core.common.android"
 }
 
-dependencies{
+dependencies {
     implementation(project(":core:model"))
 }
