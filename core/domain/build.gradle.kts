@@ -5,7 +5,7 @@ plugins {
 dependencies {
     implementation(project(":core:common-kotlin"))
     implementation(project(":core:model"))
-    
+
     implementation(libs.coroutine.core)
     implementation(libs.javax.inject)
 }

@@ -3,6 +3,6 @@ plugins {
     alias(libs.plugins.team.noweekend.jvm.library)
 }
 
-dependencies{
+dependencies {
     implementation(project(":core:model"))
 }

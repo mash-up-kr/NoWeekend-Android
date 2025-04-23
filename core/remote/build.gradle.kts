@@ -12,7 +12,7 @@ dependencies {
     implementation(project(":core:common-kotlin"))
     implementation(project(":core:model"))
     implementation(project(":core:local"))
-    
+
     // ktor
     implementation(libs.bundles.network)
     // coroutine
