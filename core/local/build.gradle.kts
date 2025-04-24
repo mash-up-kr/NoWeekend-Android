@@ -8,6 +8,6 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:common-android"))
     implementation(project(":core:common-kotlin"))
+    implementation(project(":core:model"))
 }
