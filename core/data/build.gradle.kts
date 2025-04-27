@@ -13,8 +13,6 @@ dependencies {
     implementation(project(":core:remote"))
     implementation(project(":core:domain"))
 
-    // ktor
-    implementation(libs.bundles.network)
-    // coroutine
-    implementation(libs.bundles.coroutine)
+    implementation(libs.bundles.ktor)
+    implementation(libs.bundles.kotlinx.coroutine)
 }

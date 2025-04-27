@@ -12,8 +12,6 @@ dependencies {
     implementation(project(":core:common-kotlin"))
     implementation(project(":core:model"))
 
-    // ktor
-    implementation(libs.bundles.network)
-    // coroutine
-    implementation(libs.bundles.coroutine)
+    implementation(libs.bundles.ktor)
+    implementation(libs.bundles.kotlinx.coroutine)
 }
