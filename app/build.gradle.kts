@@ -29,11 +29,7 @@ dependencies {
 
     // Feature modules
     implementation(project(":feature:home"))
+    implementation(project(":feature:sample"))
 
-    implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.material3)
-    implementation(libs.navigation.compose)
     implementation(libs.hilt.navigation.compose)
 }
