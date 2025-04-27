@@ -5,12 +5,12 @@ import androidx.activity.ComponentActivity
 import androidx.activity.result.ActivityResultLauncher
 
 interface BaseNavigator {
-    fun navigateTo(
+    fun navigate(
         activity: ComponentActivity,
         intentBuilder: (Intent.() -> Intent)? = { this },
-    ) = navigateTo(activity, intentBuilder, null)
+    ) = navigateWithLauncher(activity, intentBuilder, null)
 
-    fun navigateTo(
+    fun navigateWithLauncher(
         activity: ComponentActivity,
         intentBuilder: (Intent.() -> Intent)? = { this },
         launcher: ActivityResultLauncher<Intent>?,
