@@ -1,4 +1,4 @@
-package team.noweekend.theme
+package team.noweekend.feature.home.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
