@@ -1,4 +1,4 @@
-package team.noweekend.feature.sample.navigation.navigator
+package team.noweekend.feature.sample.navigator
 
 import android.content.Intent
 import androidx.activity.ComponentActivity
