@@ -3,5 +3,5 @@ plugins {
 }
 
 android {
-    namespace = "team.noweekend.feature.home"
+    namespace = "team.noweekend.feature.sample"
 }
