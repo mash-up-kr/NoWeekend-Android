@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.team.noweekend.android.library)
+    alias(libs.plugins.team.noweekend.hilt)
 }
 
 android {
