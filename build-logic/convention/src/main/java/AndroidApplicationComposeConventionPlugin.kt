@@ -1,18 +1,23 @@
 import com.android.build.api.dsl.ApplicationExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.apply
-import org.gradle.kotlin.dsl.getByType
+import org.gradle.kotlin.dsl.configure
 import team.noweekend.convention.configureAndroidCompose
+import team.noweekend.convention.configureBuildConfig
 
 class AndroidApplicationComposeConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
-            apply(plugin = "org.jetbrains.kotlin.plugin.compose")
+            with(pluginManager) {
+                apply("com.android.application")
+                apply("org.jetbrains.kotlin.android")
+                apply("org.jetbrains.kotlin.plugin.compose")
+            }
 
-            val extension = extensions.getByType<ApplicationExtension>()
-            configureAndroidCompose(extension)
+            extensions.configure<ApplicationExtension> {
+                configureAndroidCompose(this)
+                configureBuildConfig(this@with)
+            }
         }
     }
-
 }
