@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import team.noweekend.core.navigator.route.Sample
+import team.noweekend.core.navigator.model.Sample
 import team.noweekend.feature.sample.navigation.sampleScreen
 
 @Composable
