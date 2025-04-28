@@ -1,6 +1,12 @@
 [versions]
-activityCompose = "1.10.1"
+targetSdk = "35"
+compileSdk = "35"
+minimumSdk = "26"
+versionCode = "1"
+versionName = "0.0.1" # X.Y.Z; X = Major, Y = minor, Z = Patch level
+
 agp = "8.8.2"
+activityCompose = "1.10.1"
 androidGradlePlugin = "8.6.1"
 androidTools = "31.9.1"
 coil = "2.7.0"
