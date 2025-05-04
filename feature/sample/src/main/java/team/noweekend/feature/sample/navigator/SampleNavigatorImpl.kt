@@ -4,7 +4,7 @@ import android.content.Intent
 import androidx.activity.ComponentActivity
 import androidx.activity.result.ActivityResultLauncher
 import team.noweekend.core.common.android.extension.getIntent
-import team.noweekend.core.navigator.feature.SampleNavigator
+import team.noweekend.core.navigator.feature.sample.SampleNavigator
 import team.noweekend.feature.sample.SampleActivity
 import javax.inject.Inject
 
