@@ -1,4 +1,4 @@
-package team.noweekend.core.navigator
+package team.noweekend.core.navigator.base
 
 import android.content.Intent
 import androidx.activity.ComponentActivity
@@ -7,7 +7,7 @@ import androidx.activity.result.ActivityResultLauncher
 /**
  * feature 모듈 간 Activity 전환에 사용하는 interface
  */
-interface BaseNavigator {
+interface Navigator {
     /**
      * Activity 전환에 사용되는 메서드
      * ``` kotlin
