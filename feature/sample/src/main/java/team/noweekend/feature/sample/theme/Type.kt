@@ -1,4 +1,4 @@
-package team.noweekend.theme
+package team.noweekend.feature.sample.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
