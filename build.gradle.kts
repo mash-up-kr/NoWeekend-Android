@@ -10,6 +10,7 @@ plugins {
     alias(libs.plugins.room) apply false
     alias(libs.plugins.kotlinx.serialization) apply false
     alias(libs.plugins.ktlint)
+    alias(libs.plugins.dokka)
 }
 
 allprojects {

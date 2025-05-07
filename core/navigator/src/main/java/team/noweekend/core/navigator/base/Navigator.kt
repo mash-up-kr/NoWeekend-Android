@@ -27,7 +27,7 @@ interface Navigator {
      */
     fun navigate(
         activity: ComponentActivity,
-        intentBuilder: (Intent.() -> Intent)? = { this },
+        intentBuilder: (Intent.() -> Intent)? = { this }
     ) = navigateWithLauncher(activity, intentBuilder, null)
 
     /**
@@ -69,6 +69,6 @@ interface Navigator {
     fun navigateWithLauncher(
         activity: ComponentActivity,
         intentBuilder: (Intent.() -> Intent)? = { this },
-        launcher: ActivityResultLauncher<Intent>?,
+        launcher: ActivityResultLauncher<Intent>?
     )
 }

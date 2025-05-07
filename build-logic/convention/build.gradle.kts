@@ -23,6 +23,7 @@ dependencies {
     compileOnly(libs.kotlin.gradlePlugin)
     compileOnly(libs.ksp.gradlePlugin)
     compileOnly(libs.room.gradlePlugin)
+    compileOnly(libs.dokka.gradlePlugin)
 }
 
 tasks {
@@ -65,6 +66,10 @@ gradlePlugin {
         register("jvmLibrary") {
             id = "team.noweekend.jvm.library"
             implementationClass = "JvmLibraryConventionPlugin"
+        }
+        register("dokka"){
+            id = "team.noweekend.dokka"
+            implementationClass = "DokkaConventionPlugin"
         }
     }
 }

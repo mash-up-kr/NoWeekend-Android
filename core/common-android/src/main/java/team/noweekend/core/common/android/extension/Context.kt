@@ -5,7 +5,7 @@ import android.content.Intent
 import androidx.activity.ComponentActivity
 
 inline fun <reified T : ComponentActivity> Context.getIntent(
-    intentBuilder: (Intent.() -> Intent),
+    intentBuilder: (Intent.() -> Intent)
 ): Intent {
     return intentBuilder(Intent(this, T::class.java))
 }
