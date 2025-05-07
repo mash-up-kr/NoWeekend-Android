@@ -10,11 +10,11 @@ import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun SampleScreen(
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Box(
         modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center,
+        contentAlignment = Alignment.Center
     ) {
         Text("Welcome to the Sample Screen")
     }

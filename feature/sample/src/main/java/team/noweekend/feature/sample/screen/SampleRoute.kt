@@ -5,7 +5,7 @@ import androidx.compose.ui.Modifier
 
 @Composable
 internal fun SampleRoute(
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     SampleScreen(modifier = modifier)
 }

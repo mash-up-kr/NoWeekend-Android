@@ -27,7 +27,7 @@ class SampleActivity : ComponentActivity() {
                     if (showButton) {
                         Button(
                             modifier = Modifier.align(Alignment.CenterHorizontally),
-                            onClick = { finish() },
+                            onClick = { finish() }
                         ) {
                             Text("Go To Home")
                         }

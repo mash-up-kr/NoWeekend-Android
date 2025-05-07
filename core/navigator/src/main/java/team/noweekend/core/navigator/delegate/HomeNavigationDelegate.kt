@@ -9,15 +9,15 @@ import javax.inject.Inject
 
 class HomeNavigationDelegate @Inject constructor(
     @ActivityContext private val context: Context,
-    private val sampleNavigator: SampleNavigator,
+    private val sampleNavigator: SampleNavigator
 ) {
     fun navigateToSample(
         activity: ComponentActivity = context as ComponentActivity,
-        intentBuilder: (Intent.() -> Intent)? = null,
+        intentBuilder: (Intent.() -> Intent)? = null
     ) {
         sampleNavigator.navigate(
             activity = activity,
-            intentBuilder = intentBuilder,
+            intentBuilder = intentBuilder
         )
     }
 }

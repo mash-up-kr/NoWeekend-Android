@@ -18,6 +18,6 @@ internal class NavigationDelegateModule {
     @ActivityScoped
     fun provideHomeNavigationDelegate(
         @ActivityContext context: Context,
-        sampleNavigator: SampleNavigator,
+        sampleNavigator: SampleNavigator
     ): HomeNavigationDelegate = HomeNavigationDelegate(context, sampleNavigator)
 }
