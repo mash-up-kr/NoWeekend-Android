@@ -18,11 +18,10 @@ import kotlinx.coroutines.launch
 import team.noweekend.core.common.android.mvi.Intent
 import team.noweekend.core.common.android.mvi.SideEffect
 import team.noweekend.core.common.android.mvi.UiState
-import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
-abstract class MVIViewModel<I : Intent, SE : SideEffect, S : UiState> @Inject constructor(
+abstract class MVIViewModel<I : Intent, SE : SideEffect, S : UiState>(
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
@@ -48,13 +47,13 @@ abstract class MVIViewModel<I : Intent, SE : SideEffect, S : UiState> @Inject co
         _sideEffect.close()
     }
 
-    fun intent(intent: I) = launch {
+    fun intent(intent: Intent) = launch {
         handleIntent(intent)
     }
 
     protected abstract fun handleClientException(throwable: Throwable)
 
-    protected abstract suspend fun handleIntent(intent: I)
+    protected abstract suspend fun handleIntent(intent: Intent)
 
     protected open fun navigateBack() = launch {
         postSideEffect(SideEffect.NavigateToHistoryBack)
