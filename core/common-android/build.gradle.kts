@@ -10,4 +10,7 @@ android {
 dependencies {
     implementation(project(":core:model"))
     implementation(project(":core:common-kotlin"))
+
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.bundles.kotlinx.coroutine)
 }
