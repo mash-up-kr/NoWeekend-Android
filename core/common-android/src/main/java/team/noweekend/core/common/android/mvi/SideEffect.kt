@@ -1,5 +1,5 @@
 package team.noweekend.core.common.android.mvi
 
-sealed interface SideEffect {
+interface SideEffect {
     data object NavigateToHistoryBack : SideEffect
 }
