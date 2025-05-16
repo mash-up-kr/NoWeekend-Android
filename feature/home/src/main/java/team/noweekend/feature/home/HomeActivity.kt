@@ -8,10 +8,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import dagger.hilt.android.AndroidEntryPoint
+import team.noweekend.core.design.system.foundation.NoWeekendTheme
 import team.noweekend.core.navigator.delegate.HomeNavigationDelegate
 import team.noweekend.core.navigator.extra.FLAG_SHOW_BUTTON
 import team.noweekend.feature.home.screen.HomeScreen
-import team.noweekend.feature.home.theme.NoWeekendTheme
 import javax.inject.Inject
 import kotlin.random.Random
 

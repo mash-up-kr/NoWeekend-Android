@@ -17,6 +17,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 add("implementation", project(":core:common-android"))
                 add("implementation", project(":core:common-kotlin"))
                 add("implementation", project(":core:domain"))
+                add("implementation", project(":core:design-system"))
                 add("implementation", project(":core:model"))
                 add("implementation", project(":core:resource"))
                 add("implementation", project(":core:navigator"))
