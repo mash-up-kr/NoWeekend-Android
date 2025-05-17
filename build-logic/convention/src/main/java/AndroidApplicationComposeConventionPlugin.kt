@@ -3,6 +3,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 import team.noweekend.convention.configureAndroidCompose
+import team.noweekend.convention.configureAndroidSigning
 import team.noweekend.convention.configureBuildConfig
 import team.noweekend.convention.configureBuildFlavors
 import team.noweekend.convention.configureBuildType
@@ -21,6 +22,7 @@ class AndroidApplicationComposeConventionPlugin : Plugin<Project> {
                 configureKotlinAndroid(this)
                 configureAndroidCompose(this)
                 configureBuildConfig(this@with)
+                configureAndroidSigning(this)
                 configureBuildType()
                 configureBuildFlavors(this@with)
             }
