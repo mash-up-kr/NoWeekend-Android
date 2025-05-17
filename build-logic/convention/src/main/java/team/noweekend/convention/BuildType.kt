@@ -7,7 +7,6 @@ internal fun ApplicationExtension.configureBuildType() {
         debug {
             isMinifyEnabled = false
             isShrinkResources = false
-//            signingConfig = signingConfigs.getByName("dev")
         }
         release {
             isMinifyEnabled = true
