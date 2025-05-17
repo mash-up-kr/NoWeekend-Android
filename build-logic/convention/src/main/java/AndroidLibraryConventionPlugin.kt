@@ -16,10 +16,6 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
             }
             
             extensions.configure<LibraryExtension> {
-                buildFeatures {
-                    buildConfig = true
-                }
-                
                 configureKotlinAndroid(this)
                 configureBuildFlavors(this@with)
             }
