@@ -13,7 +13,7 @@ internal fun ApplicationExtension.configureBuildFlavors(project: Project) {
         create("dev") {
             applicationIdSuffix = ".dev"
             versionNameSuffix = "-dev"
-//            signingConfig = signingConfigs.getByName("dev")
+            signingConfig = signingConfigs.getByName("dev")
             buildConfigField("int", "VERSION_CODE", "${project.findVersion("versionCode").toInt()}")
             buildConfigField("String", "VERSION_NAME", "\"${project.findVersion("versionName")}\"")
             resValue("string", "app_name", "NoWeekendDEV")
@@ -21,13 +21,13 @@ internal fun ApplicationExtension.configureBuildFlavors(project: Project) {
         create("qa") {
             applicationIdSuffix = ".qa"
             versionNameSuffix = "-qa"
-//            signingConfig = signingConfigs.getByName("qa")
+            signingConfig = signingConfigs.getByName("qa")
             buildConfigField("int", "VERSION_CODE", "${project.findVersion("versionCode").toInt()}")
             buildConfigField("String", "VERSION_NAME", "\"${project.findVersion("versionName")}\"")
             resValue("string", "app_name", "NoWeekendQA")
         }
         create("prod") {
-//            signingConfig = signingConfigs.getByName("prod")
+            signingConfig = signingConfigs.getByName("prod")
             buildConfigField("int", "VERSION_CODE", "${project.findVersion("versionCode").toInt()}")
             buildConfigField("String", "VERSION_NAME", "\"${project.findVersion("versionName")}\"")
             resValue("string", "app_name", "NoWeekend")
