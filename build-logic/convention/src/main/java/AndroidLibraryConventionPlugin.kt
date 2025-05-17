@@ -4,6 +4,7 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.kotlin
+import team.noweekend.convention.configureBuildFlavors
 import team.noweekend.convention.configureKotlinAndroid
 
 class AndroidLibraryConventionPlugin : Plugin<Project> {
@@ -20,6 +21,7 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
                 }
                 
                 configureKotlinAndroid(this)
+                configureBuildFlavors(this@with)
             }
         }
     }
