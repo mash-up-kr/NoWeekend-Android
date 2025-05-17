@@ -1,6 +1,6 @@
 plugins {
     alias(libs.plugins.team.noweekend.android.application)
-    alias(libs.plugins.team.noweekend.android.application.compose)
+//    alias(libs.plugins.team.noweekend.android.application.compose)
     alias(libs.plugins.team.noweekend.hilt)
 }
 
