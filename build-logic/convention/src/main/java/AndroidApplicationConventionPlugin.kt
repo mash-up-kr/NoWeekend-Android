@@ -3,6 +3,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 import team.noweekend.convention.configureBuildConfig
+import team.noweekend.convention.configureBuildType
 import team.noweekend.convention.configureKotlinAndroid
 
 class AndroidApplicationConventionPlugin : Plugin<Project> {
@@ -14,18 +15,9 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
             }
             
             extensions.configure<ApplicationExtension> {
-                buildTypes {
-                    release {
-                        isMinifyEnabled = false
-                        proguardFiles(
-                            getDefaultProguardFile("proguard-android-optimize.txt"),
-                            "proguard-rules.pro"
-                        )
-                    }
-                }
-                
                 configureKotlinAndroid(this)
                 configureBuildConfig(this@with)
+                configureBuildType()
             }
         }
     }
