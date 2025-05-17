@@ -4,6 +4,7 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 import team.noweekend.convention.configureAndroidCompose
 import team.noweekend.convention.configureBuildConfig
+import team.noweekend.convention.configureKotlinAndroid
 
 class AndroidApplicationComposeConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
@@ -15,6 +16,7 @@ class AndroidApplicationComposeConventionPlugin : Plugin<Project> {
             }
 
             extensions.configure<ApplicationExtension> {
+                configureKotlinAndroid(this)
                 configureAndroidCompose(this)
                 configureBuildConfig(this@with)
             }
