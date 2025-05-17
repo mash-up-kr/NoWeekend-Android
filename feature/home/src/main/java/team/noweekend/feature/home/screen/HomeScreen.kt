@@ -28,7 +28,7 @@ fun HomeScreen(
         Button(
             onClick = onNavigateButtonClick
         ) {
-            Text("Go To Sample")
+            Text("Go To A")
         }
     }
 }
