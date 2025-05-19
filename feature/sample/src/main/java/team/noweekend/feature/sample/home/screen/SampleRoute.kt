@@ -8,8 +8,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.flow.collectLatest
 import team.noweekend.feature.sample.home.mvi.SampleIntent
-import team.noweekend.feature.sample.home.mvi.SampleSideEffect
+import team.noweekend.feature.sample.home.mvi.SampleSideEffectHandler
 import team.noweekend.feature.sample.home.mvi.SampleViewModel
+import team.noweekend.feature.sample.home.mvi.rememberSampleSideEffectHandler
 
 @Composable
 internal fun SampleRoute(
@@ -19,13 +20,13 @@ internal fun SampleRoute(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    LaunchedEffect(key1 = viewModel) {
+    val sideEffectHandler: SampleSideEffectHandler = rememberSampleSideEffectHandler(
+        navigateToMemberDetail = navigateToMemberDetail,
+    )
+
+    LaunchedEffect(key1 = Unit) {
         viewModel.sideEffect.collectLatest { sideEffect ->
-            when (sideEffect) {
-                is SampleSideEffect.NavigateToMemberDetail -> {
-                    navigateToMemberDetail(sideEffect.members)
-                }
-            }
+            sideEffectHandler.handleSideEffect(sideEffect)
         }
     }
 
