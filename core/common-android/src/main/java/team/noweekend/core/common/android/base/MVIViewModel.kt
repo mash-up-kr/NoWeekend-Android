@@ -47,7 +47,7 @@ abstract class MVIViewModel<I : Intent, SE : SideEffect, S : UiState>(
         _sideEffect.close()
     }
 
-    fun intent(intent: Intent) = launch {
+    fun intent(intent: Intent) = execute {
         handleIntent(intent)
     }
 
@@ -55,7 +55,7 @@ abstract class MVIViewModel<I : Intent, SE : SideEffect, S : UiState>(
 
     protected abstract suspend fun handleIntent(intent: Intent)
 
-    protected open fun navigateBack() = launch {
+    protected open fun navigateBack() = execute {
         postSideEffect(SideEffect.NavigateToHistoryBack)
     }
 
@@ -67,7 +67,7 @@ abstract class MVIViewModel<I : Intent, SE : SideEffect, S : UiState>(
         _uiState.update { currentState.action() }
     }
 
-    protected inline fun launch(
+    protected inline fun execute(
         context: CoroutineContext = EmptyCoroutineContext,
         start: CoroutineStart = CoroutineStart.DEFAULT,
         crossinline action: suspend CoroutineScope.() -> Unit,

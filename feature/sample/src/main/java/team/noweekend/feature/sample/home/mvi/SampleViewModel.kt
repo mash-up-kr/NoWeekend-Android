@@ -26,7 +26,7 @@ class SampleViewModel @Inject constructor(
         }
     }
 
-    private fun navigateToMemberDetail() = launch {
+    private fun navigateToMemberDetail() = execute {
         postSideEffect(
             SampleSideEffect.NavigateToMemberDetail(
                 members = listOf("재성", "현국", "정우")
