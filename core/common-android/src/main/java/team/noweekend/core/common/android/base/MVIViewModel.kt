@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
@@ -38,16 +39,17 @@ abstract class MVIViewModel<I : Intent, SE : SideEffect, S : UiState>(
         Channel(onBufferOverflow = BufferOverflow.DROP_OLDEST)
     val sideEffect: Flow<SideEffect> = _sideEffect.receiveAsFlow()
 
-    protected val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
-        handleClientException(throwable)
-    }
+    protected val coroutineExceptionHandler: CoroutineExceptionHandler =
+        CoroutineExceptionHandler { _, throwable ->
+            handleClientException(throwable)
+        }
 
     override fun onCleared() {
         super.onCleared()
         _sideEffect.close()
     }
 
-    fun intent(intent: Intent) = execute {
+    fun intent(intent: Intent): Job = execute {
         handleIntent(intent)
     }
 
@@ -55,7 +57,7 @@ abstract class MVIViewModel<I : Intent, SE : SideEffect, S : UiState>(
 
     protected abstract suspend fun handleIntent(intent: Intent)
 
-    protected open fun navigateBack() = execute {
+    protected open fun navigateBack(): Job = execute {
         postSideEffect(SideEffect.NavigateToHistoryBack)
     }
 
@@ -71,7 +73,7 @@ abstract class MVIViewModel<I : Intent, SE : SideEffect, S : UiState>(
         context: CoroutineContext = EmptyCoroutineContext,
         start: CoroutineStart = CoroutineStart.DEFAULT,
         crossinline action: suspend CoroutineScope.() -> Unit,
-    ) = viewModelScope.launch(
+    ): Job = viewModelScope.launch(
         context = context + coroutineExceptionHandler,
         start = start
     ) {

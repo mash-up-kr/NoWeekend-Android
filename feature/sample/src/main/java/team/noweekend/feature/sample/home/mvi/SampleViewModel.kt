@@ -2,6 +2,7 @@ package team.noweekend.feature.sample.home.mvi
 
 import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import team.noweekend.core.common.android.base.MVIViewModel
 import team.noweekend.core.common.android.mvi.Intent
 import javax.inject.Inject
@@ -26,7 +27,7 @@ class SampleViewModel @Inject constructor(
         }
     }
 
-    private fun navigateToMemberDetail() = execute {
+    private fun navigateToMemberDetail(): Job = execute {
         postSideEffect(
             SampleSideEffect.NavigateToMemberDetail(
                 members = listOf("재성", "현국", "정우")
