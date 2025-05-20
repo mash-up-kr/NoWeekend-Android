@@ -21,8 +21,10 @@ internal fun SampleNavHost(
         startDestination = Sample.Home
     ) {
         sampleScreen(
-            navigateToMemberDetail = navController::navigateToSampleDetail
+            navigateToMemberDetail = navController::navigateToSampleDetail,
         )
-        sampleDetailScreen()
+        sampleDetailScreen(
+            navigateToHistoryBack = navController::navigateUp,
+        )
     }
 }

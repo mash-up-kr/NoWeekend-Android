@@ -10,8 +10,12 @@ internal fun NavHostController.navigateToSampleDetail(members: List<String>) {
     navigate(Sample.Detail(members))
 }
 
-internal fun NavGraphBuilder.sampleDetailScreen() {
+internal fun NavGraphBuilder.sampleDetailScreen(
+    navigateToHistoryBack: () -> Unit,
+) {
     composable<Sample.Detail> {
-        SampleDetailRoute()
+        SampleDetailRoute(
+            navigateToHistoryBack = navigateToHistoryBack,
+        )
     }
 }
