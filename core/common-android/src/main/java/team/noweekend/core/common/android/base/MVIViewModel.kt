@@ -40,9 +40,9 @@ abstract class MVIViewModel<I : Intent, SE : SideEffect, S : UiState>(
     protected val currentState: S
         get() = _uiState.value
 
-    private val _sideEffect: Channel<SideEffect> =
+    private val _sideEffect: Channel<SE> =
         Channel(onBufferOverflow = BufferOverflow.DROP_OLDEST)
-    val sideEffect: Flow<SideEffect> = _sideEffect.receiveAsFlow()
+    val sideEffect: Flow<SE> = _sideEffect.receiveAsFlow()
 
     protected val coroutineExceptionHandler: CoroutineExceptionHandler =
         CoroutineExceptionHandler { _, throwable ->
@@ -62,7 +62,7 @@ abstract class MVIViewModel<I : Intent, SE : SideEffect, S : UiState>(
      *
      * @param intent 전달할 Intent 객체
      */
-    fun intent(intent: Intent): Job = execute {
+    fun intent(intent: I): Job = execute {
         handleIntent(intent)
     }
 
@@ -78,11 +78,7 @@ abstract class MVIViewModel<I : Intent, SE : SideEffect, S : UiState>(
      *
      * @param intent 수신한 Intent 객체
      */
-    protected abstract suspend fun handleIntent(intent: Intent)
-
-    protected open fun navigateBack(): Job = execute {
-        postSideEffect(SideEffect.NavigateToHistoryBack)
-    }
+    protected abstract suspend fun handleIntent(intent: I)
 
     /**
      * 앱 내 상태 변경이 아닌 추적, 탐색 등과 같은 작업을 사이드 이펙트를 통해 처리합니다.
@@ -91,7 +87,7 @@ abstract class MVIViewModel<I : Intent, SE : SideEffect, S : UiState>(
      *
      * @param sideEffect 전달할 SideEffect 객체
      */
-    protected suspend fun postSideEffect(sideEffect: SideEffect) {
+    protected suspend fun postSideEffect(sideEffect: SE) {
         _sideEffect.send(sideEffect)
     }
 
