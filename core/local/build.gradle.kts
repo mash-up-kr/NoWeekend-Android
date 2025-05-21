@@ -10,4 +10,5 @@ android {
 dependencies {
     implementation(project(":core:common-kotlin"))
     implementation(project(":core:model"))
+    implementation(libs.androidx.datastore.preferences)
 }
