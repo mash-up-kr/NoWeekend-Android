@@ -11,6 +11,7 @@ dependencies {
     implementation(project(":core:common-kotlin"))
     implementation(project(":core:model"))
     implementation(project(":core:remote"))
+    implementation(project(":core:local"))
     implementation(project(":core:domain"))
 
     implementation(libs.bundles.ktor)
