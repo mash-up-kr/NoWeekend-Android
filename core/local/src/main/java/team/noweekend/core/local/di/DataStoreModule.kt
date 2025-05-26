@@ -18,7 +18,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 internal interface DataStoreModule {
-    
+
     @Singleton
     @Binds
     fun bindLocalDataStore(localDataStoreImpl: LocalDataStoreImpl): LocalDataStore
@@ -27,7 +27,7 @@ internal interface DataStoreModule {
 @Module
 @InstallIn(SingletonComponent::class)
 internal class DataStoreProvider {
-    
+
     @Singleton
     @Provides
     fun providePreferencesDataStore(@ApplicationContext context: Context): DataStore<Preferences> {
@@ -35,7 +35,7 @@ internal class DataStoreProvider {
             produceFile = { context.preferencesDataStoreFile(PREFERENCES) }
         )
     }
-    
+
     companion object {
         private const val PREFERENCES = "user_auth_token"
     }
