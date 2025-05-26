@@ -22,20 +22,12 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import team.noweekend.core.remote.BuildConfig
 import team.noweekend.core.remote.provider.AuthenticationProvider
-import team.noweekend.core.remote.qulifier.BaseUrl
 import team.noweekend.core.remote.qulifier.BasicClient
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 internal class NetworkModule {
-    
-    @Provides
-    @Singleton
-    @BaseUrl
-    fun provideBaseUrl(): String {
-        return "api.github.com"
-    }
     
     @Provides
     @Singleton
@@ -52,7 +44,6 @@ internal class NetworkModule {
     @BasicClient
     fun provideHttpClient(
         json: Json,
-        @BaseUrl baseUrl: String,
         authProvider: AuthenticationProvider,
     ): HttpClient {
         return HttpClient(Android) {
@@ -61,7 +52,7 @@ internal class NetworkModule {
             install(DefaultRequest) {
                 contentType(ContentType.Application.Json)
                 url {
-                    host = baseUrl
+                    host = "api.github.com"
                     protocol = URLProtocol.HTTPS
                 }
             }
