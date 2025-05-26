@@ -19,7 +19,7 @@ internal class AuthenticationProvider @Inject constructor(
         request: HttpRequestBuilder,
         authHeader: HttpAuthHeader?,
     ) {
-        val accessToken = tokenProvider.accessTokenFlow.first()
+        val accessToken = tokenProvider.tokenFlow.first().access
         request.headers.append(HttpHeaders.Authorization, "Bearer $accessToken")
     }
 

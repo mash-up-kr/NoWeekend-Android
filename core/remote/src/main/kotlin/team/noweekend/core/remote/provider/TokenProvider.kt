@@ -1,10 +1,10 @@
 package team.noweekend.core.remote.provider
 
 import kotlinx.coroutines.flow.Flow
+import team.noweekend.core.remote.model.Token
 
 interface TokenProvider {
-    val accessTokenFlow: Flow<String>
-    val refreshTokenFlow: Flow<String>
+    val tokenFlow: Flow<Token>
     suspend fun updateAccessToken(token: String)
     suspend fun updateRefreshToken(token: String)
 }
