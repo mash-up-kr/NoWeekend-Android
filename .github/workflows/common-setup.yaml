@@ -1,11 +1,46 @@
 name: Common Workflow Setup
 
 # 다른 workflow에서 실행 가능
-on: workflow_call
+on:
+  workflow_call:
+    secrets:
+      KEY_ALIAS:
+        required: true
+      KEY_PASSWORD:
+        required: true
+      STORE_PASSWORD:
+        required: true
+      DEV_JKS_BASE64:
+        required: true
+      QA_JKS_BASE64:
+        required: true
+      PROD_JKS_BASE64:
+        required: true
 
 jobs:
+  config-keystore:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout source
+        uses: actions/checkout@v4
+
+      - name: restore jks and keystore properties
+        run: |
+          mkdir -p ../keystore
+          
+          echo "${{ secrets.DEV_JKS_BASE64 }}" | base64 -d > ../keystore/dev.jks
+          echo "${{ secrets.QA_JKS_BASE64 }}" | base64 -d > ../keystore/qa.jks
+          echo "${{ secrets.PROD_JKS_BASE64 }}" | base64 -d > ../keystore/prod.jks
+          
+          echo "storeFileDev=../keystore/dev.jks" > keystore.properties
+          echo "storeFileQa=../keystore/qa.jks" >> keystore.properties
+          echo "storeFileProd=../keystore/prod.jks" >> keystore.properties
+          echo "storePassword=${{ secrets.STORE_PASSWORD }}" >> keystore.properties
+          echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> keystore.properties
+          echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> keystore.properties
+
   common-setup:
-    # job 실행 Virtual Machine
+    needs: config-keystore
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
