@@ -13,12 +13,13 @@ jobs:
     uses: ./.github/workflows/common-setup.yaml
     secrets: inherit
 
-  jdk-setup:
-    name: jdk 17 setup
+  build:
+    name: Gradle Build
     needs: common-workflow-setup
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout source
+        uses: actions/checkout@v4
 
       - name: jdk 17 setup
         uses: actions/setup-java@v3
@@ -26,15 +27,6 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: 'gradle'
-
-
-  build:
-    name: Gradle Build
-    needs: jdk-setup
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout source
-        uses: actions/checkout@v4
 
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew

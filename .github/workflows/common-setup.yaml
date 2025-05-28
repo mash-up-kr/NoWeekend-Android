@@ -1,5 +1,4 @@
 name: Common Workflow Setup
-run-name: ${{ github.event_name }}
 
 # 다른 workflow에서 실행 가능
 on: workflow_call

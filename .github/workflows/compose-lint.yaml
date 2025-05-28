@@ -1,0 +1,16 @@
+name: NoWeekend Compose Lint Check Workflow
+on:
+  pull_request:
+    # feature/foo, feature/foo/bar/* 까지 대응
+    branches: [ "feature/**", "hotfix/**", "release/**", "develop", "main"]
+
+jobs:
+  common-workflow-setup:
+    name: common workflow setup
+    uses: ./.github/workflows/common-setup.yaml
+    secrets: inherit
+
+#  build:
+#    name: Compose Lint Check
+#    needs: common-workflow-setup
+#    runs-on: ubuntu-latest
