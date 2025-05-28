@@ -1,0 +1,15 @@
+name: Common Workflow Setup
+run-name: ${{ github.event_name }}
+
+# 다른 workflow에서 실행 가능
+on: workflow_call
+
+jobs:
+  common-setup:
+    # job 실행 Virtual Machine
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
