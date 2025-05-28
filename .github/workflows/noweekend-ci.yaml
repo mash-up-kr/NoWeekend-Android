@@ -1,4 +1,4 @@
-name: NoWeekend CI Workflow
+name: NoWeekend CI
 
 on:
   # Github Action에서 해당 workflow 수동 트리거 가능 옵션

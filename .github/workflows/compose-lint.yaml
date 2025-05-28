@@ -1,4 +1,4 @@
-name: NoWeekend Compose Lint Check Workflow
+name: NoWeekend Compose Lint Check
 on:
   pull_request:
     # feature/foo, feature/foo/bar/* 까지 대응
