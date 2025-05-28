@@ -9,4 +9,7 @@ jobs:
     # job 실행 Virtual Machine
     runs-on: ubuntu-latest
     steps:
-      - uses: ./.github/actions/setup-gradle-wrapper
+      - uses: actions/checkout@v4
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
