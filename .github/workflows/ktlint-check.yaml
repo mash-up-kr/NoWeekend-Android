@@ -9,6 +9,7 @@ on:
 
 jobs:
   common-workflow-setup:
+    name: common workflow setup
     uses: ./.github/workflows/common-setup.yaml
     secrets: inherit
 
