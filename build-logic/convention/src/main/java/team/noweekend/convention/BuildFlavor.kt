@@ -8,8 +8,8 @@ import java.util.Properties
 
 internal fun ApplicationExtension.configureBuildFlavors(project: Project) {
     productFlavors {
-        val properties = Properties()
-        properties.load(FileInputStream("local.properties"))
+//        val properties = Properties()
+//        properties.load(FileInputStream("local.properties"))
         create("dev") {
             applicationIdSuffix = ".dev"
             versionNameSuffix = "-dev"
@@ -37,8 +37,8 @@ internal fun ApplicationExtension.configureBuildFlavors(project: Project) {
 
 internal fun LibraryExtension.configureBuildFlavors(project: Project) {
     productFlavors {
-        val properties = Properties()
-        properties.load(FileInputStream("local.properties"))
+//        val properties = Properties()
+//        properties.load(FileInputStream("local.properties"))
         create("dev") {
             dimension = "version"
             buildConfigField("int", "VERSION_CODE", "${project.findVersion("versionCode").toInt()}")
