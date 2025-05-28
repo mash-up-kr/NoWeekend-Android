@@ -193,8 +193,6 @@ crashlytics-build.properties
 fabric.properties
 
 ### AndroidStudio Patch ###
-
-!/gradle/wrapper/gradle-wrapper.jar
 /local.properties
 /.idea/caches
 /.idea/libraries
