@@ -35,6 +35,7 @@ datastore = "1.1.7"
 kotlinx-immutable = "0.3.8"
 kotlinx-serialization = "1.8.0"
 material = "1.12.0"
+compose-slack-lint = "1.4.2"
 
 [libraries]
 # androidx
@@ -84,6 +85,8 @@ navigation-compose = { group = "androidx.navigation", name = "navigation-compose
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+
+compose-lint = { group = "com.slack.lint.compose", name = "compose-lint-checks", version.ref = "compose-slack-lint" }
 
 #### 빌드로직 모듈에 포함된 의존성
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }

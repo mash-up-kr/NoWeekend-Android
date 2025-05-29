@@ -11,13 +11,14 @@ internal fun Project.configureAndroidCompose(
         buildFeatures {
             compose = true
         }
-        
+
         dependencies {
             add("implementation", platform(libs.findLibrary("androidx-compose-bom").get()))
             add("implementation", libs.findLibrary("androidx-ui-graphics").get())
             add("implementation", libs.findLibrary("androidx-ui").get())
             add("implementation", libs.findLibrary("androidx-ui-tooling").get())
             add("implementation", libs.findLibrary("androidx-ui-tooling-preview").get())
+            add("lintChecks", libs.findLibrary("compose-lint").get())
         }
     }
 }
