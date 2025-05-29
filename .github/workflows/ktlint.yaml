@@ -5,6 +5,11 @@ on:
     branches: [ "feature/**", "hotfix/**", "release/**", "develop", "main" ]
 
 jobs:
+  common-workflow-setup:
+    name: common workflow setup
+    uses: ./.github/workflows/common-setup.yaml
+    secrets: inherit
+    
   lint-check:
     name: Run Kotlin Lint
     runs-on: ubuntu-latest
