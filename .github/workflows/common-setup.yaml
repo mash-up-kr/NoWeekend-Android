@@ -39,11 +39,12 @@ jobs:
           echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> keystore.properties
           echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> keystore.properties
 
-  common-setup:
-    needs: config-keystore
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
+      - name: upload signing artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: common signing artifacts upload
+          path: |
+            /home/runner/work/NoWeekend-Android/NoWeekend-Android/keystore.properties
+            /home/runner/work/NoWeekend-Android/NoWeekend-Android/keystore/dev.jks
+            /home/runner/work/NoWeekend-Android/NoWeekend-Android/keystore/qa.jks
+            /home/runner/work/NoWeekend-Android/NoWeekend-Android/keystore/prod.jks
