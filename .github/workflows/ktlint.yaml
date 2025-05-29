@@ -21,8 +21,12 @@ jobs:
       - name: download signing artifacts
         uses: actions/download-artifact@v4
         with:
-          name: common signing artifacts download
-          path: .
+          name: common signing artifacts
+          path: |
+            ./keystore.properties
+            ./keystore/dev.jks
+            ./keystore/qa.jks
+            ./keystore/prod.jks
 
       - name: cache gradle
         uses: actions/cache@v3
