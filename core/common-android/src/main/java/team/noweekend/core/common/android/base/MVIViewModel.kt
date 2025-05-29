@@ -113,7 +113,7 @@ abstract class MVIViewModel<I : Intent, SE : SideEffect, S : UiState>(
         crossinline action: suspend CoroutineScope.() -> Unit,
     ): Job = viewModelScope.launch(
         context = context + coroutineExceptionHandler,
-        start = start
+        start = start,
     ) {
         action()
     }

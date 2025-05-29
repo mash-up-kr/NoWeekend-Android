@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
 internal class LocalDataStoreImpl @Inject constructor(
-    private val dataStore: DataStore<Preferences>
+    private val dataStore: DataStore<Preferences>,
 ) : LocalDataStore {
     override suspend fun getAccessToken(): String {
         return dataStore.getOrThrow(key = ACCESS_TOKEN_KEY, errorMessage = "Access token not found")
@@ -34,12 +34,12 @@ internal class LocalDataStoreImpl @Inject constructor(
 
 private suspend fun DataStore<Preferences>.getOrThrow(
     key: String,
-    errorMessage: String
+    errorMessage: String,
 ): String = data.first()[stringPreferencesKey(key)] ?: throw NoSuchElementException(errorMessage)
 
 private suspend fun DataStore<Preferences>.set(
     key: String,
-    value: String
+    value: String,
 ) {
     edit { it[stringPreferencesKey(key)] = value }
 }

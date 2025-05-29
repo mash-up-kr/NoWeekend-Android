@@ -33,6 +33,6 @@ internal fun SampleDetailRoute(
     SampleDetailScreen(
         modifier = modifier,
         uiState = uiState,
-        onBackClick = { viewModel.intent(SampleDetailIntent.ClickBackButton) }
+        onBackClick = { viewModel.intent(SampleDetailIntent.ClickBackButton) },
     )
 }

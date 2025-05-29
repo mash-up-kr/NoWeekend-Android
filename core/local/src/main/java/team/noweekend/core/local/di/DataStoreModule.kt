@@ -32,7 +32,7 @@ internal class DataStoreProvider {
     @Provides
     fun providePreferencesDataStore(@ApplicationContext context: Context): DataStore<Preferences> {
         return PreferenceDataStoreFactory.create(
-            produceFile = { context.preferencesDataStoreFile(PREFERENCES) }
+            produceFile = { context.preferencesDataStoreFile(PREFERENCES) },
         )
     }
 

@@ -33,8 +33,8 @@ class SampleViewModel @Inject constructor(
     private fun navigateToMemberDetail(): Job = execute {
         postSideEffect(
             SampleSideEffect.NavigateToMemberDetail(
-                members = listOf("재성", "현국", "정우")
-            )
+                members = listOf("재성", "현국", "정우"),
+            ),
         )
     }
 }

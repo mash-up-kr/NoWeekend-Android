@@ -13,7 +13,7 @@ data class SampleDetailUiState(
     companion object {
         val INITIAL_STATE: SampleDetailUiState = SampleDetailUiState(
             isLoading = true,
-            members = persistentListOf()
+            members = persistentListOf(),
         )
     }
 }

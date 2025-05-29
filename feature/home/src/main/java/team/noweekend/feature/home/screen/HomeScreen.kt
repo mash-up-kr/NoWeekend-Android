@@ -17,16 +17,16 @@ import team.noweekend.feature.home.theme.NoWeekendTheme
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
-    onNavigateButtonClick: () -> Unit
+    onNavigateButtonClick: () -> Unit,
 ) {
     Column(
         modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text("Welcome to the Home Screen")
         Button(
-            onClick = onNavigateButtonClick
+            onClick = onNavigateButtonClick,
         ) {
             Text("Go To Sample")
         }
@@ -38,11 +38,11 @@ fun HomeScreen(
 private fun HomeScreenPreview() {
     NoWeekendTheme {
         Box(
-            modifier = Modifier.background(Color.White)
+            modifier = Modifier.background(Color.White),
         ) {
             HomeScreen(
                 modifier = Modifier.fillMaxSize(),
-                onNavigateButtonClick = {}
+                onNavigateButtonClick = {},
             )
         }
     }
