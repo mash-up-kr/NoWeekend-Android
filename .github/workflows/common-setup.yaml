@@ -42,7 +42,7 @@ jobs:
       - name: upload signing artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: common signing artifacts upload
+          name: common signing artifacts
           path: |
             ./keystore.properties
             ./keystore/dev.jks
