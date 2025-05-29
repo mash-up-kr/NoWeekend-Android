@@ -2,15 +2,36 @@ name: NoWeekend Kotlin Lint Check
 on:
   pull_request:
     # feature/foo, feature/foo/bar/* 까지 대응
-    branches: [ "feature/**", "hotfix/**", "release/**", "develop", "main"]
+    branches: [ "feature/**", "hotfix/**", "release/**", "develop", "main" ]
 
 jobs:
-  common-workflow-setup:
-    name: common workflow setup
-    uses: ./.github/workflows/common-setup.yaml
-    secrets: inherit
+  lint-check:
+    name: Run Kotlin Lint
+    runs-on: ubuntu-latest
 
-#  build:
-#    name: Kotlin Lint Check
-#    needs: common-workflow-setup
-#    runs-on: ubuntu-latest
+    steps:
+      - name: checkout source
+        uses: actions/checkout@v4
+
+      - name: cache gradle
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: jdk 17 setup
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'gradle'
+
+      - name: grant execute permission for gradlew
+        run: chmod +x ./gradlew
+
+      - name: run ktlint check
+        run: ./gradlew ktlintCheck
