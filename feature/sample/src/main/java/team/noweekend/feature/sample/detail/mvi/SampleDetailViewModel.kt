@@ -19,7 +19,7 @@ class SampleDetailViewModel @Inject constructor(
     override fun createInitialState(savedStateHandle: SavedStateHandle): SampleDetailUiState {
         val route = savedStateHandle.toRoute<Sample.Detail>()
         return SampleDetailUiState.INITIAL_STATE.copy(
-            members = route.members.toImmutableList()
+            members = route.members.toImmutableList(),
         )
     }
 

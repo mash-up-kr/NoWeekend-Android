@@ -18,7 +18,7 @@ fun SampleDetailScreen(
 ) {
     Box(
         modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Text(
             modifier = Modifier

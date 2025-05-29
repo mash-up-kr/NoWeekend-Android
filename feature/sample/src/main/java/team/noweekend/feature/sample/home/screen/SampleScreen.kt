@@ -22,7 +22,7 @@ fun SampleScreen(
     Column(
         modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.SpaceEvenly
+        verticalArrangement = Arrangement.SpaceEvenly,
     ) {
         Text("Welcome to NoWeekend Android Team")
         Button(

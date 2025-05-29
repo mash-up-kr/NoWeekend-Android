@@ -12,7 +12,7 @@ internal class SampleNavigatorImpl @Inject constructor() : SampleNavigator {
     override fun navigateWithLauncher(
         activity: ComponentActivity,
         intentBuilder: (Intent.() -> Intent)?,
-        launcher: ActivityResultLauncher<Intent>?
+        launcher: ActivityResultLauncher<Intent>?,
     ) {
         if (launcher == null) {
             activity.startActivity(activity.getIntent<SampleActivity>(intentBuilder ?: { this }))

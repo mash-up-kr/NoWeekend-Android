@@ -13,6 +13,6 @@ sealed interface Sample : DestinationRoute {
 
     @Serializable
     data class Detail(
-        val members: List<String>
+        val members: List<String>,
     ) : Sample
 }

@@ -32,9 +32,9 @@ class HomeActivity : ComponentActivity() {
                             homeNavigationDelegate.navigateToSample(
                                 intentBuilder = {
                                     putExtra(FLAG_SHOW_BUTTON, Random.nextBoolean())
-                                }
+                                },
                             )
-                        }
+                        },
                     )
                 }
             }

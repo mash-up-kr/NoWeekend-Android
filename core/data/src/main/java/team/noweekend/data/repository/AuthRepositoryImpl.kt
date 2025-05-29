@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 internal class AuthRepositoryImpl @Inject constructor(
     private val localDataStore: LocalDataStore,
-    private val tokenProvider: TokenProvider
+    private val tokenProvider: TokenProvider,
 ) : AuthRepository {
 
     override suspend fun getAccessToken(): String {
