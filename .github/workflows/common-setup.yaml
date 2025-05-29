@@ -43,8 +43,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: common signing artifacts upload
-          path: |
-            /home/runner/work/NoWeekend-Android/NoWeekend-Android/keystore.properties
-            /home/runner/work/NoWeekend-Android/NoWeekend-Android/keystore/dev.jks
-            /home/runner/work/NoWeekend-Android/NoWeekend-Android/keystore/qa.jks
-            /home/runner/work/NoWeekend-Android/NoWeekend-Android/keystore/prod.jks
+          path: .
+#            ./keystore.properties
+#            ./keystore/dev.jks
+#            ./keystore/qa.jks
+#            ./keystore/prod.jks
