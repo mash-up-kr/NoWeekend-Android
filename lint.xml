@@ -23,7 +23,7 @@
     <issue id="AutoboxingStateCreation" severity="error" />
     <issue id="AutoboxingStateValueProperty" severity="warning" />
     <issue id="MutableCollectionMutableState" severity="error" />
-    <issue id="FrequentlyChangedStateReadInComposition" severity="error" />
+    <issue id="FrequentlyChangedStateReadInComposition" severity="warning" />
     <issue id="FrequentlyChangingValue" severity="error" />
 
     <!-- Compose Architecture -->
