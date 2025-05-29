@@ -9,7 +9,7 @@ jobs:
     name: common workflow setup
     uses: ./.github/workflows/common-setup.yaml
     secrets: inherit
-    
+
   lint-check:
     name: Run Kotlin Lint
     runs-on: ubuntu-latest
@@ -17,6 +17,12 @@ jobs:
     steps:
       - name: checkout source
         uses: actions/checkout@v4
+
+      - name: download signing artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: common signing artifacts download
+          path: .
 
       - name: cache gradle
         uses: actions/cache@v3
