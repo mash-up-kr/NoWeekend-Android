@@ -43,8 +43,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: common signing artifacts upload
-          path: .
-#            ./keystore.properties
-#            ./keystore/dev.jks
-#            ./keystore/qa.jks
-#            ./keystore/prod.jks
+          path: |
+            ./keystore.properties
+            ./keystore/dev.jks
+            ./keystore/qa.jks
+            ./keystore/prod.jks
