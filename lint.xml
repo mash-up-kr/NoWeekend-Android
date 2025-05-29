@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <!-- Compose Naming -->
+    <issue id="ComposableNaming" severity="error" />
+    <issue id="ComposableLambdaParameterNaming" severity="error" />
+    <issue id="ComposableLambdaParameterPosition" severity="ignore" />
+    <issue id="ComposeParameterOrder" severity="error" />
+    <issue id="CompositionLocalNaming" severity="error" />
+
+    <!-- Compose Modifier -->
+    <issue id="ComposableModifierFactory" severity="error" />
+    <issue id="ModifierFactoryReturnType" severity="error" />
+    <issue id="ModifierFactoryExtensionFunction" severity="error" />
+    <issue id="ModifierNodeInspectableProperties" severity="ignore" />
+    <issue id="ModifierParameter" severity="error" />
+    <issue id="UnnecessaryComposedModifier" severity="error" />
+
+    <!-- Color -->
+    <issue id="InvalidColorHexValue" severity="error" />
+    <issue id="MissingColorAlphaChannel" severity="error" />
+
+    <!-- Compose State and Composition -->
+    <issue id="AutoboxingStateCreation" severity="error" />
+    <issue id="AutoboxingStateValueProperty" severity="warning" />
+    <issue id="MutableCollectionMutableState" severity="error" />
+    <issue id="FrequentlyChangedStateReadInComposition" severity="error" />
+    <issue id="FrequentlyChangingValue" severity="error" />
+
+    <!-- Compose Architecture -->
+    <issue id="OpaqueUnitKey" severity="warning" />
+    <issue id="ReturnFromAwaitPointerEventScope" severity="warning" />
+    <issue id="MultipleAwaitPointerEventScopes" severity="warning" />
+    <issue id="UseOfNonLambdaOffsetOverload" severity="warning" />
+    <issue id="LocalContextResourcesRead" severity="warning" />
+    <issue id="ConfigurationScreenWidthHeight" severity="warning" />
+</lint>
