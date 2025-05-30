@@ -12,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import team.noweekend.feature.sample.home.mvi.SampleUiState
-import team.noweekend.feature.sample.home.mvi.SampleViewModel
 
 @Composable
 fun SampleScreen(
