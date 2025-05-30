@@ -12,8 +12,8 @@ import team.noweekend.feature.sample.detail.mvi.SampleDetailUiState
 
 @Composable
 fun SampleDetailScreen(
-    modifier: Modifier = Modifier,
     uiState: SampleDetailUiState,
+    modifier: Modifier = Modifier,
     onBackClick: () -> Unit,
 ) {
     Box(
