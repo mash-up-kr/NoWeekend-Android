@@ -14,9 +14,9 @@ import team.noweekend.feature.sample.home.mvi.rememberSampleSideEffectHandler
 
 @Composable
 internal fun SampleRoute(
+    navigateToMemberDetail: (List<String>) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: SampleViewModel = hiltViewModel(),
-    navigateToMemberDetail: (List<String>) -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 

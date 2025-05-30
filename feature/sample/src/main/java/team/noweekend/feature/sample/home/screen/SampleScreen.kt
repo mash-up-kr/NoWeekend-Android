@@ -12,11 +12,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import team.noweekend.feature.sample.home.mvi.SampleUiState
+import team.noweekend.feature.sample.home.mvi.SampleViewModel
 
 @Composable
 fun SampleScreen(
-    modifier: Modifier = Modifier,
     uiState: SampleUiState,
+    modifier: Modifier = Modifier,
     onDetailButtonClick: () -> Unit,
 ) {
     Column(
@@ -39,6 +40,7 @@ fun SampleScreen(
 private fun SampleScreenPreview() {
     SampleScreen(
         modifier = Modifier.fillMaxSize(),
+//        viewModel = ,
         uiState = SampleUiState.INITIAL_STATE,
         onDetailButtonClick = {},
     )
