@@ -8,10 +8,10 @@ on:
     branches: [ "feature/**", "hotfix/**", "release/**", "develop", "main"]
 
 jobs:
-  common-workflow-setup:
-    name: common workflow setup
-    uses: ./.github/workflows/common-setup.yaml
-    secrets: inherit
+#  common-workflow-setup:
+#    name: common workflow setup
+#    uses: ./.github/workflows/common-setup.yaml
+#    secrets: inherit
 
   build:
     name: Gradle Build
