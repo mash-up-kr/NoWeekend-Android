@@ -15,7 +15,7 @@ jobs:
 
   build:
     name: Gradle Build
-    needs: common-workflow-setup
+#    needs: common-workflow-setup
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source
