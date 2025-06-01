@@ -12,6 +12,7 @@ class CatalogActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             NoWeekendTheme {
+                CatalogNavHost()
             }
         }
     }
