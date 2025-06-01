@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NoWeekend">
         <activity
-            android:name="team.noweekend.catalog.MainActivity"
+            android:name="team.noweekend.catalog.CatalogActivity"
             android:exported="true"
             android:theme="@style/Theme.NoWeekend">
             <intent-filter>
