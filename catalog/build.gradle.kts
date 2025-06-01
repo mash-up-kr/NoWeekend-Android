@@ -6,16 +6,6 @@ plugins {
 
 android {
     namespace = "team.noweekend.catalog"
-
-    defaultConfig {
-        applicationId = "team.noweekend.catalog"
-        versionCode = 1
-        versionName = "0.0.1" // X.Y.Z; X = Major, Y = minor, Z = Patch level
-    }
-
-    buildFeatures {
-        compose = true
-    }
 }
 
 dependencies {
