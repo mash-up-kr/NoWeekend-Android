@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import dagger.hilt.android.AndroidEntryPoint
-import team.noweekend.core.design.system.foundation.theme.NoWeekendTheme
+import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.navigator.delegate.HomeNavigationDelegate
 import team.noweekend.core.navigator.extra.FLAG_SHOW_BUTTON
 import team.noweekend.feature.home.screen.HomeScreen
@@ -24,7 +24,7 @@ class HomeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            NoWeekendTheme {
+            NWKTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     HomeScreen(
                         modifier = Modifier.padding(innerPadding),

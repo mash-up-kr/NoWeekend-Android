@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.sp
 import team.noweekend.catalog.home.mvi.HomeUiState
 import team.noweekend.catalog.model.Component
 import team.noweekend.core.design.system.core.component.scaffold.NWKScaffold
-import team.noweekend.core.design.system.foundation.theme.NoWeekendTheme
+import team.noweekend.core.design.system.foundation.theme.NWKTheme
 
 @Composable
 internal fun HomeScreen(
@@ -68,7 +68,7 @@ internal fun HomeScreen(
 @Preview
 @Composable
 private fun HomeScreenPreview() {
-    NoWeekendTheme {
+    NWKTheme {
         HomeScreen(
             uiState = HomeUiState.INITIAL_STATE,
             onComponentClick = {},

@@ -9,7 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import dagger.hilt.android.AndroidEntryPoint
-import team.noweekend.core.design.system.foundation.theme.NoWeekendTheme
+import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.navigator.extra.FLAG_SHOW_BUTTON
 
 @AndroidEntryPoint
@@ -21,7 +21,7 @@ class SampleActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            NoWeekendTheme {
+            NWKTheme {
                 Column {
                     SampleNavHost(modifier = Modifier.weight(1f))
                     if (showButton) {

@@ -10,7 +10,7 @@ import team.noweekend.core.design.system.foundation.theme.ripple.NWKRippleConfig
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NoWeekendTheme(
+fun NWKTheme(
     content: @Composable () -> Unit,
 ) {
     CompositionLocalProvider(

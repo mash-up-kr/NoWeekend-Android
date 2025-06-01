@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import team.noweekend.catalog.R
 import team.noweekend.catalog.model.Component
-import team.noweekend.core.design.system.foundation.theme.NoWeekendTheme
+import team.noweekend.core.design.system.foundation.theme.NWKTheme
 
 @Composable
 internal fun ComponentItem(
@@ -61,7 +61,7 @@ internal fun ComponentItem(
 @Preview
 @Composable
 private fun ComponentItemPreview() {
-    NoWeekendTheme {
+    NWKTheme {
         ComponentItem(
             component = Component.ButtonComponent,
             onItemClick = {},
