@@ -2,7 +2,9 @@ package team.noweekend.catalog.model
 
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
+import kotlinx.serialization.Serializable
 
+@Serializable
 internal data class Component(
     val id: Int,
     val name: String,
@@ -21,7 +23,7 @@ internal data class Component(
     }
 }
 
-internal val Components: ImmutableList<Component> = listOf(
+internal val NDSComponents: ImmutableList<Component> = listOf(
     Component.ButtonComponent,
     Component.ButtonComponent,
     Component.ButtonComponent,

@@ -1,7 +1,9 @@
 package team.noweekend.catalog.model
 
 import androidx.compose.runtime.Composable
+import kotlinx.serialization.Serializable
 
+@Serializable
 internal data class Example(
     val name: String,
     val description: String,
