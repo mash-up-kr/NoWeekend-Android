@@ -2,10 +2,11 @@ package team.noweekend.catalog
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import team.noweekend.catalog.model.NDSComponents
-import team.noweekend.catalog.ui.home.HomeScreen
+import team.noweekend.catalog.component.navigation.componentScreen
+import team.noweekend.catalog.component.navigation.navigateToComponentDetail
+import team.noweekend.catalog.home.navigation.catalogHomeScreen
+import team.noweekend.catalog.navigation.CatalogRoute
 
 @Composable
 internal fun CatalogNavHost() {
@@ -15,18 +16,12 @@ internal fun CatalogNavHost() {
         navController = navController,
         startDestination = CatalogRoute.Home,
     ) {
-        composable<CatalogRoute.Home> {
-            HomeScreen(
-                components = NDSComponents,
-                onComponentClick = {},
-            )
-        }
-
-        composable<CatalogRoute.Component> {
-            HomeScreen(
-                components = NDSComponents,
-                onComponentClick = {},
-            )
-        }
+        catalogHomeScreen(
+            navigateToComponentDetail = navController::navigateToComponentDetail,
+        )
+        componentScreen(
+            navigateToHistoryBack = navController::navigateUp,
+            navigateToExample = {},
+        )
     }
 }

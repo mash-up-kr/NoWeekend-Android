@@ -20,11 +20,13 @@ android {
 
 dependencies {
     implementation(project(":core:design-system"))
+    implementation(project(":core:common-android"))
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.hilt.navigation.compose)
     implementation(libs.bundles.kotlinx.coroutine)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.kotlinx.collections.immutable)

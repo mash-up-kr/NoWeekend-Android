@@ -1,4 +1,4 @@
-package team.noweekend.catalog.ui.component
+package team.noweekend.catalog.home.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border

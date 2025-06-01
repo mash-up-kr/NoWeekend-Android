@@ -1,5 +1,6 @@
-package team.noweekend.catalog.ui.component
+package team.noweekend.catalog.component.screen
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -24,14 +25,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import team.noweekend.catalog.model.Component
-import team.noweekend.catalog.ui.example.ExampleItem
+import team.noweekend.catalog.component.mvi.ComponentUiState
 import team.noweekend.core.design.system.core.component.scaffold.NWKScaffold
 import team.noweekend.core.design.system.foundation.theme.NoWeekendTheme
 
 @Composable
 internal fun ComponentScreen(
-    component: Component,
+    onBackClick: () -> Unit,
+    uiState: ComponentUiState,
     modifier: Modifier = Modifier,
 ) {
     NWKScaffold(
@@ -48,13 +49,15 @@ internal fun ComponentScreen(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Icon(
-                    modifier = Modifier.size(28.dp),
+                    modifier = Modifier
+                        .size(28.dp)
+                        .clickable(onClick = onBackClick),
                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = "",
                 )
                 Text(
                     modifier = Modifier.fillMaxWidth(),
-                    text = component.name,
+                    text = uiState.component.name,
                     style = TextStyle(
                         fontSize = 24.sp,
                         color = Color.Black,
@@ -83,7 +86,7 @@ internal fun ComponentScreen(
                     Spacer(modifier = Modifier.size(16.dp))
                     Text(
                         modifier = Modifier.fillMaxWidth(),
-                        text = "asdfasdfadsfaasdfasdfadsfaasdfasdfadsfaasdfasdfadsfaasdfasdfadsfaasdfasdfadsfaasdfasdfadsfaasdfasdfadsfaasdfasdfadsfaasdfasdfadsfaasdfasdfadsfaasdfasdfadsfa\n asdfasdfadsfaasdfasdfadsfaasdfasdfadsfaasdfasdfadsfaasdfasdfadsfaasdfasdfadsfaasdfasdfadsfa",
+                        text = uiState.component.description,
                         style = TextStyle(
                             fontSize = 16.sp,
                         ),
@@ -101,9 +104,9 @@ internal fun ComponentScreen(
                 )
                 Spacer(modifier = Modifier.size(16.dp))
             }
-            if (component.examples.isNotEmpty()) {
-                itemsIndexed(component.examples) { index, example ->
-                    val isLastItem = index == component.examples.lastIndex
+            if (uiState.component.examples.isNotEmpty()) {
+                itemsIndexed(uiState.component.examples) { index, example ->
+                    val isLastItem = index == uiState.component.examples.lastIndex
                     ExampleItem(
                         example = example,
                         onExampleClick = {},
@@ -115,10 +118,11 @@ internal fun ComponentScreen(
             } else {
                 item {
                     Text(
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier.fillMaxWidth()
+                            .padding(30.dp),
                         text = "No Example",
                         style = TextStyle(
-                            fontSize = 18.sp,
+                            fontSize = 14.sp,
                         ),
                         textAlign = TextAlign.Center,
                     )
@@ -135,7 +139,8 @@ internal fun ComponentScreen(
 private fun ComponentScreenPreview() {
     NoWeekendTheme {
         ComponentScreen(
-            component = Component.ButtonComponent,
+            onBackClick = {},
+            uiState = ComponentUiState.INITIAL_STATE,
         )
     }
 }
