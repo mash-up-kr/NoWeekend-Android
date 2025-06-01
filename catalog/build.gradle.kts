@@ -1,5 +1,4 @@
 plugins {
-    alias(libs.plugins.team.noweekend.android.application)
     alias(libs.plugins.team.noweekend.android.application.compose)
     alias(libs.plugins.team.noweekend.hilt)
 }
@@ -8,7 +7,7 @@ android {
     namespace = "team.noweekend.catalog"
 
     defaultConfig {
-        applicationId = "team.noweekend.app"
+        applicationId = "team.noweekend.catalog"
         versionCode = 1
         versionName = "0.0.1" // X.Y.Z; X = Major, Y = minor, Z = Patch level
     }
@@ -33,5 +32,4 @@ dependencies {
     implementation(libs.androidx.ui.tooling)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-
 }
