@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import team.noweekend.catalog.component.mvi.ComponentUiState
 import team.noweekend.core.design.system.core.component.scaffold.NWKScaffold
-import team.noweekend.core.design.system.foundation.theme.NoWeekendTheme
+import team.noweekend.core.design.system.foundation.theme.NWKTheme
 
 @Composable
 internal fun ComponentScreen(
@@ -118,7 +118,8 @@ internal fun ComponentScreen(
             } else {
                 item {
                     Text(
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier
+                            .fillMaxWidth()
                             .padding(30.dp),
                         text = "No Example",
                         style = TextStyle(
@@ -136,7 +137,7 @@ internal fun ComponentScreen(
 @Preview
 @Composable
 private fun ComponentScreenPreview() {
-    NoWeekendTheme {
+    NWKTheme {
         ComponentScreen(
             onBackClick = {},
             uiState = ComponentUiState.INITIAL_STATE,

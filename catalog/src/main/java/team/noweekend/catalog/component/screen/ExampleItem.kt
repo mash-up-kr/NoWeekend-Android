@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import team.noweekend.catalog.model.Button
 import team.noweekend.catalog.model.Example
-import team.noweekend.core.design.system.foundation.theme.NoWeekendTheme
+import team.noweekend.core.design.system.foundation.theme.NWKTheme
 
 @Composable
 internal fun ExampleItem(
@@ -73,7 +73,7 @@ internal fun ExampleItem(
 @Preview
 @Composable
 private fun ExampleItemPreview() {
-    NoWeekendTheme {
+    NWKTheme {
         ExampleItem(
             example = Button.Examples.first(),
             onExampleClick = {},
