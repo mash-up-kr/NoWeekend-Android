@@ -5,7 +5,7 @@ import kotlinx.collections.immutable.toImmutableList
 import kotlinx.serialization.Serializable
 
 @Serializable
-internal data class Component(
+data class Component(
     val id: Int,
     val name: String,
     val imageUrl: String,

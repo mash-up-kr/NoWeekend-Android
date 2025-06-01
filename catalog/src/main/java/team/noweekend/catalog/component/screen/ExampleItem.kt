@@ -1,4 +1,4 @@
-package team.noweekend.catalog.ui.example
+package team.noweekend.catalog.component.screen
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable

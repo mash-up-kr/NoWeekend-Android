@@ -1,4 +1,4 @@
-package team.noweekend.catalog.ui.home
+package team.noweekend.catalog.home.screen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -16,16 +16,14 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import kotlinx.collections.immutable.ImmutableList
+import team.noweekend.catalog.home.mvi.HomeUiState
 import team.noweekend.catalog.model.Component
-import team.noweekend.catalog.model.NDSComponents
-import team.noweekend.catalog.ui.component.ComponentItem
 import team.noweekend.core.design.system.core.component.scaffold.NWKScaffold
 import team.noweekend.core.design.system.foundation.theme.NoWeekendTheme
 
 @Composable
 internal fun HomeScreen(
-    components: ImmutableList<Component>,
+    uiState: HomeUiState,
     onComponentClick: (Component) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -55,7 +53,7 @@ internal fun HomeScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             content = {
-                itemsIndexed(components) { index, component ->
+                itemsIndexed(uiState.components) { index, component ->
                     ComponentItem(
                         component = component,
                         onItemClick = onComponentClick,
@@ -72,7 +70,7 @@ internal fun HomeScreen(
 private fun HomeScreenPreview() {
     NoWeekendTheme {
         HomeScreen(
-            components = NDSComponents,
+            uiState = HomeUiState.INITIAL_STATE,
             onComponentClick = {},
         )
     }

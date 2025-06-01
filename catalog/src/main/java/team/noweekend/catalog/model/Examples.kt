@@ -4,10 +4,10 @@ import androidx.compose.runtime.Composable
 import kotlinx.serialization.Serializable
 
 @Serializable
-internal data class Example(
+data class Example(
     val name: String,
     val description: String,
-    val content: @Composable () -> Unit,
+//    val content: @Composable () -> Unit,
 )
 
 internal object Button {
@@ -17,20 +17,22 @@ internal object Button {
             Example(
                 name = "BoxButton",
                 description = ButtonExampleDescription,
-            ) {
-                /**
-                 * Design system component
-                 * e.g. NWKBoxButton()
-                 **/
-            },
+            ),
+//            ) {
+//                /**
+//                 * Design system component
+//                 * e.g. NWKBoxButton()
+//                 **/
+//            },
             Example(
                 name = "CapsuleButton",
                 description = ButtonExampleDescription,
-            ) {
-                /**
-                 * Design system component
-                 * e.g. NWKCapsuleButton()
-                 **/
-            },
+            ),
+//            ) {
+//                /**
+//                 * Design system component
+//                 * e.g. NWKCapsuleButton()
+//                 **/
+//            },
         )
 }
