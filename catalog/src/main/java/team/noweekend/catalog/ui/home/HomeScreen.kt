@@ -18,12 +18,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.collections.immutable.ImmutableList
 import team.noweekend.catalog.model.Component
-import team.noweekend.catalog.model.Components
+import team.noweekend.catalog.model.NDSComponents
 import team.noweekend.catalog.ui.component.ComponentItem
 import team.noweekend.core.design.system.core.component.scaffold.NWKScaffold
 import team.noweekend.core.design.system.foundation.theme.NoWeekendTheme
-
-private val HomeCellMaxSize = 180.dp
 
 @Composable
 internal fun HomeScreen(
@@ -39,11 +37,11 @@ internal fun HomeScreen(
                     .fillMaxWidth()
                     .padding(
                         horizontal = 20.dp,
-                        vertical = 12.dp,
+                        vertical = 16.dp,
                     ),
-                text = "NoWeekend Design System Catalog",
+                text = "NDS Catalog",
                 style = TextStyle(
-                    fontSize = 20.sp,
+                    fontSize = 24.sp,
                     color = Color.Black,
                 ),
             )
@@ -74,7 +72,7 @@ internal fun HomeScreen(
 private fun HomeScreenPreview() {
     NoWeekendTheme {
         HomeScreen(
-            components = Components,
+            components = NDSComponents,
             onComponentClick = {},
         )
     }
