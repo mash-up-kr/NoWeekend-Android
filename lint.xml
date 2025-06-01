@@ -14,7 +14,9 @@
     <issue id="ComposeNamingLowercase" severity="error" />
     <issue id="ComposeParameterOrder" severity="error" />
     <issue id="ComposeViewModelInjection" severity="error" />
-    <issue id="ComposeCompositionLocalUsage" severity="error" />
+    <issue id="ComposeCompositionLocalUsage" severity="error">
+        <option name="allowed-composition-locals" value="LocalNeutralColor, LocalToastColor, LocalColor" />
+    </issue>
     <issue id="ComposePreviewPublic" severity="error" />
     <issue id="ComposeModifierMissing" severity="error">
         <option name="visibility-threshold" value="all" />
