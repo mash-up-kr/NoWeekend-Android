@@ -3,7 +3,7 @@ package team.noweekend.core.design.system.foundation.color.token
 import androidx.compose.ui.graphics.Color
 
 internal object NeutralColorToken {
-    val NeutralWhite: Color = Color(0XFFFFFFFF)
+    val White: Color = Color(0XFFFFFFFF)
     val NeutralGray100: Color = Color(0XFFF5F5F5)
     val NeutralGray200: Color = Color(0XFFEEEEEE)
     val NeutralGray300: Color = Color(0XFFDDDDDD)
@@ -13,5 +13,5 @@ internal object NeutralColorToken {
     val NeutralGray700: Color = Color(0XFF999999)
     val NeutralGray800: Color = Color(0XFF666666)
     val NeutralGray900: Color = Color(0XFF333333)
-    val NeutralBlack: Color = Color(0XFF111111)
+    val Black: Color = Color(0XFF111111)
 }
