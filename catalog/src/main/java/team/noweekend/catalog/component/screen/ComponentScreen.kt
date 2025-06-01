@@ -130,7 +130,6 @@ internal fun ComponentScreen(
                 }
             }
         }
-
     }
 }
 

@@ -6,7 +6,6 @@ import team.noweekend.catalog.model.Example
 import team.noweekend.core.common.android.mvi.SideEffect
 import team.noweekend.core.common.android.mvi.SideEffectHandler
 
-
 @Composable
 internal fun rememberComponentSideEffectHandler(
     navigateToHistoryBack: () -> Unit,

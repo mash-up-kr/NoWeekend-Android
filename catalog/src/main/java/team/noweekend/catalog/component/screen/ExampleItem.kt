@@ -43,7 +43,7 @@ internal fun ExampleItem(
             .clip(RoundedCornerShape(16.dp))
             .clickable(onClick = { onExampleClick(example) })
             .padding(16.dp),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Column(
             modifier = Modifier.weight(1f),
@@ -67,7 +67,6 @@ internal fun ExampleItem(
             imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
             contentDescription = "",
         )
-
     }
 }
 

@@ -8,10 +8,10 @@ import kotlin.reflect.typeOf
 
 internal object CatalogNavTypeMap {
     val ComponentNavTypeMap = mapOf(
-        typeOf<Component>() to serializeToStringNavType<Component>()
+        typeOf<Component>() to serializeToStringNavType<Component>(),
     )
 
     val ExamplesNavTypeMap = mapOf(
-        typeOf<List<Example>>() to serializeToStringArrayNavType<Example>()
+        typeOf<List<Example>>() to serializeToStringArrayNavType<Example>(),
     )
 }

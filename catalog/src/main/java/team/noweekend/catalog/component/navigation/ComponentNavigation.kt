@@ -24,6 +24,5 @@ internal fun NavGraphBuilder.componentScreen(
             navigateToHistoryBack = navigateToHistoryBack,
             navigateToExample = navigateToExample,
         )
-
     }
 }

@@ -5,7 +5,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import team.noweekend.core.common.android.base.MVIViewModel
 import javax.inject.Inject
 
-
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
