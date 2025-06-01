@@ -14,6 +14,8 @@ import team.noweekend.core.design.system.foundation.radius.LocalBorderRadius
 import team.noweekend.core.design.system.foundation.spacing.LocalSpacing
 import team.noweekend.core.design.system.foundation.spacing.Spacing
 import team.noweekend.core.design.system.foundation.theme.ripple.NWKRippleConfiguration
+import team.noweekend.core.design.system.foundation.typography.LocalTypography
+import team.noweekend.core.design.system.foundation.typography.Typography
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -21,12 +23,14 @@ fun NWKTheme(
     color: ColorTheme = NWKTheme.color,
     spacing: Spacing = NWKTheme.spacing,
     borderRadius: BorderRadius = NWKTheme.radius,
+    typography: Typography = NWKTheme.typography,
     content: @Composable () -> Unit,
 ) {
     CompositionLocalProvider(
         LocalColor provides color,
         LocalSpacing provides spacing,
         LocalBorderRadius provides borderRadius,
+        LocalTypography provides typography,
         LocalIndication provides ripple(),
         LocalRippleConfiguration provides NWKRippleConfiguration,
     ) {
@@ -49,4 +53,9 @@ object NWKTheme {
         @Composable
         @ReadOnlyComposable
         get() = LocalBorderRadius.current
+
+    val typography: Typography
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalTypography.current
 }
