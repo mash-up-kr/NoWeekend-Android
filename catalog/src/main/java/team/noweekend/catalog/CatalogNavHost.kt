@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import team.noweekend.catalog.model.Components
+import team.noweekend.catalog.model.NDSComponents
 import team.noweekend.catalog.ui.home.HomeScreen
 
 @Composable
@@ -17,7 +17,14 @@ internal fun CatalogNavHost() {
     ) {
         composable<CatalogRoute.Home> {
             HomeScreen(
-                components = Components,
+                components = NDSComponents,
+                onComponentClick = {},
+            )
+        }
+
+        composable<CatalogRoute.Component> {
+            HomeScreen(
+                components = NDSComponents,
                 onComponentClick = {},
             )
         }
