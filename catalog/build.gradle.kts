@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.team.noweekend.android.application.compose)
     alias(libs.plugins.team.noweekend.hilt)
+    alias(libs.plugins.kotlinx.serialization)
 }
 
 android {
@@ -25,6 +26,8 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.navigation.compose)
     implementation(libs.bundles.kotlinx.coroutine)
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kotlinx.collections.immutable)
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
