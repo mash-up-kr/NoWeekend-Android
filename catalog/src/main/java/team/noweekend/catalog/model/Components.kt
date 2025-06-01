@@ -18,7 +18,6 @@ internal data class Component(
             description = "description",
             examples = Button.Examples,
         )
-
     }
 }
 

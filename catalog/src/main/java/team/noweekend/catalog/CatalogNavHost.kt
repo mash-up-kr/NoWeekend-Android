@@ -16,6 +16,10 @@ internal fun CatalogNavHost() {
         startDestination = CatalogRoute.Home,
     ) {
         composable<CatalogRoute.Home> {
+            HomeScreen(
+                components = Components,
+                onComponentClick = {},
+            )
         }
     }
 }
