@@ -16,7 +16,7 @@
     <issue id="ComposeViewModelInjection" severity="error" />
     <issue id="ComposeCompositionLocalUsage" severity="error">
         <option name="allowed-composition-locals"
-            value="LocalNeutralColor, LocalToastColor, LocalColor, LocalBorderRadius, LocalSpacing, LocalTypography" />
+            value="LocalNeutralColor, LocalToastColor, LocalColor, LocalBorderRadius, LocalSpacing, LocalTypography, LocalBackgroundColor, LocalBorderColor, LocalTextColor, LocalSemanticTheme" />
     </issue>
     <issue id="ComposePreviewPublic" severity="error" />
     <issue id="ComposeModifierMissing" severity="error">

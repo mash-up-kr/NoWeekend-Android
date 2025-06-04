@@ -1,10 +1,18 @@
 package team.noweekend.core.design.system.foundation.color
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ProvidableCompositionLocal
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.staticCompositionLocalOf
+import team.noweekend.core.design.system.foundation.color.neutral.LocalNeutralColor
+import team.noweekend.core.design.system.foundation.color.neutral.NeutralColor
+import team.noweekend.core.design.system.foundation.color.semantics.LocalSemanticTheme
+import team.noweekend.core.design.system.foundation.color.semantics.SemanticTheme
+import team.noweekend.core.design.system.foundation.color.toast.LocalToastColor
+import team.noweekend.core.design.system.foundation.color.toast.ToastColor
 
-internal val LocalColor = staticCompositionLocalOf { ColorTheme }
+internal val LocalColor: ProvidableCompositionLocal<ColorTheme> =
+    staticCompositionLocalOf { ColorTheme }
 
 object ColorTheme {
     val Neutral: NeutralColor
@@ -16,4 +24,9 @@ object ColorTheme {
         @Composable
         @ReadOnlyComposable
         get() = LocalToastColor.current
+
+    val Semantic: SemanticTheme
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalSemanticTheme.current
 }
