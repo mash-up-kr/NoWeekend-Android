@@ -4,7 +4,7 @@ import androidx.compose.ui.graphics.Color
 
 internal object NeutralColorToken {
     val White: Color = Color(0XFFFFFFFF)
-    val NeutralGray100: Color = Color(0XFFF5F5F5)
+    val NeutralGray100: Color = Color(0XFFF8F8F8)
     val NeutralGray200: Color = Color(0XFFEEEEEE)
     val NeutralGray300: Color = Color(0XFFDDDDDD)
     val NeutralGray400: Color = Color(0XFFCCCCCC)
