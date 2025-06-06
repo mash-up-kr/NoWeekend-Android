@@ -6,13 +6,12 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
+import team.noweekend.core.design.system.foundation.theme.NWKTheme
 
 @Composable
 fun NWKScaffold(
     modifier: Modifier = Modifier,
-    containerColor: Color = Color.White,  // TODO(JaesungLeee) : color 수정
-    includePadding: Boolean = true,
+    containerColor: Color = NWKTheme.color.Neutral.white,
     topBar: @Composable () -> Unit = {},
     bottomBar: @Composable () -> Unit = {},
     content: @Composable (PaddingValues) -> Unit,
@@ -25,8 +24,8 @@ fun NWKScaffold(
         content = { paddingValues ->
             val innerPadding = PaddingValues(
                 top = paddingValues.calculateTopPadding(),
-                start = if (includePadding) 20.dp else 0.dp,
-                end = if (includePadding) 20.dp else 0.dp,
+                start = NWKTheme.spacing.space200,
+                end = NWKTheme.spacing.space200,
                 bottom = paddingValues.calculateBottomPadding(),
             )
 
