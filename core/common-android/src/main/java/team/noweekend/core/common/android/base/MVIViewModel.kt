@@ -28,7 +28,7 @@ import kotlin.coroutines.EmptyCoroutineContext
  * 스크린에서 사용되는 [Intent], [SideEffect], [UiState]를 정의합니다.
  */
 abstract class MVIViewModel<I : Intent, SE : SideEffect, S : UiState>(
-    savedStateHandle: SavedStateHandle,
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     private val initialState: S by lazy { createInitialState(savedStateHandle) }
@@ -110,7 +110,7 @@ abstract class MVIViewModel<I : Intent, SE : SideEffect, S : UiState>(
     protected inline fun execute(
         context: CoroutineContext = EmptyCoroutineContext,
         start: CoroutineStart = CoroutineStart.DEFAULT,
-        crossinline action: suspend CoroutineScope.() -> Unit,
+        crossinline action: suspend CoroutineScope.() -> Unit
     ): Job = viewModelScope.launch(
         context = context + coroutineExceptionHandler,
         start = start,
