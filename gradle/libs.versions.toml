@@ -38,6 +38,8 @@ kotlinx-serialization = "1.8.0"
 material = "1.12.0"
 compose-slack-lint = "1.4.2"
 kotlinx-datatime = "0.6.2"
+credentials = "1.5.0"
+googleid = "1.1.1"
 
 [libraries]
 # androidx
@@ -90,6 +92,12 @@ room-compiler = { group = "androidx.room", name = "room-compiler", version.ref =
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 
+### 구글 로그인에 필요한 의존성
+androidx-credential = { group = "androidx.credentials", name = "credentials", version.ref = "credentials" }
+androidx-credential-play-service-auth = { group = "androidx.credentials", name = "credentials-play-services-auth", version.ref = "credentials" }
+google-identify = { group = "com.google.android.libraries.identity.googleid", name = "googleid", version.ref = "googleid" }
+
+### 빌드로직 모듈에 포함된 의존성
 compose-lint = { group = "com.slack.lint.compose", name = "compose-lint-checks", version.ref = "compose-slack-lint" }
 
 #### 빌드로직 모듈에 포함된 의존성
