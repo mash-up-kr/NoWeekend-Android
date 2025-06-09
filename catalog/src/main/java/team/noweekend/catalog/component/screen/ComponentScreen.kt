@@ -19,12 +19,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import team.noweekend.catalog.component.mvi.ComponentUiState
 import team.noweekend.core.design.system.core.component.scaffold.NWKScaffold
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
@@ -58,10 +55,7 @@ internal fun ComponentScreen(
                 Text(
                     modifier = Modifier.fillMaxWidth(),
                     text = uiState.component.name,
-                    style = TextStyle(
-                        fontSize = 24.sp,
-                        color = Color.Black,
-                    ),
+                    style = NWKTheme.typography.heading3,
                 )
             }
         },
@@ -70,7 +64,7 @@ internal fun ComponentScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(it),
-            contentPadding = PaddingValues(vertical = 16.dp),
+            contentPadding = PaddingValues(vertical = NWKTheme.spacing.space175),
         ) {
             item {
                 Column(
@@ -79,30 +73,24 @@ internal fun ComponentScreen(
                     Text(
                         modifier = Modifier.fillMaxWidth(),
                         text = "Component 설명",
-                        style = TextStyle(
-                            fontSize = 18.sp,
-                        ),
+                        style = NWKTheme.typography.body1,
                     )
-                    Spacer(modifier = Modifier.size(16.dp))
+                    Spacer(modifier = Modifier.size(NWKTheme.spacing.space175))
                     Text(
                         modifier = Modifier.fillMaxWidth(),
                         text = uiState.component.description,
-                        style = TextStyle(
-                            fontSize = 16.sp,
-                        ),
+                        style = NWKTheme.typography.body2,
                     )
-                    Spacer(modifier = Modifier.size(32.dp))
+                    Spacer(modifier = Modifier.size(NWKTheme.spacing.space400))
                 }
             }
             item {
                 Text(
                     modifier = Modifier.fillMaxWidth(),
                     text = "NDS Component Example",
-                    style = TextStyle(
-                        fontSize = 18.sp,
-                    ),
+                    style = NWKTheme.typography.body1,
                 )
-                Spacer(modifier = Modifier.size(16.dp))
+                Spacer(modifier = Modifier.size(NWKTheme.spacing.space175))
             }
             if (uiState.component.examples.isNotEmpty()) {
                 itemsIndexed(uiState.component.examples) { index, example ->
@@ -112,7 +100,7 @@ internal fun ComponentScreen(
                         onExampleClick = {},
                     )
                     if (isLastItem.not()) {
-                        Spacer(modifier = Modifier.size(8.dp))
+                        Spacer(modifier = Modifier.size(NWKTheme.spacing.space100))
                     }
                 }
             } else {
@@ -120,14 +108,12 @@ internal fun ComponentScreen(
                     Text(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(30.dp),
+                            .padding(NWKTheme.spacing.space175),
                         text = "No Example",
-                        style = TextStyle(
-                            fontSize = 14.sp,
-                        ),
+                        style = NWKTheme.typography.body2,
                         textAlign = TextAlign.Center,
                     )
-                    Spacer(modifier = Modifier.size(16.dp))
+                    Spacer(modifier = Modifier.size(NWKTheme.spacing.space175))
                 }
             }
         }

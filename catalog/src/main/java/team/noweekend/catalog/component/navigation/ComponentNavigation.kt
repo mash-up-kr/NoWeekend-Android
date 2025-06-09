@@ -10,7 +10,7 @@ import team.noweekend.catalog.navigation.CatalogNavTypeMap
 import team.noweekend.catalog.navigation.CatalogRoute
 
 internal fun NavHostController.navigateToComponentDetail(component: Component) {
-    this.navigate(CatalogRoute.Component(component = component))
+    this.navigate(CatalogRoute.Component(componentId = component.id))
 }
 
 internal fun NavGraphBuilder.componentScreen(

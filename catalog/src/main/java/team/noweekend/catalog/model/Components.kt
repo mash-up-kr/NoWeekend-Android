@@ -14,29 +14,25 @@ data class Component(
 ) {
     companion object {
         val ButtonComponent = Component(
-            id = 1,
+            id = 0,
             name = "Button",
             imageUrl = "",
             description = "description",
             examples = Button.Examples,
         )
+
+        val TextFieldComponent = Component(
+            id = 1,
+            name = "TextField",
+            imageUrl = "",
+            description = "description",
+            examples = TextField.Examples,
+        )
     }
 }
 
-internal val NDSComponents: ImmutableList<Component> = listOf(
-    Component.ButtonComponent,
-    Component.ButtonComponent,
-    Component.ButtonComponent,
-    Component.ButtonComponent,
-    Component.ButtonComponent,
-    Component.ButtonComponent,
-    Component.ButtonComponent,
-    Component.ButtonComponent,
-    Component.ButtonComponent,
-    Component.ButtonComponent,
-    Component.ButtonComponent,
-    Component.ButtonComponent,
-    Component.ButtonComponent,
-    Component.ButtonComponent,
-    Component.ButtonComponent,
-).toImmutableList()
+internal val NDSComponents: ImmutableList<Component> =
+    listOf(
+        Component.ButtonComponent,
+        Component.TextFieldComponent,
+    ).toImmutableList()
