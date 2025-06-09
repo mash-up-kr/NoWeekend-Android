@@ -13,5 +13,8 @@ internal sealed interface CatalogRoute {
     ) : CatalogRoute
 
     @Serializable
-    data object Example : CatalogRoute
+    data class Example(
+        val componentId: Int,
+        val exampleIndex: Int,
+    ) : CatalogRoute
 }

@@ -34,6 +34,10 @@ class ComponentViewModel @Inject constructor(
             is ComponentIntent.ClickBackButton -> {
                 postSideEffect(ComponentSideEffect.NavigateToHistoryBack)
             }
+
+            is ComponentIntent.ClickExample -> {
+                postSideEffect(ComponentSideEffect.NavigateToExampleDetail(intent.componentId, intent.exampleIndex))
+            }
         }
     }
 }

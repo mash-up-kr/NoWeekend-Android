@@ -15,7 +15,7 @@ internal fun NavHostController.navigateToComponentDetail(component: Component) {
 
 internal fun NavGraphBuilder.componentScreen(
     navigateToHistoryBack: () -> Unit,
-    navigateToExample: (Example) -> Unit,
+    navigateToExample: (Int, Int) -> Unit,
 ) {
     composable<CatalogRoute.Component>(
         typeMap = CatalogNavTypeMap.ComponentNavTypeMap,

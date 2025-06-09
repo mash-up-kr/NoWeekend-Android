@@ -29,6 +29,7 @@ import team.noweekend.core.design.system.foundation.theme.NWKTheme
 @Composable
 internal fun ComponentScreen(
     onBackClick: () -> Unit,
+    onExampleClick: (Int, Int) -> Unit,
     uiState: ComponentUiState,
     modifier: Modifier = Modifier,
 ) {
@@ -97,7 +98,7 @@ internal fun ComponentScreen(
                     val isLastItem = index == uiState.component.examples.lastIndex
                     ExampleItem(
                         example = example,
-                        onExampleClick = {},
+                        onExampleClick = { onExampleClick(uiState.component.id, index) },
                     )
                     if (isLastItem.not()) {
                         Spacer(modifier = Modifier.size(NWKTheme.spacing.space100))
@@ -126,6 +127,7 @@ private fun ComponentScreenPreview() {
     NWKTheme {
         ComponentScreen(
             onBackClick = {},
+            onExampleClick = { _, _ -> },
             uiState = ComponentUiState.INITIAL_STATE,
         )
     }
