@@ -14,6 +14,7 @@ dependencies {
     implementation(project(":core:common-ui"))
     implementation(project(":core:data"))
     implementation(project(":core:domain"))
+    implementation(project(":core:design-system"))
     implementation(project(":core:local"))
     implementation(project(":core:model"))
     implementation(project(":core:navigator"))
