@@ -49,12 +49,12 @@ internal object TextField {
         listOf(
             Example(
                 name = "TextField",
-                description = TextFieldExampleDescription
+                description = TextFieldExampleDescription,
             ) {
                 TextField(
                     value = "",
                     onValueChange = {},
                 )
-            }
+            },
         )
 }

@@ -5,7 +5,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import team.noweekend.catalog.component.screen.ComponentRoute
 import team.noweekend.catalog.model.Component
-import team.noweekend.catalog.model.Example
 import team.noweekend.catalog.navigation.CatalogNavTypeMap
 import team.noweekend.catalog.navigation.CatalogRoute
 
