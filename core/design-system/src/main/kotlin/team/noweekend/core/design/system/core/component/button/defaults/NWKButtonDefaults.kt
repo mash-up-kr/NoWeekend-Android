@@ -1,5 +1,6 @@
 package team.noweekend.core.design.system.core.component.button.defaults
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.runtime.Composable
@@ -24,8 +25,41 @@ internal object NWKButtonDefaults {
     val shape: CornerBasedShape
         @Composable get() = NWKTheme.radius.borderRadius500
 
+    val outlinedShape: CornerBasedShape
+        @Composable get() = NWKTheme.radius.borderRadius400
+
     @Composable
-    fun defaultButtonColors(
+    fun outlinedButtonBorder(enabled: Boolean = true): BorderStroke =
+        BorderStroke(
+            width = 1.dp,
+            color =
+            if (enabled) {
+                outlinedBorderColor
+            } else {
+                outlinedBorderColor
+            },
+        )
+
+    private val outlinedBorderColor: Color
+        @Composable get() = NWKTheme.color.Semantic.Border.border02
+
+    @Composable
+    fun primaryButtonColors(
+        backgroundColor: Color = NWKTheme.color.Toast.toast500,
+        contentColor: Color = NWKTheme.color.Neutral.white,
+        disabledBackgroundColor: Color = Color.Unspecified,
+        disabledContentColor: Color = Color.Unspecified,
+    ): NWKButtonColors {
+        return NWKButtonColors(
+            backgroundColor = backgroundColor,
+            contentColor = contentColor,
+            disabledBackgroundColor = disabledBackgroundColor,
+            disabledContentColor = disabledContentColor,
+        )
+    }
+
+    @Composable
+    fun blackButtonColors(
         backgroundColor: Color = NWKTheme.color.Neutral.black,
         contentColor: Color = NWKTheme.color.Neutral.white,
         disabledBackgroundColor: Color = Color.Unspecified,
@@ -40,9 +74,9 @@ internal object NWKButtonDefaults {
     }
 
     @Composable
-    fun activeButtonColors(
-        backgroundColor: Color = NWKTheme.color.Toast.toast500,
-        contentColor: Color = NWKTheme.color.Neutral.white,
+    fun blackOutlinedButtonColors(
+        backgroundColor: Color = NWKTheme.color.Neutral.white,
+        contentColor: Color = NWKTheme.color.Neutral.black,
         disabledBackgroundColor: Color = Color.Unspecified,
         disabledContentColor: Color = Color.Unspecified,
     ): NWKButtonColors {
