@@ -1,7 +1,6 @@
 package team.noweekend.catalog.navigation
 
 import kotlinx.serialization.Serializable
-import team.noweekend.catalog.model.Component as NDSComponent
 
 internal sealed interface CatalogRoute {
     @Serializable
@@ -9,7 +8,7 @@ internal sealed interface CatalogRoute {
 
     @Serializable
     data class Component(
-        val componentId: Int
+        val componentId: Int,
     ) : CatalogRoute
 
     @Serializable
