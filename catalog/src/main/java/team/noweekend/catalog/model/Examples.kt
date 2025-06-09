@@ -1,11 +1,16 @@
 package team.noweekend.catalog.model
 
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import kotlinx.serialization.Serializable
-import team.noweekend.core.design.system.core.component.button.BoxButton
-import team.noweekend.core.design.system.core.component.button.BoxButtonType
+import team.noweekend.core.design.system.core.component.button.defaults.BoxButtonType
+import team.noweekend.core.design.system.core.component.button.fill.NWKFillButton
+import team.noweekend.core.design.system.core.component.button.outline.NWKOutlineButton
 
 @Serializable
 data class Example(
@@ -19,25 +24,38 @@ internal object Button {
     val Examples: List<Example> =
         listOf(
             Example(
-                name = "ActiveBoxButton",
+                name = "FillButton",
                 description = ButtonExampleDescription,
             ) {
-                BoxButton(
-                    onClick = {},
-                    type = BoxButtonType.ACTIVE,
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    Text("Active")
+                    NWKFillButton(
+                        onClick = {},
+                        text = "BTN",
+                        modifier = Modifier.fillMaxWidth(),
+                        type = BoxButtonType.PRIMARY,
+                    )
+                    NWKFillButton(
+                        onClick = {},
+                        text = "BTN",
+                        modifier = Modifier.fillMaxWidth(),
+                        type = BoxButtonType.BLACK,
+                    )
                 }
             },
             Example(
-                name = "DefaultBoxButton",
+                name = "OutlineButton",
                 description = ButtonExampleDescription,
             ) {
-                BoxButton(
-                    onClick = {},
-                    type = BoxButtonType.DEFAULT,
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
-                    Text("Default")
+                    NWKOutlineButton(
+                        onClick = {},
+                        text = "BTN",
+                        modifier = Modifier.fillMaxWidth(),
+                    )
                 }
             },
         )

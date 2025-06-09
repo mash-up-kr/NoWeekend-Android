@@ -45,6 +45,7 @@ internal fun Button(
     ) {
         Row(
             modifier = Modifier
+                // horizontal, vertical padding 지정 시 defaultMinSize() 제거
                 .defaultMinSize(
                     minWidth = NWKButtonDefaults.MinWidth,
                     minHeight = NWKButtonDefaults.MinHeight,
