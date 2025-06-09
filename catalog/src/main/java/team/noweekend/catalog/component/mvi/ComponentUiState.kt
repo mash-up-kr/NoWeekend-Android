@@ -11,7 +11,7 @@ data class ComponentUiState(
         val INITIAL_STATE: ComponentUiState = ComponentUiState(
             isLoading = true,
             component = Component(
-                id = 0,
+                id = -1,
                 name = "",
                 imageUrl = "",
                 description = "",

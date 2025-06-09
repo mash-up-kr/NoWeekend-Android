@@ -9,7 +9,7 @@ internal sealed interface CatalogRoute {
 
     @Serializable
     data class Component(
-        val component: NDSComponent,
+        val componentId: Int
     ) : CatalogRoute
 
     @Serializable

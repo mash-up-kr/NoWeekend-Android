@@ -16,10 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import team.noweekend.catalog.R
 import team.noweekend.catalog.model.Component
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
@@ -37,7 +35,7 @@ internal fun ComponentItem(
             .border(
                 width = 1.dp,
                 color = Color.LightGray,
-                shape = RoundedCornerShape(16.dp),
+                shape = NWKTheme.radius.borderRadius500,
             )
             .clip(RoundedCornerShape(16.dp))
             .clickable(onClick = { onItemClick(component) })
@@ -51,9 +49,7 @@ internal fun ComponentItem(
         Text(
             modifier = Modifier.align(Alignment.BottomStart),
             text = component.name,
-            style = TextStyle(
-                fontSize = 14.sp,
-            ),
+            style = NWKTheme.typography.body2,
         )
     }
 }
