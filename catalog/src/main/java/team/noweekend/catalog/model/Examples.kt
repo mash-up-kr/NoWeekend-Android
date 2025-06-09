@@ -30,7 +30,7 @@ internal object Button {
                 }
             },
             Example(
-                name = "CapsuleButton",
+                name = "DefaultBoxButton",
                 description = ButtonExampleDescription,
             ) {
                 BoxButton(

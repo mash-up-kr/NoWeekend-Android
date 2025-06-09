@@ -13,12 +13,11 @@ import team.noweekend.catalog.component.mvi.ComponentSideEffectHandler
 import team.noweekend.catalog.component.mvi.ComponentUiState
 import team.noweekend.catalog.component.mvi.ComponentViewModel
 import team.noweekend.catalog.component.mvi.rememberComponentSideEffectHandler
-import team.noweekend.catalog.model.Example
 
 @Composable
 internal fun ComponentRoute(
     navigateToHistoryBack: () -> Unit,
-    navigateToExample: (Example) -> Unit,
+    navigateToExample: (Int, Int) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ComponentViewModel = hiltViewModel(),
 ) {
@@ -40,6 +39,14 @@ internal fun ComponentRoute(
 
     ComponentScreen(
         onBackClick = { viewModel.intent(ComponentIntent.ClickBackButton) },
+        onExampleClick = { componentId, exampleIndex ->
+            viewModel.intent(
+                ComponentIntent.ClickExample(
+                    componentId = componentId,
+                    exampleIndex = exampleIndex,
+                ),
+            )
+        },
         uiState = uiState,
         modifier = modifier,
     )

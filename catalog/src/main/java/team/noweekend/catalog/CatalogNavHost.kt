@@ -5,6 +5,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import team.noweekend.catalog.component.navigation.componentScreen
 import team.noweekend.catalog.component.navigation.navigateToComponentDetail
+import team.noweekend.catalog.example.navigation.exampleScreen
+import team.noweekend.catalog.example.navigation.navigateToExampleDetail
 import team.noweekend.catalog.home.navigation.catalogHomeScreen
 import team.noweekend.catalog.navigation.CatalogRoute
 
@@ -21,7 +23,15 @@ internal fun CatalogNavHost() {
         )
         componentScreen(
             navigateToHistoryBack = navController::navigateUp,
-            navigateToExample = {},
+            navigateToExample = { componentId, exampleIndex ->
+                navController.navigateToExampleDetail(
+                    componentId = componentId,
+                    exampleIndex = exampleIndex,
+                )
+            },
+        )
+        exampleScreen(
+            navigateToHistoryBack = navController::navigateUp,
         )
     }
 }
