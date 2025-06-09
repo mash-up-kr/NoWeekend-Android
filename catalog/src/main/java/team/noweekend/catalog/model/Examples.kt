@@ -28,7 +28,7 @@ internal object Button {
                 description = ButtonExampleDescription,
             ) {
                 Column(
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
                     NWKFillButton(
                         onClick = {},
