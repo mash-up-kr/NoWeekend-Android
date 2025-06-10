@@ -39,11 +39,11 @@ internal fun ComponentItem(
             )
             .clip(RoundedCornerShape(16.dp))
             .clickable(onClick = { onItemClick(component) })
-            .padding(16.dp),
+            .padding(12.dp),
     ) {
         Image(
             modifier = Modifier.fillMaxSize(),
-            painter = painterResource(R.drawable.ic_launcher_foreground),
+            painter = painterResource(R.drawable.img_toast),
             contentDescription = "",
         )
         Text(
