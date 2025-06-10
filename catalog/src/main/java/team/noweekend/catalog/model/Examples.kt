@@ -61,13 +61,157 @@ internal object Button {
         )
 }
 
-internal object TextField {
-    private const val TextFieldExampleDescription = "TextField examples"
+internal object Input {
+    private const val TextFieldExampleDescription = "Input examples"
     val Examples: List<Example> =
         listOf(
             Example(
-                name = "TextField",
+                name = "Input",
                 description = TextFieldExampleDescription,
+            ) {
+                TextField(
+                    value = "",
+                    onValueChange = {},
+                )
+            },
+        )
+}
+
+internal object Calendar {
+    private const val CalendarExampleDescription = "Calendar examples"
+    val Examples: List<Example> =
+        listOf(
+            Example(
+                name = "Calendar",
+                description = CalendarExampleDescription,
+            ) {
+                TextField(
+                    value = "",
+                    onValueChange = {},
+                )
+            },
+        )
+}
+
+internal object Card {
+    private const val CardExampleDescription = "Card examples"
+    val Examples: List<Example> =
+        listOf(
+            Example(
+                name = "Card",
+                description = CardExampleDescription,
+            ) {
+                TextField(
+                    value = "",
+                    onValueChange = {},
+                )
+            },
+        )
+}
+
+internal object Switch {
+    private const val SwitchExampleDescription = "Switch examples"
+    val Examples: List<Example> =
+        listOf(
+            Example(
+                name = "Switch",
+                description = SwitchExampleDescription,
+            ) {
+                TextField(
+                    value = "",
+                    onValueChange = {},
+                )
+            },
+        )
+}
+
+internal object CheckBox {
+    private const val CheckBoxExampleDescription = "CheckBox examples"
+    val Examples: List<Example> =
+        listOf(
+            Example(
+                name = "CheckBox",
+                description = CheckBoxExampleDescription,
+            ) {
+                TextField(
+                    value = "",
+                    onValueChange = {},
+                )
+            },
+        )
+}
+
+internal object Divider {
+    private const val DividerExampleDescription = "Divider examples"
+    val Examples: List<Example> =
+        listOf(
+            Example(
+                name = "Divider",
+                description = DividerExampleDescription,
+            ) {
+                TextField(
+                    value = "",
+                    onValueChange = {},
+                )
+            },
+        )
+}
+
+internal object Header {
+    private const val HeaderExampleDescription = "Header examples"
+    val Examples: List<Example> =
+        listOf(
+            Example(
+                name = "Header",
+                description = HeaderExampleDescription,
+            ) {
+                TextField(
+                    value = "",
+                    onValueChange = {},
+                )
+            },
+        )
+}
+
+internal object TabBar {
+    private const val TabBarExampleDescription = "TabBar examples"
+    val Examples: List<Example> =
+        listOf(
+            Example(
+                name = "TabBar",
+                description = TabBarExampleDescription,
+            ) {
+                TextField(
+                    value = "",
+                    onValueChange = {},
+                )
+            },
+        )
+}
+
+internal object BottomSheet {
+    private const val BottomSheetExampleDescription = "BottomSheet examples"
+    val Examples: List<Example> =
+        listOf(
+            Example(
+                name = "BottomSheet",
+                description = BottomSheetExampleDescription,
+            ) {
+                TextField(
+                    value = "",
+                    onValueChange = {},
+                )
+            },
+        )
+}
+
+internal object Dialog {
+    private const val DialogExampleDescription = "Dialog examples"
+    val Examples: List<Example> =
+        listOf(
+            Example(
+                name = "Dialog",
+                description = DialogExampleDescription,
             ) {
                 TextField(
                     value = "",
