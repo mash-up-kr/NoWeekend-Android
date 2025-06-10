@@ -2,15 +2,20 @@ package team.noweekend.catalog.model
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import kotlinx.serialization.Serializable
 import team.noweekend.core.design.system.core.component.button.defaults.BoxButtonType
 import team.noweekend.core.design.system.core.component.button.fill.NWKFillButton
 import team.noweekend.core.design.system.core.component.button.outline.NWKOutlineButton
+import team.noweekend.core.design.system.core.component.divider.NWKHorizontalDivider
 
 @Serializable
 data class Example(
@@ -149,10 +154,22 @@ internal object Divider {
                 name = "Divider",
                 description = DividerExampleDescription,
             ) {
-                TextField(
-                    value = "",
-                    onValueChange = {},
-                )
+                val (shouldFillScreenWidth, setFillScreenWidth) = remember { mutableStateOf(false) }
+
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.spacedBy(100.dp, Alignment.CenterVertically),
+                ) {
+                    NWKHorizontalDivider(
+                        shouldFillScreenWidth = shouldFillScreenWidth,
+                        modifier = Modifier.fillMaxWidth(),
+                    )
+                    NWKOutlineButton(
+                        onClick = { setFillScreenWidth(!shouldFillScreenWidth) },
+                        text = "변경",
+                        modifier = Modifier.fillMaxWidth(),
+                    )
+                }
             },
         )
 }
