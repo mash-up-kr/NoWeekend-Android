@@ -5,28 +5,25 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 
 internal object NWKButtonDefaults {
-    private val ButtonHorizontalPadding: Dp = 24.dp
-    private val ButtonVerticalPadding: Dp = 8.dp
-
-    val ContentPadding: PaddingValues =
-        PaddingValues(
-            horizontal = ButtonHorizontalPadding,
-            vertical = ButtonVerticalPadding,
-        )
-
-    val MinWidth = 58.dp
-    val MinHeight = 60.dp
 
     val shape: CornerBasedShape
         @Composable get() = NWKTheme.radius.borderRadius500
 
     val outlinedShape: CornerBasedShape
         @Composable get() = NWKTheme.radius.borderRadius400
+
+    private val outlinedBorderColor: Color
+        @Composable get() = NWKTheme.color.Semantic.Border.border02
+
+    fun getContentPadding(size: ButtonSizeType): PaddingValues =
+        PaddingValues(
+            horizontal = size.horizontalPadding,
+            vertical = size.verticalPadding,
+        )
 
     @Composable
     fun outlinedButtonBorder(enabled: Boolean = true): BorderStroke =
@@ -39,9 +36,6 @@ internal object NWKButtonDefaults {
                 outlinedBorderColor
             },
         )
-
-    private val outlinedBorderColor: Color
-        @Composable get() = NWKTheme.color.Semantic.Border.border02
 
     @Composable
     fun primaryButtonColors(
@@ -62,8 +56,8 @@ internal object NWKButtonDefaults {
     fun blackButtonColors(
         backgroundColor: Color = NWKTheme.color.Neutral.black,
         contentColor: Color = NWKTheme.color.Neutral.white,
-        disabledBackgroundColor: Color = Color.Unspecified,
-        disabledContentColor: Color = Color.Unspecified,
+        disabledBackgroundColor: Color = NWKTheme.color.Neutral.neutralGray700,
+        disabledContentColor: Color = NWKTheme.color.Neutral.white,
     ): NWKButtonColors {
         return NWKButtonColors(
             backgroundColor = backgroundColor,

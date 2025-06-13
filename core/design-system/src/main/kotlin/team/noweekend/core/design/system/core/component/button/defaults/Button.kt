@@ -5,7 +5,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.material3.Surface
@@ -23,6 +22,7 @@ import androidx.compose.ui.semantics.semantics
 internal fun Button(
     onClick: () -> Unit,
     colors: NWKButtonColors,
+    size: ButtonSizeType,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     shape: CornerBasedShape = NWKButtonDefaults.shape,
@@ -46,13 +46,7 @@ internal fun Button(
         border = border,
     ) {
         Row(
-            modifier = Modifier
-                // horizontal, vertical padding 지정 시 defaultMinSize() 제거
-                .defaultMinSize(
-                    minWidth = NWKButtonDefaults.MinWidth,
-                    minHeight = NWKButtonDefaults.MinHeight,
-                )
-                .padding(NWKButtonDefaults.ContentPadding),
+            modifier = Modifier.padding(NWKButtonDefaults.getContentPadding(size)),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically,
             content = content,
