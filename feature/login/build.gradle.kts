@@ -18,4 +18,5 @@ android {
 
 dependencies {
     implementation(libs.bundles.google.login)
+    implementation(libs.play.services.auth)
 }
