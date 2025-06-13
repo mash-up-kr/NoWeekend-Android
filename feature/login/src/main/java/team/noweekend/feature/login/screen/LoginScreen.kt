@@ -14,12 +14,12 @@ import team.noweekend.feature.login.mvi.LoginUiState
 fun LoginScreen(
     modifier: Modifier = Modifier,
     uiState: LoginUiState,
-    onClickGoogleLogin: () -> Unit
+    onClickGoogleLogin: () -> Unit,
 ) {
     Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Text(
             modifier = Modifier.clickable { onClickGoogleLogin() },
-            text = "구글 로그인"
+            text = "구글 로그인",
         )
     }
 }
@@ -30,6 +30,6 @@ fun LoginScreenPreview() {
     LoginScreen(
         modifier = Modifier.fillMaxSize(),
         uiState = LoginUiState.INITIAL_STATE,
-        onClickGoogleLogin = {}
+        onClickGoogleLogin = {},
     )
 }

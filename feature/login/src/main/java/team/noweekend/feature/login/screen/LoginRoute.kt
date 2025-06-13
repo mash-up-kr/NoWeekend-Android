@@ -30,11 +30,11 @@ internal fun LoginRoute(
     showCancelGoogleAuthToast: () -> Unit,
     showErrorToast: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: LoginViewModel = hiltViewModel()
+    viewModel: LoginViewModel = hiltViewModel(),
 ) {
     val context = LocalActivity.current ?: LocalContext.current
     val loginLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.StartIntentSenderForResult()
+        contract = ActivityResultContracts.StartIntentSenderForResult(),
     ) { result ->
         handleActivityResult(result, context, viewModel)
     }
@@ -46,12 +46,12 @@ internal fun LoginRoute(
         showGoogleSignUpErrorToast = showGoogleSignUpErrorToast,
         navigateToGoogleAuth = { intentSender ->
             loginLauncher.launch(
-                IntentSenderRequest.Builder(intentSender).build()
+                IntentSenderRequest.Builder(intentSender).build(),
             )
         },
         showGoogleLoginSuccessToast = showGoogleLoginSuccessToast,
         showCancelGoogleAuthToast = showCancelGoogleAuthToast,
-        showErrorToast = showErrorToast
+        showErrorToast = showErrorToast,
     )
 
     LaunchedEffect(key1 = Unit) {
@@ -63,14 +63,14 @@ internal fun LoginRoute(
     LoginScreen(
         modifier = modifier,
         uiState = uiState,
-        onClickGoogleLogin = { viewModel.intent(LoginIntent.ClickGoogleLogin(context)) }
+        onClickGoogleLogin = { viewModel.intent(LoginIntent.ClickGoogleLogin(context)) },
     )
 }
 
 private fun handleActivityResult(
     result: ActivityResult,
     context: Context,
-    viewModel: LoginViewModel
+    viewModel: LoginViewModel,
 ) {
     when (result.resultCode) {
         Activity.RESULT_OK -> {

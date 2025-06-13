@@ -5,11 +5,11 @@ import team.noweekend.core.common.android.mvi.UiState
 
 @Stable
 data class LoginUiState(
-    val isLoading: Boolean
+    val isLoading: Boolean,
 ) : UiState {
     companion object {
         val INITIAL_STATE: LoginUiState = LoginUiState(
-            isLoading = false
+            isLoading = false,
         )
     }
 }
