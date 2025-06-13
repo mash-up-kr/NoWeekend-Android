@@ -140,3 +140,4 @@ team-noweekend-dokka = { id = "team.noweekend.dokka" }
 [bundles]
 kotlinx-coroutine = ["kotlinx-coroutine-core", "kotlinx-coroutine-android"]
 ktor = ["ktor-client-core", "ktor-client-okhttp", "ktor-serialization-kotlinx-json", "ktor-client-logging", "ktor-client-auth", "ktor-client-content-negotiation", "ktor-client-resources", "ktor-engine-android"]
+google-login = ["androidx-credential", "androidx-credential-play-service-auth", "google-identify"]
