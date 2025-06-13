@@ -1,2 +1,5 @@
 <resources>
+    <string name="label_home">홈</string>
+    <string name="label_calendar">캘린더</string>
+    <string name="label_profile">내정보</string>
 </resources>
