@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import team.noweekend.core.design.system.core.component.button.defaults.Button
+import team.noweekend.core.design.system.core.component.button.defaults.ButtonSizeType
 import team.noweekend.core.design.system.core.component.button.defaults.NWKButtonDefaults
 import team.noweekend.core.design.system.core.component.scaffold.NWKScaffold
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
@@ -20,12 +21,14 @@ import team.noweekend.core.design.system.foundation.theme.NWKTheme
 fun NWKOutlineButton(
     onClick: () -> Unit,
     text: String,
+    size: ButtonSizeType,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
 ) {
     Button(
         onClick = onClick,
         colors = NWKButtonDefaults.blackOutlinedButtonColors(),
+        size = size,
         modifier = modifier,
         enabled = true,  // 디자인시스템에 disabled 상태가 정의되어있지 않음
         shape = NWKButtonDefaults.outlinedShape,
@@ -37,6 +40,7 @@ fun NWKOutlineButton(
                 style = NWKTheme.typography.body1.copy(
                     color = NWKTheme.color.Semantic.Text.neutral,
                 ),
+                maxLines = 1,
             )
         },
     )
@@ -45,6 +49,7 @@ fun NWKOutlineButton(
 @Composable
 fun NWKOutlineButton(
     onClick: () -> Unit,
+    size: ButtonSizeType,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     content: @Composable RowScope.() -> Unit,
@@ -52,6 +57,7 @@ fun NWKOutlineButton(
     Button(
         onClick = onClick,
         colors = NWKButtonDefaults.blackOutlinedButtonColors(),
+        size = size,
         modifier = modifier,
         enabled = true,  // 디자인시스템에 disabled 상태가 정의되어있지 않음
         shape = NWKButtonDefaults.outlinedShape,
@@ -73,11 +79,13 @@ private fun NWKOutlineButtonPreview() {
             ) {
                 NWKOutlineButton(
                     onClick = {},
+                    size = ButtonSizeType.MEDIUM,
                     text = "BTN",
                     modifier = Modifier.fillMaxWidth(),
                 )
                 NWKOutlineButton(
                     onClick = {},
+                    size = ButtonSizeType.EXTRA_LARGE,
                     modifier = Modifier.fillMaxWidth(),
                     content = {
                         Text("asdfasdf")

@@ -13,6 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import team.noweekend.core.design.system.core.component.button.defaults.BoxButtonType
 import team.noweekend.core.design.system.core.component.button.defaults.Button
+import team.noweekend.core.design.system.core.component.button.defaults.ButtonSizeType
 import team.noweekend.core.design.system.core.component.button.defaults.NWKButtonDefaults
 import team.noweekend.core.design.system.core.component.scaffold.NWKScaffold
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
@@ -33,8 +34,9 @@ fun NWKFillButton(
     Button(
         onClick = onClick,
         colors = colors,
+        size = ButtonSizeType.EXTRA_LARGE,
         modifier = modifier,
-        enabled = true,  // 디자인시스템에 disabled 상태가 정의되어있지 않음
+        enabled = enabled,
         content = {
             Text(
                 modifier = Modifier,
@@ -42,6 +44,7 @@ fun NWKFillButton(
                 style = NWKTheme.typography.heading6.copy(
                     color = NWKTheme.color.Neutral.white,
                 ),
+                maxLines = 1,
             )
         },
     )
@@ -63,8 +66,9 @@ fun NWKFillButton(
     Button(
         onClick = onClick,
         colors = colors,
+        size = ButtonSizeType.EXTRA_LARGE,
         modifier = modifier,
-        enabled = true,  // 디자인시스템에 disabled 상태가 정의되어있지 않음
+        enabled = enabled,
         content = content,
     )
 }
@@ -88,7 +92,7 @@ private fun NWKFillButtonPreview() {
                 )
                 NWKFillButton(
                     onClick = {},
-                    text = "BTN",
+                    text = "BTNBTNBTNBTNBTNBTNBTNBTNBTNBTNBTNBTN",
                     modifier = Modifier.fillMaxWidth(),
                     type = BoxButtonType.BLACK,
                 )
@@ -96,6 +100,7 @@ private fun NWKFillButtonPreview() {
                     onClick = {},
                     modifier = Modifier.fillMaxWidth(),
                     type = BoxButtonType.BLACK,
+                    enabled = false,
                     content = {
                         Text("asdfasdf")
                     },
