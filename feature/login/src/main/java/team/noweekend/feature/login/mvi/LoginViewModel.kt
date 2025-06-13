@@ -1,19 +1,23 @@
 package team.noweekend.feature.login.mvi
 
+import android.content.Context
+import android.util.Log
+import androidx.credentials.exceptions.GetCredentialCancellationException
 import androidx.credentials.exceptions.NoCredentialException
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import team.noweekend.core.common.android.base.MVIViewModel
-import team.noweekend.feature.login.manager.GoogleLoginManager
-import team.noweekend.feature.login.model.UserAuthInfo
+import team.noweekend.feature.login.manager.GoogleAuthManager
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val googleLoginManager: GoogleLoginManager
+    private val googleAuthManager: GoogleAuthManager,
 ) : MVIViewModel<LoginIntent, LoginSideEffect, LoginUiState>(savedStateHandle) {
 
     override fun createInitialState(savedStateHandle: SavedStateHandle): LoginUiState {
@@ -26,34 +30,57 @@ class LoginViewModel @Inject constructor(
 
     override suspend fun handleIntent(intent: LoginIntent) {
         when (intent) {
-            LoginIntent.ClickGoogleLogin -> {
-                googleLogin()
+            is LoginIntent.ClickGoogleLogin -> {
+                googleLogin(intent.context)
+            }
+
+            LoginIntent.ClickCancelLogin -> {
+                postSideEffect(LoginSideEffect.ShowCancelGoogleAuthToast)
+            }
+
+            is LoginIntent.ClickGoogleAuthLogin -> {
+                Log.d("LoginViewModel", "auth code : ${intent.authCode}")
+                postSideEffect(LoginSideEffect.ShowGoogleLoginSuccessToast)
+                // TODO : 서버로 auth code 전달하는 로직 구현
             }
         }
     }
 
-    private fun googleLogin() {
+    private fun googleLogin(context: Context) {
         viewModelScope.launch {
-            googleLoginManager.login()
-                .onSuccess {
-                    updateUserAuthInfo(it)
-                    postSideEffect(LoginSideEffect.NavigateToOnboarding)
+            googleAuthManager.googleLogin(context)
+                .catch { exception ->
+                    handleGoogleLoginException(exception)
                 }
-                .onFailure { exception ->
-                    if (exception is NoCredentialException) {
-                        postSideEffect(LoginSideEffect.NavigateToGoogleSignUp)
+                .collectLatest { authResult ->
+                    if (authResult.hasResolution()) {
+                        authResult.pendingIntent?.intentSender?.let { intentSender ->
+                            postSideEffect(LoginSideEffect.NavigateToGoogleAuth(intentSender))
+                        }
                     } else {
-                        postSideEffect(LoginSideEffect.ShowGoogleLoginErrorToast)
+                        // TODO : authCode 서버로 보내는 api 연결
+                        Log.d("LoginViewModel", "Auth Code: ${authResult.serverAuthCode}")
+                        postSideEffect(LoginSideEffect.ShowGoogleLoginSuccessToast)
+                        postSideEffect(LoginSideEffect.NavigateToOnboarding)
                     }
                 }
         }
     }
 
-    private fun updateUserAuthInfo(userAuthInfo: UserAuthInfo) {
-        reduce {
-            copy(
-                userAuthInfo = userAuthInfo
-            )
+    private suspend fun handleGoogleLoginException(exception: Throwable) {
+        when (exception) {
+            is GetCredentialCancellationException -> {
+                postSideEffect(LoginSideEffect.ShowCancelGoogleAuthToast)
+            }
+
+            is NoCredentialException -> {
+                postSideEffect(LoginSideEffect.ShowGoogleLoginErrorToast)
+                postSideEffect(LoginSideEffect.NavigateToGoogleSignUp)
+            }
+
+            else -> {
+                postSideEffect(LoginSideEffect.ShowGoogleLoginErrorToast)
+            }
         }
     }
 }
