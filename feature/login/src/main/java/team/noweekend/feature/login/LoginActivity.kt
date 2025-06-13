@@ -3,28 +3,36 @@ package team.noweekend.feature.login
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
 import dagger.hilt.android.AndroidEntryPoint
+import team.noweekend.core.common.android.extension.showToast
 import team.noweekend.feature.login.screen.LoginRoute
 
 @AndroidEntryPoint
 class LoginActivity : ComponentActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             LoginRoute(
                 modifier = Modifier.fillMaxSize(),
                 navigateToOnboarding = {
-                    Toast.makeText(this, "로그인 성공!", Toast.LENGTH_SHORT).show()
+                    // TODO: 온보딩 화면으로 넘어가는 로직
                 },
                 navigateToGoogleSignUp = { googleSignUp() },
                 showGoogleSignUpErrorToast = {
-                    Toast.makeText(this, "구글 계정이 없습니다.", Toast.LENGTH_SHORT).show()
+                    showToast("이용 가능한 구글 계정이 없습니다.")
+                },
+                showGoogleLoginSuccessToast = {
+                    showToast("로그인 성공!")
+                },
+                showCancelGoogleAuthToast = {
+                    showToast("로그인을 취소했습니다.")
+                },
+                showErrorToast = {
+                    showToast("오류가 발생했습니다. 다시 시도해주세요.")
                 }
             )
         }
