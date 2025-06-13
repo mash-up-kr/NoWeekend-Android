@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import kotlinx.serialization.Serializable
 import team.noweekend.core.design.system.core.component.button.defaults.BoxButtonType
+import team.noweekend.core.design.system.core.component.button.defaults.ButtonSizeType
 import team.noweekend.core.design.system.core.component.button.fill.NWKFillButton
 import team.noweekend.core.design.system.core.component.button.outline.NWKOutlineButton
 import team.noweekend.core.design.system.core.component.divider.NWKHorizontalDivider
@@ -58,6 +59,14 @@ internal object Button {
                 ) {
                     NWKOutlineButton(
                         onClick = {},
+                        size = ButtonSizeType.EXTRA_LARGE,
+                        text = "BTN",
+                        modifier = Modifier.fillMaxWidth(),
+                    )
+
+                    NWKOutlineButton(
+                        onClick = {},
+                        size = ButtonSizeType.MEDIUM,
                         text = "BTN",
                         modifier = Modifier.fillMaxWidth(),
                     )
@@ -166,6 +175,7 @@ internal object Divider {
                     )
                     NWKOutlineButton(
                         onClick = { setFillScreenWidth(!shouldFillScreenWidth) },
+                        size = ButtonSizeType.MEDIUM,
                         text = "변경",
                         modifier = Modifier.fillMaxWidth(),
                     )
