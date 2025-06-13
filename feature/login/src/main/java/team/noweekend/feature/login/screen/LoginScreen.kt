@@ -12,9 +12,9 @@ import team.noweekend.feature.login.mvi.LoginUiState
 
 @Composable
 fun LoginScreen(
-    modifier: Modifier = Modifier,
     uiState: LoginUiState,
     onClickGoogleLogin: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Text(
@@ -26,7 +26,7 @@ fun LoginScreen(
 
 @Preview
 @Composable
-fun LoginScreenPreview() {
+private fun LoginScreenPreview() {
     LoginScreen(
         modifier = Modifier.fillMaxSize(),
         uiState = LoginUiState.INITIAL_STATE,
