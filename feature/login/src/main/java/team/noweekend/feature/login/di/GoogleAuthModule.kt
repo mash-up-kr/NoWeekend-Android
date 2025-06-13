@@ -18,7 +18,7 @@ internal class GoogleAuthModule {
     @Provides
     @ActivityRetainedScoped
     fun provideGoogleLoginManager(
-        authorizationRequest: AuthorizationRequest
+        authorizationRequest: AuthorizationRequest,
     ): GoogleAuthManager = GoogleAuthManager(authorizationRequest)
 
     @Provides
@@ -27,14 +27,14 @@ internal class GoogleAuthModule {
         return listOf(
             Scope(Scopes.EMAIL),
             Scope(Scopes.PROFILE),
-            Scope("https://www.googleapis.com/auth/calendar.readonly")
+            Scope("https://www.googleapis.com/auth/calendar.readonly"),
         )
     }
 
     @Provides
     @ActivityRetainedScoped
     fun provideGoogleAuthRequest(
-        requestScope: List<Scope>
+        requestScope: List<Scope>,
     ): AuthorizationRequest {
         return AuthorizationRequest.builder()
             .setRequestedScopes(requestScope)

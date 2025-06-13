@@ -15,7 +15,7 @@ import team.noweekend.feature.login.BuildConfig
 import javax.inject.Inject
 
 class GoogleAuthManager @Inject constructor(
-    private val authorizationRequest: AuthorizationRequest
+    private val authorizationRequest: AuthorizationRequest,
 ) {
     private lateinit var credentialManager: CredentialManager
 
@@ -37,12 +37,12 @@ class GoogleAuthManager @Inject constructor(
 
     private fun handleGoogleSignIn(
         request: GetCredentialRequest,
-        context: Context
+        context: Context,
     ): Flow<AuthorizationResult> {
         return callbackFlow {
             val response = credentialManager.getCredential(
                 request = request,
-                context = context
+                context = context,
             )
             val credential = response.credential
             when (credential) {
