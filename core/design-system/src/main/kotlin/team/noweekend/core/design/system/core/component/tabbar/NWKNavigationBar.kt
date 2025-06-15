@@ -18,7 +18,7 @@ import team.noweekend.core.design.system.core.component.scaffold.NWKScaffold
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 
 @Composable
-fun NWKNavigationBar(
+fun NavigationBarLayout(
     modifier: Modifier = Modifier,
     containerColor: Color = NWKNavigationBarDefaults.containerColor,
     windowInsets: WindowInsets = NWKNavigationBarDefaults.windowInsets,
@@ -47,9 +47,7 @@ private fun NWKNavigationBarPreview() {
     NWKTheme {
         NWKScaffold(
             bottomBar = {
-                NWKNavigationBar {
 
-                }
             },
         ) { }
     }
