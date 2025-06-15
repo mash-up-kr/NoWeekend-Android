@@ -11,8 +11,8 @@ import androidx.compose.ui.unit.dp
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 
 object NWKNavigationBarDefaults {
-    val NavigationBarHeight: Dp = 84.dp
-    val NavigationBarTopPadding: Dp = 8.dp
+    val NavigationBarHeight: Dp = 70.dp
+    val NavigationBarVerticalPadding: Dp = 12.dp
 
     val containerColor: Color
         @Composable

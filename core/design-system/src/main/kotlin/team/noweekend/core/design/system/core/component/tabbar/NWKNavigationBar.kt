@@ -31,7 +31,7 @@ fun NavigationBarLayout(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = NWKNavigationBarDefaults.NavigationBarTopPadding)
+                .padding(vertical = NWKNavigationBarDefaults.NavigationBarVerticalPadding)
                 .windowInsetsPadding(windowInsets)
                 .defaultMinSize(minHeight = NWKNavigationBarDefaults.NavigationBarHeight)
                 .selectableGroup(),
