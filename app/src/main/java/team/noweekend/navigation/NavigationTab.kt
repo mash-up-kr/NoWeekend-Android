@@ -1,24 +1,34 @@
 package team.noweekend.navigation
 
+import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
 import team.noweekend.core.navigator.model.DestinationRoute
-import team.noweekend.core.resource.R as RR
+import team.noweekend.core.resource.NWKDrawableResource
+import team.noweekend.core.resource.NWKStringResource
 
 internal enum class NavigationTab(
     @StringRes val labelId: Int,
+    @DrawableRes val selectedIconResId: Int,
+    @DrawableRes val unselectedIconResId: Int,
     val route: DestinationRoute,
 ) {
     HOME(
-        labelId = RR.string.label_home,
+        labelId = NWKStringResource.LabelHome,
+        selectedIconResId = NWKDrawableResource.HomeOn,
+        unselectedIconResId = NWKDrawableResource.HomeOff,
         route = DestinationRoute.Home,
     ),
     CALENDAR(
-        labelId = RR.string.label_calendar,
+        labelId = NWKStringResource.LabelCalendar,
+        selectedIconResId = NWKDrawableResource.CalendarOn,
+        unselectedIconResId = NWKDrawableResource.CalendarOff,
         route = DestinationRoute.Calendar,
     ),
     PROFILE(
-        labelId = RR.string.label_profile,
+        labelId = NWKStringResource.LabelProfile,
+        selectedIconResId = NWKDrawableResource.PersonOn,
+        unselectedIconResId = NWKDrawableResource.PersonOff,
         route = DestinationRoute.Profile,
     ),
     ;
