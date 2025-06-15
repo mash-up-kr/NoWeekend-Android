@@ -24,7 +24,7 @@ internal fun CalendarItem(
         dataList.dateOfWeeks.forEachIndexed { index, dateOfWeeks ->
             key(index) {
                 Row(
-                    modifier = modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth(),
                 ) {
                     dateOfWeeks.forEach { dateOfWeek ->
                         key(dateOfWeek) {

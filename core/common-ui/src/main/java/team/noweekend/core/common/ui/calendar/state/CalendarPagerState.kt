@@ -108,10 +108,10 @@ class CalendarPagerState(
         }
     }
 
-    suspend fun updateMonthCalendar(
+    fun updateMonthCalendar(
         currentPage: Int,
-        updateNextMonthPage: suspend (Int, Int) -> Unit = { _, _ -> },
-        updatePreviousMonthPage: suspend (Int, Int) -> Unit = { _, _ -> },
+        updateNextMonthPage: (Int, Int) -> Unit = { _, _ -> },
+        updatePreviousMonthPage: (Int, Int) -> Unit = { _, _ -> },
     ) {
         checkPageValid(currentPage)
         val currentIndex = currentPage % dataSize
