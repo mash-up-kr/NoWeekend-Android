@@ -73,6 +73,9 @@ class CalendarDataProvider(
         getMonthDates(monthStart = currentMonthStart.plusMonths(1)),
     ).toMutableStateList()
 
+    /**
+     * 주 데이터 를 반환
+     */
     private fun getWeekDates(startedMonday: LocalDate): WeeksData {
         return WeeksData(
             year = startedMonday.year,
@@ -88,6 +91,9 @@ class CalendarDataProvider(
         )
     }
 
+    /**
+     * 주 캘린더 데이터 초기화
+     */
     fun initWeekCalendar() {
         val targetWeekMonday: LocalDate = _targetDate.value.with(
             TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY),
@@ -104,6 +110,9 @@ class CalendarDataProvider(
         }
     }
 
+    /**
+     * 현재 페이지 의 이전 페이지 주 데이터 update
+     */
     fun updatePreviousWeeksData(currentIndex: Int, prevIndex: Int) {
         val currentWeekMonday: DateOfWeek = weeksData[currentIndex].dateOfWeeks.flatten().first()
         weeksData[prevIndex] = getWeekDates(
@@ -115,6 +124,9 @@ class CalendarDataProvider(
         )
     }
 
+    /**
+     * 현재 페이지 의 다음 페이지 주 데이터 update
+     */
     fun updateNextWeeksData(currentIndex: Int, nextIndex: Int) {
         val currentWeekMonday: DateOfWeek = weeksData[currentIndex].dateOfWeeks.flatten().first()
         weeksData[nextIndex] = getWeekDates(
@@ -126,6 +138,10 @@ class CalendarDataProvider(
         )
     }
 
+
+    /**
+     * 월 캘린더 데이터 초기화
+     */
     fun initMonthCalendar(index: Int) {
         val weekData: WeeksData = weeksData[index]
         val localDate: LocalDate = LocalDate.of(
@@ -144,6 +160,9 @@ class CalendarDataProvider(
         }
     }
 
+    /**
+     * 현재 페이지 의 이전 페이지 월 데이터 update
+     */
     fun updatePreviousMonthData(currentIndex: Int, prevIndex: Int) {
         val currentMonthLocalDate: LocalDate = getCurrentMonthLocalDate(index = currentIndex)
         monthData[prevIndex] = getMonthDates(monthStart = currentMonthLocalDate.minusMonths(1))
@@ -153,6 +172,9 @@ class CalendarDataProvider(
         )
     }
 
+    /**
+     * 현재 페이지 의 다음 페이지 월 데이터 update
+     */
     fun updateNextMonthData(currentIndex: Int, nextIndex: Int) {
         val currentMonthLocalDate: LocalDate = getCurrentMonthLocalDate(index = currentIndex)
         monthData[nextIndex] = getMonthDates(monthStart = currentMonthLocalDate.plusMonths(1))
@@ -191,7 +213,7 @@ class CalendarDataProvider(
         )
 
         /**
-         * 주어진 월의 첫 날이 포함된 주의 월요일부터 마지막 날이 포함된 주의 일요일까지의 일 수
+         * 주어진 월의 첫 날이 포함된 주의 월요일 부터 마지막 날이 포함된 주의 일요일 까지의 일 수
          */
         val daysInPeriod: Long =
             lastSundayOfWeekContainingLastDay.toEpochDay() - firstMondayOfWeekContainingFirstDay.toEpochDay() + 1
@@ -211,6 +233,10 @@ class CalendarDataProvider(
         )
     }
 
+    /**
+     * [index] 현재 나의 월별 페이지[0,1,2]
+     * 월의 시작이 다른 달일 수도 있어 정확한 현재 달의 LocalDate 값을 반환.
+     */
     private fun getCurrentMonthLocalDate(index: Int): LocalDate {
         val currentMonth: Int = monthData[index].month
         val currentMonthLocalDateOfWeek: DateOfWeek =
@@ -220,6 +246,9 @@ class CalendarDataProvider(
         return currentMonthLocalDateOfWeek.localDate
     }
 
+    /**
+     * 현재 선택된 날짜를 update.
+     */
     fun updateTargetDate(dateOfWeek: DateOfWeek) {
         _targetDate.value = dateOfWeek.localDate
         log(message = "Target date updated to $_targetDate")
