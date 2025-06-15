@@ -17,16 +17,16 @@ import team.noweekend.core.resource.R
 
 @Composable
 fun rememberCalendarPagerState(
-    coroutineScope: CoroutineScope = rememberCoroutineScope()
+    coroutineScope: CoroutineScope = rememberCoroutineScope(),
 ) = remember {
     CalendarPagerState(
-        coroutineScope = coroutineScope
+        coroutineScope = coroutineScope,
     )
 }
 
 @Stable
 class CalendarPagerState(
-    private val coroutineScope: CoroutineScope
+    private val coroutineScope: CoroutineScope,
 ) {
     enum class CalendarMode(@StringRes val id: Int) {
         WEEK(id = R.string.week), MONTH(id = R.string.month)
@@ -43,7 +43,7 @@ class CalendarPagerState(
 
     val weekPagerState: PagerState = PagerState(
         currentPage = initialPage,
-        pageCount = { maxPageCount }
+        pageCount = { maxPageCount },
     )
 
     private val previousWeekPage: SnapshotStateList<Int> = mutableStateListOf<Int>().apply {
@@ -52,7 +52,7 @@ class CalendarPagerState(
 
     val monthPagerState: PagerState = PagerState(
         currentPage = initialPage, // 인덱스 1부터 시작하도록 변경
-        pageCount = { maxPageCount }
+        pageCount = { maxPageCount },
     )
 
     private val previousMonthPage: SnapshotStateList<Int> = mutableStateListOf<Int>().apply {
@@ -65,7 +65,7 @@ class CalendarPagerState(
     fun updateWeekCalendar(
         currentPage: Int,
         updatePreviousWeekPage: (Int, Int) -> Unit = { _, _ -> },
-        updateNextWeekPage: (Int, Int) -> Unit = { _, _ -> }
+        updateNextWeekPage: (Int, Int) -> Unit = { _, _ -> },
     ) {
         checkPageValid(currentPage)
         val localPreviousPage = previousWeekPage.lastOrNull() ?: currentPage
@@ -111,7 +111,7 @@ class CalendarPagerState(
     suspend fun updateMonthCalendar(
         currentPage: Int,
         updateNextMonthPage: suspend (Int, Int) -> Unit = { _, _ -> },
-        updatePreviousMonthPage: suspend (Int, Int) -> Unit = { _, _ -> }
+        updatePreviousMonthPage: suspend (Int, Int) -> Unit = { _, _ -> },
     ) {
         checkPageValid(currentPage)
         val currentIndex = currentPage % dataSize
@@ -160,7 +160,7 @@ class CalendarPagerState(
         BurnOut(id = R.drawable.ic_day_type_burnout),
         Rest(id = R.drawable.ic_day_type_rest),
         OverZeroUnderFiftyDegree(id = R.drawable.ic_day_type_over_zero_under_fifty_degree),
-        OverFiftyUnderSeventyFive(id = R.drawable.ic_day_type_over_fifty_under_seventy_degree)
+        OverFiftyUnderSeventyFive(id = R.drawable.ic_day_type_over_fifty_under_seventy_degree),
     }
 
     enum class Direction {

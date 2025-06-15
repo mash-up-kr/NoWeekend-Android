@@ -18,13 +18,13 @@ internal fun CalendarItem(
     dataList: WeeksData,
     targetDate: State<LocalDate>,
     modifier: Modifier = Modifier,
-    onClickDateOfWeek: (DateOfWeek) -> Unit = {}
+    onClickDateOfWeek: (DateOfWeek) -> Unit = {},
 ) {
     Column(modifier = modifier) {
         dataList.dateOfWeeks.forEachIndexed { index, dateOfWeeks ->
             key(index) {
                 Row(
-                    modifier = modifier.fillMaxWidth()
+                    modifier = modifier.fillMaxWidth(),
                 ) {
                     dateOfWeeks.forEach { dateOfWeek ->
                         key(dateOfWeek) {
@@ -34,7 +34,7 @@ internal fun CalendarItem(
                                 isSelectedDay = dateOfWeek.localDate == targetDate.value,
                                 isCurrentMonth = dateOfWeek.localDate.monthValue == dataList.month,
                                 calendarMode = calendarMode,
-                                onClickDateOfWeek = onClickDateOfWeek
+                                onClickDateOfWeek = onClickDateOfWeek,
                             )
                         }
                     }

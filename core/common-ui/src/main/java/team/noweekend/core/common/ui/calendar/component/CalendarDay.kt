@@ -34,7 +34,7 @@ internal fun CalendarDay(
     isSelectedDay: Boolean = false,
     isCurrentMonth: Boolean = false,
     horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
-    onClickDateOfWeek: (DateOfWeek) -> Unit = {}
+    onClickDateOfWeek: (DateOfWeek) -> Unit = {},
 ) {
     val condition = if (calendarMode == CalendarMode.MONTH) {
         if (isCurrentMonth) 1f else 0f
@@ -47,11 +47,11 @@ internal fun CalendarDay(
                 alpha = condition
             }
             .clickable(
-                enabled = isCurrentMonth
+                enabled = isCurrentMonth,
             ) {
                 onClickDateOfWeek(dateOfWeek)
             },
-        horizontalAlignment = horizontalAlignment
+        horizontalAlignment = horizontalAlignment,
     ) {
         Row(
             modifier = Modifier
@@ -59,10 +59,10 @@ internal fun CalendarDay(
                 .padding(4.5.dp)
                 .background(
                     if (isSelectedDay) Color(0xFFFFEAE0) else Color.Transparent,
-                    shape = CircleShape
+                    shape = CircleShape,
                 ),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
+            horizontalArrangement = Arrangement.Center,
         ) {
             Text(
                 text = dateOfWeek.localDate.dayOfMonth.toString(),
@@ -71,18 +71,18 @@ internal fun CalendarDay(
                 } else {
                     Color(0xFF333333)
                 },
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
             )
         }
         Row(
             modifier = Modifier.size(41.dp),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
+            horizontalArrangement = Arrangement.Center,
         ) {
             Image(
                 modifier = Modifier.fillMaxSize(),
                 painter = painterResource(id = dateOfWeek.imageType.id),
-                contentDescription = null
+                contentDescription = null,
             )
         }
     }
@@ -95,13 +95,13 @@ private fun PreviewCalendarDay() {
         val targetDate = LocalDate.now()
         val date = DateOfWeek(
             localDate = targetDate,
-            imageType = CalendarPagerState.ImageType.NONE
+            imageType = CalendarPagerState.ImageType.NONE,
         )
         CalendarDay(
             dateOfWeek = date,
             isSelectedDay = true,
             isCurrentMonth = true,
-            calendarMode = CalendarPagerState.CalendarMode.WEEK
+            calendarMode = CalendarPagerState.CalendarMode.WEEK,
         )
     }
 }

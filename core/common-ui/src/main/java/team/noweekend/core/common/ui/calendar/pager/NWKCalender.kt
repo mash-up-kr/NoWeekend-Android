@@ -29,7 +29,6 @@ fun NWKCalender(
 ) {
     val mode by calendarPagerState.calendarMode.collectAsState()
 
-
     LaunchedEffect(Unit) {
         calendarDataProvider.calendarDataProviderEventFlow.collect { event ->
             when (event) {
@@ -45,7 +44,7 @@ fun NWKCalender(
     }
 
     Column(
-        modifier = modifier
+        modifier = modifier,
     ) {
         DayOfWeekBar(modifier = Modifier.fillMaxWidth(), isMondayStarted = true)
         when (mode) {
@@ -58,13 +57,13 @@ fun NWKCalender(
                     calendarPagerState.updateWeekCalendar(
                         currentPage = currentPage,
                         updatePreviousWeekPage = calendarDataProvider::updatePreviousWeeksData,
-                        updateNextWeekPage = calendarDataProvider::updateNextWeeksData
+                        updateNextWeekPage = calendarDataProvider::updateNextWeeksData,
                     )
                 }
 
                 HorizontalPager(
                     state = calendarPagerState.weekPagerState,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
                 ) { page ->
 
                     val index = page % calendarPagerState.dataSize
@@ -74,7 +73,7 @@ fun NWKCalender(
                         dataList = weekDates,
                         calendarMode = mode,
                         targetDate = calendarDataProvider.targetDate,
-                        onClickDateOfWeek = calendarDataProvider::updateTargetDate
+                        onClickDateOfWeek = calendarDataProvider::updateTargetDate,
                     )
                 }
             }
@@ -88,12 +87,12 @@ fun NWKCalender(
                     calendarPagerState.updateMonthCalendar(
                         currentPage = calendarPagerState.monthPagerState.currentPage,
                         updateNextMonthPage = calendarDataProvider::updateNextMonthData,
-                        updatePreviousMonthPage = calendarDataProvider::updatePreviousMonthData
+                        updatePreviousMonthPage = calendarDataProvider::updatePreviousMonthData,
                     )
                 }
                 VerticalPager(
                     state = calendarPagerState.monthPagerState,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
                 ) { page ->
 
                     val index = page % calendarPagerState.dataSize
@@ -103,7 +102,7 @@ fun NWKCalender(
                         dataList = dataList,
                         calendarMode = mode,
                         targetDate = calendarDataProvider.targetDate,
-                        onClickDateOfWeek = calendarDataProvider::updateTargetDate
+                        onClickDateOfWeek = calendarDataProvider::updateTargetDate,
                     )
                 }
             }
@@ -119,7 +118,7 @@ private fun PreviewCalendar() {
 
     MaterialTheme {
         Column(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize(),
         ) {
             CalendarTypeToggle(
                 modifier = Modifier.align(Alignment.End),
@@ -134,8 +133,14 @@ private fun PreviewCalendar() {
                     }
                 },
                 onClickToggle = {
-                    calendarPagerState.updateCalendarMode(calendarMode = if (calendarPagerState.calendarMode.value == CalendarMode.WEEK) CalendarMode.MONTH else CalendarMode.WEEK)
-                }
+                    calendarPagerState.updateCalendarMode(
+                        calendarMode = if (calendarPagerState.calendarMode.value == CalendarMode.WEEK) {
+                            CalendarMode.MONTH
+                        } else {
+                            CalendarMode.WEEK
+                        },
+                    )
+                },
 
             )
             NWKCalender(

@@ -7,5 +7,5 @@ import java.time.LocalDate
 @Immutable
 data class DateOfWeek(
     val imageType: ImageType,
-    val localDate: LocalDate
+    val localDate: LocalDate,
 )

@@ -49,7 +49,7 @@ fun CalendarTypeToggle(
     modifier: Modifier = Modifier,
     currentCalendarMode: State<CalendarMode> = remember { mutableStateOf(CalendarMode.WEEK) },
     onToggleStateChanged: (Boolean) -> Unit = {},
-    onClickToggle: () -> Unit = {}
+    onClickToggle: () -> Unit = {},
 ) {
     val density = LocalDensity.current
     val height = 38.dp
@@ -60,17 +60,23 @@ fun CalendarTypeToggle(
 
     val anchoredDraggableState = remember {
         AnchoredDraggableState(
-            initialValue = if (currentCalendarMode.value == CalendarMode.WEEK) CalendarMode.WEEK else CalendarMode.MONTH,
+            initialValue = if (currentCalendarMode.value == CalendarMode.WEEK) {
+                CalendarMode.WEEK
+            } else {
+                CalendarMode.MONTH
+            },
             anchors = DraggableAnchors {
                 CalendarMode.WEEK at 0f
                 CalendarMode.MONTH at maxDragDistance
-            }
+            },
         )
     }
 
     LaunchedEffect(currentCalendarMode.value) {
         if (currentCalendarMode.value != anchoredDraggableState.currentValue) {
-            anchoredDraggableState.animateTo(if (currentCalendarMode.value == CalendarMode.WEEK) CalendarMode.WEEK else CalendarMode.MONTH)
+            anchoredDraggableState.animateTo(
+                if (currentCalendarMode.value == CalendarMode.WEEK) CalendarMode.WEEK else CalendarMode.MONTH,
+            )
         }
     }
 
@@ -87,22 +93,22 @@ fun CalendarTypeToggle(
             .padding(thumbPadding)
             .anchoredDraggable(
                 state = anchoredDraggableState,
-                orientation = Orientation.Horizontal
+                orientation = Orientation.Horizontal,
             )
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
-                indication = null
+                indication = null,
             ) {
                 onClickToggle()
-            }
+            },
     ) {
         CalendarTypeToggleBackground(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize(),
         )
         CalendarTypeToggleThumb(
             modifier = Modifier.fillMaxSize(),
             currentCalendarMode = currentCalendarMode,
-            anchoredDraggableState = anchoredDraggableState
+            anchoredDraggableState = anchoredDraggableState,
         )
     }
 }
@@ -112,7 +118,7 @@ private fun CalendarTypeToggleThumb(
     anchoredDraggableState: AnchoredDraggableState<CalendarMode>,
     modifier: Modifier = Modifier,
     thumbSize: Dp = 32.dp,
-    currentCalendarMode: State<CalendarMode> = remember { mutableStateOf(CalendarMode.WEEK) }
+    currentCalendarMode: State<CalendarMode> = remember { mutableStateOf(CalendarMode.WEEK) },
 ) {
     Row(modifier = modifier) {
         Box(
@@ -122,19 +128,19 @@ private fun CalendarTypeToggleThumb(
                         x = anchoredDraggableState
                             .requireOffset()
                             .roundToInt(),
-                        y = 0
+                        y = 0,
                     )
                 }
                 .shadow(5.dp, shape = CircleShape)
                 .size(thumbSize)
                 .clip(CircleShape)
                 .background(Color.White),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
         ) {
             Text(
                 text = stringResource(id = currentCalendarMode.value.id),
                 fontSize = 16.sp,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
             )
         }
     }
@@ -142,12 +148,12 @@ private fun CalendarTypeToggleThumb(
 
 @Composable
 private fun CalendarTypeToggleBackground(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
+        horizontalArrangement = Arrangement.Center,
     ) {
         Text(
             modifier = Modifier.weight(1f),
@@ -155,7 +161,7 @@ private fun CalendarTypeToggleBackground(
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
-            color = Color.Gray
+            color = Color.Gray,
         )
         Text(
             modifier = Modifier.weight(1f),
@@ -163,7 +169,7 @@ private fun CalendarTypeToggleBackground(
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
-            color = Color.Gray
+            color = Color.Gray,
         )
     }
 }
@@ -186,7 +192,7 @@ private fun PreviewCalendarTypeToggle() {
                 onClickToggle = {
                     currentCalendarMode.value =
                         if (currentCalendarMode.value == CalendarMode.WEEK) CalendarMode.MONTH else CalendarMode.WEEK
-                }
+                },
             )
         }
     }

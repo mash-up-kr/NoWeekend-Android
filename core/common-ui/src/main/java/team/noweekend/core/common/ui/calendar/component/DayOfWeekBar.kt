@@ -13,16 +13,16 @@ import team.noweekend.core.common.ui.calendar.model.Day
 @Composable
 internal fun DayOfWeekBar(
     modifier: Modifier = Modifier,
-    isMondayStarted: Boolean = false
+    isMondayStarted: Boolean = false,
 ) {
     Row(
-        modifier = modifier
+        modifier = modifier,
     ) {
         Day.getDays(isMondayStarted = isMondayStarted).forEach { day ->
             key(day.id) {
                 DayOfWeekBarContent(
                     modifier = Modifier.weight(1f),
-                    day = day
+                    day = day,
                 )
             }
         }
@@ -32,13 +32,13 @@ internal fun DayOfWeekBar(
 @Composable
 private fun DayOfWeekBarContent(
     day: Day,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Text(
         modifier = modifier,
         text = stringResource(id = day.id),
         color = day.color,
-        textAlign = TextAlign.Center
+        textAlign = TextAlign.Center,
     )
 }
 
