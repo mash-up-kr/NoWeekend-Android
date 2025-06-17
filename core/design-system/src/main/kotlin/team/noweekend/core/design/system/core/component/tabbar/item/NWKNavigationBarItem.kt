@@ -1,5 +1,7 @@
 package team.noweekend.core.design.system.core.component.tabbar.item
 
+import androidx.compose.foundation.interaction.Interaction
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
@@ -14,6 +16,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import team.noweekend.core.design.system.core.component.tabbar.item.defaults.NWKNavigationBarItemDefaults
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 
@@ -50,6 +54,16 @@ fun RowScope.NWKNavigationBarItem(
                 ),
             )
         },
+        interactionSource = NoRippleInteractionSource,
         colors = NavigationBarItemDefaults.colors(indicatorColor = Color.Transparent),
     )
 }
+
+internal object NoRippleInteractionSource : MutableInteractionSource {
+    override val interactions: Flow<Interaction> = flowOf()
+
+    override suspend fun emit(interaction: Interaction) = Unit
+
+    override fun tryEmit(interaction: Interaction): Boolean = true
+}
+
