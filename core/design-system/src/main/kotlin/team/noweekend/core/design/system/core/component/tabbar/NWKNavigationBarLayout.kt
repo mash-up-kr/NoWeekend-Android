@@ -13,9 +13,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
-import team.noweekend.core.design.system.core.component.scaffold.NWKScaffold
-import team.noweekend.core.design.system.foundation.theme.NWKTheme
 
 @Composable
 fun NavigationBarLayout(
@@ -38,17 +35,5 @@ fun NavigationBarLayout(
             horizontalArrangement = Arrangement.SpaceAround,
             content = content,
         )
-    }
-}
-
-@Preview
-@Composable
-private fun NWKNavigationBarPreview() {
-    NWKTheme {
-        NWKScaffold(
-            bottomBar = {
-
-            },
-        ) { }
     }
 }

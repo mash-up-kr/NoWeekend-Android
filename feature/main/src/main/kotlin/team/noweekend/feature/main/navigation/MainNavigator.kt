@@ -11,7 +11,10 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
+import team.noweekend.core.navigator.model.Calendar
 import team.noweekend.core.navigator.model.DestinationRoute
+import team.noweekend.core.navigator.model.Home
+import team.noweekend.core.navigator.model.Profile
 import team.noweekend.feature.main.MainTab
 
 @Composable
@@ -47,9 +50,9 @@ internal class MainNavigator(
         }
 
         when (tab) {
-            MainTab.HOME -> navController.navigate(DestinationRoute.Home, navOptions)
-            MainTab.CALENDAR -> navController.navigate(DestinationRoute.Calendar, navOptions)
-            MainTab.PROFILE -> navController.navigate(DestinationRoute.Profile, navOptions)
+            MainTab.HOME -> navController.navigate(Home, navOptions)
+            MainTab.CALENDAR -> navController.navigate(Calendar, navOptions)
+            MainTab.PROFILE -> navController.navigate(Profile, navOptions)
         }
     }
 
@@ -58,7 +61,7 @@ internal class MainNavigator(
     }
 
     fun popBackStack(action: () -> Unit) {
-        if (isCurrentDestinationSame<DestinationRoute.Home>().not()) {
+        if (isCurrentDestinationSame<Home>().not()) {
             popBackStack()
         } else {
             action()

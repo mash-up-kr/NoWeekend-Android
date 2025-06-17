@@ -11,6 +11,8 @@ internal fun MainRoute(
     navigator: MainNavigator = rememberMainNavigator(),
 ) {
     MainScreen(
-
+        onTabSelected = { navigator.navigate(it) },
+        modifier = modifier,
+        navigator = navigator,
     )
 }
