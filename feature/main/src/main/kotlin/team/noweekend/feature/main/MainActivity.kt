@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import dagger.hilt.android.AndroidEntryPoint
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
-import team.noweekend.feature.main.screen.MainScreen
+import team.noweekend.feature.main.screen.MainRoute
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -15,7 +15,9 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             NWKTheme {
-                MainScreen()
+                MainRoute(
+
+                )
             }
         }
     }

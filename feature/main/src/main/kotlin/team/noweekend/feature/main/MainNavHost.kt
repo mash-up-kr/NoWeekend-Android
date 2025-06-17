@@ -7,9 +7,10 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import team.noweekend.core.navigator.model.DestinationRoute
-import team.noweekend.feature.calendar.navigation.calendarScreen
+import team.noweekend.core.navigator.model.Home
+import team.noweekend.feature.calendar.navigation.calendarNavGraph
 import team.noweekend.feature.main.navigation.MainNavigator
-import team.noweekend.feature.profile.navigation.profileScreen
+import team.noweekend.feature.profile.navigation.profileNavGraph
 
 @Composable
 internal fun MainNavHost(
@@ -21,14 +22,14 @@ internal fun MainNavHost(
         startDestination = navigator.startDestination,
         modifier = modifier,
     ) {
-        homeScreen()
-        profileScreen()
-        calendarScreen()
+        homeNavGraph()
+        calendarNavGraph()
+        profileNavGraph()
     }
 }
 
-internal fun NavGraphBuilder.homeScreen() {
-    composable<DestinationRoute.Home> {
+internal fun NavGraphBuilder.homeNavGraph() {
+    composable<Home> {
         Text("AFAF")
     }
 }

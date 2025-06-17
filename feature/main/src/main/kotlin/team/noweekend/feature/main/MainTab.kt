@@ -3,7 +3,10 @@ package team.noweekend.feature.main
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
+import team.noweekend.core.navigator.model.Calendar
 import team.noweekend.core.navigator.model.DestinationRoute
+import team.noweekend.core.navigator.model.Home
+import team.noweekend.core.navigator.model.Profile
 import team.noweekend.core.resource.NWKDrawableResource
 import team.noweekend.core.resource.NWKStringResource
 
@@ -17,19 +20,19 @@ internal enum class MainTab(
         labelId = NWKStringResource.LabelHome,
         selectedIconResId = NWKDrawableResource.HomeOn,
         unselectedIconResId = NWKDrawableResource.HomeOff,
-        route = DestinationRoute.Home,
+        route = Home,
     ),
     CALENDAR(
         labelId = NWKStringResource.LabelCalendar,
         selectedIconResId = NWKDrawableResource.CalendarOn,
         unselectedIconResId = NWKDrawableResource.CalendarOff,
-        route = DestinationRoute.Calendar,
+        route = Calendar,
     ),
     PROFILE(
         labelId = NWKStringResource.LabelProfile,
         selectedIconResId = NWKDrawableResource.PersonOn,
         unselectedIconResId = NWKDrawableResource.PersonOff,
-        route = DestinationRoute.Profile,
+        route = Profile,
     ),
     ;
 

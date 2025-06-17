@@ -10,17 +10,17 @@ import team.noweekend.feature.main.MainTab
 
 @Composable
 internal fun NWKNavigationBar(
-    navigateToTargetTab: (MainTab) -> Unit,
     currentTab: MainTab?,
-    topLevelDestinations: ImmutableList<MainTab>,
+    tabs: ImmutableList<MainTab>,
+    onTabSelected: (MainTab) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     NavigationBarLayout(
         modifier = modifier.fillMaxWidth(),
     ) {
-        topLevelDestinations.forEach { tab ->
+        tabs.forEach { tab ->
             NWKNavigationBarItem(
-                onClick = { navigateToTargetTab(tab) },
+                onClick = { onTabSelected(tab) },
                 isSelected = tab == currentTab,
                 unselectedIconId = tab.unselectedIconResId,
                 selectedIconId = tab.selectedIconResId,

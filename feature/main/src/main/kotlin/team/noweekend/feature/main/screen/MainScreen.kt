@@ -7,13 +7,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import team.noweekend.core.design.system.core.component.scaffold.NWKScaffold
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
-import team.noweekend.feature.main.component.NWKNavigationBar
 import team.noweekend.feature.main.MainNavHost
+import team.noweekend.feature.main.MainTab
+import team.noweekend.feature.main.component.NWKNavigationBar
 import team.noweekend.feature.main.navigation.MainNavigator
 import team.noweekend.feature.main.navigation.rememberMainNavigator
 
 @Composable
 internal fun MainScreen(
+    onTabSelected: (MainTab) -> Unit,
     modifier: Modifier = Modifier,
     navigator: MainNavigator = rememberMainNavigator(),
 ) {
@@ -29,9 +31,9 @@ internal fun MainScreen(
         },
         bottomBar = {
             NWKNavigationBar(
-                navigateToTargetTab = { navigator.navigate(it) },
                 currentTab = navigator.currentTab,
-                topLevelDestinations = navigator.topLevelDestinations,
+                tabs = navigator.topLevelDestinations,
+                onTabSelected = onTabSelected,
             )
         },
     )
@@ -41,6 +43,8 @@ internal fun MainScreen(
 @Composable
 private fun MainScreenPreview() {
     NWKTheme {
-        MainScreen()
+        MainScreen(
+            onTabSelected = {},
+        )
     }
 }
