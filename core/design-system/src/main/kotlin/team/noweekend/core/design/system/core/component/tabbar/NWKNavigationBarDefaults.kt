@@ -14,6 +14,10 @@ object NWKNavigationBarDefaults {
     val NavigationBarHeight: Dp = 70.dp
     val NavigationBarVerticalPadding: Dp = 12.dp
 
+    val borderColor: Color
+        @Composable
+        get() = NWKTheme.color.Semantic.Border.border01
+
     val containerColor: Color
         @Composable
         get() = NWKTheme.color.Neutral.white
