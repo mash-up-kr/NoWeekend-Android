@@ -11,12 +11,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.serialization.Serializable
 import team.noweekend.core.design.system.core.component.button.defaults.BoxButtonType
 import team.noweekend.core.design.system.core.component.button.defaults.ButtonSizeType
 import team.noweekend.core.design.system.core.component.button.fill.NWKFillButton
 import team.noweekend.core.design.system.core.component.button.outline.NWKOutlineButton
 import team.noweekend.core.design.system.core.component.divider.NWKHorizontalDivider
+import team.noweekend.core.design.system.core.component.tabbar.NavigationBarLayout
+import team.noweekend.core.design.system.core.component.tabbar.item.NWKNavigationBarItem
+import team.noweekend.core.resource.NWKDrawableResource
+import team.noweekend.core.resource.NWKStringResource
 
 @Serializable
 data class Example(
@@ -208,10 +214,23 @@ internal object TabBar {
                 name = "TabBar",
                 description = TabBarExampleDescription,
             ) {
-                TextField(
-                    value = "",
-                    onValueChange = {},
-                )
+                val tabs: ImmutableList<String> = persistentListOf("Home", "Calendar", "Profile")
+                val currentTab: String = "Home"
+
+                NavigationBarLayout(
+                    modifier = Modifier.fillMaxWidth(),
+                ) {
+                    tabs.forEach { tab ->
+                        NWKNavigationBarItem(
+                            onClick = {},
+                            isSelected = tab == currentTab,
+                            unselectedIconId = NWKDrawableResource.HomeOff,
+                            selectedIconId = NWKDrawableResource.HomeOn,
+                            labelId = NWKStringResource.LabelHome,
+                            modifier = Modifier,
+                        )
+                    }
+                }
             },
         )
 }
