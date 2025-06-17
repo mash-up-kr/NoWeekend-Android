@@ -1,41 +1,45 @@
-package team.noweekend.navigation
+package team.noweekend.feature.main.navigation
 
-import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hasRoute
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 import team.noweekend.core.navigator.model.DestinationRoute
+import team.noweekend.feature.main.MainTab
 
 @Composable
-internal fun rememberNavigationTabNavController(
+internal fun rememberMainNavigator(
     navController: NavHostController = rememberNavController(),
-): NavigationTabNavController = remember(navController) {
-    NavigationTabNavController(navController)
+): MainNavigator = remember(navController) {
+    MainNavigator(navController)
 }
 
-internal class NavigationTabNavController(
-    private val navController: NavHostController,
+internal class MainNavigator(
+    val navController: NavHostController,
 ) {
-    val startDestination: DestinationRoute = NavigationTab.HOME.route
+    val startDestination: DestinationRoute = MainTab.HOME.route
+    val topLevelDestinations: ImmutableList<MainTab> = MainTab.entries.toImmutableList()
 
-    val currentTab: NavigationTab
+    val currentTab: MainTab?
         @Composable
-        get() = NavigationTab.find { destinationRoute ->
+        get() = MainTab.find { destinationRoute ->
             currentDestination?.hasRoute(destinationRoute::class) == true
-        } ?: NavigationTab.HOME
+        }
 
     private val currentDestination: NavDestination?
         @Composable
         get() = navController.currentBackStackEntryAsState().value?.destination
 
-    fun navigate(tab: NavigationTab) {
+    fun navigate(tab: MainTab) {
         val navOptions = navOptions {
-            popUpTo(navController.graph.id) {
+            popUpTo(navController.graph.findStartDestination().id) {
                 saveState = true
             }
             launchSingleTop = true
@@ -43,9 +47,9 @@ internal class NavigationTabNavController(
         }
 
         when (tab) {
-            NavigationTab.HOME -> navController.navigate(DestinationRoute.Home, navOptions)
-            NavigationTab.CALENDAR -> navController.navigate(DestinationRoute.Calendar, navOptions)
-            NavigationTab.PROFILE -> navController.navigate(DestinationRoute.Profile, navOptions)
+            MainTab.HOME -> navController.navigate(DestinationRoute.Home, navOptions)
+            MainTab.CALENDAR -> navController.navigate(DestinationRoute.Calendar, navOptions)
+            MainTab.PROFILE -> navController.navigate(DestinationRoute.Profile, navOptions)
         }
     }
 

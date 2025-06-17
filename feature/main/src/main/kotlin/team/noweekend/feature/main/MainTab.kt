@@ -1,4 +1,4 @@
-package team.noweekend.navigation
+package team.noweekend.feature.main
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
@@ -7,7 +7,7 @@ import team.noweekend.core.navigator.model.DestinationRoute
 import team.noweekend.core.resource.NWKDrawableResource
 import team.noweekend.core.resource.NWKStringResource
 
-internal enum class NavigationTab(
+internal enum class MainTab(
     @StringRes val labelId: Int,
     @DrawableRes val selectedIconResId: Int,
     @DrawableRes val unselectedIconResId: Int,
@@ -35,7 +35,7 @@ internal enum class NavigationTab(
 
     companion object {
         @Composable
-        fun find(isRouteMatch: @Composable (DestinationRoute) -> Boolean): NavigationTab? {
+        fun find(isRouteMatch: @Composable (DestinationRoute) -> Boolean): MainTab? {
             return entries.find { isRouteMatch(it.route) }
         }
 
