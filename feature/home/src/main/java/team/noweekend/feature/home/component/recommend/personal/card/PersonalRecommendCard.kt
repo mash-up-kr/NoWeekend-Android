@@ -1,4 +1,4 @@
-package team.noweekend.feature.home.component
+package team.noweekend.feature.home.component.recommend.personal.card
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -18,7 +18,7 @@ import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.resource.NWKDrawableResource
 
 @Composable
-internal fun VacationRecommendCard(
+internal fun PersonalRecommendCard(
     onCardClick: () -> Unit,
     imageResId: Int,
     modifier: Modifier = Modifier,
@@ -77,11 +77,11 @@ private fun RowScope.VacationRecommendCardContent(
 
 @Preview
 @Composable
-private fun VacationRecommendCardPreview() {
+private fun PersonalRecommendCardPreview() {
     NWKTheme {
-        VacationRecommendCard(
+        PersonalRecommendCard(
             onCardClick = {},
-            imageResId = NWKDrawableResource.HomeOn,
+            imageResId = NWKDrawableResource.Cake,
         )
     }
 }
