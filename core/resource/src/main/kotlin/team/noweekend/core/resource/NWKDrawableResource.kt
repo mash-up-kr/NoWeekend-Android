@@ -7,5 +7,6 @@ object NWKDrawableResource {
     val HomeOn: Int = R.drawable.icn_home_on
     val PersonOff: Int = R.drawable.icn_person_off
     val PersonOn: Int = R.drawable.icn_person_on
+    val Plus: Int = R.drawable.icn_plus
     val MainToaster: Int = R.drawable.img_main_toaster
 }
