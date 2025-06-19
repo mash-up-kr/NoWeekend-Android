@@ -1,7 +1,6 @@
 package team.noweekend.core.common.ui.calendar.state
 
 import android.util.Log
-import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.runtime.Composable
@@ -152,15 +151,6 @@ class CalendarPagerState(
 
     fun updateCalendarMode(calendarMode: CalendarMode) {
         this.calendarMode.value = calendarMode
-    }
-
-    enum class ImageType(@DrawableRes val id: Int) {
-        NONE(id = R.drawable.ic_day_type_none),
-        FutureSchedule(id = R.drawable.ic_day_type_future_schedule),
-        BurnOut(id = R.drawable.ic_day_type_burnout),
-        Rest(id = R.drawable.ic_day_type_rest),
-        OverZeroUnderFiftyDegree(id = R.drawable.ic_day_type_over_zero_under_fifty_degree),
-        OverFiftyUnderSeventyFive(id = R.drawable.ic_day_type_over_fifty_under_seventy_degree),
     }
 
     enum class Direction {

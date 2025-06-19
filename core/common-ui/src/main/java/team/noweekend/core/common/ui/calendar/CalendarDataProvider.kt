@@ -1,6 +1,7 @@
 package team.noweekend.core.common.ui.calendar
 
 import android.util.Log
+import androidx.annotation.DrawableRes
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.Stable
@@ -22,7 +23,6 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.plus
 import team.noweekend.core.common.ui.calendar.model.DateOfWeek
 import team.noweekend.core.common.ui.calendar.model.WeeksData
-import team.noweekend.core.common.ui.calendar.state.CalendarPagerState.ImageType
 import team.noweekend.core.common.ui.calendar.util.CalendarUtils.firstDayOfMonth
 import team.noweekend.core.common.ui.calendar.util.CalendarUtils.lastDayOfMonth
 import team.noweekend.core.common.ui.calendar.util.CalendarUtils.minusMonths
@@ -33,6 +33,7 @@ import team.noweekend.core.common.ui.calendar.util.CalendarUtils.plusDays
 import team.noweekend.core.common.ui.calendar.util.CalendarUtils.plusMonths
 import team.noweekend.core.common.ui.calendar.util.CalendarUtils.plusWeeks
 import team.noweekend.core.common.ui.calendar.util.CalendarUtils.previousOrSame
+import team.noweekend.core.resource.R
 
 @Composable
 fun rememberCalendarDataProvider(
@@ -267,5 +268,14 @@ class CalendarDataProvider(
     sealed interface CalendarDataProviderEvent {
         data object CompleteInitWeeksCalendar : CalendarDataProviderEvent
         data object CompleteInitMonthCalendar : CalendarDataProviderEvent
+    }
+
+    enum class ImageType(@DrawableRes val id: Int) {
+        NONE(id = R.drawable.ic_day_type_none),
+        FutureSchedule(id = R.drawable.ic_day_type_future_schedule),
+        BurnOut(id = R.drawable.ic_day_type_burnout),
+        Rest(id = R.drawable.ic_day_type_rest),
+        OverZeroUnderFiftyDegree(id = R.drawable.ic_day_type_over_zero_under_fifty_degree),
+        OverFiftyUnderSeventyFive(id = R.drawable.ic_day_type_over_fifty_under_seventy_degree),
     }
 }

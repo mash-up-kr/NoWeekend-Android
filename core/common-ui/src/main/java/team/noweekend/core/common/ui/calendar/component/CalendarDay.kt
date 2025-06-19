@@ -21,8 +21,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import team.noweekend.core.common.ui.calendar.CalendarDataProvider.ImageType
 import team.noweekend.core.common.ui.calendar.model.DateOfWeek
-import team.noweekend.core.common.ui.calendar.state.CalendarPagerState
 import team.noweekend.core.common.ui.calendar.state.CalendarPagerState.CalendarMode
 import team.noweekend.core.common.ui.calendar.util.CalendarUtils.now
 
@@ -95,13 +95,13 @@ private fun PreviewCalendarDay() {
         val targetDate = now()
         val date = DateOfWeek(
             localDate = targetDate,
-            imageType = CalendarPagerState.ImageType.NONE,
+            imageType = ImageType.NONE,
         )
         CalendarDay(
             dateOfWeek = date,
             isSelectedDay = true,
             isCurrentMonth = true,
-            calendarMode = CalendarPagerState.CalendarMode.WEEK,
+            calendarMode = CalendarMode.WEEK,
         )
     }
 }
