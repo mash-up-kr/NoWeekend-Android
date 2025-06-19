@@ -16,12 +16,23 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import kotlinx.datetime.DateTimeUnit
+import kotlinx.datetime.DayOfWeek
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.plus
 import team.noweekend.core.common.ui.calendar.model.DateOfWeek
 import team.noweekend.core.common.ui.calendar.model.WeeksData
 import team.noweekend.core.common.ui.calendar.state.CalendarPagerState.ImageType
-import java.time.DayOfWeek
-import java.time.LocalDate
-import java.time.temporal.TemporalAdjusters
+import team.noweekend.core.common.ui.calendar.util.CalendarUtils.firstDayOfMonth
+import team.noweekend.core.common.ui.calendar.util.CalendarUtils.lastDayOfMonth
+import team.noweekend.core.common.ui.calendar.util.CalendarUtils.minusMonths
+import team.noweekend.core.common.ui.calendar.util.CalendarUtils.minusWeeks
+import team.noweekend.core.common.ui.calendar.util.CalendarUtils.nextOrSame
+import team.noweekend.core.common.ui.calendar.util.CalendarUtils.now
+import team.noweekend.core.common.ui.calendar.util.CalendarUtils.plusDays
+import team.noweekend.core.common.ui.calendar.util.CalendarUtils.plusMonths
+import team.noweekend.core.common.ui.calendar.util.CalendarUtils.plusWeeks
+import team.noweekend.core.common.ui.calendar.util.CalendarUtils.previousOrSame
 
 @Composable
 fun rememberCalendarDataProvider(
@@ -39,7 +50,7 @@ class CalendarDataProvider(
     private val coroutineScope: CoroutineScope,
 ) {
 
-    private val _targetDate: MutableState<LocalDate> = mutableStateOf(LocalDate.now())
+    private val _targetDate: MutableState<LocalDate> = mutableStateOf(now())
 
     val targetDate: State<LocalDate> = _targetDate
 
@@ -51,15 +62,11 @@ class CalendarDataProvider(
     val calendarDataProviderEventFlow: Flow<CalendarDataProviderEvent> =
         _calendarDataProviderEventChannel.receiveAsFlow()
 
-    private val currentWeekMonday: LocalDate = _targetDate.value.with(
-        TemporalAdjusters.previousOrSame(
-            DayOfWeek.MONDAY,
-        ),
+    private val currentWeekMonday: LocalDate = _targetDate.value.previousOrSame(
+        DayOfWeek.MONDAY,
     )
 
-    private val currentMonthStart: LocalDate = _targetDate.value.with(
-        TemporalAdjusters.firstDayOfMonth(),
-    )
+    private val currentMonthStart: LocalDate = _targetDate.value.firstDayOfMonth()
 
     val weeksData: SnapshotStateList<WeeksData> = mutableListOf(
         getWeekDates(startedMonday = currentWeekMonday.minusWeeks(1)),
@@ -79,9 +86,9 @@ class CalendarDataProvider(
     private fun getWeekDates(startedMonday: LocalDate): WeeksData {
         return WeeksData(
             year = startedMonday.year,
-            month = startedMonday.monthValue,
+            month = startedMonday.monthNumber,
             dateOfWeeks = (0..6).map { day: Int ->
-                val localDate: LocalDate = startedMonday.plusDays(day.toLong())
+                val localDate: LocalDate = startedMonday.plusDays(day)
                 DateOfWeek(
                     imageType = ImageType.entries.random(), // Todo 이미지 로직
                     localDate = localDate,
@@ -95,9 +102,7 @@ class CalendarDataProvider(
      * 주 캘린더 데이터 초기화
      */
     fun initWeekCalendar() {
-        val targetWeekMonday: LocalDate = _targetDate.value.with(
-            TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY),
-        )
+        val targetWeekMonday: LocalDate = _targetDate.value.previousOrSame(DayOfWeek.MONDAY)
 
         weeksData[0] = getWeekDates(startedMonday = targetWeekMonday.minusWeeks(1))
         weeksData[1] = getWeekDates(startedMonday = targetWeekMonday)
@@ -143,7 +148,7 @@ class CalendarDataProvider(
      */
     fun initMonthCalendar(index: Int) {
         val weekData: WeeksData = weeksData[index]
-        val localDate: LocalDate = LocalDate.of(
+        val localDate: LocalDate = LocalDate(
             weekData.year,
             weekData.month,
             1,
@@ -190,37 +195,35 @@ class CalendarDataProvider(
         /**
          * 주어진 월의 첫 날
          */
-        val firstDayOfMonth: LocalDate = monthStart.with(TemporalAdjusters.firstDayOfMonth())
+        val firstDayOfMonth: LocalDate = monthStart.firstDayOfMonth()
 
         /**
          * 주어진 월의 첫 날이 포함된 주의 월요일
          */
-        val firstMondayOfWeekContainingFirstDay: LocalDate = firstDayOfMonth.with(
-            TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY),
-        )
+        val firstMondayOfWeekContainingFirstDay: LocalDate = firstDayOfMonth.previousOrSame(DayOfWeek.MONDAY)
 
         /**
          * 주어진 월의 마지막 날
          */
-        val monthEnd: LocalDate = monthStart.with(TemporalAdjusters.lastDayOfMonth())
+        val monthEnd: LocalDate = monthStart.lastDayOfMonth()
 
         /**
          * 주어진 월의 마지막 날이 포함된 주의 일요일
          */
-        val lastSundayOfWeekContainingLastDay: LocalDate = monthEnd.with(
-            TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY),
-        )
+        val lastSundayOfWeekContainingLastDay: LocalDate = monthEnd.nextOrSame(DayOfWeek.SUNDAY)
 
         /**
          * 주어진 월의 첫 날이 포함된 주의 월요일 부터 마지막 날이 포함된 주의 일요일 까지의 일 수
          */
-        val daysInPeriod: Long =
-            lastSundayOfWeekContainingLastDay.toEpochDay() - firstMondayOfWeekContainingFirstDay.toEpochDay() + 1
+        val daysInPeriod: Int = generateSequence(firstMondayOfWeekContainingFirstDay) { localDate ->
+            localDate.plus(1, DateTimeUnit.DAY)
+        }.takeWhile { it <= lastSundayOfWeekContainingLastDay }
+            .count()
 
         return WeeksData(
             year = monthStart.year,
-            month = monthStart.monthValue,
-            dateOfWeeks = (0 until daysInPeriod).map { day: Long ->
+            month = monthStart.monthNumber,
+            dateOfWeeks = (0 until daysInPeriod).map { day: Int ->
                 val localDate: LocalDate = firstMondayOfWeekContainingFirstDay.plusDays(day)
                 DateOfWeek(
                     imageType = ImageType.entries.random(), // Todo 이미지 로직
@@ -240,7 +243,7 @@ class CalendarDataProvider(
         val currentMonth: Int = monthData[index].month
         val currentMonthLocalDateOfWeek: DateOfWeek =
             monthData[index].dateOfWeeks.flatten().first { dateOfWeek: DateOfWeek ->
-                dateOfWeek.localDate.monthValue == currentMonth
+                dateOfWeek.localDate.monthNumber == currentMonth
             }
         return currentMonthLocalDateOfWeek.localDate
     }

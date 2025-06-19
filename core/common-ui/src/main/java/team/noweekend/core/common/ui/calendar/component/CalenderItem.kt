@@ -7,10 +7,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
+import kotlinx.datetime.LocalDate
 import team.noweekend.core.common.ui.calendar.model.DateOfWeek
 import team.noweekend.core.common.ui.calendar.model.WeeksData
 import team.noweekend.core.common.ui.calendar.state.CalendarPagerState
-import java.time.LocalDate
 
 @Composable
 internal fun CalendarItem(
@@ -32,7 +32,7 @@ internal fun CalendarItem(
                                 modifier = Modifier.weight(1f),
                                 dateOfWeek = dateOfWeek,
                                 isSelectedDay = dateOfWeek.localDate == targetDate.value,
-                                isCurrentMonth = dateOfWeek.localDate.monthValue == dataList.month,
+                                isCurrentMonth = dateOfWeek.localDate.monthNumber == dataList.month,
                                 calendarMode = calendarMode,
                                 onClickDateOfWeek = onClickDateOfWeek,
                             )

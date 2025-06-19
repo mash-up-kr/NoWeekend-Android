@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import team.noweekend.core.common.ui.calendar.model.DateOfWeek
 import team.noweekend.core.common.ui.calendar.state.CalendarPagerState
 import team.noweekend.core.common.ui.calendar.state.CalendarPagerState.CalendarMode
-import java.time.LocalDate
+import team.noweekend.core.common.ui.calendar.util.CalendarUtils.now
 
 @Composable
 internal fun CalendarDay(
@@ -92,7 +92,7 @@ internal fun CalendarDay(
 @Composable
 private fun PreviewCalendarDay() {
     MaterialTheme {
-        val targetDate = LocalDate.now()
+        val targetDate = now()
         val date = DateOfWeek(
             localDate = targetDate,
             imageType = CalendarPagerState.ImageType.NONE,
