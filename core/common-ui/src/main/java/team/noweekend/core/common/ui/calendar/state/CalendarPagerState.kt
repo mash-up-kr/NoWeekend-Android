@@ -33,7 +33,7 @@ class CalendarPagerState(
 
     var calendarMode: MutableStateFlow<CalendarMode> = MutableStateFlow(CalendarMode.WEEK)
 
-    var dataSize = 3
+    val dataSize = 3
 
     private val TAG = "CalendarState"
 
