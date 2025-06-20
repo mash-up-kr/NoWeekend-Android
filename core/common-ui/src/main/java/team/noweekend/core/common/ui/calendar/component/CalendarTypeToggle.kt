@@ -193,7 +193,9 @@ private fun PreviewCalendarTypeToggle() {
                 onClickToggle = {
                     currentCalendarMode = if (currentCalendarMode == CalendarMode.WEEK) {
                         CalendarMode.MONTH
-                    } else CalendarMode.WEEK
+                    } else {
+                        CalendarMode.WEEK
+                    }
                 },
             )
         }
