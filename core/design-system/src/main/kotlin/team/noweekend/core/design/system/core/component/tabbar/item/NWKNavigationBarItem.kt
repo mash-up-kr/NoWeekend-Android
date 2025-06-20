@@ -17,7 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.emptyFlow
 import team.noweekend.core.design.system.core.component.tabbar.item.defaults.NWKNavigationBarItemDefaults
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 
@@ -60,7 +60,7 @@ fun RowScope.NWKNavigationBarItem(
 }
 
 internal object NoRippleInteractionSource : MutableInteractionSource {
-    override val interactions: Flow<Interaction> = flowOf()
+    override val interactions: Flow<Interaction> = emptyFlow()
 
     override suspend fun emit(interaction: Interaction) = Unit
 
