@@ -1,6 +1,8 @@
 package team.noweekend.catalog.model
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,8 +14,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.serialization.Serializable
+import team.noweekend.core.common.android.extension.fillMaxWidthOfScreen
 import team.noweekend.core.design.system.core.component.button.defaults.BoxButtonType
 import team.noweekend.core.design.system.core.component.button.defaults.ButtonSizeType
 import team.noweekend.core.design.system.core.component.button.fill.NWKFillButton
@@ -21,6 +24,7 @@ import team.noweekend.core.design.system.core.component.button.outline.NWKOutlin
 import team.noweekend.core.design.system.core.component.divider.NWKHorizontalDivider
 import team.noweekend.core.design.system.core.component.tabbar.NWKNavigationBarItem
 import team.noweekend.core.design.system.core.component.tabbar.NavigationBarLayout
+import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.resource.NWKDrawableResource
 import team.noweekend.core.resource.NWKStringResource
 
@@ -214,25 +218,55 @@ internal object TabBar {
                 name = "TabBar",
                 description = TabBarExampleDescription,
             ) {
-                val tabs: ImmutableList<String> = persistentListOf("Home", "Calendar", "Profile")
-                val currentTab: String = "Home"
-
-                NavigationBarLayout(
-                    modifier = Modifier.fillMaxWidth(),
+                val tabs: ImmutableList<ExampleTab> = ExampleTab.entries.toImmutableList()
+                val currentTab: ExampleTab = ExampleTab.HOME
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidthOfScreen()
+                        .fillMaxSize()
+                        .background(NWKTheme.color.Neutral.neutralGray100),
+                    contentAlignment = Alignment.BottomCenter
                 ) {
-                    tabs.forEach { tab ->
-                        NWKNavigationBarItem(
-                            onClick = {},
-                            isSelected = tab == currentTab,
-                            unselectedIconId = NWKDrawableResource.HomeOff,
-                            selectedIconId = NWKDrawableResource.HomeOn,
-                            labelId = NWKStringResource.LabelHome,
-                            modifier = Modifier,
-                        )
+                    NavigationBarLayout(
+                        modifier = Modifier.fillMaxWidth(),
+                    ) {
+                        tabs.forEach { tab ->
+                            NWKNavigationBarItem(
+                                onClick = {},
+                                isSelected = tab == currentTab,
+                                unselectedIconId = tab.unselectedIconResId,
+                                selectedIconId = tab.selectedIconResId,
+                                labelId = tab.labelId,
+                                modifier = Modifier,
+                            )
+                        }
                     }
                 }
             },
         )
+
+    enum class ExampleTab(
+        val labelId: Int,
+        val selectedIconResId: Int,
+        val unselectedIconResId: Int,
+    ) {
+        HOME(
+            labelId = NWKStringResource.LabelHome,
+            selectedIconResId = NWKDrawableResource.HomeOn,
+            unselectedIconResId = NWKDrawableResource.HomeOff,
+        ),
+        CALENDAR(
+            labelId = NWKStringResource.LabelCalendar,
+            selectedIconResId = NWKDrawableResource.CalendarOn,
+            unselectedIconResId = NWKDrawableResource.CalendarOff,
+        ),
+        PROFILE(
+            labelId = NWKStringResource.LabelProfile,
+            selectedIconResId = NWKDrawableResource.PersonOn,
+            unselectedIconResId = NWKDrawableResource.PersonOff,
+        ),
+        ;
+    }
 }
 
 internal object BottomSheet {
