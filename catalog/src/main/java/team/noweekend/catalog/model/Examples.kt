@@ -225,7 +225,7 @@ internal object TabBar {
                         .fillMaxWidthOfScreen()
                         .fillMaxSize()
                         .background(NWKTheme.color.Neutral.neutralGray100),
-                    contentAlignment = Alignment.BottomCenter
+                    contentAlignment = Alignment.BottomCenter,
                 ) {
                     NavigationBarLayout(
                         modifier = Modifier.fillMaxWidth(),
