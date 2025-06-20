@@ -16,6 +16,7 @@ import team.noweekend.core.common.ui.calendar.CalendarDataProvider.CalendarDataP
 import team.noweekend.core.common.ui.calendar.component.CalendarItem
 import team.noweekend.core.common.ui.calendar.component.CalendarTypeToggle
 import team.noweekend.core.common.ui.calendar.component.DayOfWeekBar
+import team.noweekend.core.common.ui.calendar.model.WeeksData
 import team.noweekend.core.common.ui.calendar.rememberCalendarDataProvider
 import team.noweekend.core.common.ui.calendar.state.CalendarPagerState
 import team.noweekend.core.common.ui.calendar.state.CalendarPagerState.CalendarMode
@@ -51,7 +52,9 @@ fun NWKCalender(
         when (mode) {
             CalendarMode.WEEK -> {
                 LaunchedEffect(Unit) {
-                    calendarDataProvider.initWeekCalendar()
+                    calendarDataProvider.initWeekCalendar(
+                        initPage = calendarPagerState.initialPage,
+                    )
                 }
                 LaunchedEffect(calendarPagerState.weekPagerState.currentPage) {
                     val currentPage = calendarPagerState.weekPagerState.currentPage
@@ -67,8 +70,7 @@ fun NWKCalender(
                     modifier = Modifier.fillMaxWidth(),
                 ) { page ->
 
-                    val index = page % calendarPagerState.dataSize
-                    val weekDates = calendarDataProvider.weeksData[index]
+                    val weekDates = calendarDataProvider.weeksData[page] ?: WeeksData.default
 
                     CalendarItem(
                         dataList = weekDates,
@@ -81,7 +83,7 @@ fun NWKCalender(
 
             CalendarMode.MONTH -> {
                 LaunchedEffect(Unit) {
-                    calendarDataProvider.initMonthCalendar(calendarPagerState.weekPagerState.currentPage % 3)
+                    calendarDataProvider.initMonthCalendar(page = calendarPagerState.initialPage)
                 }
 
                 LaunchedEffect(calendarPagerState.monthPagerState.currentPage) {
@@ -96,8 +98,7 @@ fun NWKCalender(
                     modifier = Modifier.fillMaxWidth(),
                 ) { page ->
 
-                    val index = page % calendarPagerState.dataSize
-                    val dataList = calendarDataProvider.monthData[index]
+                    val dataList = calendarDataProvider.monthData[page] ?: WeeksData.default
 
                     CalendarItem(
                         dataList = dataList,
@@ -119,7 +120,9 @@ private fun PreviewCalendar() {
 
     NWKTheme {
         Column(
-            modifier = Modifier.fillMaxSize().background(color = NWKTheme.color.Neutral.white),
+            modifier = Modifier
+                .fillMaxSize()
+                .background(color = NWKTheme.color.Neutral.white),
         ) {
             CalendarTypeToggle(
                 modifier = Modifier.align(Alignment.End),
@@ -129,7 +132,7 @@ private fun PreviewCalendar() {
                         calendarPagerState.updateCalendarMode(calendarMode = CalendarMode.MONTH)
                     } else {
                         calendarPagerState.updateCalendarMode(calendarMode = CalendarMode.WEEK)
-                        calendarDataProvider.initWeekCalendar()
+                        calendarDataProvider.initWeekCalendar(initPage = calendarPagerState.initialPage)
                         calendarPagerState.scrollToInitialWeekPage()
                     }
                 },
