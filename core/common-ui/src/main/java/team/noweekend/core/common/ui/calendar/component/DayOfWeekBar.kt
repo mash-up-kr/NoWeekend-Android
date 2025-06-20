@@ -46,8 +46,7 @@ private fun DayOfWeekBarContent(
 @Preview
 @Composable
 private fun PreviewDayOfWeekBar() {
-    NWKTheme{
+    NWKTheme {
         DayOfWeekBar()
     }
-
 }
