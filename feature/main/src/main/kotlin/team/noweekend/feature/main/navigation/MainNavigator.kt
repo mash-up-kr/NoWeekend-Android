@@ -1,6 +1,7 @@
 package team.noweekend.feature.main.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hasRoute
@@ -24,6 +25,7 @@ internal fun rememberMainNavigator(
     MainNavigator(navController)
 }
 
+@Stable
 internal class MainNavigator(
     val navController: NavHostController,
 ) {
