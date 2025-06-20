@@ -33,11 +33,9 @@ class CalendarPagerState(
 
     var calendarMode: MutableStateFlow<CalendarMode> = MutableStateFlow(CalendarMode.WEEK)
 
-    val dataSize = 3
-
     private val TAG = "CalendarState"
 
-    private val initialPage = (Int.MAX_VALUE / 2) - (Int.MAX_VALUE / 2 % dataSize) + 1
+    val initialPage = Int.MAX_VALUE / 2 + 1
     private val maxPageCount = Int.MAX_VALUE
 
     val weekPagerState: PagerState = PagerState(
@@ -63,15 +61,13 @@ class CalendarPagerState(
      */
     fun updateWeekCalendar(
         currentPage: Int,
-        updatePreviousWeekPage: (Int, Int) -> Unit = { _, _ -> },
-        updateNextWeekPage: (Int, Int) -> Unit = { _, _ -> },
+        updatePreviousWeekPage: (Int) -> Unit = { _ -> },
+        updateNextWeekPage: (Int) -> Unit = { _ -> },
     ) {
         checkPageValid(currentPage)
         val localPreviousPage = previousWeekPage.lastOrNull() ?: currentPage
-        val currentIndex = currentPage % dataSize
 
-        val nextIndex = (currentPage + 1) % dataSize
-        val prevIndex = (currentPage - 1) % dataSize
+        println("currentPage = $currentPage ")
 
         previousWeekPage.add(currentPage)
         if (previousWeekPage.size > 2) previousWeekPage.removeAt(0)
@@ -80,15 +76,13 @@ class CalendarPagerState(
 
         when (direction) {
             Direction.Previous -> {
-                log("Moved to previous week. ")
-                log("CurrentIndex: $currentIndex, Updated prevIndex $prevIndex")
-                updatePreviousWeekPage(currentIndex, prevIndex)
+                log("Moved to previous week.")
+                updatePreviousWeekPage(currentPage)
             }
 
             Direction.Next -> {
-                log("Moved to next week. ")
-                log("CurrentIndex: $currentIndex, Updated nextIndex $nextIndex")
-                updateNextWeekPage(currentIndex, nextIndex)
+                log("Moved to next week.")
+                updateNextWeekPage(currentPage)
             }
 
             Direction.Same -> {}
@@ -109,32 +103,26 @@ class CalendarPagerState(
 
     fun updateMonthCalendar(
         currentPage: Int,
-        updateNextMonthPage: (Int, Int) -> Unit = { _, _ -> },
-        updatePreviousMonthPage: (Int, Int) -> Unit = { _, _ -> },
+        updateNextMonthPage: (Int) -> Unit = { _ -> },
+        updatePreviousMonthPage: (Int) -> Unit = { _ -> },
     ) {
         checkPageValid(currentPage)
-        val currentIndex = currentPage % dataSize
 
-        val localPreviousPage = previousMonthPage.lastOrNull() ?: currentIndex
+        val localPreviousPage = previousMonthPage.lastOrNull() ?: currentPage
 
-        val nextIndex = (currentPage + 1) % dataSize
-        val prevIndex = (currentPage - 1) % dataSize
-
-        previousMonthPage.add(currentIndex)
+        previousMonthPage.add(currentPage)
         if (previousMonthPage.size > 2) previousMonthPage.removeAt(0)
 
-        val direction = detectDirection(localPreviousPage, currentIndex)
+        val direction = detectDirection(localPreviousPage, currentPage)
         when (direction) {
             Direction.Previous -> {
                 log("Moved to previous month")
-                log("CurrentIndex: $currentIndex, Updated prevIndex $prevIndex")
-                updatePreviousMonthPage(currentIndex, prevIndex)
+                updatePreviousMonthPage(currentPage)
             }
 
             Direction.Next -> {
                 log("Moved to next month.")
-                log("CurrentIndex: $currentIndex, Updated nextIndex $nextIndex")
-                updateNextMonthPage(currentIndex, nextIndex)
+                updateNextMonthPage(currentPage)
             }
 
             Direction.Same -> {
