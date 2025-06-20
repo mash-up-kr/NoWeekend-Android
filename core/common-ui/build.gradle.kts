@@ -10,6 +10,8 @@ android {
 dependencies {
     implementation(project(":core:common-android"))
     implementation(project(":core:common-kotlin"))
+    implementation(project(":core:design-system"))
+    implementation(project(":core:resource"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
