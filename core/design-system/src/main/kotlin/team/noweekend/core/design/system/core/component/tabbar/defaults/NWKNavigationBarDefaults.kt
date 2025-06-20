@@ -1,4 +1,4 @@
-package team.noweekend.core.design.system.core.component.tabbar
+package team.noweekend.core.design.system.core.component.tabbar.defaults
 
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides

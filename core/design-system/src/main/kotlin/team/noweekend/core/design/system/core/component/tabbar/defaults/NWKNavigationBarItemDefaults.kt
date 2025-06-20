@@ -1,4 +1,4 @@
-package team.noweekend.core.design.system.core.component.tabbar.item.defaults
+package team.noweekend.core.design.system.core.component.tabbar.defaults
 
 import androidx.compose.material3.NavigationBarItemColors
 import androidx.compose.runtime.Composable
