@@ -92,7 +92,7 @@ internal fun CalendarDay(
 @Preview
 @Composable
 private fun PreviewCalendarDay() {
-    MaterialTheme {
+    NWKTheme {
         val targetDate = now()
         val date = DateOfWeek(
             localDate = targetDate,

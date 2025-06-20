@@ -178,7 +178,7 @@ private fun CalendarTypeToggleBackground(
 @Preview
 @Composable
 private fun PreviewCalendarTypeToggle() {
-    MaterialTheme {
+    NWKTheme {
         Column {
             val currentCalendarMode = remember { mutableStateOf(CalendarMode.WEEK) }
             CalendarTypeToggle(

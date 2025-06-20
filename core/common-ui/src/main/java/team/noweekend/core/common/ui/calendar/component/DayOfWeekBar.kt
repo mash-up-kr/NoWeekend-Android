@@ -9,6 +9,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import team.noweekend.core.common.ui.calendar.model.Day
+import team.noweekend.core.design.system.foundation.theme.NWKTheme
 
 @Composable
 internal fun DayOfWeekBar(
@@ -45,5 +46,8 @@ private fun DayOfWeekBarContent(
 @Preview
 @Composable
 private fun PreviewDayOfWeekBar() {
-    DayOfWeekBar()
+    NWKTheme{
+        DayOfWeekBar()
+    }
+
 }

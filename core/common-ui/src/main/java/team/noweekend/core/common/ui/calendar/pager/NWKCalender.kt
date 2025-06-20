@@ -118,7 +118,7 @@ private fun PreviewCalendar() {
     val calendarDataProvider = rememberCalendarDataProvider()
     val calendarPagerState = rememberCalendarPagerState()
 
-    MaterialTheme {
+    NWKTheme {
         Column(
             modifier = Modifier.fillMaxSize().background(color = NWKTheme.color.Neutral.white),
         ) {
