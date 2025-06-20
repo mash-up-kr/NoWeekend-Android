@@ -20,7 +20,7 @@ import team.noweekend.core.design.system.core.component.button.fill.NWKFillButto
 import team.noweekend.core.design.system.core.component.button.outline.NWKOutlineButton
 import team.noweekend.core.design.system.core.component.divider.NWKHorizontalDivider
 import team.noweekend.core.design.system.core.component.tabbar.NavigationBarLayout
-import team.noweekend.core.design.system.core.component.tabbar.item.NWKNavigationBarItem
+import team.noweekend.core.design.system.core.component.tabbar.NWKNavigationBarItem
 import team.noweekend.core.resource.NWKDrawableResource
 import team.noweekend.core.resource.NWKStringResource
 

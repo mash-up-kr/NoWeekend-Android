@@ -1,4 +1,4 @@
-package team.noweekend.core.design.system.core.component.tabbar.item
+package team.noweekend.core.design.system.core.component.tabbar
 
 import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -18,7 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
-import team.noweekend.core.design.system.core.component.tabbar.item.defaults.NWKNavigationBarItemDefaults
+import team.noweekend.core.design.system.core.component.tabbar.defaults.NWKNavigationBarItemDefaults
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 
 @Composable
