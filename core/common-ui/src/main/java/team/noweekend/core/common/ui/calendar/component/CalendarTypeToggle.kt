@@ -23,9 +23,10 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -47,7 +48,7 @@ import kotlin.math.roundToInt
 @Composable
 fun CalendarTypeToggle(
     modifier: Modifier = Modifier,
-    currentCalendarMode: State<CalendarMode> = remember { mutableStateOf(CalendarMode.WEEK) },
+    currentCalendarMode: CalendarMode = CalendarMode.WEEK,
     onToggleStateChanged: (Boolean) -> Unit = {},
     onClickToggle: () -> Unit = {},
 ) {
@@ -60,7 +61,7 @@ fun CalendarTypeToggle(
 
     val anchoredDraggableState = remember {
         AnchoredDraggableState(
-            initialValue = if (currentCalendarMode.value == CalendarMode.WEEK) {
+            initialValue = if (currentCalendarMode == CalendarMode.WEEK) {
                 CalendarMode.WEEK
             } else {
                 CalendarMode.MONTH
@@ -72,10 +73,10 @@ fun CalendarTypeToggle(
         )
     }
 
-    LaunchedEffect(currentCalendarMode.value) {
-        if (currentCalendarMode.value != anchoredDraggableState.currentValue) {
+    LaunchedEffect(currentCalendarMode) {
+        if (currentCalendarMode != anchoredDraggableState.currentValue) {
             anchoredDraggableState.animateTo(
-                if (currentCalendarMode.value == CalendarMode.WEEK) CalendarMode.WEEK else CalendarMode.MONTH,
+                if (currentCalendarMode == CalendarMode.WEEK) CalendarMode.WEEK else CalendarMode.MONTH,
             )
         }
     }
@@ -118,7 +119,7 @@ private fun CalendarTypeToggleThumb(
     anchoredDraggableState: AnchoredDraggableState<CalendarMode>,
     modifier: Modifier = Modifier,
     thumbSize: Dp = 32.dp,
-    currentCalendarMode: State<CalendarMode> = remember { mutableStateOf(CalendarMode.WEEK) },
+    currentCalendarMode: CalendarMode = CalendarMode.WEEK,
 ) {
     Row(modifier = modifier) {
         Box(
@@ -138,7 +139,7 @@ private fun CalendarTypeToggleThumb(
             contentAlignment = Alignment.Center,
         ) {
             Text(
-                text = stringResource(id = currentCalendarMode.value.id),
+                text = stringResource(id = currentCalendarMode.id),
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold,
             )
@@ -179,19 +180,20 @@ private fun CalendarTypeToggleBackground(
 private fun PreviewCalendarTypeToggle() {
     NWKTheme {
         Column {
-            val currentCalendarMode = remember { mutableStateOf(CalendarMode.WEEK) }
+            var currentCalendarMode by remember { mutableStateOf(CalendarMode.WEEK) }
             CalendarTypeToggle(
                 currentCalendarMode = currentCalendarMode,
                 onToggleStateChanged = { isMonth ->
                     if (isMonth) {
-                        currentCalendarMode.value = CalendarMode.MONTH
+                        currentCalendarMode = CalendarMode.MONTH
                     } else {
-                        currentCalendarMode.value = CalendarMode.WEEK
+                        currentCalendarMode = CalendarMode.WEEK
                     }
                 },
                 onClickToggle = {
-                    currentCalendarMode.value =
-                        if (currentCalendarMode.value == CalendarMode.WEEK) CalendarMode.MONTH else CalendarMode.WEEK
+                    currentCalendarMode = if (currentCalendarMode == CalendarMode.WEEK) {
+                        CalendarMode.MONTH
+                    } else CalendarMode.WEEK
                 },
             )
         }

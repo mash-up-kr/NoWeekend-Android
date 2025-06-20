@@ -117,6 +117,7 @@ fun NWKCalender(
 private fun PreviewCalendar() {
     val calendarDataProvider = rememberCalendarDataProvider()
     val calendarPagerState = rememberCalendarPagerState()
+    val calendarMode by calendarPagerState.calendarMode.collectAsState()
 
     NWKTheme {
         Column(
@@ -126,7 +127,7 @@ private fun PreviewCalendar() {
         ) {
             CalendarTypeToggle(
                 modifier = Modifier.align(Alignment.End),
-                currentCalendarMode = calendarPagerState.calendarMode.collectAsState(),
+                currentCalendarMode = calendarMode,
                 onToggleStateChanged = { isMonth ->
                     if (isMonth) {
                         calendarPagerState.updateCalendarMode(calendarMode = CalendarMode.MONTH)
