@@ -4,6 +4,7 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.Month
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.minus
 import kotlinx.datetime.number
@@ -56,11 +57,7 @@ object CalendarUtils {
     }
 
     private fun Int.monthLength(isLeapYear: Boolean): Int {
-        return when (this) {
-            2 -> if (isLeapYear) 29 else 28
-            4, 6, 9, 11 -> 30
-            else -> 31
-        }
+        return Month.of(this).length(isLeapYear)
     }
 
     private fun isLeapYear(year: Int): Boolean {
