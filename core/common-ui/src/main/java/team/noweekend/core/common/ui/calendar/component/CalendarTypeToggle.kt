@@ -162,7 +162,7 @@ private fun CalendarTypeToggleBackground(
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
-            color = NWKTheme.color.Semantic.Text.disabled
+            color = NWKTheme.color.Semantic.Text.disabled,
         )
         Text(
             modifier = Modifier.weight(1f),
@@ -170,7 +170,7 @@ private fun CalendarTypeToggleBackground(
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
-            color = NWKTheme.color.Semantic.Text.disabled
+            color = NWKTheme.color.Semantic.Text.disabled,
         )
     }
 }
@@ -183,7 +183,7 @@ private fun PreviewCalendarTypeToggle() {
             val currentCalendarMode = remember { mutableStateOf(CalendarMode.WEEK) }
             CalendarTypeToggle(
                 currentCalendarMode = currentCalendarMode,
-                onToggleStateChanged = { isMonth->
+                onToggleStateChanged = { isMonth ->
                     if (isMonth) {
                         currentCalendarMode.value = CalendarMode.MONTH
                     } else {

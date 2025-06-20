@@ -18,7 +18,7 @@ sealed interface Day {
         @StringRes get
 
     val color: Color
-        @Composable get () = NWKTheme.color.Neutral.neutralGray600
+        @Composable get() = NWKTheme.color.Neutral.neutralGray600
 
     data class Sunday(
         override val dayId: DayOfWeek = DayOfWeek.SUNDAY,
