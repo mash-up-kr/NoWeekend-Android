@@ -1,3 +1,4 @@
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -20,6 +21,7 @@ import team.noweekend.core.common.ui.calendar.rememberCalendarDataProvider
 import team.noweekend.core.common.ui.calendar.state.CalendarPagerState
 import team.noweekend.core.common.ui.calendar.state.CalendarPagerState.CalendarMode
 import team.noweekend.core.common.ui.calendar.state.rememberCalendarPagerState
+import team.noweekend.core.design.system.foundation.theme.NWKTheme
 
 @Composable
 fun NWKCalender(
@@ -118,7 +120,7 @@ private fun PreviewCalendar() {
 
     MaterialTheme {
         Column(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxSize().background(color = NWKTheme.color.Neutral.white),
         ) {
             CalendarTypeToggle(
                 modifier = Modifier.align(Alignment.End),

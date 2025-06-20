@@ -25,6 +25,7 @@ import team.noweekend.core.common.ui.calendar.CalendarDataProvider.ImageType
 import team.noweekend.core.common.ui.calendar.model.DateOfWeek
 import team.noweekend.core.common.ui.calendar.state.CalendarPagerState.CalendarMode
 import team.noweekend.core.common.ui.calendar.util.CalendarUtils.now
+import team.noweekend.core.design.system.foundation.theme.NWKTheme
 
 @Composable
 internal fun CalendarDay(
@@ -58,7 +59,7 @@ internal fun CalendarDay(
                 .size(41.dp)
                 .padding(4.5.dp)
                 .background(
-                    if (isSelectedDay) Color(0xFFFFEAE0) else Color.Transparent,
+                    color = if (isSelectedDay) NWKTheme.color.Toast.toast100 else Color.Transparent,
                     shape = CircleShape,
                 ),
             verticalAlignment = Alignment.CenterVertically,
@@ -67,9 +68,9 @@ internal fun CalendarDay(
             Text(
                 text = dateOfWeek.localDate.dayOfMonth.toString(),
                 color = if (isSelectedDay) {
-                    Color(0xFFD64000)
+                    NWKTheme.color.Toast.toast700
                 } else {
-                    Color(0xFF333333)
+                    NWKTheme.color.Neutral.neutralGray900
                 },
                 textAlign = TextAlign.Center,
             )

@@ -42,6 +42,7 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import team.noweekend.core.common.ui.calendar.state.CalendarPagerState.CalendarMode
+import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import kotlin.math.roundToInt
 
 @Composable
@@ -89,7 +90,7 @@ fun CalendarTypeToggle(
             .width(width)
             .height(height)
             .clip(CircleShape)
-            .background(color = Color.LightGray)
+            .background(color = NWKTheme.color.Neutral.neutralGray200)
             .padding(thumbPadding)
             .anchoredDraggable(
                 state = anchoredDraggableState,
@@ -161,7 +162,7 @@ private fun CalendarTypeToggleBackground(
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
-            color = Color.Gray,
+            color = NWKTheme.color.Semantic.Text.disabled
         )
         Text(
             modifier = Modifier.weight(1f),
@@ -169,7 +170,7 @@ private fun CalendarTypeToggleBackground(
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
-            color = Color.Gray,
+            color = NWKTheme.color.Semantic.Text.disabled
         )
     }
 }
@@ -182,8 +183,8 @@ private fun PreviewCalendarTypeToggle() {
             val currentCalendarMode = remember { mutableStateOf(CalendarMode.WEEK) }
             CalendarTypeToggle(
                 currentCalendarMode = currentCalendarMode,
-                onToggleStateChanged = {
-                    if (it) {
+                onToggleStateChanged = { isMonth->
+                    if (isMonth) {
                         currentCalendarMode.value = CalendarMode.MONTH
                     } else {
                         currentCalendarMode.value = CalendarMode.WEEK
