@@ -12,8 +12,11 @@ import androidx.compose.ui.graphics.DefaultAlpha
 import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.graphics.drawscope.DrawScope.Companion.DefaultFilterQuality
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
@@ -49,9 +52,9 @@ fun NWKNetworkImage(
     model: Any?,
     modifier: Modifier = Modifier,
     contentDescription: String? = null,
-    placeholder: Painter? = null,
-    error: Painter? = null,
-    fallback: Painter? = error,
+    @DrawableRes placeholderResId: Int? = null,
+    @DrawableRes errorResId: Int? = null,
+    @DrawableRes fallbackResId: Int? = errorResId,
     onSuccess: ((Painter) -> Unit)? = null,
     alignment: Alignment = Alignment.Center,
     contentScale: ContentScale = ContentScale.Fit,
@@ -64,9 +67,9 @@ fun NWKNetworkImage(
         model = model,
         contentDescription = contentDescription,
         modifier = modifier,
-        placeholder = placeholder,
-        error = error,
-        fallback = fallback,
+        placeholderResId = placeholderResId,
+        errorResId = errorResId,
+        fallbackResId = fallbackResId,
         onSuccess = onSuccess,
         alignment = alignment,
         contentScale = contentScale,
@@ -82,9 +85,9 @@ private fun AsyncImage(
     model: Any?,
     modifier: Modifier = Modifier,
     contentDescription: String? = null,
-    placeholder: Painter? = null,
-    error: Painter? = null,
-    fallback: Painter? = error,
+    @DrawableRes placeholderResId: Int? = null,
+    @DrawableRes errorResId: Int? = null,
+    @DrawableRes fallbackResId: Int? = errorResId,
     onSuccess: ((Painter) -> Unit)? = null,
     alignment: Alignment = Alignment.Center,
     contentScale: ContentScale = ContentScale.Fit,
@@ -99,9 +102,9 @@ private fun AsyncImage(
             .build(),
         contentDescription = contentDescription,
         modifier = modifier,
-        placeholder = placeholder,
-        error = error,
-        fallback = fallback,
+        placeholder = placeholderResId?.let { rememberVectorPainter(ImageVector.vectorResource(placeholderResId)) },
+        error = errorResId?.let { rememberVectorPainter(ImageVector.vectorResource(it)) },
+        fallback = fallbackResId?.let { rememberVectorPainter(ImageVector.vectorResource(it)) },
         onLoading = null,
         onSuccess = if (onSuccess != null) {
             { onSuccess(it.painter) }
