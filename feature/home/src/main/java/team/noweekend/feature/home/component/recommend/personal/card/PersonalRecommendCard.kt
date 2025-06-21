@@ -36,7 +36,6 @@ internal fun PersonalRecommendCard(
     )
 }
 
-
 @Composable
 private fun RowScope.VacationRecommendCardContent(
     imageResId: Int,

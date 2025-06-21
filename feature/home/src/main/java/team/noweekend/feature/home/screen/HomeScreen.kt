@@ -51,10 +51,8 @@ private fun HomeScreenContent(
         modifier = modifier.fillMaxSize(),
     ) {
         item {
-
         }
     }
-
 }
 
 @Preview
