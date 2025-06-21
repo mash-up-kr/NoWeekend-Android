@@ -36,7 +36,7 @@ fun NWKLongCard(
                 onClick = onCardClick,
             )
             .background(
-                color = NWKTheme.color.Semantic.Background.alternative01,
+                color = NWKTheme.color.Semantic.Background.normal,
                 shape = NWKTheme.radius.borderRadius500,
             )
             .padding(
