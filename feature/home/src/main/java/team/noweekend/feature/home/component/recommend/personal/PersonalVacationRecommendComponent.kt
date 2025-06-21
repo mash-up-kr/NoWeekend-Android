@@ -1,9 +1,11 @@
 package team.noweekend.feature.home.component.recommend.personal
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -27,14 +29,19 @@ import team.noweekend.core.common.android.extension.fillMaxWidthOfScreen
 import team.noweekend.core.design.system.core.component.scaffold.NWKScaffold
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.resource.NWKDrawableResource
+import team.noweekend.feature.home.component.recommend.personal.carousel.PersonalRecommendCarousel
 
 internal fun LazyListScope.personalVacationRecommend(
     userName: String,
     vacationDays: Int,
+    onCardClick: () -> Unit,
+    onFilterClick: () -> Unit,
 ) = item {
     PersonalVacationRecommendComponent(
         userName = userName,
         vacationDays = vacationDays,
+        onCardClick = onCardClick,
+        onFilterClick = onFilterClick,
     )
 }
 
@@ -42,17 +49,25 @@ internal fun LazyListScope.personalVacationRecommend(
 private fun PersonalVacationRecommendComponent(
     userName: String,
     vacationDays: Int,
+    onCardClick: () -> Unit,
+    onFilterClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidthOfScreen()
+            .padding(vertical = NWKTheme.spacing.space300)
             .background(NWKTheme.color.Neutral.neutralGray100),
     ) {
         PersonalVacationRecommendHeader(
             userName = userName,
             vacationDays = vacationDays,
+            onFilterClick = onFilterClick,
         )
+        PersonalRecommendCarousel(
+            onCardClick = onCardClick,
+        )
+        Spacer(Modifier.size(24.dp))
     }
 }
 
@@ -60,6 +75,7 @@ private fun PersonalVacationRecommendComponent(
 private fun PersonalVacationRecommendHeader(
     userName: String,
     vacationDays: Int,
+    onFilterClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val message = buildAnnotatedString {
@@ -74,7 +90,6 @@ private fun PersonalVacationRecommendHeader(
         modifier = modifier
             .fillMaxWidth()
             .padding(
-                top = NWKTheme.spacing.space300,
                 start = NWKTheme.spacing.space300,
                 end = NWKTheme.spacing.space200,
                 bottom = NWKTheme.spacing.space200,
@@ -90,7 +105,11 @@ private fun PersonalVacationRecommendHeader(
         )
         // TODO (JaesungLeee) : NWKIcon 대체 필요
         Icon(
-            modifier = Modifier.size(24.dp),
+            modifier = Modifier
+                .size(24.dp)
+                .clickable(
+                    onClick = onFilterClick,
+                ),
             painter = rememberVectorPainter(ImageVector.vectorResource(NWKDrawableResource.Filter)),
             contentDescription = null,
             tint = NWKTheme.color.Semantic.Text.body,
@@ -111,6 +130,8 @@ private fun PersonalVacationRecommendComponentPreview() {
                 personalVacationRecommend(
                     userName = "재성",
                     vacationDays = 3,
+                    onCardClick = {},
+                    onFilterClick = {},
                 )
             }
         }
@@ -129,6 +150,7 @@ private fun PersonalVacationRecommendHeaderPreview() {
             PersonalVacationRecommendHeader(
                 userName = "재성",
                 vacationDays = 3,
+                onFilterClick = {},
             )
         }
     }
