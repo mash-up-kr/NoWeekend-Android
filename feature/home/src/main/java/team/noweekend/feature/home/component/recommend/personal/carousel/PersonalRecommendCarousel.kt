@@ -1,7 +1,5 @@
 package team.noweekend.feature.home.component.recommend.personal.carousel
 
-import android.content.res.Resources
-import androidx.annotation.Dimension
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -11,18 +9,14 @@ import androidx.compose.foundation.pager.PageSize
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import team.noweekend.core.common.android.util.getScreenWidth
+import team.noweekend.core.common.android.util.toDp
 import team.noweekend.core.design.system.core.component.control.page.NWKPageControl
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.resource.NWKDrawableResource
 import team.noweekend.feature.home.component.recommend.personal.card.PersonalRecommendCard
-
-fun @receiver:Dimension(unit = Dimension.PX) Int.toDp(): Dp =
-    (this / Resources.getSystem().displayMetrics.density).toInt().dp
 
 @Composable
 internal fun PersonalRecommendCarousel(
