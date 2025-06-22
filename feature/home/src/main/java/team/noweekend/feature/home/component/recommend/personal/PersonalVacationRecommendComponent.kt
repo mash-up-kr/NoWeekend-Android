@@ -56,8 +56,8 @@ private fun PersonalVacationRecommendComponent(
     Column(
         modifier = modifier
             .fillMaxWidthOfScreen()
-            .padding(vertical = NWKTheme.spacing.space300)
-            .background(NWKTheme.color.Neutral.neutralGray100),
+            .background(NWKTheme.color.Neutral.neutralGray100)
+            .padding(vertical = NWKTheme.spacing.space300),
     ) {
         PersonalVacationRecommendHeader(
             userName = userName,
@@ -67,7 +67,6 @@ private fun PersonalVacationRecommendComponent(
         PersonalRecommendCarousel(
             onCardClick = onCardClick,
         )
-        Spacer(Modifier.size(24.dp))
     }
 }
 
