@@ -4,8 +4,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PageSize
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -17,11 +21,14 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.serialization.Serializable
 import team.noweekend.core.common.android.extension.fillMaxWidthOfScreen
+import team.noweekend.core.common.android.util.getScreenWidth
+import team.noweekend.core.common.android.util.toDp
 import team.noweekend.core.design.system.core.component.button.defaults.BoxButtonType
 import team.noweekend.core.design.system.core.component.button.defaults.ButtonSizeType
 import team.noweekend.core.design.system.core.component.button.fill.NWKFillButton
 import team.noweekend.core.design.system.core.component.button.outline.NWKOutlineButton
 import team.noweekend.core.design.system.core.component.card.NWKLongCard
+import team.noweekend.core.design.system.core.component.control.page.NWKPageControl
 import team.noweekend.core.design.system.core.component.divider.NWKHorizontalDivider
 import team.noweekend.core.design.system.core.component.tabbar.NWKNavigationBarItem
 import team.noweekend.core.design.system.core.component.tabbar.NavigationBarLayout
@@ -192,6 +199,44 @@ internal object Divider {
                         size = ButtonSizeType.MEDIUM,
                         text = "변경",
                         modifier = Modifier.fillMaxWidth(),
+                    )
+                }
+            },
+        )
+}
+
+internal object PageControl {
+    private const val PageControlExampleDescription = "Page Control examples"
+    val Examples: List<Example> =
+        listOf(
+            Example(
+                name = "PageControl",
+                description = PageControlExampleDescription,
+            ) {
+                val pagerState = rememberPagerState(pageCount = { 5 })
+                val pageSize = (getScreenWidth() * 0.79f).toInt().toDp()  // 350/250
+
+                Column(
+                    modifier = Modifier.fillMaxWidthOfScreen(),
+                    verticalArrangement = Arrangement.spacedBy(NWKTheme.spacing.space175),
+                ) {
+                    HorizontalPager(
+                        state = pagerState,
+                        pageSpacing = NWKTheme.spacing.space175,
+                        contentPadding = PaddingValues(horizontal = NWKTheme.spacing.space200),
+                        pageSize = PageSize.Fixed(pageSize = pageSize),
+                    ) { index ->
+                        NWKLongCard(
+                            onCardClick = {},
+                            title = "title",
+                            description = "date",
+                            leadingDrawableResId = NWKDrawableResource.Cake,
+                            trailingDrawableResId = NWKDrawableResource.Plus,
+                        )
+                    }
+                    NWKPageControl(
+                        pageSize = pagerState.pageCount,
+                        currentPosition = pagerState.currentPage,
                     )
                 }
             },
