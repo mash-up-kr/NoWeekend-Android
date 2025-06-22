@@ -21,6 +21,7 @@ import team.noweekend.core.design.system.core.component.button.defaults.BoxButto
 import team.noweekend.core.design.system.core.component.button.defaults.ButtonSizeType
 import team.noweekend.core.design.system.core.component.button.fill.NWKFillButton
 import team.noweekend.core.design.system.core.component.button.outline.NWKOutlineButton
+import team.noweekend.core.design.system.core.component.card.NWKLongCard
 import team.noweekend.core.design.system.core.component.divider.NWKHorizontalDivider
 import team.noweekend.core.design.system.core.component.tabbar.NWKNavigationBarItem
 import team.noweekend.core.design.system.core.component.tabbar.NavigationBarLayout
@@ -122,12 +123,15 @@ internal object Card {
     val Examples: List<Example> =
         listOf(
             Example(
-                name = "Card",
+                name = "LongCard",
                 description = CardExampleDescription,
             ) {
-                TextField(
-                    value = "",
-                    onValueChange = {},
+                NWKLongCard(
+                    title = "해외여행 떠나요",
+                    description = "0/00(월) ~ 0/00(월)",
+                    leadingDrawableResId = NWKDrawableResource.Cake,
+                    trailingDrawableResId = NWKDrawableResource.Plus,
+                    onCardClick = {},
                 )
             },
         )
