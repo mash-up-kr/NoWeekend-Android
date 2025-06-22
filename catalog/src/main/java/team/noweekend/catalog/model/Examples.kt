@@ -214,7 +214,7 @@ internal object PageControl {
                 description = PageControlExampleDescription,
             ) {
                 val pagerState = rememberPagerState(pageCount = { 5 })
-                val pageSize = (getScreenWidth() * 0.79f).toInt().toDp()  // 350/250
+                val pageSize = (getScreenWidth() * 0.79f).toInt().toDp() // 350/250
 
                 Column(
                     modifier = Modifier.fillMaxWidthOfScreen(),

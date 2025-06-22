@@ -26,7 +26,7 @@ internal fun PersonalRecommendCarousel(
     recommendVacations: ImmutableList<String> = persistentListOf("", "", "", "", ""),
 ) {
     val pagerState = rememberPagerState(pageCount = { recommendVacations.size })
-    val pageSize = (getScreenWidth() * 0.79f).toInt().toDp()  // 350/250
+    val pageSize = (getScreenWidth() * 0.79f).toInt().toDp() // 350/250
 
     Column(
         modifier = modifier.fillMaxWidth(),
