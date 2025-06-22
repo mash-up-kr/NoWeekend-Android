@@ -13,6 +13,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import team.noweekend.core.common.android.util.getScreenWidth
 import team.noweekend.core.design.system.core.component.control.page.NWKPageControl
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
@@ -26,9 +28,11 @@ fun @receiver:Dimension(unit = Dimension.PX) Int.toDp(): Dp =
 internal fun PersonalRecommendCarousel(
     onCardClick: () -> Unit,
     modifier: Modifier = Modifier,
+    // TODO (JaesungLeee) : API 연동 시 파라미터 수정 필요
+    recommendVacations: ImmutableList<String> = persistentListOf("", "", "", "", ""),
 ) {
-    val pagerState = rememberPagerState(pageCount = { 5 })
-    val pageSize = (getScreenWidth() * 0.79f).toInt().toDp()
+    val pagerState = rememberPagerState(pageCount = { recommendVacations.size })
+    val pageSize = (getScreenWidth() * 0.79f).toInt().toDp()  // 350/250
 
     Column(
         modifier = modifier.fillMaxWidth(),
@@ -39,10 +43,13 @@ internal fun PersonalRecommendCarousel(
             pageSpacing = NWKTheme.spacing.space175,
             contentPadding = PaddingValues(horizontal = NWKTheme.spacing.space200),
             pageSize = PageSize.Fixed(pageSize = pageSize),
-        ) { _ ->
+        ) { index ->
             PersonalRecommendCard(
                 onCardClick = onCardClick,
-                imageResId = NWKDrawableResource.Cake,
+                title = "title",
+                date = "date",
+                leadingDrawableResId = NWKDrawableResource.Cake,
+                trailingDrawableResId = NWKDrawableResource.Plus,
             )
         }
         NWKPageControl(
