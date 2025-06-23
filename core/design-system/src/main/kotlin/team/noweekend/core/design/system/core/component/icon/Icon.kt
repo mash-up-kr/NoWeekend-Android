@@ -1,4 +1,4 @@
-package team.noweekend.core.common.ui.icon
+package team.noweekend.core.design.system.core.component.icon
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background

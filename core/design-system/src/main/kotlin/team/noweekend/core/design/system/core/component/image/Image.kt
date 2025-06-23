@@ -1,4 +1,4 @@
-package team.noweekend.core.common.ui.image
+package team.noweekend.core.design.system.core.component.image
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
@@ -100,7 +100,9 @@ private fun AsyncImage(
         model = model,
         contentDescription = contentDescription,
         modifier = modifier,
-        placeholder = placeholderResId?.let { rememberVectorPainter(ImageVector.vectorResource(placeholderResId)) },
+        placeholder = placeholderResId?.let {
+            rememberVectorPainter(ImageVector.vectorResource(placeholderResId))
+        },
         error = errorResId?.let { rememberVectorPainter(ImageVector.vectorResource(it)) },
         fallback = fallbackResId?.let { rememberVectorPainter(ImageVector.vectorResource(it)) },
         onLoading = null,
