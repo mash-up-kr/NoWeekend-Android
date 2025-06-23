@@ -72,6 +72,7 @@ internal fun CalendarDay(
                     NWKTheme.color.Neutral.neutralGray900
                 },
                 textAlign = TextAlign.Center,
+                style = NWKTheme.typography.subTitle1,
             )
         }
         Row(
