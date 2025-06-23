@@ -235,8 +235,8 @@ internal object PageControl {
                         )
                     }
                     NWKPageControl(
-                        pageSize = pagerState.pageCount,
-                        currentPosition = pagerState.currentPage,
+                        pageSize = { pagerState.pageCount },
+                        currentPosition = { pagerState.currentPage },
                     )
                 }
             },
