@@ -97,9 +97,7 @@ private fun AsyncImage(
     clipToBounds: Boolean = true,
 ) {
     AsyncImage(
-        model = ImageRequest.Builder(LocalContext.current)
-            .data(model)
-            .build(),
+        model = model,
         contentDescription = contentDescription,
         modifier = modifier,
         placeholder = placeholderResId?.let { rememberVectorPainter(ImageVector.vectorResource(placeholderResId)) },
