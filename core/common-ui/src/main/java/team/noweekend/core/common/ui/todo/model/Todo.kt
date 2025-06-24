@@ -6,7 +6,7 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.graphics.Color
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
-import team.noweekend.core.resource.R
+import team.noweekend.core.resource.NWKStringResource
 
 @Immutable
 data class Todo(
@@ -27,7 +27,7 @@ sealed interface TodoType {
      * 회사
      */
     data class Company(
-        override val title: Int = R.string.company,
+        override val title: Int = NWKStringResource.TodoCompany,
     ) : TodoType {
         override val color: Color
             @Composable get() = NWKTheme.color.TaskItem.company
@@ -37,7 +37,7 @@ sealed interface TodoType {
      * 개인
      */
     data class Personal(
-        override val title: Int = R.string.personal,
+        override val title: Int = NWKStringResource.TodoPersonal,
     ) : TodoType {
         override val color: Color
             @Composable get() = NWKTheme.color.TaskItem.personal
@@ -47,7 +47,7 @@ sealed interface TodoType {
      *  연차
      */
     data class AnnualLeave(
-        override val title: Int = R.string.annual_leave,
+        override val title: Int = NWKStringResource.TodoAnnualLeave,
     ) : TodoType {
         override val color: Color
             @Composable get() = NWKTheme.color.TaskItem.annualLeave
@@ -57,7 +57,7 @@ sealed interface TodoType {
      * 기타
      */
     data class Etc(
-        override val title: Int = R.string.etc,
+        override val title: Int = NWKStringResource.TodoEtc,
     ) : TodoType {
         override val color: Color
             @Composable get() = NWKTheme.color.TaskItem.etc
