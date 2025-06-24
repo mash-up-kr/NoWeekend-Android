@@ -30,8 +30,7 @@ internal fun TodoRecordOptionButton(
             },
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
-    )
-    {
+    ) {
         Canvas(
             modifier = Modifier.size(3.dp),
         ) {
@@ -51,7 +50,6 @@ internal fun TodoRecordOptionButton(
         }
     }
 }
-
 
 @Preview
 @Composable
