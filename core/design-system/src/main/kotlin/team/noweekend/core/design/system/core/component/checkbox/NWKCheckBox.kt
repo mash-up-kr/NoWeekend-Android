@@ -25,19 +25,16 @@ import team.noweekend.core.design.system.foundation.theme.NWKTheme
 
 object NWKCheckBox {
 
-
     @Composable
     private fun Frame(
         modifier: Modifier = Modifier,
-        checkBoxState: NWKCheckBoxState = NWKCheckBoxState.UNCHECKED,
+        isChecked: Boolean = false,
         checkBoxColors: NWKCheckBoxColors = NWKCheckBoxColorsDefault.basicColors,
         onClick: () -> Unit = {},
-
-        ) {
-        val foregroundColor = checkBoxColors.foregroundColor(checkBoxState = checkBoxState)
-        val backgroundColor = checkBoxColors.backgroundColor(checkBoxState = checkBoxState)
-        val borderColor = checkBoxColors.borderColor(checkBoxState = checkBoxState)
-        val selected = checkBoxState == NWKCheckBoxState.CHECKED
+    ) {
+        val foregroundColor = checkBoxColors.foregroundColor(isChecked = isChecked)
+        val backgroundColor = checkBoxColors.backgroundColor(isChecked = isChecked)
+        val borderColor = checkBoxColors.borderColor(isChecked = isChecked)
 
         Surface(
             modifier = modifier
@@ -45,7 +42,7 @@ object NWKCheckBox {
                 .semantics {
                     Role.Checkbox
                 },
-            selected = selected,
+            selected = isChecked,
             onClick = onClick,
             border = BorderStroke(
                 width = 2.dp,
@@ -65,7 +62,7 @@ object NWKCheckBox {
                     color = backgroundColor.value,
                     size = size,
                 )
-                if (selected) {
+                if (isChecked) {
                     val path = Path()
                     path.apply {
                         moveTo(x = 4.5f * dpToPx, y = 9f * dpToPx)
@@ -86,12 +83,12 @@ object NWKCheckBox {
     @Composable
     fun Basic(
         modifier: Modifier = Modifier,
-        checkBoxState: NWKCheckBoxState = NWKCheckBoxState.UNCHECKED,
+        isChecked: Boolean = false,
         onClick: () -> Unit = {},
     ) {
         Frame(
             modifier = modifier,
-            checkBoxState = checkBoxState,
+            isChecked = isChecked,
             onClick = onClick,
         )
     }
@@ -101,15 +98,11 @@ object NWKCheckBox {
 @Composable
 private fun PreviewBasicCheckBox() {
     NWKTheme {
-        var checkBoxState by remember { mutableStateOf(NWKCheckBoxState.UNCHECKED) }
+        var isChecked by remember { mutableStateOf(false) }
         NWKCheckBox.Basic(
-            checkBoxState = checkBoxState,
+            isChecked = isChecked,
             onClick = {
-                checkBoxState = if (checkBoxState == NWKCheckBoxState.CHECKED) {
-                    NWKCheckBoxState.UNCHECKED
-                } else {
-                    NWKCheckBoxState.CHECKED
-                }
+                isChecked = isChecked.not()
             },
         )
     }
