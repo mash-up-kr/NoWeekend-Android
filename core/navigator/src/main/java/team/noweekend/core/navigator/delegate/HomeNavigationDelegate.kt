@@ -6,4 +6,4 @@ import javax.inject.Inject
 
 class HomeNavigationDelegate @Inject constructor(
     @ActivityContext private val context: Context,
-) {}
+)
