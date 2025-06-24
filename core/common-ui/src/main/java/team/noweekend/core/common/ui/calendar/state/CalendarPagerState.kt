@@ -13,7 +13,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import team.noweekend.core.resource.NWKStringResource
-import team.noweekend.core.resource.R
 
 @Composable
 fun rememberCalendarPagerState(

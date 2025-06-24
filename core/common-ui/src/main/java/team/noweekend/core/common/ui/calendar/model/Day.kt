@@ -9,7 +9,6 @@ import kotlinx.collections.immutable.persistentListOf
 import kotlinx.datetime.DayOfWeek
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.resource.NWKStringResource
-import team.noweekend.core.resource.R
 
 @Stable
 sealed interface Day {
