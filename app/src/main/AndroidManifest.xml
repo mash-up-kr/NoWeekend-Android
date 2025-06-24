@@ -24,10 +24,6 @@
         </activity>
 
         <activity
-            android:name="team.noweekend.feature.sample.SampleActivity"
-            android:exported="false" />
-
-        <activity
             android:name="team.noweekend.feature.login.LoginActivity"
             android:exported="false" />
     </application>
