@@ -8,6 +8,8 @@ import team.noweekend.core.design.system.foundation.color.neutral.LocalNeutralCo
 import team.noweekend.core.design.system.foundation.color.neutral.NeutralColor
 import team.noweekend.core.design.system.foundation.color.semantics.LocalSemanticTheme
 import team.noweekend.core.design.system.foundation.color.semantics.SemanticTheme
+import team.noweekend.core.design.system.foundation.color.taskItem.LocalTaskItemColor
+import team.noweekend.core.design.system.foundation.color.taskItem.TaskItemColor
 import team.noweekend.core.design.system.foundation.color.toast.LocalToastColor
 import team.noweekend.core.design.system.foundation.color.toast.ToastColor
 
@@ -29,4 +31,9 @@ object ColorTheme {
         @Composable
         @ReadOnlyComposable
         get() = LocalSemanticTheme.current
+
+    val TaskItem: TaskItemColor
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalTaskItemColor.current
 }
