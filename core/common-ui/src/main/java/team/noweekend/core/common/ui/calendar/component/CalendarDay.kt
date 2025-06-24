@@ -6,7 +6,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -75,17 +74,11 @@ internal fun CalendarDay(
                 style = NWKTheme.typography.subTitle1,
             )
         }
-        Row(
+        Image(
             modifier = Modifier.size(41.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center,
-        ) {
-            Image(
-                modifier = Modifier.fillMaxSize(),
-                painter = painterResource(id = dateOfWeek.imageType.id),
-                contentDescription = null,
-            )
-        }
+            painter = painterResource(id = dateOfWeek.imageType.id),
+            contentDescription = null,
+        )
     }
 }
 
