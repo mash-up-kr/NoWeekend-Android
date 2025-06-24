@@ -140,8 +140,7 @@ private fun CalendarTypeToggleThumb(
         ) {
             Text(
                 text = stringResource(id = currentCalendarMode.id),
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold,
+                style= NWKTheme.typography.heading6,
             )
         }
     }
@@ -159,16 +158,14 @@ private fun CalendarTypeToggleBackground(
         Text(
             modifier = Modifier.weight(1f),
             text = stringResource(id = CalendarMode.WEEK.id),
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Bold,
+            style= NWKTheme.typography.heading6,
             textAlign = TextAlign.Center,
             color = NWKTheme.color.Semantic.Text.disabled,
         )
         Text(
             modifier = Modifier.weight(1f),
             text = stringResource(id = CalendarMode.MONTH.id),
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Bold,
+            style= NWKTheme.typography.heading6,
             textAlign = TextAlign.Center,
             color = NWKTheme.color.Semantic.Text.disabled,
         )

@@ -40,6 +40,7 @@ private fun DayOfWeekBarContent(
         text = stringResource(id = day.id),
         color = day.color,
         textAlign = TextAlign.Center,
+        style = NWKTheme.typography.body3
     )
 }
 
