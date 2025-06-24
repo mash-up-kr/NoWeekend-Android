@@ -21,6 +21,7 @@ import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.plus
+import team.noweekend.core.common.kotlin.extension.now
 import team.noweekend.core.common.ui.calendar.model.DateOfWeek
 import team.noweekend.core.common.ui.calendar.model.WeeksData
 import team.noweekend.core.common.ui.calendar.util.CalendarUtils.firstDayOfMonth
@@ -28,7 +29,6 @@ import team.noweekend.core.common.ui.calendar.util.CalendarUtils.lastDayOfMonth
 import team.noweekend.core.common.ui.calendar.util.CalendarUtils.minusMonths
 import team.noweekend.core.common.ui.calendar.util.CalendarUtils.minusWeeks
 import team.noweekend.core.common.ui.calendar.util.CalendarUtils.nextOrSame
-import team.noweekend.core.common.ui.calendar.util.CalendarUtils.now
 import team.noweekend.core.common.ui.calendar.util.CalendarUtils.plusDays
 import team.noweekend.core.common.ui.calendar.util.CalendarUtils.plusMonths
 import team.noweekend.core.common.ui.calendar.util.CalendarUtils.plusWeeks
@@ -51,7 +51,7 @@ class CalendarDataProvider(
     private val coroutineScope: CoroutineScope,
 ) {
 
-    private val _targetDate: MutableState<LocalDate> = mutableStateOf(now())
+    private val _targetDate: MutableState<LocalDate> = mutableStateOf(LocalDate.now())
 
     val targetDate: State<LocalDate> = _targetDate
 
