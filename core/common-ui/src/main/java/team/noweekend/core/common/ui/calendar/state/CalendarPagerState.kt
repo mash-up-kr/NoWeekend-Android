@@ -12,6 +12,7 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import team.noweekend.core.resource.NWKStringResource
 import team.noweekend.core.resource.R
 
 @Composable
@@ -28,7 +29,7 @@ class CalendarPagerState(
     private val coroutineScope: CoroutineScope,
 ) {
     enum class CalendarMode(@StringRes val id: Int) {
-        WEEK(id = R.string.week), MONTH(id = R.string.month)
+        WEEK(id = NWKStringResource.Week), MONTH(id = NWKStringResource.Month)
     }
 
     var calendarMode: MutableStateFlow<CalendarMode> = MutableStateFlow(CalendarMode.WEEK)

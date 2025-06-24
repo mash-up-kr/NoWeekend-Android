@@ -8,6 +8,7 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.datetime.DayOfWeek
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
+import team.noweekend.core.resource.NWKStringResource
 import team.noweekend.core.resource.R
 
 @Stable
@@ -22,37 +23,37 @@ sealed interface Day {
 
     data class Sunday(
         override val dayId: DayOfWeek = DayOfWeek.SUNDAY,
-        override val id: Int = R.string.sunday,
+        override val id: Int = NWKStringResource.Sunday,
     ) : Day
 
     data class Monday(
         override val dayId: DayOfWeek = DayOfWeek.MONDAY,
-        override val id: Int = R.string.monday,
+        override val id: Int = NWKStringResource.Monday,
     ) : Day
 
     data class TuesDay(
         override val dayId: DayOfWeek = DayOfWeek.TUESDAY,
-        override val id: Int = R.string.tuesday,
+        override val id: Int = NWKStringResource.Tuesday,
     ) : Day
 
     data class Wednesday(
         override val dayId: DayOfWeek = DayOfWeek.WEDNESDAY,
-        override val id: Int = R.string.wednesday,
+        override val id: Int = NWKStringResource.Wednesday,
     ) : Day
 
     data class Thursday(
         override val dayId: DayOfWeek = DayOfWeek.THURSDAY,
-        override val id: Int = R.string.thursday,
+        override val id: Int = NWKStringResource.Thursday,
     ) : Day
 
     data class Friday(
         override val dayId: DayOfWeek = DayOfWeek.FRIDAY,
-        override val id: Int = R.string.friday,
+        override val id: Int = NWKStringResource.Friday,
     ) : Day
 
     data class Saturday(
         override val dayId: DayOfWeek = DayOfWeek.SATURDAY,
-        override val id: Int = R.string.saturday,
+        override val id: Int = NWKStringResource.Saturday,
     ) : Day
 
     companion object {
