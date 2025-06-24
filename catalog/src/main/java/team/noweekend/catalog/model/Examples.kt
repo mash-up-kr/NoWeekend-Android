@@ -27,6 +27,7 @@ import team.noweekend.core.design.system.core.component.button.defaults.BoxButto
 import team.noweekend.core.design.system.core.component.button.defaults.ButtonSizeType
 import team.noweekend.core.design.system.core.component.button.fill.NWKFillButton
 import team.noweekend.core.design.system.core.component.button.outline.NWKOutlineButton
+import team.noweekend.core.design.system.core.component.card.NWKHolidayCard
 import team.noweekend.core.design.system.core.component.card.NWKLongCard
 import team.noweekend.core.design.system.core.component.control.page.NWKPageControl
 import team.noweekend.core.design.system.core.component.divider.NWKHorizontalDivider
@@ -138,6 +139,16 @@ internal object Card {
                     description = "0/00(월) ~ 0/00(월)",
                     leadingDrawableResId = NWKDrawableResource.Cake,
                     trailingDrawableResId = NWKDrawableResource.Plus,
+                    onCardClick = {},
+                )
+            },
+            Example(
+                name = "HolidayCard",
+                description = CardExampleDescription,
+            ) {
+                NWKHolidayCard(
+                    title = "6/06(월)",
+                    description = "현충일",
                     onCardClick = {},
                 )
             },
