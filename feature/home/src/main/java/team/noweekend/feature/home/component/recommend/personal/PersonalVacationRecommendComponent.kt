@@ -11,20 +11,17 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import team.noweekend.core.common.android.extension.fillMaxWidthOfScreen
+import team.noweekend.core.design.system.core.component.icon.NWKIcon
 import team.noweekend.core.design.system.core.component.scaffold.NWKScaffold
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.resource.NWKDrawableResource
@@ -101,15 +98,13 @@ private fun PersonalVacationRecommendHeader(
                 color = NWKTheme.color.Semantic.Text.neutral,
             ),
         )
-        // TODO (JaesungLeee) : NWKIcon 대체 필요
-        Icon(
+        NWKIcon(
+            resourceId = NWKDrawableResource.Filter,
             modifier = Modifier
                 .size(24.dp)
                 .clickable(
                     onClick = onFilterClick,
                 ),
-            painter = rememberVectorPainter(ImageVector.vectorResource(NWKDrawableResource.Filter)),
-            contentDescription = null,
             tint = NWKTheme.color.Semantic.Text.body,
         )
     }
