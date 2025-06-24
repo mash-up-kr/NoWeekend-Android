@@ -2,4 +2,8 @@
     <string name="label_home">홈</string>
     <string name="label_calendar">캘린더</string>
     <string name="label_profile">내 정보</string>
+
+    <string name="home_personal_recommend_header_span_1">"%1$s님을 위한 "</string>
+    <string name="home_personal_recommend_header_span_2">"%1$s일 "</string>
+    <string name="home_personal_recommend_header_span_3">"휴가에요"</string>
 </resources>
