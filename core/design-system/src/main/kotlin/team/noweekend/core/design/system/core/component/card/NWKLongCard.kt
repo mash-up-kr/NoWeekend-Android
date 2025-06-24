@@ -1,7 +1,6 @@
 package team.noweekend.core.design.system.core.component.card
 
 import androidx.annotation.DrawableRes
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -12,15 +11,15 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import team.noweekend.core.design.system.core.component.icon.NWKIcon
+import team.noweekend.core.design.system.core.component.image.NWKImage
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.resource.NWKDrawableResource
 
@@ -76,11 +75,9 @@ private fun RowScope.NWKLongCardContent(
     @DrawableRes trailingDrawableResId: Int,
     modifier: Modifier = Modifier,
 ) {
-    // TODO(JaesungLeee) : NWKImage 대체
-    Image(
+    NWKImage(
         modifier = Modifier.size(62.dp),
-        painter = painterResource(id = leadingDrawableResId),
-        contentDescription = null,
+        drawableResId = leadingDrawableResId,
     )
     Column(
         modifier = Modifier.weight(1f),
@@ -101,12 +98,10 @@ private fun RowScope.NWKLongCardContent(
             ),
         )
     }
-    // TODO(JaesungLeee) : NWKIcon 대체
-    Icon(
+    NWKIcon(
         modifier = Modifier.size(24.dp),
-        painter = painterResource(trailingDrawableResId),
+        resourceId = trailingDrawableResId,
         tint = NWKTheme.color.Neutral.neutralGray700,
-        contentDescription = null,
     )
 }
 

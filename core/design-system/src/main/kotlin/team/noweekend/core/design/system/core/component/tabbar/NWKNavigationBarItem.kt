@@ -4,7 +4,6 @@ import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemColors
 import androidx.compose.material3.NavigationBarItemDefaults
@@ -12,12 +11,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
+import team.noweekend.core.design.system.core.component.icon.NWKIcon
 import team.noweekend.core.design.system.core.component.tabbar.defaults.NWKNavigationBarItemDefaults
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 
@@ -36,11 +35,10 @@ fun RowScope.NWKNavigationBarItem(
         selected = isSelected,
         onClick = onClick,
         icon = {
-            Icon(
+            NWKIcon(
                 modifier = Modifier.size(24.dp),
-                painter = painterResource(if (isSelected) selectedIconId else unselectedIconId),
+                resourceId = if (isSelected) selectedIconId else unselectedIconId,
                 tint = if (isSelected) colors.selectedIconColor else colors.unselectedIconColor,
-                contentDescription = null,
             )
         },
         modifier = modifier,
