@@ -37,22 +37,26 @@ internal fun ApplicationExtension.configureBuildFlavors(project: Project) {
 
 internal fun LibraryExtension.configureBuildFlavors(project: Project) {
     productFlavors {
-//        val properties = Properties()
-//        properties.load(FileInputStream("local.properties"))
+        val properties = Properties()
+        properties.load(FileInputStream("local.properties"))
+
         create("dev") {
             dimension = "version"
             buildConfigField("int", "VERSION_CODE", "${project.findVersion("versionCode").toInt()}")
             buildConfigField("String", "VERSION_NAME", "\"${project.findVersion("versionName")}\"")
+            buildConfigField("String", "GOOGLE_CLIENT_ID", "\"${properties["GOOGLE_CLIENT_ID"]}\"")
         }
         create("qa") {
             dimension = "version"
             buildConfigField("int", "VERSION_CODE", "${project.findVersion("versionCode").toInt()}")
             buildConfigField("String", "VERSION_NAME", "\"${project.findVersion("versionName")}\"")
+            buildConfigField("String", "GOOGLE_CLIENT_ID", "\"${properties["GOOGLE_CLIENT_ID"]}\"")
         }
         create("prod") {
             dimension = "version"
             buildConfigField("int", "VERSION_CODE", "${project.findVersion("versionCode").toInt()}")
             buildConfigField("String", "VERSION_NAME", "\"${project.findVersion("versionName")}\"")
+            buildConfigField("String", "GOOGLE_CLIENT_ID", "\"${properties["GOOGLE_CLIENT_ID"]}\"")
         }
     }
 }
