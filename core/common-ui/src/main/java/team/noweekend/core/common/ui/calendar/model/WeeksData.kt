@@ -2,7 +2,8 @@ package team.noweekend.core.common.ui.calendar.model
 
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
-import team.noweekend.core.common.ui.calendar.util.CalendarUtils
+import kotlinx.datetime.LocalDate
+import team.noweekend.core.common.kotlin.extension.now
 
 data class WeeksData(
     val year: Int,
@@ -14,7 +15,7 @@ data class WeeksData(
 ) {
     companion object {
 
-        private val now = CalendarUtils.now()
+        private val now = LocalDate.now()
 
         val default = WeeksData(
             year = now.year,

@@ -19,10 +19,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kotlinx.datetime.LocalDate
+import team.noweekend.core.common.kotlin.extension.now
 import team.noweekend.core.common.ui.calendar.CalendarDataProvider.ImageType
 import team.noweekend.core.common.ui.calendar.model.DateOfWeek
 import team.noweekend.core.common.ui.calendar.state.CalendarPagerState.CalendarMode
-import team.noweekend.core.common.ui.calendar.util.CalendarUtils.now
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 
 @Composable
@@ -86,7 +87,7 @@ internal fun CalendarDay(
 @Composable
 private fun PreviewCalendarDay() {
     NWKTheme {
-        val targetDate = now()
+        val targetDate = LocalDate.now()
         val date = DateOfWeek(
             localDate = targetDate,
             imageType = ImageType.NONE,
