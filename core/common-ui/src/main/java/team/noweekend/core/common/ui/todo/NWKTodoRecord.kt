@@ -17,9 +17,9 @@ import team.noweekend.core.design.system.foundation.theme.NWKTheme
 @Composable
 internal fun NWKTodoRecord(
     todo: Todo,
+    onClickOptionButton: () -> Unit,
     modifier: Modifier = Modifier,
     onClickCheckBox: () -> Unit = {},
-    onClickOptionButton: () -> Unit = {},
 ) {
     Row(
         modifier = modifier.fillMaxWidth(),
@@ -47,6 +47,7 @@ private fun PreviewNWKTodoRecord(
     NWKTheme {
         NWKTodoRecord(
             todo = todo,
+            onClickOptionButton = {}
         )
     }
 }
