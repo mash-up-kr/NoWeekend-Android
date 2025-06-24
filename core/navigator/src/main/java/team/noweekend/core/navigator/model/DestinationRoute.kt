@@ -7,6 +7,15 @@ import kotlinx.serialization.Serializable
  */
 sealed interface DestinationRoute
 
+@Serializable
+data object Home : DestinationRoute
+
+@Serializable
+data object Calendar : DestinationRoute
+
+@Serializable
+data object Profile : DestinationRoute
+
 sealed interface Sample : DestinationRoute {
     @Serializable
     data object Home : Sample

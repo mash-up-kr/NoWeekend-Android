@@ -15,9 +15,8 @@
         android:theme="@style/Theme.NoWeekend">
 
         <activity
-            android:name="team.noweekend.feature.home.HomeActivity"
-            android:exported="true"
-            android:theme="@style/Theme.NoWeekend">
+            android:name="team.noweekend.feature.main.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

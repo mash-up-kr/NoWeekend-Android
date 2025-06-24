@@ -14,4 +14,5 @@ dependencies {
     implementation(project(":core:resource"))
 
     implementation(libs.androidx.material3)
+    implementation(libs.coil.compose)
 }

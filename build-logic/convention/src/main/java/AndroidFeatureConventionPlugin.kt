@@ -27,7 +27,6 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 add("implementation", libs.findLibrary("androidx-appcompat").get())
                 add("implementation", libs.findLibrary("androidx-navigation-compose").get())
                 add("implementation", libs.findLibrary("hilt-navigation-compose").get())
-                add("implementation", libs.findLibrary("coil").get())
                 add("implementation", libs.findBundle("kotlinx-coroutine").get())
                 add("implementation", libs.findLibrary("kotlinx-collections-immutable").get())
                 add("implementation", libs.findLibrary("kotlinx-serialization-json").get())
