@@ -33,7 +33,7 @@ import team.noweekend.core.common.ui.calendar.util.CalendarUtils.plusDays
 import team.noweekend.core.common.ui.calendar.util.CalendarUtils.plusMonths
 import team.noweekend.core.common.ui.calendar.util.CalendarUtils.plusWeeks
 import team.noweekend.core.common.ui.calendar.util.CalendarUtils.previousOrSame
-import team.noweekend.core.resource.R
+import team.noweekend.core.resource.NWKDrawableResource
 
 @Composable
 fun rememberCalendarDataProvider(
@@ -298,11 +298,11 @@ class CalendarDataProvider(
     }
 
     enum class ImageType(@DrawableRes val id: Int) {
-        NONE(id = R.drawable.ic_day_type_none),
-        FutureSchedule(id = R.drawable.ic_day_type_future_schedule),
-        BurnOut(id = R.drawable.ic_day_type_burnout),
-        Rest(id = R.drawable.ic_day_type_rest),
-        OverZeroUnderFiftyDegree(id = R.drawable.ic_day_type_over_zero_under_fifty_degree),
-        OverFiftyUnderSeventyFive(id = R.drawable.ic_day_type_over_fifty_under_seventy_degree),
+        NONE(id = NWKDrawableResource.DayTypeNone),
+        FutureSchedule(id = NWKDrawableResource.DayTypeFutureSchedule),
+        BurnOut(id = NWKDrawableResource.DayTypeBurnOut),
+        Rest(id = NWKDrawableResource.DayTypeRest),
+        OverZeroUnderFiftyDegree(id = NWKDrawableResource.DayTypeOverZeroUnderFiftyDegree),
+        OverFiftyUnderSeventyFiveDegree(id = NWKDrawableResource.DayTypeOverFiftyUnderSeventyFiveDegree),
     }
 }
