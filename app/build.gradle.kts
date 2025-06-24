@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.team.noweekend.android.application)
+    alias(libs.plugins.team.noweekend.android.application.compose)
     alias(libs.plugins.team.noweekend.hilt)
 }
 
@@ -22,8 +22,11 @@ dependencies {
     implementation(project(":core:resource"))
 
     // Feature modules
+    implementation(project(":feature:main"))
     implementation(project(":feature:home"))
     implementation(project(":feature:sample"))
+    implementation(project(":feature:calendar"))
+    implementation(project(":feature:profile"))
 
     implementation(libs.hilt.navigation.compose)
 }

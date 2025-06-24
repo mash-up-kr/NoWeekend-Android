@@ -1,34 +1,56 @@
 package team.noweekend.feature.home.screen
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Button
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import team.noweekend.core.design.system.core.component.scaffold.NWKScaffold
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 
 @Composable
-fun HomeScreen(
+internal fun HomeScreen(
     modifier: Modifier = Modifier,
-    onNavigateButtonClick: () -> Unit,
 ) {
-    Column(
+    NWKScaffold(
+        modifier = modifier,
+        topBar = {
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        top = NWKTheme.spacing.space175,
+                        start = NWKTheme.spacing.space300,
+                        end = NWKTheme.spacing.space300,
+                        bottom = NWKTheme.spacing.space100,
+                    ),
+                text = "오늘 연차쓸래?",
+                style = NWKTheme.typography.heading4.copy(
+                    color = NWKTheme.color.Semantic.Text.neutral,
+                ),
+            )
+        },
+        content = {
+            HomeScreenContent(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(it),
+            )
+        },
+    )
+}
+
+@Composable
+private fun HomeScreenContent(
+    modifier: Modifier = Modifier,
+) {
+    LazyColumn(
         modifier = modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Text("Welcome to the Home Screen")
-        Button(
-            onClick = onNavigateButtonClick,
-        ) {
-            Text("Go To Sample")
+        item {
         }
     }
 }
@@ -37,13 +59,6 @@ fun HomeScreen(
 @Composable
 private fun HomeScreenPreview() {
     NWKTheme {
-        Box(
-            modifier = Modifier.background(Color.White),
-        ) {
-            HomeScreen(
-                modifier = Modifier.fillMaxSize(),
-                onNavigateButtonClick = {},
-            )
-        }
+        HomeScreen()
     }
 }

@@ -69,8 +69,16 @@ data class Component(
             examples = Divider.Examples,
         )
 
-        val HeaderComponent: Component = Component(
+        val PageControlComponent: Component = Component(
             id = 7,
+            name = "PageControl",
+            imageUrl = "",
+            description = "description",
+            examples = PageControl.Examples,
+        )
+
+        val HeaderComponent: Component = Component(
+            id = 8,
             name = "Header",
             imageUrl = "",
             description = "description",
@@ -78,7 +86,7 @@ data class Component(
         )
 
         val TabBarComponent: Component = Component(
-            id = 8,
+            id = 9,
             name = "TabBar",
             imageUrl = "",
             description = "description",
@@ -86,7 +94,7 @@ data class Component(
         )
 
         val BottomSheetComponent: Component = Component(
-            id = 9,
+            id = 10,
             name = "BottomSheet",
             imageUrl = "",
             description = "description",
@@ -94,7 +102,7 @@ data class Component(
         )
 
         val DialogComponent: Component = Component(
-            id = 10,
+            id = 11,
             name = "Dialog",
             imageUrl = "",
             description = "description",
@@ -112,6 +120,7 @@ internal val NDSComponents: ImmutableList<Component> =
         Component.SwitchComponent,
         Component.CheckBoxComponent,
         Component.DividerComponent,
+        Component.PageControlComponent,
         Component.HeaderComponent,
         Component.TabBarComponent,
         Component.BottomSheetComponent,
