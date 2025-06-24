@@ -31,7 +31,7 @@ class LoginViewModel @Inject constructor(
     override suspend fun handleIntent(intent: LoginIntent) {
         when (intent) {
             is LoginIntent.ClickGoogleLogin -> {
-                googleLogin(intent.context)
+                startGoogleLogin(intent.context)
             }
 
             LoginIntent.ClickCancelLogin -> {
@@ -46,9 +46,9 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    private fun googleLogin(context: Context) {
+    private fun startGoogleLogin(context: Context) {
         viewModelScope.launch {
-            googleAuthManager.googleLogin(context)
+            googleAuthManager.startGoogleLogin(context)
                 .catch { exception ->
                     handleGoogleLoginException(exception)
                 }

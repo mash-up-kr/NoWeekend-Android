@@ -19,8 +19,9 @@ class GoogleAuthManager @Inject constructor(
 ) {
     private lateinit var credentialManager: CredentialManager
 
-    fun googleLogin(context: Context): Flow<AuthorizationResult> {
+    fun startGoogleLogin(context: Context): Flow<AuthorizationResult> {
         credentialManager = CredentialManager.create(context)
+
         val googleIdOption = GetGoogleIdOption
             .Builder()
             .setFilterByAuthorizedAccounts(false)
