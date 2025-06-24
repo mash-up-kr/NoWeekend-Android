@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import team.noweekend.core.design.system.core.component.scaffold.NWKScaffold
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
+import team.noweekend.feature.home.component.recommend.personal.personalVacationRecommend
 
 @Composable
 internal fun HomeScreen(
@@ -50,8 +51,12 @@ private fun HomeScreenContent(
     LazyColumn(
         modifier = modifier.fillMaxSize(),
     ) {
-        item {
-        }
+        personalVacationRecommend(
+            vacationDays = 5,
+            userName = "자성리",
+            onCardClick = {},
+            onFilterClick = {},
+        )
     }
 }
 
