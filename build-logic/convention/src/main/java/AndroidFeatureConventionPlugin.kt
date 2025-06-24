@@ -30,6 +30,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 add("implementation", libs.findBundle("kotlinx-coroutine").get())
                 add("implementation", libs.findLibrary("kotlinx-collections-immutable").get())
                 add("implementation", libs.findLibrary("kotlinx-serialization-json").get())
+                add("implementation", libs.findLibrary("kotlinx-datetime").get())
                 add("implementation", libs.findLibrary("androidx-material3").get())
                 add("implementation", libs.findLibrary("androidx-lifecycle-runtime-ktx").get())
             }
