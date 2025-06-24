@@ -22,6 +22,10 @@ interface NWKCheckBoxColors {
 
 object NWKCheckBoxColorsDefault {
     val basicColors = object : NWKCheckBoxColors {
+
+        /**
+         * 체크 박스 보더 색상
+         */
         @Composable
         override fun borderColor(isChecked: Boolean): State<Color> {
             return rememberUpdatedState(
@@ -33,11 +37,17 @@ object NWKCheckBoxColorsDefault {
             )
         }
 
+        /**
+         * 체크 표시 색상
+         */
         @Composable
         override fun foregroundColor(isChecked: Boolean): State<Color> {
             return rememberUpdatedState(NWKTheme.color.Neutral.white)
         }
 
+        /**
+         * 체크 박스 배경 색상
+         */
         @Composable
         override fun backgroundColor(isChecked: Boolean): State<Color> {
             return rememberUpdatedState(
