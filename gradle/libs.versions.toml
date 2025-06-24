@@ -9,6 +9,7 @@ agp = "8.8.2"
 activityCompose = "1.10.1"
 androidGradlePlugin = "8.6.1"
 androidTools = "31.9.1"
+animation = "1.8.2"
 coil = "2.7.0"
 composeBom = "2025.04.00"
 composeNavigation = "2.8.9"
@@ -36,6 +37,7 @@ kotlinx-immutable = "0.3.8"
 kotlinx-serialization = "1.8.0"
 material = "1.12.0"
 compose-slack-lint = "1.4.2"
+kotlinx-datatime = "0.6.2"
 
 [libraries]
 # androidx
@@ -56,12 +58,15 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "composeNavigation" }
 # datastore
 androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
+androidx-foundation = { group = "androidx.compose.foundation", name = "foundation" }
+androidx-animation = { module = "androidx.compose.animation:animation", version.ref = "animation" }
 
 # kotlinx
 kotlinx-coroutine-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutine" }
 kotlinx-coroutine-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutine" }
 kotlinx-collections-immutable = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version.ref = "kotlinx-immutable" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+kotlinx-datetime = { group = "org.jetbrains.kotlinx" ,name = "kotlinx-datetime", version.ref = "kotlinx-datatime" }
 
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
