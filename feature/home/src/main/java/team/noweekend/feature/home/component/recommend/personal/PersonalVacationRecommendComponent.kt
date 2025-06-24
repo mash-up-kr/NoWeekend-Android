@@ -15,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
@@ -25,6 +26,7 @@ import team.noweekend.core.design.system.core.component.icon.NWKIcon
 import team.noweekend.core.design.system.core.component.scaffold.NWKScaffold
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.resource.NWKDrawableResource
+import team.noweekend.core.resource.NWKStringResource
 import team.noweekend.feature.home.component.recommend.personal.carousel.PersonalRecommendCarousel
 
 internal fun LazyListScope.personalVacationRecommend(
@@ -74,11 +76,11 @@ private fun PersonalVacationRecommendHeader(
     modifier: Modifier = Modifier,
 ) {
     val message = buildAnnotatedString {
-        append("${userName}님을 위한 ")
+        append(stringResource(NWKStringResource.HomePersonalRecommendHeaderSpan1, userName))
         withStyle(style = SpanStyle(NWKTheme.color.Toast.toast500)) {
-            append("${vacationDays}일 ")
+            append(stringResource(NWKStringResource.HomePersonalRecommendHeaderSpan2, vacationDays))
         }
-        append("휴가에요")
+        append(stringResource(NWKStringResource.HomePersonalRecommendHeaderSpan3))
     }
 
     Row(
