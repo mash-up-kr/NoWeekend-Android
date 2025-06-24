@@ -34,13 +34,11 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import team.noweekend.core.common.ui.calendar.state.CalendarPagerState.CalendarMode
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import kotlin.math.roundToInt
@@ -132,15 +130,15 @@ private fun CalendarTypeToggleThumb(
                         y = 0,
                     )
                 }
-                .shadow(5.dp, shape = CircleShape)
-                .size(thumbSize)
-                .clip(CircleShape)
-                .background(Color.White),
+                .shadow(elevation = 5.dp, shape = CircleShape)
+                .size(size = thumbSize)
+                .clip(shape = CircleShape)
+                .background(color = NWKTheme.color.Neutral.white),
             contentAlignment = Alignment.Center,
         ) {
             Text(
                 text = stringResource(id = currentCalendarMode.id),
-                style= NWKTheme.typography.heading6,
+                style = NWKTheme.typography.heading6,
             )
         }
     }
@@ -158,14 +156,14 @@ private fun CalendarTypeToggleBackground(
         Text(
             modifier = Modifier.weight(1f),
             text = stringResource(id = CalendarMode.WEEK.id),
-            style= NWKTheme.typography.heading6,
+            style = NWKTheme.typography.heading6,
             textAlign = TextAlign.Center,
             color = NWKTheme.color.Semantic.Text.disabled,
         )
         Text(
             modifier = Modifier.weight(1f),
             text = stringResource(id = CalendarMode.MONTH.id),
-            style= NWKTheme.typography.heading6,
+            style = NWKTheme.typography.heading6,
             textAlign = TextAlign.Center,
             color = NWKTheme.color.Semantic.Text.disabled,
         )
