@@ -98,7 +98,6 @@ private fun AverageTemperature(
             ),
             textAlign = TextAlign.Center,
         )
-
     }
 }
 
