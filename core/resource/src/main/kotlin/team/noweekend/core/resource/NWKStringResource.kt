@@ -11,6 +11,7 @@ object NWKStringResource {
     val HomePersonalRecommendHeaderSpan1: Int = R.string.home_personal_recommend_header_span_1
     val HomePersonalRecommendHeaderSpan2: Int = R.string.home_personal_recommend_header_span_2
     val HomePersonalRecommendHeaderSpan3: Int = R.string.home_personal_recommend_header_span_3
+    val HomeHolidayRecommendHeader: Int = R.string.home_holiday_recommend_header
 
     val Monday: Int = R.string.monday
     val Tuesday: Int = R.string.tuesday

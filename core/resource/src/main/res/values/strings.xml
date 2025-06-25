@@ -9,6 +9,7 @@
     <string name="home_personal_recommend_header_span_1">"%1$s님을 위한 "</string>
     <string name="home_personal_recommend_header_span_2">"%1$s일 "</string>
     <string name="home_personal_recommend_header_span_3">"휴가에요"</string>
+    <string name="home_holiday_recommend_header">올해 남은 공휴일을 모아봤어요</string>
     <string name="monday">월</string>
     <string name="tuesday">화</string>
     <string name="wednesday">수</string>
