@@ -20,7 +20,7 @@ fun CarouselLayout(
     modifier: Modifier = Modifier,
     content: @Composable PagerScope.(index: Int) -> Unit,
 ) {
-    val pageSize = (getScreenWidth() * (pageWidth / 350f)).toInt().toDp()
+    val pageSize = (getScreenWidth() * (pageWidth.toFloat() / 375f)).toInt().toDp()
 
     HorizontalPager(
         modifier = modifier,
