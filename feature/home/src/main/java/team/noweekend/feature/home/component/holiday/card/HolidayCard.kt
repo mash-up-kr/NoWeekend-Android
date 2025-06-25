@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import kotlinx.datetime.LocalDate
-import team.noweekend.core.common.kotlin.extension.DATE_WITH_DAY_OF_WEEK_PATTERN
+import team.noweekend.core.common.kotlin.extension.MONTH_DATE_WITH_DAY_OF_WEEK_PATTERN
 import team.noweekend.core.common.kotlin.extension.toFormattedString
 import team.noweekend.core.design.system.core.component.card.NWKHolidayCard
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
@@ -20,7 +20,7 @@ internal fun HolidayCard(
     NWKHolidayCard(
         modifier = modifier,
         onCardClick = onCardClick,
-        title = date.toFormattedString(LocalDate.DATE_WITH_DAY_OF_WEEK_PATTERN),
+        title = date.toFormattedString(LocalDate.MONTH_DATE_WITH_DAY_OF_WEEK_PATTERN),
         description = holiday,
         enabled = enabled,
     )
