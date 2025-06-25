@@ -1,27 +1,31 @@
 package team.noweekend.feature.home.screen
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import team.noweekend.core.design.system.core.component.scaffold.NWKScaffold
+import team.noweekend.core.common.android.extension.fillMaxWidthOfScreen
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
+import team.noweekend.feature.home.component.holiday.holidayRecommend
 import team.noweekend.feature.home.component.recommend.personal.personalVacationRecommend
 
 @Composable
 internal fun HomeScreen(
     modifier: Modifier = Modifier,
 ) {
-    NWKScaffold(
-        modifier = modifier,
-        topBar = {
+    LazyColumn(
+        modifier = modifier
+            .fillMaxSize()
+            .background(NWKTheme.color.Neutral.white),
+    ) {
+        item {
             Text(
                 modifier = Modifier
-                    .fillMaxWidth()
+                    .fillMaxWidthOfScreen()
                     .padding(
                         top = NWKTheme.spacing.space175,
                         start = NWKTheme.spacing.space300,
@@ -33,29 +37,15 @@ internal fun HomeScreen(
                     color = NWKTheme.color.Semantic.Text.neutral,
                 ),
             )
-        },
-        content = {
-            HomeScreenContent(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(it),
-            )
-        },
-    )
-}
-
-@Composable
-private fun HomeScreenContent(
-    modifier: Modifier = Modifier,
-) {
-    LazyColumn(
-        modifier = modifier.fillMaxSize(),
-    ) {
+        }
         personalVacationRecommend(
             vacationDays = 5,
             userName = "자성리",
             onCardClick = {},
             onFilterClick = {},
+        )
+        holidayRecommend(
+            onHolidayCardClick = {},
         )
     }
 }
