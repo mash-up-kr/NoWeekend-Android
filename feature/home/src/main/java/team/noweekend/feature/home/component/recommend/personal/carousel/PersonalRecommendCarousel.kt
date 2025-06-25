@@ -30,7 +30,7 @@ internal fun PersonalRecommendCarousel(
     ) {
         CarouselLayout(
             state = pagerState,
-            pageWidth = 250,
+            pageWidth = 295,
             pageSpacing = NWKTheme.spacing.space175,
             contentPadding = PaddingValues(horizontal = NWKTheme.spacing.space200),
         ) { index ->
