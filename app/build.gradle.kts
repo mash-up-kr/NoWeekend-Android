@@ -27,6 +27,7 @@ dependencies {
     implementation(project(":feature:calendar"))
     implementation(project(":feature:profile"))
     implementation(project(":feature:login"))
+    implementation(project(":feature:onboarding"))
 
     implementation(libs.hilt.navigation.compose)
 }
