@@ -26,4 +26,9 @@ object NWKDrawableResource {
     val Train: Int = R.drawable.img_train
     val Trip: Int = R.drawable.img_trip
     val MainToaster: Int = R.drawable.img_main_toaster
+
+    /* Icon */
+    val LeftArrow: Int = R.drawable.ic_left
+    val RightArrow: Int = R.drawable.ic_right
+    val TextClear: Int = R.drawable.ic_text_clear
 }
