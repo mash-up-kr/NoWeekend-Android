@@ -123,7 +123,7 @@ private fun TailContent(textFieldState: TextFieldState, textInputType: TextInput
             )
         }
 
-        TextInputType.DATE -> {
+        TextInputType.DAY -> {
             Text(
                 modifier = modifier,
                 text = stringResource(NWKStringResource.Day),
@@ -168,7 +168,7 @@ private fun NWKInputFieldPreview() {
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
             textFieldState = rememberTextFieldState(),
-            textInputType = TextInputType.DATE,
+            textInputType = TextInputType.DAY,
             textHint = "0",
             isSingLine = true,
             isError = false,
