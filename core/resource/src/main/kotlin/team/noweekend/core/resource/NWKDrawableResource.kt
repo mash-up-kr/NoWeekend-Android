@@ -20,7 +20,7 @@ object NWKDrawableResource {
     val ChevronLeft: Int = R.drawable.icn_chevron_left
     val ChevronRight: Int = R.drawable.icn_chevron_right
     val Close: Int = R.drawable.icn_close
-    val ArrowRight : Int = R.drawable.icn_arrow_right
+    val ArrowRight: Int = R.drawable.icn_arrow_right
     val Delete: Int = R.drawable.icn_delete
     val Edit: Int = R.drawable.icn_edit
     val TextClear: Int = R.drawable.ic_text_clear
