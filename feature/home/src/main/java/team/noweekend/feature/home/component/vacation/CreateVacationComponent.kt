@@ -28,11 +28,13 @@ internal fun LazyListScope.createVacation(
     temperature: Int,
     maximumVacation: Int,
     guideMessage: String,
+    modifier: Modifier = Modifier,
 ) = item {
     CreateVacationComponent(
         temperature = temperature,
         maximumVacation = maximumVacation,
         guideMessage = guideMessage,
+        modifier = modifier,
     )
 }
 
