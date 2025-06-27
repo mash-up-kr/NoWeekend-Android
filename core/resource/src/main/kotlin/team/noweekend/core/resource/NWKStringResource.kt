@@ -100,6 +100,21 @@ object NWKStringResource {
     val EditInfoDeleteAccountTitle: Int = R.string.edit_info_delete_account_title
     val EditInfoGoogleAccountTitle: Int = R.string.edit_info_google_account_title
 
+    val OnboardingNicknameTitle = R.string.onboard_title
+    val OnboardingNicknameSubTitle = R.string.onboard_subtitle
+    val OnboardingNicknameInputHint = R.string.onboard_nickname_input_hint
+
+    val InputDateError = R.string.input_date_error
+    val InputVacationError = R.string.input_vacation_error
+    val VacationDayTimeFormat = R.string.vacation_day_time_format
+    val VacationSeparator = R.string.vacation_separator
+    val VacationMyVacationFormat = R.string.vacation_my_vacation_format
+    val VacationInputTitle = R.string.vacation_input_title
+    val VacationInputSubTitle = R.string.vacation_input_subtitle
+    val RemainingVacationLabel = R.string.remaining_vacation_label
+    val AllVacationLabel = R.string.all_vacation_label
+    val DefaultDayNumber = R.string.default_day_number
+
     val ProfileInputHeaderTitle: Int = R.string.profile_input_header_title
     val ProfileInputHeaderSubtitle: Int = R.string.profile_input_header_subtitle
     val BirthInputLabel: Int = R.string.birth_input_label

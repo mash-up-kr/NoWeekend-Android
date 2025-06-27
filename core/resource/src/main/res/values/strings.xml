@@ -1,5 +1,4 @@
 <resources>
-
     <string name="company">회사</string>
     <string name="personal">개인</string>
     <string name="annual_leave">연차</string>
@@ -97,6 +96,21 @@
     <string name="edit_info_menu_logout_title">로그아웃</string>
     <string name="edit_info_delete_account_title">계정 삭제</string>
     <string name="edit_info_google_account_title">구글 계정</string>
+
+    <string name="onboard_title">닉네임을 알려주세요!</string>
+    <string name="onboard_subtitle">언제든 변경할 수 있어요</string>
+    <string name="onboard_nickname_input_hint">닉네임을 입력해주세요</string>
+    <string name="input_date_error">숫자만 입력할 수 있어요.</string>
+    <string name="input_vacation_error">남은 연차는 전체 연차보다 많을 수 없어요.</string>
+
+    <string name="vacation_day_time_format">%1$s일 %2$s시간</string>
+    <string name="vacation_separator">/</string>
+    <string name="vacation_my_vacation_format">%1$s일</string>
+    <string name="vacation_input_title">올해 연차를 입력해주세요</string>
+    <string name="vacation_input_subtitle">숫자로 입력해 주세요.</string>
+    <string name="remaining_vacation_label">남은 연차</string>
+    <string name="all_vacation_label">전체 연차</string>
+    <string name="default_day_number">0</string>
 
     <!-- :core:common-ui -->
     <string name="profile_input_header_title">정보를 작성해 주세요</string>
