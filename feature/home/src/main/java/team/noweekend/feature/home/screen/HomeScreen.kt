@@ -18,10 +18,14 @@ import team.noweekend.core.model.vacation.VacationType
 import team.noweekend.feature.home.component.holiday.holidayRecommend
 import team.noweekend.feature.home.component.popular.PopularVacationRecommendComponent
 import team.noweekend.feature.home.component.recommend.personal.personalVacationRecommend
+import team.noweekend.feature.home.component.vacation.createVacation
 import team.noweekend.feature.home.model.PopularVacationUiModel
+import team.noweekend.feature.home.mvi.HomeUiState
 
 @Composable
 internal fun HomeScreen(
+    uiState: HomeUiState,
+    onCreateVacationClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -45,6 +49,12 @@ internal fun HomeScreen(
                 ),
             )
         }
+        createVacation(
+            temperature = 90,
+            maximumVacation = 3,
+            guideMessage = "",
+            onCreateVacationClick = onCreateVacationClick,
+        )
         personalVacationRecommend(
             vacationDays = 5,
             userName = "자성리",
@@ -143,6 +153,9 @@ internal fun HomeScreen(
 @Composable
 private fun HomeScreenPreview() {
     NWKTheme {
-        HomeScreen()
+        HomeScreen(
+            uiState = HomeUiState.INITIAL_STATE,
+            onCreateVacationClick = {},
+        )
     }
 }

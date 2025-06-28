@@ -10,6 +10,7 @@ import team.noweekend.feature.profile.navigation.profileNavGraph
 
 @Composable
 internal fun MainNavHost(
+    navigateToCreateVacation: () -> Unit,
     navigator: MainNavigator,
     modifier: Modifier = Modifier,
 ) {
@@ -18,7 +19,9 @@ internal fun MainNavHost(
         startDestination = navigator.startDestination,
         modifier = modifier,
     ) {
-        homeNavGraph()
+        homeNavGraph(
+            navigateToCreateVacation = navigateToCreateVacation,
+        )
         calendarNavGraph()
         profileNavGraph()
     }

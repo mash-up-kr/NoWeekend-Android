@@ -5,8 +5,12 @@ import androidx.navigation.compose.composable
 import team.noweekend.core.navigator.model.Home
 import team.noweekend.feature.home.screen.HomeRoute
 
-fun NavGraphBuilder.homeNavGraph() {
+fun NavGraphBuilder.homeNavGraph(
+    navigateToCreateVacation: () -> Unit,
+) {
     composable<Home> {
-        HomeRoute()
+        HomeRoute(
+            navigateToCreateVacation = navigateToCreateVacation,
+        )
     }
 }
