@@ -8,6 +8,7 @@ import dagger.hilt.android.components.ActivityComponent
 import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.scopes.ActivityScoped
 import team.noweekend.core.navigator.delegate.HomeNavigationDelegate
+import team.noweekend.core.navigator.feature.CreateVacationNavigator
 
 @Module
 @InstallIn(ActivityComponent::class)
@@ -17,5 +18,6 @@ internal class NavigationDelegateModule {
     @ActivityScoped
     fun provideHomeNavigationDelegate(
         @ActivityContext context: Context,
-    ): HomeNavigationDelegate = HomeNavigationDelegate(context)
+        createVacationNavigator: CreateVacationNavigator,
+    ): HomeNavigationDelegate = HomeNavigationDelegate(context, createVacationNavigator)
 }

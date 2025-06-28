@@ -15,6 +15,7 @@ import team.noweekend.feature.main.navigation.rememberMainNavigator
 
 @Composable
 internal fun MainScreen(
+    navigateToCreateVacation: () -> Unit,
     onTabSelected: (MainTab) -> Unit,
     modifier: Modifier = Modifier,
     navigator: MainNavigator = rememberMainNavigator(),
@@ -27,6 +28,7 @@ internal fun MainScreen(
                     .fillMaxSize()
                     .padding(it),
                 navigator = navigator,
+                navigateToCreateVacation = navigateToCreateVacation,
             )
         },
         bottomBar = {
@@ -44,6 +46,7 @@ internal fun MainScreen(
 private fun MainScreenPreview() {
     NWKTheme {
         MainScreen(
+            navigateToCreateVacation = {},
             onTabSelected = {},
         )
     }

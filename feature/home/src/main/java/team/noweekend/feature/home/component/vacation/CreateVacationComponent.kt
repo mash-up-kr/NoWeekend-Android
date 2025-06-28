@@ -28,12 +28,14 @@ internal fun LazyListScope.createVacation(
     temperature: Int,
     maximumVacation: Int,
     guideMessage: String,
+    onCreateVacationClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) = item {
     CreateVacationComponent(
         temperature = temperature,
         maximumVacation = maximumVacation,
         guideMessage = guideMessage,
+        onCreateVacationClick = onCreateVacationClick,
         modifier = modifier,
     )
 }
@@ -43,6 +45,7 @@ internal fun CreateVacationComponent(
     temperature: Int,
     maximumVacation: Int,
     guideMessage: String,
+    onCreateVacationClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -58,7 +61,7 @@ internal fun CreateVacationComponent(
             drawableResId = NWKDrawableResource.MainToaster,
         )
         NWKFillButton(
-            onClick = {},
+            onClick = onCreateVacationClick,
             text = stringResource(NWKStringResource.HomeCreateVacationButtonText, maximumVacation),
             type = BoxButtonType.PRIMARY,
         )
@@ -111,6 +114,7 @@ private fun CreateVacationComponentPreview() {
             temperature = 97,
             maximumVacation = 3,
             guideMessage = "온도를 식히는 휴식 어떠세요?",
+            onCreateVacationClick = {},
         )
     }
 }
