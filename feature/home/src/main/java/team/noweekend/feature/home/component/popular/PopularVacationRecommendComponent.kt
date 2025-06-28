@@ -11,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.ImmutableMap
-import kotlinx.collections.immutable.persistentMapOf
 import team.noweekend.core.common.android.extension.fillMaxWidthOfScreen
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.feature.home.component.popular.carousel.PopularVacationCarousel
@@ -71,5 +70,3 @@ private fun ColumnScope.PopularVacationRecommendContent(
         popularVacations = popularVacations,
     )
 }
-
-
