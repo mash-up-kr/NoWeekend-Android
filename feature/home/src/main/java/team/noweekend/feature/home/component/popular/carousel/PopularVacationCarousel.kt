@@ -31,7 +31,7 @@ internal fun PopularVacationCarousel(
 ) {
     val carouselState = rememberPagerState(pageCount = {
         popularVacations.keys.size
-    })
+    },)
 
     Column(
         modifier = modifier.fillMaxWidthOfScreen(),
@@ -54,11 +54,11 @@ internal fun PopularVacationCarousel(
                         onCardClick = {},
                     )
                 }
-            }
+            },
         )
         NWKPageControl(
             pageSize = { carouselState.pageCount },
-            currentPosition = { carouselState.currentPage }
+            currentPosition = { carouselState.currentPage },
         )
     }
 }
@@ -72,18 +72,18 @@ internal fun PopularVacationCarouselGridLayout(
 ) {
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(NWKTheme.spacing.space175)
+        verticalArrangement = Arrangement.spacedBy(NWKTheme.spacing.space175),
     ) {
         val rows = (items.size + columns - 1) / columns
 
         for (rowIndex in 0 until rows) {
             Row(
-                horizontalArrangement = Arrangement.spacedBy(NWKTheme.spacing.space175)
+                horizontalArrangement = Arrangement.spacedBy(NWKTheme.spacing.space175),
             ) {
                 for (columnIndex in 0 until columns) {
                     val itemIndex = rowIndex * columns + columnIndex
                     Box(
-                        modifier = Modifier.weight(1f)
+                        modifier = Modifier.weight(1f),
                     ) {
                         if (itemIndex < items.size) {
                             content(itemIndex)
@@ -107,24 +107,24 @@ private fun PopularVacationCarouselPreview() {
                         PopularVacationUiModel(
                             vacationType = VacationType.HOLIDAY_EXIST,
                             startLocalDate = LocalDate.now(),
-                            endLocalDate = LocalDate.now()
+                            endLocalDate = LocalDate.now(),
                         ),
                         PopularVacationUiModel(
                             vacationType = VacationType.BIRTHDAY_EXIST,
                             startLocalDate = LocalDate.now(),
-                            endLocalDate = LocalDate.now()
+                            endLocalDate = LocalDate.now(),
                         ),
                         PopularVacationUiModel(
                             vacationType = VacationType.INCLUDE_MONDAY,
                             startLocalDate = LocalDate.now(),
-                            endLocalDate = LocalDate.now()
+                            endLocalDate = LocalDate.now(),
                         ),
                         PopularVacationUiModel(
                             vacationType = VacationType.INCLUDE_MONDAY,
                             startLocalDate = LocalDate.now(),
-                            endLocalDate = LocalDate.now()
-                        )
-                    )
+                            endLocalDate = LocalDate.now(),
+                        ),
+                    ),
                 ),
                 Pair(
                     1,
@@ -132,24 +132,24 @@ private fun PopularVacationCarouselPreview() {
                         PopularVacationUiModel(
                             vacationType = VacationType.HOLIDAY_EXIST,
                             startLocalDate = LocalDate.now(),
-                            endLocalDate = LocalDate.now()
+                            endLocalDate = LocalDate.now(),
                         ),
                         PopularVacationUiModel(
                             vacationType = VacationType.BIRTHDAY_EXIST,
                             startLocalDate = LocalDate.now(),
-                            endLocalDate = LocalDate.now()
+                            endLocalDate = LocalDate.now(),
                         ),
                         PopularVacationUiModel(
                             vacationType = VacationType.INCLUDE_MONDAY,
                             startLocalDate = LocalDate.now(),
-                            endLocalDate = LocalDate.now()
+                            endLocalDate = LocalDate.now(),
                         ),
                         PopularVacationUiModel(
                             vacationType = VacationType.INCLUDE_MONDAY,
                             startLocalDate = LocalDate.now(),
-                            endLocalDate = LocalDate.now()
-                        )
-                    )
+                            endLocalDate = LocalDate.now(),
+                        ),
+                    ),
                 ),
                 Pair(
                     2,
@@ -157,26 +157,26 @@ private fun PopularVacationCarouselPreview() {
                         PopularVacationUiModel(
                             vacationType = VacationType.HOLIDAY_EXIST,
                             startLocalDate = LocalDate.now(),
-                            endLocalDate = LocalDate.now()
+                            endLocalDate = LocalDate.now(),
                         ),
                         PopularVacationUiModel(
                             vacationType = VacationType.BIRTHDAY_EXIST,
                             startLocalDate = LocalDate.now(),
-                            endLocalDate = LocalDate.now()
+                            endLocalDate = LocalDate.now(),
                         ),
                         PopularVacationUiModel(
                             vacationType = VacationType.INCLUDE_MONDAY,
                             startLocalDate = LocalDate.now(),
-                            endLocalDate = LocalDate.now()
+                            endLocalDate = LocalDate.now(),
                         ),
                         PopularVacationUiModel(
                             vacationType = VacationType.INCLUDE_MONDAY,
                             startLocalDate = LocalDate.now(),
-                            endLocalDate = LocalDate.now()
-                        )
-                    )
-                )
-            )
+                            endLocalDate = LocalDate.now(),
+                        ),
+                    ),
+                ),
+            ),
         )
     }
 }

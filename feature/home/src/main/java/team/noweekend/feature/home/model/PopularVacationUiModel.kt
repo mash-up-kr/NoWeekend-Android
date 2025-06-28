@@ -1,6 +1,5 @@
 package team.noweekend.feature.home.model
 
-import android.R
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.res.stringResource
@@ -43,7 +42,9 @@ data class PopularVacationUiModel(
 
         return if (endDisplayDate.isNullOrEmpty()) {
             "$startDisplayDate ~ $endDisplayDate"
-        } else startDisplayDate
+        } else {
+            startDisplayDate
+        }
     }
 
     companion object {

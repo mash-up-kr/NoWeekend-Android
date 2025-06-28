@@ -26,7 +26,7 @@ import team.noweekend.core.resource.NWKDrawableResource
 internal fun DateSelectableChip(
     onChipClick: () -> Unit,
     modifier: Modifier = Modifier,
-    date: LocalDate = LocalDate.now(),  // TODO (JaesungLeee) : UiState 이전 필요
+    date: LocalDate = LocalDate.now(), // TODO (JaesungLeee) : UiState 이전 필요
 ) {
     Row(
         modifier = modifier
