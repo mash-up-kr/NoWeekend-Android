@@ -15,6 +15,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kotlinx.datetime.LocalDate
+import team.noweekend.core.common.kotlin.extension.YEAR_MONTH_KR_PATTERN
+import team.noweekend.core.common.kotlin.extension.now
+import team.noweekend.core.common.kotlin.extension.toFormattedString
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.resource.NWKDrawableResource
 
@@ -22,7 +26,7 @@ import team.noweekend.core.resource.NWKDrawableResource
 internal fun DateSelectableChip(
     onChipClick: () -> Unit,
     modifier: Modifier = Modifier,
-    date: String = "2025년 6월",  // TODO (JaesungLeee) : 추후 LocalDate로 수정
+    date: LocalDate = LocalDate.now(),
 ) {
     Row(
         modifier = modifier
@@ -39,8 +43,9 @@ internal fun DateSelectableChip(
         horizontalArrangement = Arrangement.spacedBy(NWKTheme.spacing.space50),
         verticalAlignment = Alignment.CenterVertically,
     ) {
+        val formattedDate: String = date.toFormattedString(LocalDate.YEAR_MONTH_KR_PATTERN)
         Text(
-            text = date,
+            text = formattedDate,
             style = NWKTheme.typography.subTitle1.copy(
                 color = NWKTheme.color.Neutral.white,
             ),

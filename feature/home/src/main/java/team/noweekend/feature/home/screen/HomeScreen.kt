@@ -8,9 +8,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import kotlinx.collections.immutable.persistentListOf
 import team.noweekend.core.common.android.extension.fillMaxWidthOfScreen
+import team.noweekend.core.design.system.core.component.card.NWKShortCard
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
+import team.noweekend.core.resource.NWKDrawableResource
 import team.noweekend.feature.home.component.holiday.holidayRecommend
+import team.noweekend.feature.home.component.popular.PopularVacationRecommendComponent
+import team.noweekend.feature.home.component.popular.carousel.PopularVacationCarousel
+import team.noweekend.feature.home.component.popular.carousel.PopularVacationCarouselGridLayout
 import team.noweekend.feature.home.component.recommend.personal.personalVacationRecommend
 
 @Composable
@@ -47,6 +53,11 @@ internal fun HomeScreen(
         holidayRecommend(
             onHolidayCardClick = {},
         )
+        item {
+            PopularVacationRecommendComponent(
+                onDateSelectableChipClick = {},
+            )
+        }
     }
 }
 
