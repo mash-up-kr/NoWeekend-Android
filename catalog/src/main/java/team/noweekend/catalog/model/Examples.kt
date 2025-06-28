@@ -16,6 +16,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
@@ -29,6 +32,7 @@ import team.noweekend.core.design.system.core.component.button.fill.NWKFillButto
 import team.noweekend.core.design.system.core.component.button.outline.NWKOutlineButton
 import team.noweekend.core.design.system.core.component.card.NWKHolidayCard
 import team.noweekend.core.design.system.core.component.card.NWKLongCard
+import team.noweekend.core.design.system.core.component.card.NWKShortCard
 import team.noweekend.core.design.system.core.component.control.page.NWKPageControl
 import team.noweekend.core.design.system.core.component.divider.NWKHorizontalDivider
 import team.noweekend.core.design.system.core.component.tabbar.NWKNavigationBarItem
@@ -140,6 +144,24 @@ internal object Card {
                     leadingDrawableResId = NWKDrawableResource.Cake,
                     trailingDrawableResId = NWKDrawableResource.Plus,
                     onCardClick = {},
+                )
+            },
+            Example(
+                name = "ShortCard",
+                description = CardExampleDescription,
+            ) {
+                NWKShortCard(
+                    onCardClick = {},
+                    date = "6월 6일 (월)",
+                    description = buildAnnotatedString {
+                        append("곧 ")
+                        withStyle(style = SpanStyle(NWKTheme.color.Toast.toast500)) {
+                            append("공휴일")
+                        }
+                        append("이\n")
+                        append("다가와요")
+                    },
+                    drawableResId = NWKDrawableResource.Korea,
                 )
             },
             Example(
