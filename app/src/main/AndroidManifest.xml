@@ -26,6 +26,9 @@
         <activity
             android:name="team.noweekend.feature.login.LoginActivity"
             android:exported="false" />
-    </application>
 
+        <activity
+            android:name="team.noweekend.feature.create.vacation.CreateVacationActivity"
+            android:exported="false" />
+    </application>
 </manifest>

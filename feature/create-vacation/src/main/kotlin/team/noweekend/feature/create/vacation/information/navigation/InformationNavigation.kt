@@ -1,0 +1,17 @@
+package team.noweekend.feature.create.vacation.information.navigation
+
+import androidx.navigation.NavController
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.compose.composable
+import team.noweekend.core.navigator.model.CreateVacation
+import team.noweekend.feature.create.vacation.information.screen.InformationRoute
+
+internal fun NavController.navigateToInformation() {
+    navigate(CreateVacation.Information)
+}
+
+internal fun NavGraphBuilder.informationGraph() {
+    composable<CreateVacation.Information>{
+        InformationRoute()
+    }
+}

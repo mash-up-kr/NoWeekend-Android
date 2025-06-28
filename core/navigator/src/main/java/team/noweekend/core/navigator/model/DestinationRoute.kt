@@ -15,3 +15,14 @@ data object Calendar : DestinationRoute
 
 @Serializable
 data object Profile : DestinationRoute
+
+sealed interface CreateVacation : DestinationRoute {
+    @Serializable
+    data object Date : CreateVacation
+
+    @Serializable
+    data object Information : CreateVacation
+
+    @Serializable
+    data object Recommend : CreateVacation
+}
