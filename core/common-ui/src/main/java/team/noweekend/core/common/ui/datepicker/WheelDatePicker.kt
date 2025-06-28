@@ -58,10 +58,8 @@ fun WheelDatePicker(
     val monthIndex = monthList.indexOf(currentMonth)
     val dayIndex = dayList.indexOf(selectedDay).coerceAtLeast(0)
 
-
     val itemHeight = 35.dp
     val containerWidth = 335.dp
-
 
     Box(
         modifier = modifier
@@ -69,7 +67,6 @@ fun WheelDatePicker(
             .background(color = NWKTheme.color.Semantic.Background.normal),
         contentAlignment = Alignment.Center,
     ) {
-
         val selectedColor = NWKTheme.color.Semantic.Background.alternative01
         Canvas(
             modifier = Modifier
@@ -122,9 +119,7 @@ fun WheelDatePicker(
             )
         }
     }
-
 }
-
 
 @Preview
 @Composable

@@ -28,7 +28,6 @@ import team.noweekend.core.design.system.foundation.theme.NWKTheme
 fun WheelTimePicker(
     modifier: Modifier = Modifier,
 ) {
-
     val amPm: ImmutableList<String> = persistentListOf("오전", "오후")
     val hour: ImmutableList<Int> = (1..12).toImmutableList()
     val minute: ImmutableList<Int> = (0..59).toImmutableList()
@@ -39,7 +38,6 @@ fun WheelTimePicker(
         hour24 > 12 -> hour24 - 12
         else -> hour24
     }
-
 
     val currentHourIndex = hour.indexOf(hour12)
     val currentMinuteIndex = minute.indexOf(currentTime.minute)
@@ -57,7 +55,6 @@ fun WheelTimePicker(
             .background(color = NWKTheme.color.Semantic.Background.normal),
         contentAlignment = Alignment.Center,
     ) {
-
         val selectedColor = NWKTheme.color.Semantic.Background.alternative01
 
         Canvas(
@@ -85,11 +82,11 @@ fun WheelTimePicker(
                 visibleItemCount = 3,
                 initialIndex = currentAmPmIndex,
                 itemList = amPm,
-                onItemSelected = {index->
+                onItemSelected = { index ->
                     selectedAmPm.value = amPm[index]
                 },
 
-                )
+            )
 
             WheelPicker(
                 modifier = Modifier
@@ -98,11 +95,11 @@ fun WheelTimePicker(
                 visibleItemCount = 7,
                 initialIndex = currentHourIndex,
                 itemList = hour.map { "${it}시" }.toImmutableList(),
-                onItemSelected = { index->
+                onItemSelected = { index ->
                     selectedHour.intValue = hour[index]
                 },
 
-                )
+            )
 
             WheelPicker(
                 modifier = Modifier
@@ -111,16 +108,12 @@ fun WheelTimePicker(
                 visibleItemCount = 7,
                 initialIndex = currentMinuteIndex,
                 itemList = minute.map { "${it}분" }.toImmutableList(),
-                onItemSelected = { index->
+                onItemSelected = { index ->
                     selectedMinute.intValue = minute[index]
                 },
             )
-
         }
-
     }
-
-
 }
 
 @Preview

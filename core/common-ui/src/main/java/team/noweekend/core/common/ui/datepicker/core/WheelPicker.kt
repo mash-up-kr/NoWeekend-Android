@@ -36,7 +36,6 @@ internal fun <T> WheelPicker(
     itemHeight: Dp = 35.dp,
     onItemSelected: (Int) -> Unit = {},
 ) {
-
     val containerHeight: Dp = visibleItemCount * itemHeight
 
     val state = rememberLazyListState(initialFirstVisibleItemIndex = initialIndex)
@@ -49,7 +48,6 @@ internal fun <T> WheelPicker(
             }
         }
     }
-
 
     LazyColumn(
         state = state,
@@ -71,7 +69,9 @@ internal fun <T> WheelPicker(
             val color = animateColorAsState(
                 if (isCenter.value) {
                     NWKTheme.color.Semantic.Text.neutral
-                } else NWKTheme.color.Neutral.neutralGray300,
+                } else {
+                    NWKTheme.color.Neutral.neutralGray300
+                },
             )
 
             Row(
@@ -83,12 +83,10 @@ internal fun <T> WheelPicker(
                     style = NWKTheme.typography.heading4.copy(
                         fontWeight = FontWeight.Normal,
                     ),
-                    color= color.value,
+                    color = color.value,
                     textAlign = TextAlign.Center,
                 )
             }
         }
-
     }
-
 }
