@@ -7,8 +7,13 @@ import kotlinx.datetime.Month
 import kotlinx.datetime.minus
 import kotlinx.datetime.number
 import kotlinx.datetime.plus
+import team.noweekend.core.common.kotlin.extension.instant
+import kotlinx.datetime.TimeZone
 
 object CalendarUtils {
+
+
+    val currentTime = instant.toLocalDateTime(TimeZone.currentSystemDefault())
 
     fun LocalDate.minusWeeks(week: Int): LocalDate {
         return this.minus(week, DateTimeUnit.WEEK)
@@ -56,5 +61,21 @@ object CalendarUtils {
     private fun isLeapYear(year: Int): Boolean {
         val prolepticYear = year.toLong()
         return prolepticYear % 4 == 0L && (prolepticYear % 100 != 0L || prolepticYear % 400 == 0L)
+    }
+
+    /**
+     * 주어진 연도와 월에 따라 해당 월의 일수를 계산
+     * @param year 연도
+     * @param month 월
+     * @return 해당 월의 일수 (28, 29, 30, 또는 31)
+     */
+    fun getDaysInMonth(year: Int, month: Int): Int {
+        // 윤년 계산: 4로 나누어 떨어지고, 100으로 나누어 떨어지지 않거나 400으로 나누어 떨어지는 경우
+
+        return when (Month.of(month)) {
+            Month.FEBRUARY -> if (isLeapYear(year)) 29 else 28
+            Month.APRIL, Month.JUNE, Month.SEPTEMBER, Month.NOVEMBER -> 30
+            else -> 31
+        }
     }
 }
