@@ -1,7 +1,9 @@
 package team.noweekend.feature.home.model
 
+import android.R
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -12,6 +14,7 @@ import team.noweekend.core.common.kotlin.extension.toFormattedString
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.model.vacation.VacationType
 import team.noweekend.core.resource.NWKDrawableResource
+import team.noweekend.core.resource.NWKStringResource
 
 @Stable
 data class PopularVacationUiModel(
@@ -29,7 +32,7 @@ data class PopularVacationUiModel(
             VacationType.INCLUDE_MONDAY -> NWKDrawableResource.Star
             VacationType.INCLUDE_FRIDAY -> NWKDrawableResource.Star
             VacationType.INCLUDE_WEEKEND -> NWKDrawableResource.Sandwich
-            VacationType.BIRTHDAY_EXIST -> NWKDrawableResource.Sandwich
+            VacationType.BIRTHDAY_EXIST -> NWKDrawableResource.Cake
         }
     }
 
@@ -49,57 +52,57 @@ data class PopularVacationUiModel(
             return when (this) {
                 VacationType.HOLIDAY_EXIST -> {
                     buildAnnotatedString {
-                        append("곧 ")
+                        append(stringResource(NWKStringResource.HomePopularVacationHolidayExistSpan1))
                         withStyle(style = SpanStyle(NWKTheme.color.Toast.toast500)) {
-                            append("공휴일")
+                            append(stringResource(NWKStringResource.HomePopularVacationHolidayExistSpan2))
                         }
-                        append("이\n")
-                        append("다가와요")
+                        append(stringResource(NWKStringResource.HomePopularVacationHolidayExistSpan3))
+                        append(stringResource(NWKStringResource.HomePopularVacationHolidayExistSpan4))
                     }
                 }
 
                 VacationType.HOLIDAY_EXIST_NOT -> {
                     buildAnnotatedString {
-                        append("이번 달엔\n공휴일이 없어요")
+                        append(stringResource(NWKStringResource.HomePopularVacationHolidayExistNotSpan1))
                     }
                 }
 
                 VacationType.INCLUDE_MONDAY -> {
                     buildAnnotatedString {
-                        append("월요일에 연차쓰고\n")
+                        append(stringResource(NWKStringResource.HomePopularVacationIncludeMondaySpan1))
                         withStyle(style = SpanStyle(NWKTheme.color.Toast.toast500)) {
-                            append("3일 ")
+                            append(stringResource(NWKStringResource.HomePopularVacationIncludeMondaySpan2, 3))
                         }
-                        append("쉬어요")
+                        append(stringResource(NWKStringResource.HomePopularVacationIncludeMondaySpan3))
                     }
                 }
 
                 VacationType.INCLUDE_FRIDAY -> {
                     buildAnnotatedString {
-                        append("금요일에 연차쓰고\n")
+                        append(stringResource(NWKStringResource.HomePopularVacationIncludeFridaySpan1))
                         withStyle(style = SpanStyle(NWKTheme.color.Toast.toast500)) {
-                            append("3일 ")
+                            append(stringResource(NWKStringResource.HomePopularVacationIncludeFridaySpan2, 3))
                         }
-                        append("쉬어요")
+                        append(stringResource(NWKStringResource.HomePopularVacationIncludeFridaySpan3))
                     }
                 }
 
                 VacationType.INCLUDE_WEEKEND -> {
                     buildAnnotatedString {
-                        append("주말 포함 ")
+                        append(stringResource(NWKStringResource.HomePopularVacationIncludeWeekendSpan1))
                         withStyle(style = SpanStyle(NWKTheme.color.Toast.toast500)) {
-                            append("4일")
+                            append(stringResource(NWKStringResource.HomePopularVacationIncludeWeekendSpan2, 3))
                         }
-                        append("쉴 수 있어요")
+                        append(stringResource(NWKStringResource.HomePopularVacationIncludeWeekendSpan3))
                     }
                 }
 
                 VacationType.BIRTHDAY_EXIST -> {
                     buildAnnotatedString {
                         withStyle(style = SpanStyle(NWKTheme.color.Toast.toast500)) {
-                            append("생일\n")
+                            append(stringResource(NWKStringResource.HomePopularVacationBirthdayExistSpan1))
                         }
-                        append("축하드려요")
+                        append(stringResource(NWKStringResource.HomePopularVacationBirthdayExistSpan2))
                     }
                 }
             }

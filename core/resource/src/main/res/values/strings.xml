@@ -9,7 +9,24 @@
     <string name="home_personal_recommend_header_span_1">"%1$s님을 위한 "</string>
     <string name="home_personal_recommend_header_span_2">"%1$s일 "</string>
     <string name="home_personal_recommend_header_span_3">"휴가에요"</string>
-    <string name="home_holiday_recommend_header">올해 남은 공휴일을 모아봤어요</string>
+    <string name="home_holiday_recommend_header">"올해 남은 공휴일을 모아봤어요"</string>
+    <string name="home_popular_vacation_holiday_exist_span_1">"곧 "</string>
+    <string name="home_popular_vacation_holiday_exist_span_2">"공휴일"</string>
+    <string name="home_popular_vacation_holiday_exist_span_3">"이\n"</string>
+    <string name="home_popular_vacation_holiday_exist_span_4">"다가와요"</string>
+    <string name="home_popular_vacation_holiday_exist_not_span_1">"이번 달엔\n공휴일이 없어요"</string>
+    <string name="home_popular_vacation_include_monday_span_1">"월요일에 연차쓰고\n"</string>
+    <string name="home_popular_vacation_include_monday_span_2">"%1$s일 "</string>
+    <string name="home_popular_vacation_include_monday_span_3">"쉬어요"</string>
+    <string name="home_popular_vacation_include_friday_span_1">"금요일에 연차쓰고\n"</string>
+    <string name="home_popular_vacation_include_friday_span_2">"%1$s일 "</string>
+    <string name="home_popular_vacation_include_friday_span_3">"쉬어요"</string>
+    <string name="home_popular_vacation_include_weekend_span_1">"주말 포함 "</string>
+    <string name="home_popular_vacation_include_weekend_span_2">"%1$s일 "</string>
+    <string name="home_popular_vacation_include_weekend_span_3">"쉴 수 있어요"</string>
+    <string name="home_popular_vacation_birthday_exist_span_1">"생일\n"</string>
+    <string name="home_popular_vacation_birthday_exist_span_2">"축하드려요"</string>
+
     <string name="monday">월</string>
     <string name="tuesday">화</string>
     <string name="wednesday">수</string>
