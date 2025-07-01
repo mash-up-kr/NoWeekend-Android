@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
-import team.noweekend.core.common.ui.calendar.util.CalendarUtils.currentTime
+import team.noweekend.core.common.ui.calendar.util.CalendarUtils.currentLocalDateTime
 import team.noweekend.core.common.ui.datepicker.core.WheelPicker
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 
@@ -32,7 +32,7 @@ fun WheelTimePicker(
     val hour: ImmutableList<Int> = (1..12).toImmutableList()
     val minute: ImmutableList<Int> = (0..59).toImmutableList()
 
-    val hour24 = currentTime.hour // 0~23
+    val hour24 = currentLocalDateTime.hour // 0~23
     val hour12 = when {
         hour24 == 0 -> 12 // 자정
         hour24 > 12 -> hour24 - 12
@@ -40,8 +40,8 @@ fun WheelTimePicker(
     }
 
     val currentHourIndex = hour.indexOf(hour12)
-    val currentMinuteIndex = minute.indexOf(currentTime.minute)
-    val currentAmPmIndex = amPm.indexOf(if (currentTime.hour < 12) "오전" else "오후")
+    val currentMinuteIndex = minute.indexOf(currentLocalDateTime.minute)
+    val currentAmPmIndex = amPm.indexOf(if (currentLocalDateTime.hour < 12) "오전" else "오후")
 
     val itemHeight = 35.dp
     val containerWidth = 335.dp

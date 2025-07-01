@@ -8,12 +8,13 @@ import kotlinx.datetime.minus
 import kotlinx.datetime.number
 import kotlinx.datetime.plus
 import team.noweekend.core.common.kotlin.extension.instant
-import kotlinx.datetime.TimeZone
+import team.noweekend.core.common.kotlin.extension.toLocalDate
+import team.noweekend.core.common.kotlin.extension.toLocalDateTime
 
 object CalendarUtils {
 
-
-    val currentTime = instant.toLocalDateTime(TimeZone.currentSystemDefault())
+    val currentLocalDate = instant.toLocalDate()
+    val currentLocalDateTime = instant.toLocalDateTime()
 
     fun LocalDate.minusWeeks(week: Int): LocalDate {
         return this.minus(week, DateTimeUnit.WEEK)

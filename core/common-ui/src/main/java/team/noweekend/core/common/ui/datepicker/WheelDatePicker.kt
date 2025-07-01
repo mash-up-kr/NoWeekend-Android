@@ -21,15 +21,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.datetime.LocalDate
+import team.noweekend.core.common.ui.calendar.util.CalendarUtils.currentLocalDate
 import team.noweekend.core.common.ui.calendar.util.CalendarUtils.getDaysInMonth
-import team.noweekend.core.common.ui.calendar.util.CalendarUtils.now
 import team.noweekend.core.common.ui.datepicker.core.WheelPicker
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 
 @Composable
 fun WheelDatePicker(
     modifier: Modifier = Modifier,
-    initialDate: LocalDate = now(),
+    initialDate: LocalDate = currentLocalDate,
 ) {
     val monthList = remember {
         (1..12).toImmutableList()
