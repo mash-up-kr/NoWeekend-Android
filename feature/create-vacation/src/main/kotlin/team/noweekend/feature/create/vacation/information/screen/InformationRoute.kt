@@ -7,5 +7,7 @@ import androidx.compose.ui.Modifier
 internal fun InformationRoute(
     modifier: Modifier = Modifier,
 ) {
-    InformationScreen()
+    InformationScreen(
+        onNextClick = {},
+    )
 }

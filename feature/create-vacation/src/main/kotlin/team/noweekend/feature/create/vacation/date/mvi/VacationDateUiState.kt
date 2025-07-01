@@ -36,8 +36,8 @@ data class VacationDateUiState(
 
         val DUMMY_STATE: VacationDateUiState = VacationDateUiState(
             isLoading = false,
-            usageDays = 0,
-            remainedDays = null,
+            usageDays = 4,
+            remainedDays = 7,
         )
     }
 }

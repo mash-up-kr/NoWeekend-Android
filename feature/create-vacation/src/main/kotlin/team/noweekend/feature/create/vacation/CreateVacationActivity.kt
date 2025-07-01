@@ -12,7 +12,9 @@ class CreateVacationActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            CreateVacationNavHost()
+            CreateVacationNavHost(
+                finish = this::finish,
+            )
         }
     }
 }

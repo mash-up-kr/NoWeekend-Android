@@ -1,5 +1,6 @@
 package team.noweekend.feature.create.vacation.date.screen
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -28,8 +29,9 @@ import team.noweekend.feature.create.vacation.date.mvi.VacationDateUiState
 
 @Composable
 internal fun VacationDateScreen(
-    onNextClick: () -> Unit,
     uiState: VacationDateUiState,
+    onBackClick: () -> Unit,
+    onNextClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     NWKScaffold(
@@ -42,7 +44,7 @@ internal fun VacationDateScreen(
             ) {
                 NWKIcon(
                     resourceId = NWKDrawableResource.ChevronLeft,
-                    modifier = Modifier.size(24.dp),
+                    modifier = Modifier.size(24.dp).clickable(onClick = onBackClick),
                     tint = NWKTheme.color.Semantic.Text.body,
                 )
             }
@@ -120,6 +122,7 @@ private fun VacationDateScreenPreview() {
     NWKTheme {
         VacationDateScreen(
             uiState = VacationDateUiState.INITIAL_STATE.copy(remainedDays = 7, usageDays = 0),
+            onBackClick = {},
             onNextClick = {},
         )
     }

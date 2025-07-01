@@ -7,11 +7,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import team.noweekend.core.navigator.model.CreateVacation
 import team.noweekend.feature.create.vacation.date.navigation.vacationDateGraph
-import team.noweekend.feature.create.vacation.recommend.navigation.recommendGraph
 import team.noweekend.feature.create.vacation.information.navigation.informationGraph
+import team.noweekend.feature.create.vacation.information.navigation.navigateToInformation
+import team.noweekend.feature.create.vacation.recommend.navigation.recommendGraph
 
 @Composable
 internal fun CreateVacationNavHost(
+    finish: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val navController: NavHostController = rememberNavController()
@@ -19,10 +21,17 @@ internal fun CreateVacationNavHost(
     NavHost(
         modifier = modifier,
         startDestination = CreateVacation.Date,
-        navController = navController
+        navController = navController,
     ) {
-        vacationDateGraph()
+        vacationDateGraph(
+            navigateToHistoryBack = { navController.popBackStack(finish) },
+            navigateToInformation = navController::navigateToInformation,
+        )
         informationGraph()
         recommendGraph()
     }
+}
+
+private fun NavHostController.popBackStack(action: () -> Unit) {
+    this.popBackStack().also { if (!it) action() }
 }

@@ -5,8 +5,14 @@ import androidx.navigation.compose.composable
 import team.noweekend.core.navigator.model.CreateVacation
 import team.noweekend.feature.create.vacation.date.screen.VacationDateRoute
 
-internal fun NavGraphBuilder.vacationDateGraph() {
+internal fun NavGraphBuilder.vacationDateGraph(
+    navigateToHistoryBack: () -> Unit,
+    navigateToInformation: () -> Unit,
+) {
     composable<CreateVacation.Date> {
-        VacationDateRoute()
+        VacationDateRoute(
+            navigateToHistoryBack = navigateToHistoryBack,
+            navigateToInformation = navigateToInformation,
+        )
     }
 }
