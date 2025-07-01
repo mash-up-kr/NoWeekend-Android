@@ -53,6 +53,7 @@ internal fun VacationDateScreen(
                     .fillMaxSize()
                     .padding(paddingValues),
                 remainedDays = uiState.remainedDays,
+                usageDays = uiState.usageDays,
             )
         },
         bottomBar = {
@@ -66,6 +67,7 @@ internal fun VacationDateScreen(
                 onClick = onNextClick,
                 text = "다음",
                 type = BoxButtonType.BLACK,
+                enabled = uiState.isButtonEnabled
             )
         },
     )
@@ -73,6 +75,7 @@ internal fun VacationDateScreen(
 
 @Composable
 private fun VacationDateScreenContent(
+    usageDays: Int,
     remainedDays: Int?,
     modifier: Modifier = Modifier,
 ) {
@@ -105,7 +108,7 @@ private fun VacationDateScreenContent(
         Spacer(Modifier.size(NWKTheme.spacing.space500))
         TextField(
             modifier = Modifier.fillMaxWidth(),
-            value = "",
+            value = usageDays.toString(),
             onValueChange = {},
         )
     }
@@ -116,7 +119,7 @@ private fun VacationDateScreenContent(
 private fun VacationDateScreenPreview() {
     NWKTheme {
         VacationDateScreen(
-            uiState = VacationDateUiState.INITIAL_STATE.copy(remainedDays = 1),
+            uiState = VacationDateUiState.INITIAL_STATE.copy(remainedDays = 7, usageDays = 0),
             onNextClick = {},
         )
     }
