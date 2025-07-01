@@ -12,14 +12,24 @@ class VacationDateViewModel @Inject constructor(
     savedStateHandle = savedStateHandle,
 ) {
     override fun createInitialState(savedStateHandle: SavedStateHandle): VacationDateUiState {
-        return VacationDateUiState.INITIAL_STATE
+        return VacationDateUiState.DUMMY_STATE
     }
 
     override fun handleClientException(throwable: Throwable) {}
 
     override suspend fun handleIntent(intent: VacationDateIntent) {
         when (intent) {
+            VacationDateIntent.ClickBackButton -> navigateToHistoryBack()
+            VacationDateIntent.ClickNextButton -> navigateToInformation()
             else -> {}
         }
+    }
+
+    private fun navigateToHistoryBack() = execute {
+        postSideEffect(VacationDateSideEffect.NavigateToHistoryBack)
+    }
+
+    private fun navigateToInformation() = execute {
+        postSideEffect(VacationDateSideEffect.NavigateToInformation)
     }
 }
