@@ -27,6 +27,9 @@
     <string name="home_popular_vacation_birthday_exist_span_1">"생일\n"</string>
     <string name="home_popular_vacation_birthday_exist_span_2">"축하드려요"</string>
 
+    <string name="create_vacation_date_header">휴가로 사용할\n연차 일수를 입력해주세요.</string>
+    <string name="create_vacation_date_remained_days_description">"남은 연차 %1$s일"</string>
+
     <string name="monday">월</string>
     <string name="tuesday">화</string>
     <string name="wednesday">수</string>

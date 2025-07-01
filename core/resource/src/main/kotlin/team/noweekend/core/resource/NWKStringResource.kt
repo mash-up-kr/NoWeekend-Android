@@ -29,6 +29,9 @@ object NWKStringResource {
     val HomePopularVacationBirthdayExistSpan1: Int = R.string.home_popular_vacation_birthday_exist_span_1
     val HomePopularVacationBirthdayExistSpan2: Int = R.string.home_popular_vacation_birthday_exist_span_2
 
+    val CreateVacationDateHeader: Int = R.string.create_vacation_date_header
+    val CreateVacationDateRemainedDaysDescription: Int = R.string.create_vacation_date_remained_days_description
+
     val Monday: Int = R.string.monday
     val Tuesday: Int = R.string.tuesday
     val Wednesday: Int = R.string.wednesday
