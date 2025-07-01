@@ -39,4 +39,13 @@ object NWKStringResource {
 
     val Week: Int = R.string.week
     val Month: Int = R.string.month
+
+    val AnteMeridiem : Int = R.string.am
+    val PostMeridiem : Int = R.string.pm
+    val YearFormat: Int = R.string.year_format
+    val MonthFormat: Int = R.string.month_format
+    val DayFormat: Int = R.string.day_format
+    val HourFormat: Int = R.string.hour_format
+    val MinuteFormat: Int = R.string.minute_format
+
 }

@@ -15,40 +15,45 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
 import team.noweekend.core.common.ui.calendar.util.CalendarUtils.currentLocalDateTime
 import team.noweekend.core.common.ui.datepicker.core.WheelPicker
+import team.noweekend.core.common.ui.datepicker.model.Meridiem
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
+import team.noweekend.core.resource.NWKStringResource.HourFormat
+import team.noweekend.core.resource.NWKStringResource.MinuteFormat
 
 @Composable
 fun WheelTimePicker(
     modifier: Modifier = Modifier,
 ) {
-    val amPm: ImmutableList<String> = persistentListOf("오전", "오후")
-    val hour: ImmutableList<Int> = (1..12).toImmutableList()
-    val minute: ImmutableList<Int> = (0..59).toImmutableList()
+    val meridiemList: ImmutableList<Meridiem> = Meridiem.entries.toImmutableList()
+    val hourList: ImmutableList<Int> = (1..12).toImmutableList()
+    val minuteList: ImmutableList<Int> = (0..59).toImmutableList()
 
-    val hour24 = currentLocalDateTime.hour // 0~23
-    val hour12 = when {
+    val hour24: Int = currentLocalDateTime.hour
+    val hour12: Int = when {
         hour24 == 0 -> 12 // 자정
         hour24 > 12 -> hour24 - 12
         else -> hour24
     }
 
-    val currentHourIndex = hour.indexOf(hour12)
-    val currentMinuteIndex = minute.indexOf(currentLocalDateTime.minute)
-    val currentAmPmIndex = amPm.indexOf(if (currentLocalDateTime.hour < 12) "오전" else "오후")
+    val currentHourIndex = hourList.indexOf(hour12)
+    val currentMinuteIndex = minuteList.indexOf(currentLocalDateTime.minute)
+    val currentMeridiemIndex =
+        meridiemList.indexOf(if (currentLocalDateTime.hour < 12) Meridiem.AM else Meridiem.PM)
 
-    val itemHeight = 35.dp
-    val containerWidth = 335.dp
+    val itemHeight: Dp = 35.dp
+    val containerWidth: Dp = 335.dp
 
-    val selectedHour = remember { mutableIntStateOf(hour[currentHourIndex]) }
-    val selectedMinute = remember { mutableIntStateOf(minute[currentMinuteIndex]) }
-    val selectedAmPm = remember { mutableStateOf(amPm[currentAmPmIndex]) }
+    val selectedHour = remember { mutableIntStateOf(hourList[currentHourIndex]) }
+    val selectedMinute = remember { mutableIntStateOf(minuteList[currentMinuteIndex]) }
+    val selectedMeridiem = remember { mutableStateOf(meridiemList[currentMeridiemIndex]) }
     Box(
         modifier = modifier
             .width(containerWidth)
@@ -80,13 +85,18 @@ fun WheelTimePicker(
                     .fillMaxWidth()
                     .weight(1f),
                 visibleItemCount = 3,
-                initialIndex = currentAmPmIndex,
-                itemList = amPm,
+                initialIndex = currentMeridiemIndex,
+                itemList = meridiemList.map { meridiem: Meridiem ->
+                    stringResource(id = meridiem.id)
+                }.toImmutableList(),
                 onItemSelected = { index ->
-                    selectedAmPm.value = amPm[index]
+                    selectedMeridiem.value = meridiemList[index]
                 },
-
             )
+
+            val hourItemList = hourList.map { hour ->
+                stringResource(id = HourFormat, hour)
+            }.toImmutableList()
 
             WheelPicker(
                 modifier = Modifier
@@ -94,12 +104,15 @@ fun WheelTimePicker(
                     .weight(1f),
                 visibleItemCount = 7,
                 initialIndex = currentHourIndex,
-                itemList = hour.map { "${it}시" }.toImmutableList(),
+                itemList = hourItemList,
                 onItemSelected = { index ->
-                    selectedHour.intValue = hour[index]
+                    selectedHour.intValue = hourList[index]
                 },
-
             )
+
+            val minuteItemList = minuteList.map { minute ->
+                stringResource(id = MinuteFormat, minute)
+            }.toImmutableList()
 
             WheelPicker(
                 modifier = Modifier
@@ -107,9 +120,9 @@ fun WheelTimePicker(
                     .weight(1f),
                 visibleItemCount = 7,
                 initialIndex = currentMinuteIndex,
-                itemList = minute.map { "${it}분" }.toImmutableList(),
+                itemList = minuteItemList,
                 onItemSelected = { index ->
-                    selectedMinute.intValue = minute[index]
+                    selectedMinute.intValue = minuteList[index]
                 },
             )
         }

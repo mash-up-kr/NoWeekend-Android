@@ -17,6 +17,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.toImmutableList
@@ -25,6 +26,9 @@ import team.noweekend.core.common.ui.calendar.util.CalendarUtils.currentLocalDat
 import team.noweekend.core.common.ui.calendar.util.CalendarUtils.getDaysInMonth
 import team.noweekend.core.common.ui.datepicker.core.WheelPicker
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
+import team.noweekend.core.resource.NWKStringResource.DayFormat
+import team.noweekend.core.resource.NWKStringResource.MonthFormat
+import team.noweekend.core.resource.NWKStringResource.YearFormat
 
 @Composable
 fun WheelDatePicker(
@@ -45,10 +49,6 @@ fun WheelDatePicker(
     val dayList = remember(selectedYear, selectedMonth) {
         val daysInMonth = getDaysInMonth(selectedYear, selectedMonth)
         (1..daysInMonth).toImmutableList()
-    }
-
-    val cacheDayList = remember(dayList.size) {
-        dayList.map { "${it}일" }.toImmutableList()
     }
 
     val currentMonth = initialDate.monthNumber
@@ -83,35 +83,46 @@ fun WheelDatePicker(
                 .fillMaxWidth()
                 .padding(horizontal = 64.dp),
         ) {
+            val yearItemList = yearList.map { year ->
+                stringResource(id = YearFormat, year)
+            }.toImmutableList()
+
             WheelPicker(
                 modifier = Modifier.weight(1f),
                 visibleItemCount = 7,
                 initialIndex = yearIndex,
-                itemList = yearList.map { "${it}년" }.toImmutableList(),
+                itemList = yearItemList,
                 itemHeight = itemHeight,
-                onItemSelected = {
-                    selectedYear = yearList[it]
+                onItemSelected = { index ->
+                    selectedYear = yearList[index]
                 },
             )
+
+            val monthItemList = monthList.map { month ->
+                stringResource(id = MonthFormat, month)
+            }.toImmutableList()
 
             WheelPicker(
                 modifier = Modifier.weight(1f),
                 visibleItemCount = 7,
                 initialIndex = monthIndex,
-                itemList = monthList.map { "${it}월" }.toImmutableList(),
+                itemList = monthItemList,
                 itemHeight = itemHeight,
-                onItemSelected = {
-                    selectedMonth = monthList[it]
+                onItemSelected = { index ->
+                    selectedMonth = monthList[index]
                 },
             )
 
             val updatedDayList = rememberUpdatedState(dayList)
+            val dayItemList = dayList.map { day ->
+                stringResource(id = DayFormat, day)
+            }.toImmutableList()
 
             WheelPicker(
                 modifier = Modifier.weight(1f),
                 visibleItemCount = 7,
                 initialIndex = dayIndex,
-                itemList = cacheDayList,
+                itemList = dayItemList,
                 itemHeight = itemHeight,
                 onItemSelected = { index ->
                     selectedDay = updatedDayList.value[index]
