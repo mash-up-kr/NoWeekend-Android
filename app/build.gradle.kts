@@ -24,9 +24,9 @@ dependencies {
     // Feature modules
     implementation(project(":feature:main"))
     implementation(project(":feature:home"))
-    implementation(project(":feature:sample"))
     implementation(project(":feature:calendar"))
     implementation(project(":feature:profile"))
+    implementation(project(":feature:login"))
 
     implementation(libs.hilt.navigation.compose)
 }

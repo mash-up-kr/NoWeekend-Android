@@ -4,18 +4,15 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.PageSize
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
-import team.noweekend.core.common.android.util.getScreenWidth
-import team.noweekend.core.common.android.util.toDp
 import team.noweekend.core.design.system.core.component.control.page.NWKPageControl
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.resource.NWKDrawableResource
+import team.noweekend.feature.home.component.common.carousel.CarouselLayout
 import team.noweekend.feature.home.component.recommend.personal.card.PersonalRecommendCard
 
 @Composable
@@ -26,17 +23,16 @@ internal fun PersonalRecommendCarousel(
     recommendVacations: ImmutableList<String> = persistentListOf("", "", "", "", ""),
 ) {
     val pagerState = rememberPagerState(pageCount = { recommendVacations.size })
-    val pageSize = (getScreenWidth() * 0.79f).toInt().toDp() // 350/250
 
     Column(
         modifier = modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(NWKTheme.spacing.space175),
     ) {
-        HorizontalPager(
+        CarouselLayout(
             state = pagerState,
+            pageWidth = 295,
             pageSpacing = NWKTheme.spacing.space175,
             contentPadding = PaddingValues(horizontal = NWKTheme.spacing.space200),
-            pageSize = PageSize.Fixed(pageSize = pageSize),
         ) { index ->
             PersonalRecommendCard(
                 onCardClick = onCardClick,

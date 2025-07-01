@@ -5,17 +5,17 @@ on:
   workflow_dispatch:
   pull_request:
     # feature/foo, feature/foo/bar/* 까지 대응
-    branches: [ "feature/**", "hotfix/**", "release/**", "develop", "main"]
+    branches: [ "feature/**", "hotfix/**", "release/**", "develop", "main" ]
 
 jobs:
-#  common-workflow-setup:
-#    name: common workflow setup
-#    uses: ./.github/workflows/common-setup.yaml
-#    secrets: inherit
+  #  common-workflow-setup:
+  #    name: common workflow setup
+  #    uses: ./.github/workflows/common-setup.yaml
+  #    secrets: inherit
 
   build:
     name: Gradle Build
-#    needs: common-workflow-setup
+    #    needs: common-workflow-setup
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source
@@ -55,6 +55,13 @@ jobs:
           echo "storePassword=${{ secrets.STORE_PASSWORD }}" >> keystore.properties
           echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> keystore.properties
           echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> keystore.properties
+
+      # ci 빌드를 위한 secrets 세팅
+      - name: Access github actions secrets
+        env:
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+        run: |
+          echo google_client_id="$GOOGLE_CLIENT_ID" > ./local.properties
 
       - name: Build with Gradle
         run: ./gradlew assembleDevDebug

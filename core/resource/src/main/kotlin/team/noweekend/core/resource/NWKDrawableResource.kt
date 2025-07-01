@@ -10,6 +10,13 @@ object NWKDrawableResource {
     val PersonOn: Int = R.drawable.icn_person_on
     val Plus: Int = R.drawable.icn_plus
     val Filter: Int = R.drawable.icn_filter
+    val DayTypeNone: Int = R.drawable.ic_day_type_none
+    val DayTypeFutureSchedule: Int = R.drawable.ic_day_type_future_schedule
+    val DayTypeBurnOut: Int = R.drawable.ic_day_type_burnout
+    val DayTypeRest: Int = R.drawable.ic_day_type_rest
+    val DayTypeOverZeroUnderFiftyDegree: Int = R.drawable.ic_day_type_over_zero_under_fifty_degree
+    val DayTypeOverFiftyUnderSeventyFiveDegree: Int = R.drawable.ic_day_type_over_fifty_under_seventy_degree
+    val ChevronDown: Int = R.drawable.icn_chevron_down
 
     /* Image */
     val Cake: Int = R.drawable.img_cake
