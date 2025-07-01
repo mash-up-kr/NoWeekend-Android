@@ -23,7 +23,8 @@ import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.datetime.LocalDate
 import team.noweekend.core.common.ui.calendar.util.CalendarUtils.currentLocalDate
-import team.noweekend.core.common.ui.calendar.util.CalendarUtils.getDaysInMonth
+import team.noweekend.core.common.ui.calendar.util.CalendarUtils.isLeapYear
+import team.noweekend.core.common.ui.calendar.util.CalendarUtils.monthLength
 import team.noweekend.core.common.ui.datepicker.core.WheelPicker
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.resource.NWKStringResource.DayFormat
@@ -47,7 +48,7 @@ fun WheelDatePicker(
     var selectedDay by remember { mutableIntStateOf(initialDate.dayOfMonth) }
 
     val dayList = remember(selectedYear, selectedMonth) {
-        val daysInMonth = getDaysInMonth(selectedYear, selectedMonth)
+        val daysInMonth = selectedMonth.monthLength(isLeapYear = isLeapYear(selectedYear))
         (1..daysInMonth).toImmutableList()
     }
 
