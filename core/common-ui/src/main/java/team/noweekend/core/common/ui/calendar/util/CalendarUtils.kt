@@ -63,5 +63,4 @@ object CalendarUtils {
         val prolepticYear = year.toLong()
         return prolepticYear % 4 == 0L && (prolepticYear % 100 != 0L || prolepticYear % 400 == 0L)
     }
-    
 }
