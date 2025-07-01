@@ -37,6 +37,8 @@ object NWKStringResource {
 
     val CreateVacationDateHeader: Int = R.string.create_vacation_date_header
     val CreateVacationDateRemainedDaysDescription: Int = R.string.create_vacation_date_remained_days_description
+    val CreateVacationInformationHeader: Int = R.string.create_vacation_information_header
+    val CreateVacationInformationDescription: Int = R.string.create_vacation_information_description
 
     val Monday: Int = R.string.monday
     val Tuesday: Int = R.string.tuesday

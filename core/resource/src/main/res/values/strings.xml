@@ -35,6 +35,8 @@
 
     <string name="create_vacation_date_header">휴가로 사용할\n연차 일수를 입력해주세요.</string>
     <string name="create_vacation_date_remained_days_description">"남은 연차 %1$s일"</string>
+    <string name="create_vacation_information_header">딱 맞는 연차를 찾기 위해\n정보를 참고할게요</string>
+    <string name="create_vacation_information_description">나를 표현하는 단어 선택</string>
 
     <string name="monday">월</string>
     <string name="tuesday">화</string>
