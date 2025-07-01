@@ -25,7 +25,7 @@ internal fun NWKTodoRecord(
         modifier = modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        NWKCheckBox.Basic(
+        NWKCheckBox(
             isChecked = todo.isDone,
             onClick = onClickCheckBox,
         )
@@ -47,7 +47,7 @@ private fun PreviewNWKTodoRecord(
     NWKTheme {
         NWKTodoRecord(
             todo = todo,
-            onClickOptionButton = {}
+            onClickOptionButton = {},
         )
     }
 }

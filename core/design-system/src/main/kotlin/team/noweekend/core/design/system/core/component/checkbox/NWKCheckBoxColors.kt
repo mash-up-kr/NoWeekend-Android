@@ -21,7 +21,7 @@ interface NWKCheckBoxColors {
 
 
 object NWKCheckBoxColorsDefault {
-    val basicColors = object : NWKCheckBoxColors {
+    val colors = object : NWKCheckBoxColors {
 
         /**
          * 체크 박스 보더 색상
