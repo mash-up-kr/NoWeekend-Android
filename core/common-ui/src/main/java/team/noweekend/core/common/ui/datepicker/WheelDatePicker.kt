@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
@@ -26,6 +27,7 @@ import team.noweekend.core.common.ui.calendar.util.CalendarUtils.currentLocalDat
 import team.noweekend.core.common.ui.calendar.util.CalendarUtils.isLeapYear
 import team.noweekend.core.common.ui.calendar.util.CalendarUtils.monthLength
 import team.noweekend.core.common.ui.datepicker.core.WheelPicker
+import team.noweekend.core.common.ui.datepicker.model.WheelDate
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.resource.NWKStringResource.DayFormat
 import team.noweekend.core.resource.NWKStringResource.MonthFormat
@@ -33,6 +35,7 @@ import team.noweekend.core.resource.NWKStringResource.YearFormat
 
 @Composable
 fun WheelDatePicker(
+    onSelectedDate: (WheelDate) -> Unit,
     modifier: Modifier = Modifier,
     initialDate: LocalDate = currentLocalDate,
 ) {
@@ -61,6 +64,16 @@ fun WheelDatePicker(
 
     val itemHeight = 35.dp
     val containerWidth = 335.dp
+
+    LaunchedEffect(selectedYear, selectedMonth, selectedDay) {
+        onSelectedDate(
+            WheelDate(
+                year = selectedYear,
+                month = selectedMonth,
+                day = selectedDay,
+            ),
+        )
+    }
 
     Box(
         modifier = modifier
@@ -137,6 +150,10 @@ fun WheelDatePicker(
 @Composable
 private fun PreviewWheelDatePicker() {
     NWKTheme {
-        WheelDatePicker()
+        WheelDatePicker(
+            onSelectedDate = { date ->
+                println(date)
+            },
+        )
     }
 }

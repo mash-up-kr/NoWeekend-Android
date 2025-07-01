@@ -9,9 +9,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.CornerRadius
@@ -24,12 +27,14 @@ import kotlinx.collections.immutable.toImmutableList
 import team.noweekend.core.common.ui.calendar.util.CalendarUtils.currentLocalDateTime
 import team.noweekend.core.common.ui.datepicker.core.WheelPicker
 import team.noweekend.core.common.ui.datepicker.model.Meridiem
+import team.noweekend.core.common.ui.datepicker.model.WheelTime
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.resource.NWKStringResource.HourFormat
 import team.noweekend.core.resource.NWKStringResource.MinuteFormat
 
 @Composable
 fun WheelTimePicker(
+    onSelectedTime: (WheelTime) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val meridiemList: ImmutableList<Meridiem> = Meridiem.entries.toImmutableList()
@@ -51,9 +56,20 @@ fun WheelTimePicker(
     val itemHeight: Dp = 35.dp
     val containerWidth: Dp = 335.dp
 
-    val selectedHour = remember { mutableIntStateOf(hourList[currentHourIndex]) }
-    val selectedMinute = remember { mutableIntStateOf(minuteList[currentMinuteIndex]) }
-    val selectedMeridiem = remember { mutableStateOf(meridiemList[currentMeridiemIndex]) }
+    var selectedHour by remember { mutableIntStateOf(hourList[currentHourIndex]) }
+    var selectedMinute by remember { mutableIntStateOf(minuteList[currentMinuteIndex]) }
+    var selectedMeridiem by remember { mutableStateOf(meridiemList[currentMeridiemIndex]) }
+
+    LaunchedEffect(selectedMeridiem, selectedHour, selectedMinute) {
+        onSelectedTime(
+            WheelTime(
+                meridiem = selectedMeridiem,
+                hour = selectedHour,
+                minute = selectedMinute,
+            ),
+        )
+    }
+
     Box(
         modifier = modifier
             .width(containerWidth)
@@ -90,7 +106,7 @@ fun WheelTimePicker(
                     stringResource(id = meridiem.id)
                 }.toImmutableList(),
                 onItemSelected = { index ->
-                    selectedMeridiem.value = meridiemList[index]
+                    selectedMeridiem = meridiemList[index]
                 },
             )
 
@@ -106,7 +122,7 @@ fun WheelTimePicker(
                 initialIndex = currentHourIndex,
                 itemList = hourItemList,
                 onItemSelected = { index ->
-                    selectedHour.intValue = hourList[index]
+                    selectedHour = hourList[index]
                 },
             )
 
@@ -122,7 +138,7 @@ fun WheelTimePicker(
                 initialIndex = currentMinuteIndex,
                 itemList = minuteItemList,
                 onItemSelected = { index ->
-                    selectedMinute.intValue = minuteList[index]
+                    selectedMinute = minuteList[index]
                 },
             )
         }
@@ -133,6 +149,10 @@ fun WheelTimePicker(
 @Composable
 private fun PreviewWheelTimePicker() {
     NWKTheme {
-        WheelTimePicker()
+        WheelTimePicker(
+            onSelectedTime = { time ->
+                println(time)
+            },
+        )
     }
 }
