@@ -1,4 +1,10 @@
 <resources>
+
+    <string name="company">회사</string>
+    <string name="personal">개인</string>
+    <string name="annual_leave">연차</string>
+    <string name="etc">기타</string>
+
     <string name="label_home">홈</string>
     <string name="label_calendar">캘린더</string>
     <string name="label_profile">내 정보</string>
