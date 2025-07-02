@@ -78,7 +78,7 @@ internal fun InformationScreen(
                 onClick = onNextClick,
                 text = "다음",
                 type = BoxButtonType.BLACK,
-                enabled = uiState.isButtonEnabled,
+                enabled = uiState.isButtonEnabled.value,
             )
         },
     )
