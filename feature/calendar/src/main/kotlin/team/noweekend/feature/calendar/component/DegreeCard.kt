@@ -21,10 +21,10 @@ import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
 import team.noweekend.core.design.system.core.component.image.NWKImage
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
-import team.noweekend.core.resource.NWKStringResource.DegreeCardTitle
 import team.noweekend.feature.calendar.model.DegreeUIModel
 import team.noweekend.feature.calendar.model.DegreeUIModel.Companion.getColor
 import team.noweekend.feature.calendar.model.DegreeUIModel.Companion.getResourceImage
+import team.noweekend.feature.calendar.model.DegreeUIModel.Companion.getTitle
 import team.noweekend.feature.calendar.preview.PreviewDegreeCardParameterProvider
 
 @Composable
@@ -52,7 +52,7 @@ fun DegreeCard(
             horizontalAlignment = Alignment.Start,
         ) {
             Text(
-                text = stringResource(id = DegreeCardTitle),
+                text = stringResource(id = degreeUIModel.getTitle()),
                 style = NWKTheme.typography.heading6,
                 color = NWKTheme.color.Neutral.neutralGray900,
             )
@@ -84,7 +84,8 @@ private fun DegreeTextComponent(
             )
         },
     ) { measurables: List<Measurable>, constraints: Constraints ->
-        val placeables = measurables.map { measurable: Measurable-> measurable.measure(constraints) }
+        val placeables =
+            measurables.map { measurable: Measurable -> measurable.measure(constraints) }
         val largeText = placeables[0]
         val smallText = placeables[1] // "°C"
 
@@ -102,7 +103,7 @@ private fun DegreeTextComponent(
             /**
              * "°C"의 Text의 여백
              */
-            val ySpace : Int = smallText.height - smallText[FirstBaseline]
+            val ySpace: Int = smallText.height - smallText[FirstBaseline]
 
             /**
              * yOffset만 있으면 큰 텍스트 밑에 부터 배치가 되어서

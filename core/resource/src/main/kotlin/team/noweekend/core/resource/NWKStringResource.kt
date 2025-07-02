@@ -58,5 +58,6 @@ object NWKStringResource {
     val MinuteFormat: Int = R.string.minute_format
 
     val DegreeCardTitle: Int= R.string.degree_card_title
+    val DegreeCardAnnualLeaveTitle: Int = R.string.degree_card_annual_leave_title
 
 }
