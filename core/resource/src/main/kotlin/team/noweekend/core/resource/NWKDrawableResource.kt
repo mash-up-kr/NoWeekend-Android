@@ -27,4 +27,9 @@ object NWKDrawableResource {
     val Train: Int = R.drawable.img_train
     val Trip: Int = R.drawable.img_trip
     val MainToaster: Int = R.drawable.img_main_toaster
+
+    val Degree25: Int = R.drawable.img_degree_25
+    val Degree50: Int = R.drawable.img_degree_50
+    val Degree100: Int = R.drawable.img_degree_100
+    val DegreeAnnualLeave: Int = R.drawable.img_degree_annual_leave
 }
