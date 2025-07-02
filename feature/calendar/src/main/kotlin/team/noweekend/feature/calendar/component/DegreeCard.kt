@@ -13,9 +13,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.FirstBaseline
 import androidx.compose.ui.layout.Layout
+import androidx.compose.ui.layout.Measurable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
 import team.noweekend.core.design.system.core.component.image.NWKImage
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
@@ -81,9 +83,9 @@ private fun DegreeTextComponent(
                 color = degreeUIModel.getColor(),
             )
         },
-    ) { measurables, constraints ->
-        val placeables = measurables.map { it.measure(constraints) }
-        val largeText = placeables[0] // "100"
+    ) { measurables: List<Measurable>, constraints: Constraints ->
+        val placeables = measurables.map { measurable: Measurable-> measurable.measure(constraints) }
+        val largeText = placeables[0]
         val smallText = placeables[1] // "°C"
 
         layout(
@@ -91,9 +93,22 @@ private fun DegreeTextComponent(
             height = largeText.height,
         ) {
             largeText.placeRelative(0, 0)
-            val yOffset = largeText[FirstBaseline]
-            val yMargin = smallText.height - smallText[FirstBaseline]
-            smallText.placeRelative(largeText.width, yOffset - smallText.height + yMargin)
+
+            /**
+             * 온도 텍스트의 하단 Y Offset
+             */
+            val yOffset: Int = largeText[FirstBaseline]
+
+            /**
+             * "°C"의 Text의 여백
+             */
+            val ySpace : Int = smallText.height - smallText[FirstBaseline]
+
+            /**
+             * yOffset만 있으면 큰 텍스트 밑에 부터 배치가 되어서
+             * 역으로 smallText의 높이만큼 빼주고, 하단 여백만큼 더해준곳에 배치
+             */
+            smallText.placeRelative(largeText.width, yOffset - smallText.height + ySpace)
         }
     }
 }
