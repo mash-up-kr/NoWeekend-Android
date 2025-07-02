@@ -40,8 +40,6 @@ fun DegreeCard(
                 shape = NWKTheme.radius.borderRadius50,
             ),
     ) {
-
-
         NWKImage(
             modifier = Modifier.fillMaxSize(),
             drawableResId = degreeUIModel.getResourceImage(),
