@@ -14,6 +14,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -45,10 +46,12 @@ internal fun InformationSelectRadioGroupContent(
         verticalArrangement = Arrangement.spacedBy(NWKTheme.spacing.space300),
     ) {
         information.forEach { (row, informationList) ->
-            InformationSelectRadioGroup(
-                information = informationList,
-                selectInformation = { selectInformation(row, it) },
-            )
+            key(informationList) {
+                InformationSelectRadioGroup(
+                    information = informationList,
+                    selectInformation = { selectInformation(row, it) },
+                )
+            }
         }
     }
 }
