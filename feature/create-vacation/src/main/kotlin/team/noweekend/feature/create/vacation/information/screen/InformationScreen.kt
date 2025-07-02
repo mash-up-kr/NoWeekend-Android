@@ -14,6 +14,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -35,7 +38,7 @@ import team.noweekend.feature.create.vacation.information.mvi.InformationUiState
 
 @Composable
 internal fun InformationScreen(
-    uiState: InformationUiState,
+    uiState: State<InformationUiState>,
     onBackClick: () -> Unit,
     onNextClick: () -> Unit,
     selectInformation: (Int, InformationRadioGroupUiModel) -> Unit,
@@ -63,7 +66,7 @@ internal fun InformationScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(paddingValues),
-                information = uiState.information,
+                information = uiState.value.information,
                 selectInformation = selectInformation,
             )
         },
@@ -78,7 +81,7 @@ internal fun InformationScreen(
                 onClick = onNextClick,
                 text = "다음",
                 type = BoxButtonType.BLACK,
-                enabled = uiState.isButtonEnabled.value,
+                enabled = uiState.value.isButtonEnabled.value,
             )
         },
     )
@@ -128,12 +131,14 @@ private fun InformationScreenContent(
 @Preview
 @Composable
 private fun InformationScreenPreview() {
+    val uiState = remember { mutableStateOf(InformationUiState.DUMMY_STATE) }
+
     NWKTheme {
         InformationScreen(
-            uiState = InformationUiState.DUMMY_STATE,
+            uiState = uiState,
             onBackClick = {},
             onNextClick = {},
-            selectInformation = { _, _ ->},
+            selectInformation = { _, _ -> },
         )
     }
 }
