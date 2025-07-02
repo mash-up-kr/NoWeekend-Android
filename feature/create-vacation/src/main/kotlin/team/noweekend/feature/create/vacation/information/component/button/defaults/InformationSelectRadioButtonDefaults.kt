@@ -18,7 +18,7 @@ object InformationSelectRadioButtonDefaults {
     val contentPadding: PaddingValues
         @Composable get() = PaddingValues(
             horizontal = NWKTheme.spacing.space150,
-            vertical = NWKTheme.spacing.space100,
+            vertical = NWKTheme.spacing.space150,
         )
 
     val backgroundColor: Color

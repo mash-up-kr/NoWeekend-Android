@@ -20,6 +20,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.ImmutableMap
 import team.noweekend.core.design.system.core.component.button.defaults.BoxButtonType
 import team.noweekend.core.design.system.core.component.button.fill.NWKFillButton
 import team.noweekend.core.design.system.core.component.icon.NWKIcon
@@ -27,6 +29,8 @@ import team.noweekend.core.design.system.core.component.scaffold.NWKScaffold
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.resource.NWKDrawableResource
 import team.noweekend.core.resource.NWKStringResource
+import team.noweekend.feature.create.vacation.information.component.button.InformationSelectRadioGroupContent
+import team.noweekend.feature.create.vacation.information.model.InformationRadioGroupUiModel
 import team.noweekend.feature.create.vacation.information.mvi.InformationUiState
 
 @Composable
@@ -34,6 +38,7 @@ internal fun InformationScreen(
     uiState: InformationUiState,
     onBackClick: () -> Unit,
     onNextClick: () -> Unit,
+    selectInformation: (Int, InformationRadioGroupUiModel) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     NWKScaffold(
@@ -58,6 +63,8 @@ internal fun InformationScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(paddingValues),
+                information = uiState.information,
+                selectInformation = selectInformation,
             )
         },
         bottomBar = {
@@ -71,7 +78,7 @@ internal fun InformationScreen(
                 onClick = onNextClick,
                 text = "다음",
                 type = BoxButtonType.BLACK,
-                enabled = uiState.isButtonEnabled
+                enabled = uiState.isButtonEnabled,
             )
         },
     )
@@ -79,6 +86,8 @@ internal fun InformationScreen(
 
 @Composable
 private fun InformationScreenContent(
+    information: ImmutableMap<Int, ImmutableList<InformationRadioGroupUiModel>>,
+    selectInformation: (Int, InformationRadioGroupUiModel) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val columnScrollState: ScrollableState = rememberScrollableState { it }
@@ -109,6 +118,10 @@ private fun InformationScreenContent(
             textAlign = TextAlign.Center,
         )
         Spacer(Modifier.size(NWKTheme.spacing.space500))
+        InformationSelectRadioGroupContent(
+            information = information,
+            selectInformation = selectInformation,
+        )
     }
 }
 
@@ -120,6 +133,7 @@ private fun InformationScreenPreview() {
             uiState = InformationUiState.DUMMY_STATE,
             onBackClick = {},
             onNextClick = {},
+            selectInformation = { _, _ ->},
         )
     }
 }
