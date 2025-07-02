@@ -5,3 +5,7 @@ data class WheelDate(
     val month: Int,
     val day: Int,
 )
+
+enum class DatePickerType {
+    YearMonth, YearMonthDay
+}

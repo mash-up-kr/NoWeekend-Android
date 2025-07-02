@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.datetime.LocalDate
@@ -27,7 +28,9 @@ import team.noweekend.core.common.ui.calendar.util.CalendarUtils.currentLocalDat
 import team.noweekend.core.common.ui.calendar.util.CalendarUtils.isLeapYear
 import team.noweekend.core.common.ui.calendar.util.CalendarUtils.monthLength
 import team.noweekend.core.common.ui.datepicker.core.WheelPicker
+import team.noweekend.core.common.ui.datepicker.model.DatePickerType
 import team.noweekend.core.common.ui.datepicker.model.WheelDate
+import team.noweekend.core.common.ui.datepicker.preview.PreviewWheelDatePickerParameterProvider
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.resource.NWKStringResource.DayFormat
 import team.noweekend.core.resource.NWKStringResource.MonthFormat
@@ -36,6 +39,7 @@ import team.noweekend.core.resource.NWKStringResource.YearFormat
 @Composable
 fun WheelDatePicker(
     onSelectedDate: (WheelDate) -> Unit,
+    wheelDatePickerType: DatePickerType,
     modifier: Modifier = Modifier,
     initialDate: LocalDate = currentLocalDate,
 ) {
@@ -50,17 +54,11 @@ fun WheelDatePicker(
     var selectedMonth by remember { mutableIntStateOf(initialDate.monthNumber) }
     var selectedDay by remember { mutableIntStateOf(initialDate.dayOfMonth) }
 
-    val dayList = remember(selectedYear, selectedMonth) {
-        val daysInMonth = selectedMonth.monthLength(isLeapYear = isLeapYear(selectedYear))
-        (1..daysInMonth).toImmutableList()
-    }
-
     val currentMonth = initialDate.monthNumber
     val currentYear = initialDate.year
 
     val yearIndex = yearList.indexOf(currentYear)
     val monthIndex = monthList.indexOf(currentMonth)
-    val dayIndex = dayList.indexOf(selectedDay).coerceAtLeast(0)
 
     val itemHeight = 35.dp
     val containerWidth = 335.dp
@@ -127,30 +125,42 @@ fun WheelDatePicker(
                 },
             )
 
-            val updatedDayList = rememberUpdatedState(dayList)
-            val dayItemList = dayList.map { day ->
-                stringResource(id = DayFormat, day)
-            }.toImmutableList()
+            if (wheelDatePickerType == DatePickerType.YearMonthDay) {
+                val dayList = remember(selectedYear, selectedMonth) {
+                    val daysInMonth = selectedMonth.monthLength(isLeapYear = isLeapYear(selectedYear))
+                    (1..daysInMonth).toImmutableList()
+                }
 
-            WheelPicker(
-                modifier = Modifier.weight(1f),
-                visibleItemCount = 7,
-                initialIndex = dayIndex,
-                itemList = dayItemList,
-                itemHeight = itemHeight,
-                onItemSelected = { index ->
-                    selectedDay = updatedDayList.value[index]
-                },
-            )
+                val updatedDayList = rememberUpdatedState(dayList)
+                val dayItemList = dayList.map { day ->
+                    stringResource(id = DayFormat, day)
+                }.toImmutableList()
+
+                val dayIndex = dayList.indexOf(selectedDay).coerceAtLeast(0)
+
+                WheelPicker(
+                    modifier = Modifier.weight(1f),
+                    visibleItemCount = 7,
+                    initialIndex = dayIndex,
+                    itemList = dayItemList,
+                    itemHeight = itemHeight,
+                    onItemSelected = { index ->
+                        selectedDay = updatedDayList.value[index]
+                    },
+                )
+            }
         }
     }
 }
 
 @Preview
 @Composable
-private fun PreviewWheelDatePicker() {
+private fun PreviewWheelDatePicker(
+    @PreviewParameter(PreviewWheelDatePickerParameterProvider::class) datePickerType: DatePickerType,
+) {
     NWKTheme {
         WheelDatePicker(
+            wheelDatePickerType = datePickerType,
             onSelectedDate = { date ->
                 println(date)
             },
