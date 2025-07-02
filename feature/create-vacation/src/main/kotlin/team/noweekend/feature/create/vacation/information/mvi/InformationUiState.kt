@@ -1,6 +1,10 @@
 package team.noweekend.feature.create.vacation.information.mvi
 
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.remember
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.ImmutableMap
 import kotlinx.collections.immutable.persistentListOf
@@ -13,7 +17,14 @@ data class InformationUiState(
     val isLoading: Boolean,
     val information: ImmutableMap<Int, ImmutableList<InformationRadioGroupUiModel>>,
 ) : UiState {
-    val isButtonEnabled: Boolean = false
+    val isButtonEnabled: State<Boolean>
+        @Composable get() = remember(information) {
+            val enableButton: Boolean = information.all { (_, information) ->
+                information.count { it.isSelected } == 1
+            }
+            derivedStateOf { enableButton }
+        }
+
 
     companion object {
         val INITIAL_STATE: InformationUiState = InformationUiState(
