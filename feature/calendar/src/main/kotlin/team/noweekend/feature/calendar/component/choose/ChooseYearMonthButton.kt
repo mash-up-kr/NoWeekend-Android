@@ -45,11 +45,11 @@ fun ChooseYearMonthButton(
         Box(
             modifier = Modifier
                 .drawWithCache {
-                    val left = 5.5.dp.toPx()
-                    val leftTop = 9.dp.toPx()
-                    val right = 18.5.dp.toPx()
-                    val bottom = 17.dp.toPx()
-                    val centerX = left + (right - left) / 2
+                    val left: Float = 5.5.dp.toPx()
+                    val leftTop: Float = 9.dp.toPx()
+                    val right: Float = 18.5.dp.toPx()
+                    val bottom: Float = 17.dp.toPx()
+                    val centerX: Float = left + (right - left) / 2
 
                     // FloatArray로 꼭짓점 좌표 정의
                     val vertices = floatArrayOf(
