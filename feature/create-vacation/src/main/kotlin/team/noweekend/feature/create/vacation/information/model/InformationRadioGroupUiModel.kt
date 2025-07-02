@@ -1,6 +1,6 @@
 package team.noweekend.feature.create.vacation.information.model
 
-data class SelectedInformationUiModel(
+data class InformationRadioGroupUiModel(
     val text: String,
     val isSelected: Boolean,
 )

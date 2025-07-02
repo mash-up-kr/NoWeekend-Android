@@ -36,5 +36,8 @@ internal fun InformationRoute(
         uiState = uiState,
         onBackClick = { viewModel.intent(InformationIntent.ClickBackButton) },
         onNextClick = { viewModel.intent(InformationIntent.ClickNextButton) },
+        selectInformation = { row, information ->
+            viewModel.intent(InformationIntent.SelectInformation(row, information))
+        },
     )
 }

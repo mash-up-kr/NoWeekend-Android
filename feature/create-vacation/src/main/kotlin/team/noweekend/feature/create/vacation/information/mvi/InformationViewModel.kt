@@ -1,8 +1,12 @@
 package team.noweekend.feature.create.vacation.information.mvi
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.collections.immutable.toImmutableList
+import kotlinx.collections.immutable.toImmutableMap
 import team.noweekend.core.common.android.base.MVIViewModel
+import team.noweekend.feature.create.vacation.information.model.InformationRadioGroupUiModel
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,8 +23,27 @@ class InformationViewModel @Inject constructor(
 
     override suspend fun handleIntent(intent: InformationIntent) {
         when (intent) {
-            InformationIntent.ClickBackButton -> navigateToHistoryBack()
-            InformationIntent.ClickNextButton -> navigateToRecommendResult()
+            is InformationIntent.ClickBackButton -> navigateToHistoryBack()
+            is InformationIntent.ClickNextButton -> navigateToRecommendResult()
+            is InformationIntent.SelectInformation -> updateInformationCheckStatus(intent.row, intent.information)
+        }
+    }
+
+    private fun updateInformationCheckStatus(selectedRow: Int, information: InformationRadioGroupUiModel) {
+        val updatedInformation = currentState.information.map { (row, informationList) ->
+            if (row == selectedRow) {
+                row to informationList.map { uiModel ->
+                    uiModel.copy(isSelected = uiModel == information)
+                }.toImmutableList()
+            } else {
+                row to informationList
+            }
+        }.toMap().toImmutableMap()
+
+        reduce {
+            copy(
+                information = updatedInformation,
+            )
         }
     }
 
