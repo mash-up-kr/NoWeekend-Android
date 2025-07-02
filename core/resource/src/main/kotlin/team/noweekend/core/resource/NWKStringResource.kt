@@ -58,6 +58,7 @@ object NWKStringResource {
     val DayFormat: Int = R.string.day_format
     val HourFormat: Int = R.string.hour_format
     val MinuteFormat: Int = R.string.minute_format
+    val YearMonthFormat: Int = R.string.year_month_format
 
     val DegreeCardTitle: Int= R.string.degree_card_title
     val DegreeCardAnnualLeaveTitle: Int = R.string.degree_card_annual_leave_title

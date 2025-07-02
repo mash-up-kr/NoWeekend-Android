@@ -57,7 +57,7 @@
     <string name="day_format">%d일</string>
     <string name="hour_format">%d시</string>
     <string name="minute_format">%d분</string>
-
+    
     <string name="degree_card_title">오늘의 열정 온도</string>
     <string name="degree_card_annual_leave_title">연차라서 열정 온도</string>
 </resources>
