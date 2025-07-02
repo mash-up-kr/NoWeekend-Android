@@ -7,8 +7,14 @@ import kotlinx.datetime.Month
 import kotlinx.datetime.minus
 import kotlinx.datetime.number
 import kotlinx.datetime.plus
+import team.noweekend.core.common.kotlin.extension.instant
+import team.noweekend.core.common.kotlin.extension.toLocalDate
+import team.noweekend.core.common.kotlin.extension.toLocalDateTime
 
 object CalendarUtils {
+
+    val currentLocalDate = instant.toLocalDate()
+    val currentLocalDateTime = instant.toLocalDateTime()
 
     fun LocalDate.minusWeeks(week: Int): LocalDate {
         return this.minus(week, DateTimeUnit.WEEK)
@@ -49,11 +55,11 @@ object CalendarUtils {
         return this.plus(daysDiff.toLong(), DateTimeUnit.DAY)
     }
 
-    private fun Int.monthLength(isLeapYear: Boolean): Int {
+    fun Int.monthLength(isLeapYear: Boolean): Int {
         return Month.of(this).length(isLeapYear)
     }
 
-    private fun isLeapYear(year: Int): Boolean {
+    fun isLeapYear(year: Int): Boolean {
         val prolepticYear = year.toLong()
         return prolepticYear % 4 == 0L && (prolepticYear % 100 != 0L || prolepticYear % 400 == 0L)
     }

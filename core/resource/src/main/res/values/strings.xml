@@ -46,4 +46,13 @@
 
     <string name="week">주</string>
     <string name="month">월</string>
+
+
+    <string name="am">오전</string>
+    <string name="pm">오후</string>
+    <string name="year_format">%d년</string>
+    <string name="month_format">%d월</string>
+    <string name="day_format">%d일</string>
+    <string name="hour_format">%d시</string>
+    <string name="minute_format">%d분</string>
 </resources>
