@@ -22,9 +22,6 @@ import androidx.compose.ui.unit.dp
 import team.noweekend.core.design.system.core.component.image.NWKImage
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.feature.calendar.model.DegreeUIModel
-import team.noweekend.feature.calendar.model.DegreeUIModel.Companion.getColor
-import team.noweekend.feature.calendar.model.DegreeUIModel.Companion.getResourceImage
-import team.noweekend.feature.calendar.model.DegreeUIModel.Companion.getTitle
 import team.noweekend.feature.calendar.preview.PreviewDegreeCardParameterProvider
 
 @Composable

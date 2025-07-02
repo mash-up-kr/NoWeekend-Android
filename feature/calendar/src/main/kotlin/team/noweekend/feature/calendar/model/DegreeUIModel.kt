@@ -18,33 +18,31 @@ data class DegreeUIModel(
     val degree: Int,
     val isAnnualLeave: Boolean,
 ) {
-    companion object {
-        @DrawableRes
-        fun DegreeUIModel.getResourceImage(): Int {
-            return when {
-                isAnnualLeave -> DegreeAnnualLeave
-                degree in 0..49 -> Degree25
-                degree in 50..99 -> Degree50
-                else -> Degree100
-            }
+    @DrawableRes
+    fun getResourceImage(): Int {
+        return when {
+            isAnnualLeave -> DegreeAnnualLeave
+            degree in 0..49 -> Degree25
+            degree in 50..99 -> Degree50
+            else -> Degree100
         }
+    }
 
-        @Composable
-        fun DegreeUIModel.getColor(): Color {
-            return when {
-                isAnnualLeave -> NWKTheme.color.TaskItem.annualLeave
-                degree in 0..49 -> NWKTheme.color.Toast.toast500
-                degree in 50..99 -> NWKTheme.color.Toast.toast700
-                else -> NWKTheme.color.Toast.toast900
-            }
+    @Composable
+    fun getColor(): Color {
+        return when {
+            isAnnualLeave -> NWKTheme.color.TaskItem.annualLeave
+            degree in 0..49 -> NWKTheme.color.Toast.toast500
+            degree in 50..99 -> NWKTheme.color.Toast.toast700
+            else -> NWKTheme.color.Toast.toast900
         }
+    }
 
-        @StringRes
-        fun DegreeUIModel.getTitle(): Int {
-            return when {
-                isAnnualLeave -> DegreeCardAnnualLeaveTitle
-                else -> DegreeCardTitle
-            }
+    @StringRes
+    fun getTitle(): Int {
+        return when {
+            isAnnualLeave -> DegreeCardAnnualLeaveTitle
+            else -> DegreeCardTitle
         }
     }
 }
