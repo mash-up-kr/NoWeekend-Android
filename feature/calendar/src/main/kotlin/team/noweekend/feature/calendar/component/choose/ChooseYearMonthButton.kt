@@ -18,13 +18,13 @@ import androidx.compose.ui.unit.dp
 import androidx.graphics.shapes.CornerRounding
 import androidx.graphics.shapes.RoundedPolygon
 import androidx.graphics.shapes.toPath
+import kotlinx.datetime.LocalDate
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.resource.NWKStringResource.YearMonthFormat
 
 @Composable
 fun ChooseYearMonthButton(
-    year: Int,
-    month: Int,
+    date : LocalDate,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -36,7 +36,7 @@ fun ChooseYearMonthButton(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
-            text = stringResource(id = YearMonthFormat, year, month),
+            text = stringResource(id = YearMonthFormat, date.year, date.monthNumber),
             style = NWKTheme.typography.heading4,
             color = NWKTheme.color.Neutral.black,
         )
@@ -89,8 +89,7 @@ fun ChooseYearMonthButton(
 private fun PreviewChooseYearMonthButton() {
     NWKTheme {
         ChooseYearMonthButton(
-            year = 2023,
-            month = 10,
+            date = LocalDate(year = 2023, monthNumber = 10, dayOfMonth = 1),
             onClick = {},
         )
     }
