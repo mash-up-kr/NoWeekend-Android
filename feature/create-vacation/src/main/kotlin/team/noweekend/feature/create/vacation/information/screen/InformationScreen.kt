@@ -65,7 +65,7 @@ internal fun InformationScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(paddingValues),
-                information = uiState.value.information,
+                informationData = uiState.value.informationData,
                 selectInformation = selectInformation,
             )
         },
@@ -88,7 +88,7 @@ internal fun InformationScreen(
 
 @Composable
 private fun InformationScreenContent(
-    information: ImmutableMap<Int, ImmutableList<InformationRadioGroupUiModel>>,
+    informationData: ImmutableMap<Int, ImmutableList<InformationRadioGroupUiModel>>,
     selectInformation: (Int, InformationRadioGroupUiModel) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -119,7 +119,7 @@ private fun InformationScreenContent(
         )
         Spacer(Modifier.size(NWKTheme.spacing.space500))
         InformationSelectRadioGroupContent(
-            information = information,
+            informationData = informationData,
             selectInformation = selectInformation,
         )
     }
