@@ -29,7 +29,6 @@ import team.noweekend.core.common.ui.calendar.util.CalendarUtils.isLeapYear
 import team.noweekend.core.common.ui.calendar.util.CalendarUtils.monthLength
 import team.noweekend.core.common.ui.datepicker.core.WheelPicker
 import team.noweekend.core.common.ui.datepicker.model.DatePickerType
-import team.noweekend.core.common.ui.datepicker.model.WheelDate
 import team.noweekend.core.common.ui.datepicker.preview.PreviewWheelDatePickerParameterProvider
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.resource.NWKStringResource.DayFormat
@@ -38,7 +37,7 @@ import team.noweekend.core.resource.NWKStringResource.YearFormat
 
 @Composable
 fun WheelDatePicker(
-    onSelectedDate: (WheelDate) -> Unit,
+    onSelectedDate: (LocalDate) -> Unit,
     wheelDatePickerType: DatePickerType,
     modifier: Modifier = Modifier,
     initialDate: LocalDate = currentLocalDate,
@@ -64,11 +63,12 @@ fun WheelDatePicker(
     val containerWidth = 335.dp
 
     LaunchedEffect(selectedYear, selectedMonth, selectedDay) {
+        val safeSelectedDay: Int = selectedDay.coerceIn(1, selectedMonth.monthLength(isLeapYear(selectedYear)))
         onSelectedDate(
-            WheelDate(
+            LocalDate(
                 year = selectedYear,
-                month = selectedMonth,
-                day = selectedDay,
+                monthNumber = selectedMonth,
+                dayOfMonth = safeSelectedDay,
             ),
         )
     }

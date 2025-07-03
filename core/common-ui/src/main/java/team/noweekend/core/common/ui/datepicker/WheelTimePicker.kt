@@ -24,17 +24,18 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
+import kotlinx.datetime.LocalTime
 import team.noweekend.core.common.ui.calendar.util.CalendarUtils.currentLocalDateTime
+import team.noweekend.core.common.ui.datepicker.core.LocalTimeUtil.convertToLocalTime
 import team.noweekend.core.common.ui.datepicker.core.WheelPicker
 import team.noweekend.core.common.ui.datepicker.model.Meridiem
-import team.noweekend.core.common.ui.datepicker.model.WheelTime
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.resource.NWKStringResource.HourFormat
 import team.noweekend.core.resource.NWKStringResource.MinuteFormat
 
 @Composable
 fun WheelTimePicker(
-    onSelectedTime: (WheelTime) -> Unit,
+    onSelectedTime: (LocalTime) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val meridiemList: ImmutableList<Meridiem> = Meridiem.entries.toImmutableList()
@@ -62,7 +63,7 @@ fun WheelTimePicker(
 
     LaunchedEffect(selectedMeridiem, selectedHour, selectedMinute) {
         onSelectedTime(
-            WheelTime(
+            convertToLocalTime(
                 meridiem = selectedMeridiem,
                 hour = selectedHour,
                 minute = selectedMinute,
