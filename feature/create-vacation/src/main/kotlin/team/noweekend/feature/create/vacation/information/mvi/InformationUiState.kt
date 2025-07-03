@@ -20,8 +20,9 @@ data class InformationUiState(
     val isButtonEnabled: State<Boolean>
         @Composable get() = remember(information) {
             val enableButton: Boolean = information.all { (_, information) ->
-                information.count { it.isSelected } == 1
+                information.any { it.isSelected }
             }
+
             derivedStateOf { enableButton }
         }
 
