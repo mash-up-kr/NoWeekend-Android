@@ -5,3 +5,6 @@ plugins {
 android {
     namespace = "team.noweekend.feature.calendar"
 }
+dependencies {
+    implementation(libs.androidx.graphics.shapes.android)
+}
