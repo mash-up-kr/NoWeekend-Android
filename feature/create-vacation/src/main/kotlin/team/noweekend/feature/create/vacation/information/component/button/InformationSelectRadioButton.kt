@@ -37,7 +37,7 @@ import team.noweekend.feature.create.vacation.information.model.InformationRadio
 
 @Composable
 internal fun InformationSelectRadioGroupContent(
-    information: ImmutableMap<Int, ImmutableList<InformationRadioGroupUiModel>>,
+    informationData: ImmutableMap<Int, ImmutableList<InformationRadioGroupUiModel>>,
     selectInformation: (Int, InformationRadioGroupUiModel) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -45,11 +45,11 @@ internal fun InformationSelectRadioGroupContent(
         modifier = modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(NWKTheme.spacing.space300),
     ) {
-        information.forEach { (row, informationList) ->
-            key(informationList) {
+        informationData.forEach { (rowIndex, informationRow) ->
+            key(informationRow) {
                 InformationSelectRadioGroup(
-                    information = informationList,
-                    selectInformation = { selectInformation(row, it) },
+                    informationRow = informationRow,
+                    selectInformation = { selectInformation(rowIndex, it) },
                 )
             }
         }
@@ -58,11 +58,11 @@ internal fun InformationSelectRadioGroupContent(
 
 @Composable
 internal fun InformationSelectRadioGroup(
-    information: ImmutableList<InformationRadioGroupUiModel>,
+    informationRow: ImmutableList<InformationRadioGroupUiModel>,
     selectInformation: (InformationRadioGroupUiModel) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val (first, last) = information
+    val (first, last) = informationRow
 
     Row(
         modifier = modifier.fillMaxWidth(),
@@ -134,12 +134,12 @@ internal fun InformationSelectRadioButton(
 @Preview
 @Composable
 private fun InformationSelectRadioGroupPreview(
-    @PreviewParameter(PreviewInformationSelectRadioGroupProvider::class) informations: ImmutableList<InformationRadioGroupUiModel>,
+    @PreviewParameter(PreviewInformationSelectRadioGroupProvider::class) informationRow: ImmutableList<InformationRadioGroupUiModel>,
 ) {
     NWKTheme {
         Box(modifier = Modifier.background(NWKTheme.color.Neutral.white)) {
             InformationSelectRadioGroup(
-                information = informations,
+                informationRow = informationRow,
                 selectInformation = {},
             )
         }

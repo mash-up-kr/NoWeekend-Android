@@ -1,6 +1,5 @@
 package team.noweekend.feature.create.vacation.information.mvi
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toImmutableList
@@ -29,20 +28,24 @@ class InformationViewModel @Inject constructor(
         }
     }
 
-    private fun updateInformationCheckStatus(selectedRow: Int, information: InformationRadioGroupUiModel) {
-        val updatedInformation = currentState.information.map { (row, informationList) ->
-            if (row == selectedRow) {
-                row to informationList.map { uiModel ->
-                    uiModel.copy(isSelected = uiModel == information)
-                }.toImmutableList()
-            } else {
-                row to informationList
-            }
-        }.toMap().toImmutableMap()
+    private fun updateInformationCheckStatus(
+        selectedRow: Int,
+        information: InformationRadioGroupUiModel,
+    ) {
+        val updatedInformation = currentState.informationData
+            .map { (row, informationList) ->
+                if (row == selectedRow) {
+                    row to informationList.map { uiModel ->
+                        uiModel.copy(isSelected = uiModel == information)
+                    }.toImmutableList()
+                } else {
+                    row to informationList
+                }
+            }.toMap().toImmutableMap()
 
         reduce {
             copy(
-                information = updatedInformation,
+                informationData = updatedInformation,
             )
         }
     }

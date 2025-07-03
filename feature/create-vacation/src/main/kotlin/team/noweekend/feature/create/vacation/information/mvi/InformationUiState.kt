@@ -15,12 +15,12 @@ import team.noweekend.feature.create.vacation.information.model.InformationRadio
 @Stable
 data class InformationUiState(
     val isLoading: Boolean,
-    val information: ImmutableMap<Int, ImmutableList<InformationRadioGroupUiModel>>,
+    val informationData: ImmutableMap<Int, ImmutableList<InformationRadioGroupUiModel>>,
 ) : UiState {
     val isButtonEnabled: State<Boolean>
-        @Composable get() = remember(information) {
-            val enableButton: Boolean = information.all { (_, information) ->
-                information.any { it.isSelected }
+        @Composable get() = remember(informationData) {
+            val enableButton: Boolean = informationData.all { (_, informationRow) ->
+                informationRow.any { it.isSelected }
             }
 
             derivedStateOf { enableButton }
@@ -30,7 +30,7 @@ data class InformationUiState(
     companion object {
         val INITIAL_STATE: InformationUiState = InformationUiState(
             isLoading = false,
-            information = persistentMapOf(
+            informationData = persistentMapOf(
                 Pair(
                     1,
                     persistentListOf(
@@ -88,7 +88,7 @@ data class InformationUiState(
 
         val DUMMY_STATE: InformationUiState = InformationUiState(
             isLoading = false,
-            information = persistentMapOf(
+            informationData = persistentMapOf(
                 Pair(
                     1,
                     persistentListOf(
