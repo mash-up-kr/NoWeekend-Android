@@ -12,19 +12,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.graphics.asComposePath
 import androidx.compose.ui.graphics.drawscope.Fill
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.graphics.shapes.CornerRounding
 import androidx.graphics.shapes.RoundedPolygon
 import androidx.graphics.shapes.toPath
 import kotlinx.datetime.LocalDate
+import team.noweekend.core.common.kotlin.extension.YEAR_MONTH_KR_PATTERN
+import team.noweekend.core.common.kotlin.extension.toFormattedString
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
-import team.noweekend.core.resource.NWKStringResource.YearMonthFormat
 
 @Composable
 fun ChooseYearMonthButton(
-    date : LocalDate,
+    date: LocalDate,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -36,7 +36,7 @@ fun ChooseYearMonthButton(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
-            text = stringResource(id = YearMonthFormat, date.year, date.monthNumber),
+            text = date.toFormattedString(LocalDate.YEAR_MONTH_KR_PATTERN),
             style = NWKTheme.typography.heading4,
             color = NWKTheme.color.Neutral.black,
         )
