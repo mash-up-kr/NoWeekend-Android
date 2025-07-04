@@ -2,10 +2,7 @@ package team.noweekend.feature.calendar.component.fab.core
 
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -25,14 +22,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import team.noweekend.core.common.ui.todo.model.Todo
 import team.noweekend.core.design.system.core.component.icon.NWKIcon
 import team.noweekend.core.design.system.core.component.image.NWKImage
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.resource.NWKDrawableResource.Close
 import team.noweekend.core.resource.NWKDrawableResource.Plus
 import team.noweekend.core.resource.NWKStringResource.TodoAddTitle
-import team.noweekend.feature.calendar.component.fab.FabLayout
 
 @Composable
 internal fun FabTodoAddButton(
