@@ -30,7 +30,7 @@ import team.noweekend.core.resource.NWKStringResource.TodoAddDirect
 internal fun FabTodoItemContainer(
     todoItemList: ImmutableList<Todo>,
     onClick: (index: Int) -> Unit,
-    onClickEdit: () -> Unit,
+    onClickDirectInput: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -70,9 +70,7 @@ internal fun FabTodoItemContainer(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(44.dp)
-                .clickable {
-                    onClickEdit()
-                }
+                .clickable(onClick = onClickDirectInput)
                 .padding(vertical = 11.dp, horizontal = 12.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Start,
@@ -95,7 +93,7 @@ private fun PreviewFabTodoItemContainer() {
         FabTodoItemContainer(
             todoItemList = Todo.previewDummy,
             onClick = {},
-            onClickEdit = {},
+            onClickDirectInput = {},
         )
     }
 }

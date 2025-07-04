@@ -1,6 +1,7 @@
 package team.noweekend.feature.calendar.component.fab
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,9 +22,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
 import kotlinx.collections.immutable.ImmutableList
 import team.noweekend.core.common.ui.todo.model.Todo
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
+import team.noweekend.feature.calendar.component.fab.core.FabDimAlpha
+import team.noweekend.feature.calendar.component.fab.core.FabZIndex
 import team.noweekend.feature.calendar.component.fab.core.FabTodoAddButton
 import team.noweekend.feature.calendar.component.fab.core.FabTodoItemContainer
 
@@ -33,7 +37,8 @@ internal fun FabLayout(
     todoItemList: ImmutableList<Todo>,
     onClickFabButton: () -> Unit,
     onClickTodo: (index: Int) -> Unit,
-    onClickEdit: () -> Unit,
+    onClickDirectInput: () -> Unit,
+    onClickDim: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
 
@@ -41,10 +46,13 @@ internal fun FabLayout(
 
     if (isExpanded) {
         Canvas(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize().zIndex(FabZIndex)
+                .clickable(onClick = onClickDim),
         ) {
             drawRect(
                 color = dimColor,
+                alpha = FabDimAlpha
             )
         }
     }
@@ -56,7 +64,7 @@ internal fun FabLayout(
                 FabTodoItemContainer(
                     todoItemList = todoItemList,
                     onClick = onClickTodo,
-                    onClickEdit = onClickEdit,
+                    onClickDirectInput = onClickDirectInput,
                 )
             }
             FabTodoAddButton(
@@ -123,14 +131,17 @@ private fun PreviewFabLayout() {
                 onClickTodo = { index: Int ->
                     println(Todo.previewDummy[index])
                 },
-                modifier = Modifier
+                modifier = Modifier.zIndex(FabZIndex)
                     .align(Alignment.BottomEnd)
                     .padding(bottom = 20.dp, end = 20.dp),
-                onClickEdit = {},
+                onClickDirectInput = {},
+                onClickDim = { isExpanded = isExpanded.not() },
             )
 
             Column(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.fillMaxSize().clickable {
+                    println("Screen clicked")
+                },
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
