@@ -41,6 +41,7 @@ kotlinx-datatime = "0.6.2"
 credentials = "1.5.0"
 googleid = "1.1.1"
 playServicesAuth = "21.0.0"
+graphicsShapesAndroid = "1.0.1"
 
 [libraries]
 # androidx
@@ -112,6 +113,7 @@ ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devto
 room-gradlePlugin = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "room" }
 dokka-gradlePlugin = { group = "org.jetbrains.dokka", name = "dokka-gradle-plugin", version.ref = "dokka" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-graphics-shapes-android = { group = "androidx.graphics", name = "graphics-shapes-android", version.ref = "graphicsShapesAndroid" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
