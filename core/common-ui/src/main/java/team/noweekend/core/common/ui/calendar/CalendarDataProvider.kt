@@ -63,19 +63,7 @@ class CalendarDataProvider(
     val calendarDataProviderEventFlow: Flow<CalendarDataProviderEvent> =
         _calendarDataProviderEventChannel.receiveAsFlow()
 
-    private val currentWeekMonday: LocalDate = _targetDate.value.previousOrSame(
-        DayOfWeek.MONDAY,
-    )
-
-    private val currentMonthStart: LocalDate = _targetDate.value.firstDayOfMonth()
-
     val weeksData: SnapshotStateMap<Int, WeeksData> = mutableStateMapOf()
-
-//    val weeksData: SnapshotStateList<WeeksData> = mutableListOf(
-//        getWeekDates(startedMonday = currentWeekMonday.minusWeeks(1)),
-//        getWeekDates(startedMonday = currentWeekMonday),
-//        getWeekDates(startedMonday = currentWeekMonday.plusWeeks(1)),
-//    ).toMutableStateList()
 
     val monthData: SnapshotStateMap<Int, WeeksData> = mutableStateMapOf()
 
