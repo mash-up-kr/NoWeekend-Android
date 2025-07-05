@@ -77,8 +77,25 @@ class CalendarDataProvider(
             dateOfWeeks = (0..6).map { day: Int ->
                 val localDate: LocalDate = startedMonday.plusDays(day)
                 DateOfWeek(
-                    imageType = ImageType.entries.random(), // Todo 이미지 로직
+                    imageType = ImageType.entries.random(),
                     localDate = localDate,
+                    isCurrentDate = localDate == LocalDate.now(),
+                )
+            }.chunked(7).map { weeks: List<DateOfWeek> -> weeks.toImmutableList() }
+                .toImmutableList(),
+        )
+    }
+
+    private fun getWeekDates(startedMonday: LocalDate, month: Int): WeeksData {
+        return WeeksData(
+            year = startedMonday.year,
+            month = month,
+            dateOfWeeks = (0..6).map { day: Int ->
+                val localDate: LocalDate = startedMonday.plusDays(day)
+                DateOfWeek(
+                    imageType = ImageType.entries.random(),
+                    localDate = localDate,
+                    isCurrentDate = localDate == LocalDate.now(),
                 )
             }.chunked(7).map { weeks: List<DateOfWeek> -> weeks.toImmutableList() }
                 .toImmutableList(),
@@ -88,21 +105,21 @@ class CalendarDataProvider(
     /**
      * 주 캘린더 데이터 초기화
      */
-    fun initWeekCalendar(
+    suspend fun initWeekCalendar(
         initPage: Int,
     ) {
-        val targetWeekMonday: LocalDate = _targetDate.value.previousOrSame(DayOfWeek.MONDAY)
+        val currentDay: LocalDate = LocalDate.now()
+        _targetDate.value = currentDay
+        val targetWeekMonday: LocalDate = currentDay.previousOrSame(DayOfWeek.MONDAY)
 
         weeksData.clear()
-        weeksData[initPage] = getWeekDates(startedMonday = targetWeekMonday)
+        weeksData[initPage] = getWeekDates(startedMonday = targetWeekMonday, month = currentDay.monthNumber)
         weeksData[initPage - 1] = getWeekDates(startedMonday = targetWeekMonday.minusWeeks(1))
         weeksData[initPage + 1] = getWeekDates(startedMonday = targetWeekMonday.plusWeeks(1))
 
-        coroutineScope.launch {
-            _calendarDataProviderEventChannel.send(
-                element = CalendarDataProviderEvent.CompleteInitWeeksCalendar,
-            )
-        }
+        _calendarDataProviderEventChannel.send(
+            element = CalendarDataProviderEvent.CompleteInitWeeksCalendar,
+        )
     }
 
     /**
@@ -151,18 +168,11 @@ class CalendarDataProvider(
     /**
      * 월 캘린더 데이터 초기화
      */
-    fun initMonthCalendar(page: Int) {
-        val key: Int = weeksData.entries.map { it.key }.sorted().getOrNull(1) ?: page
-        val weekData: WeeksData = weeksData.getOrDefault(key = key, defaultValue = WeeksData.default)
-        val localDate: LocalDate = LocalDate(
-            weekData.year,
-            weekData.month,
-            1,
-        )
+    fun initMonthCalendar(page: Int, chooserMonth: LocalDate) {
         monthData.clear()
-        monthData[page] = getMonthDates(monthStart = localDate)
-        monthData[page - 1] = getMonthDates(monthStart = localDate.minusMonths(1))
-        monthData[page + 1] = getMonthDates(monthStart = localDate.plusMonths(1))
+        monthData[page] = getMonthDates(monthStart = chooserMonth)
+        monthData[page - 1] = getMonthDates(monthStart = chooserMonth.minusMonths(1))
+        monthData[page + 1] = getMonthDates(monthStart = chooserMonth.plusMonths(1))
 
         coroutineScope.launch {
             _calendarDataProviderEventChannel.send(
@@ -241,8 +251,9 @@ class CalendarDataProvider(
             dateOfWeeks = (0 until daysInPeriod).map { day: Int ->
                 val localDate: LocalDate = firstMondayOfWeekContainingFirstDay.plusDays(day)
                 DateOfWeek(
-                    imageType = ImageType.entries.random(), // Todo 이미지 로직
+                    imageType = ImageType.entries.random(),
                     localDate = localDate,
+                    isCurrentDate = localDate == LocalDate.now(),
                 )
             }.chunked(7).map { weeks: List<DateOfWeek> ->
                 weeks.toImmutableList()
@@ -269,7 +280,6 @@ class CalendarDataProvider(
      */
     fun updateTargetDate(dateOfWeek: DateOfWeek) {
         _targetDate.value = dateOfWeek.localDate
-        log(message = "Target date updated to $_targetDate")
     }
 
     private fun log(message: String, isDebugLevel: Boolean = true) {
