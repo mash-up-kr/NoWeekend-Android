@@ -8,4 +8,5 @@ import team.noweekend.core.common.ui.calendar.CalendarDataProvider.ImageType
 data class DateOfWeek(
     val imageType: ImageType,
     val localDate: LocalDate,
+    val isCurrentDate: Boolean,
 )
