@@ -30,6 +30,7 @@ import team.noweekend.core.design.system.foundation.theme.NWKTheme
 internal fun CalendarDay(
     dateOfWeek: DateOfWeek,
     calendarMode: CalendarMode,
+    calendarDayClickable: Boolean,
     modifier: Modifier = Modifier,
     isSelectedDay: Boolean = false,
     isCurrentMonth: Boolean = false,
@@ -47,7 +48,7 @@ internal fun CalendarDay(
                 alpha = condition
             }
             .clickable(
-                enabled = isCurrentMonth,
+                enabled = (isCurrentMonth || calendarMode == CalendarMode.WEEK) && calendarDayClickable,
             ) {
                 onClickDateOfWeek(dateOfWeek)
             },
@@ -91,12 +92,14 @@ private fun PreviewCalendarDay() {
         val date = DateOfWeek(
             localDate = targetDate,
             imageType = ImageType.NONE,
+            isCurrentDate = true,
         )
         CalendarDay(
             dateOfWeek = date,
             isSelectedDay = true,
             isCurrentMonth = true,
             calendarMode = CalendarMode.WEEK,
+            calendarDayClickable = true,
         )
     }
 }
