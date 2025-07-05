@@ -61,4 +61,9 @@
     <string name="degree_card_title">오늘의 열정 온도</string>
     <string name="degree_card_annual_leave_title">연차라서 열정 온도</string>
 
+
+    <string name="todo_edit_action">할 일 수정</string>
+    <string name="todo_add_same_action">내일 또 하기</string>
+    <string name="todo_delete_action">삭제</string>
+
 </resources>

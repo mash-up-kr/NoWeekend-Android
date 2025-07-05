@@ -33,4 +33,8 @@ object NWKDrawableResource {
     val Degree50: Int = R.drawable.img_degree_50
     val Degree100: Int = R.drawable.img_degree_100
     val DegreeAnnualLeave: Int = R.drawable.img_degree_annual_leave
+
+    val ArrowRight : Int = R.drawable.icn_arrow_right
+    val Delete: Int = R.drawable.icn_delete
+    val Edit: Int = R.drawable.icn_edit
 }
