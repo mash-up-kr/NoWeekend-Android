@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -19,7 +20,7 @@ import team.noweekend.core.design.system.foundation.theme.NWKTheme
 
 @Composable
 internal fun YearMonthCalendarTypeChooser(
-    date: LocalDate,
+    date: State<LocalDate>,
     calendarMode: CalendarMode,
     onClickYearMonthButton: () -> Unit,
     onToggleStateChanged: (Boolean) -> Unit,
@@ -49,8 +50,9 @@ internal fun YearMonthCalendarTypeChooser(
 private fun PreviewYearMonthCalendarChooser() {
     NWKTheme {
         var calendarMode by remember { mutableStateOf(CalendarMode.MONTH) }
+        val date = remember { mutableStateOf(LocalDate.now()) }
         YearMonthCalendarTypeChooser(
-            date = LocalDate.now(),
+            date = date,
             calendarMode = calendarMode,
             onClickYearMonthButton = {},
             onToggleStateChanged = { isMonth ->
