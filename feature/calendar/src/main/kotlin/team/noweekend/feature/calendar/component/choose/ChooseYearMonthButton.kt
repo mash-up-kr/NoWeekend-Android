@@ -7,6 +7,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithCache
@@ -24,19 +27,17 @@ import team.noweekend.core.design.system.foundation.theme.NWKTheme
 
 @Composable
 fun ChooseYearMonthButton(
-    date: LocalDate,
+    date: State<LocalDate>,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(
-        modifier = modifier.clickable {
-            onClick()
-        },
+        modifier = modifier.clickable(onClick = onClick),
         horizontalArrangement = Arrangement.spacedBy(4.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
-            text = date.toFormattedString(LocalDate.YEAR_MONTH_KR_PATTERN),
+            text = date.value.toFormattedString(LocalDate.YEAR_MONTH_KR_PATTERN),
             style = NWKTheme.typography.heading4,
             color = NWKTheme.color.Neutral.black,
         )
@@ -88,8 +89,9 @@ fun ChooseYearMonthButton(
 @Composable
 private fun PreviewChooseYearMonthButton() {
     NWKTheme {
+        val date = remember{ mutableStateOf(LocalDate(year = 2023, monthNumber = 10, dayOfMonth = 1))}
         ChooseYearMonthButton(
-            date = LocalDate(year = 2023, monthNumber = 10, dayOfMonth = 1),
+            date = date,
             onClick = {},
         )
     }
