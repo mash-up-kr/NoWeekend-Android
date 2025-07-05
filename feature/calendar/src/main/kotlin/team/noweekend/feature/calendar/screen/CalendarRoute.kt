@@ -1,6 +1,7 @@
 package team.noweekend.feature.calendar.screen
 
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -10,6 +11,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import kotlinx.datetime.LocalDate
 import team.noweekend.core.common.ui.calendar.CalendarDataProvider
@@ -17,6 +19,7 @@ import team.noweekend.core.common.ui.calendar.model.WeeksData
 import team.noweekend.core.common.ui.calendar.rememberCalendarDataProvider
 import team.noweekend.core.common.ui.calendar.state.CalendarPagerState
 import team.noweekend.core.common.ui.calendar.state.rememberCalendarPagerState
+import team.noweekend.core.common.ui.todo.model.Todo
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 
 @Composable
@@ -118,6 +121,9 @@ internal fun CalendarRoute(
         onClickToggle = calendarPagerState::updateCalendarMode,
         onClickDateOfWeek = calendarDataProvider::updateTargetDate,
         onClickYearMonthButton = {},
+        onClickCheckBox = {},
+        onClickOptionButton = {},
+        todoList = Todo.dummy,
     )
 }
 
