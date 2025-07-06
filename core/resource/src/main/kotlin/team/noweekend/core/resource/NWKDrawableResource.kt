@@ -19,6 +19,9 @@ object NWKDrawableResource {
     val ChevronDown: Int = R.drawable.icn_chevron_down
     val ChevronLeft: Int = R.drawable.icn_chevron_left
     val Close: Int = R.drawable.icn_close
+    val ArrowRight : Int = R.drawable.icn_arrow_right
+    val Delete: Int = R.drawable.icn_delete
+    val Edit: Int = R.drawable.icn_edit
 
     /* Image */
     val Cake: Int = R.drawable.img_cake
@@ -34,8 +37,11 @@ object NWKDrawableResource {
     val Degree50: Int = R.drawable.img_degree_50
     val Degree100: Int = R.drawable.img_degree_100
     val DegreeAnnualLeave: Int = R.drawable.img_degree_annual_leave
+    val ToasterGood: Int = R.drawable.img_toaster_good
+    val ToasterHome: Int = R.drawable.img_toaster_home
+    val ToasterTrain: Int = R.drawable.img_toaster_train
+    val ToasterTrip: Int = R.drawable.img_toaster_trip
 
-    val ArrowRight : Int = R.drawable.icn_arrow_right
-    val Delete: Int = R.drawable.icn_delete
-    val Edit: Int = R.drawable.icn_edit
+    /* Lottie */
+    val Loading: Int = R.raw.lottie_loading
 }
