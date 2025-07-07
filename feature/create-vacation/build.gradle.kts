@@ -5,3 +5,7 @@ plugins {
 android {
     namespace = "team.noweekend.feature.create.vacation"
 }
+
+dependencies {
+    implementation(libs.lottie.compose)
+}

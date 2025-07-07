@@ -42,6 +42,7 @@ credentials = "1.5.0"
 googleid = "1.1.1"
 playServicesAuth = "21.0.0"
 graphicsShapesAndroid = "1.0.1"
+lottieCompose = "6.0.0"
 
 [libraries]
 # androidx
@@ -96,6 +97,8 @@ play-services-auth = { group = "com.google.android.gms", name = "play-services-a
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+
+lottie-compose = { group = "com.airbnb.android", name = "lottie-compose", version.ref = "lottieCompose" }
 
 ### 구글 로그인에 필요한 의존성
 androidx-credential = { group = "androidx.credentials", name = "credentials", version.ref = "credentials" }
