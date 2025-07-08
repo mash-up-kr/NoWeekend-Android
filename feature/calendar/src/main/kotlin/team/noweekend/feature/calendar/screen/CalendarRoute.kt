@@ -1,9 +1,9 @@
 package team.noweekend.feature.calendar.screen
 
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -11,10 +11,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import kotlinx.datetime.LocalDate
 import team.noweekend.core.common.ui.calendar.CalendarDataProvider
+import team.noweekend.core.common.ui.calendar.model.CalendarState
 import team.noweekend.core.common.ui.calendar.model.WeeksData
 import team.noweekend.core.common.ui.calendar.rememberCalendarDataProvider
 import team.noweekend.core.common.ui.calendar.state.CalendarPagerState
@@ -34,6 +34,31 @@ internal fun CalendarRoute(
         mutableStateOf(selectedDate.value)
     }
     val calendarMode: CalendarPagerState.CalendarMode by calendarPagerState.calendarMode.collectAsState()
+
+    val calendarState: CalendarState by remember(calendarMode) {
+        mutableStateOf(
+            when (calendarMode) {
+                CalendarPagerState.CalendarMode.WEEK -> {
+                    CalendarState.Week(
+                        mode = calendarMode,
+                        selectedDate = selectedDate,
+                        pagerState = calendarPagerState.weekPagerState,
+                        pagerData = calendarDataProvider.weeksData,
+                    )
+                }
+
+                CalendarPagerState.CalendarMode.MONTH -> {
+                    CalendarState.Month(
+                        mode = calendarMode,
+                        selectedDate = selectedDate,
+                        pagerState = calendarPagerState.monthPagerState,
+                        pagerData = calendarDataProvider.monthData,
+                    )
+                }
+            },
+        )
+    }
+
 
 
     LaunchedEffect(Unit) {
@@ -107,17 +132,11 @@ internal fun CalendarRoute(
         }
     }
 
-
     CalendarScreen(
         modifier = modifier,
-        weekPagerState = calendarPagerState.weekPagerState,
-        monthPagerState = calendarPagerState.monthPagerState,
-        mode = calendarMode,
-        selectedDate = selectedDate,
+        calendarState = calendarState,
         chooserDate = chooserMonth,
         onToggleStateChanged = calendarPagerState::updateCalendarMode,
-        monthData = calendarDataProvider.monthData,
-        weeksData = calendarDataProvider.weeksData,
         onClickToggle = calendarPagerState::updateCalendarMode,
         onClickDateOfWeek = calendarDataProvider::updateTargetDate,
         onClickYearMonthButton = {},
