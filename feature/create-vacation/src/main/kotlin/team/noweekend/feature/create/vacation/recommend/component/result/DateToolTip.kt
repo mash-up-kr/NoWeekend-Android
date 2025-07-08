@@ -2,6 +2,7 @@ package team.noweekend.feature.create.vacation.recommend.component.result
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -20,6 +21,7 @@ import team.noweekend.core.resource.NWKDrawableResource
 @Composable
 internal fun RecommendDateText(
     recommendedDate: String,
+    onRecommendDateClick: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -27,6 +29,7 @@ internal fun RecommendDateText(
             .clip(
                 shape = NWKTheme.radius.borderRadius400,
             )
+            .clickable(onClick = { onRecommendDateClick(recommendedDate) })
             .border(
                 width = 1.dp,
                 color = NWKTheme.color.Toast.toast500,
@@ -61,6 +64,7 @@ private fun SpeechBubblePreview() {
     NWKTheme {
         RecommendDateText(
             recommendedDate = "바보 텍스트",
+            onRecommendDateClick = {},
         )
     }
 }
