@@ -4,7 +4,9 @@ import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
@@ -50,30 +52,41 @@ internal fun ToastResultComponent(
         }
     }
 
-    Box(
-        modifier = modifier
-            .size(260.dp)
-            .offset(y = animatedOffsetY.value),
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(20.dp),
     ) {
-        Image(
-            modifier = Modifier,
-            painter = painterResource(recommendedVacation.vacationType.getRecommendedVacationImageResource()),
-            contentDescription = null,
-        )
-        Text(
+        RecommendDateText(
+            recommendedDate = recommendedVacation.displayRecommendedDate,
             modifier = Modifier
-                .widthIn(max = 150.dp)
-                .offset(y = 20.dp)
-                .align(Alignment.Center)
+                .offset(y = (-257).dp)
                 .graphicsLayer {
                     alpha = textAlpha
-                },
-            text = recommendedVacation.recommendedContent,
-            style = NWKTheme.typography.heading3.copy(
-                fontWeight = FontWeight.W700,
-                color = NWKTheme.color.Toast.toast500,
-            ),
+                }
+                .align(Alignment.CenterHorizontally),
         )
+        Box(
+            modifier = Modifier
+                .size(260.dp)
+                .offset(y = animatedOffsetY.value),
+        ) {
+            Image(
+                modifier = Modifier,
+                painter = painterResource(recommendedVacation.vacationType.getRecommendedVacationImageResource()),
+                contentDescription = null,
+            )
+            Text(
+                modifier = Modifier
+                    .widthIn(max = 150.dp)
+                    .offset(y = 20.dp)
+                    .align(Alignment.Center),
+                text = recommendedVacation.recommendedContent,
+                style = NWKTheme.typography.heading3.copy(
+                    fontWeight = FontWeight.W700,
+                    color = NWKTheme.color.Toast.toast500,
+                ),
+            )
+        }
     }
 }
 
