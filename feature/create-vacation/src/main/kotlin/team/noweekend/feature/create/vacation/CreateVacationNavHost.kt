@@ -30,9 +30,11 @@ internal fun CreateVacationNavHost(
         )
         informationGraph(
             navigateToHistoryBack = { navController.popBackStack(finish) },
-            navigateToVacationRecommendation = navController::navigateToVacationRecommendation
+            navigateToVacationRecommendation = navController::navigateToVacationRecommendation,
         )
-        recommendGraph()
+        recommendGraph(
+            navigateToHistoryBack = { navController.popBackStack(finish) },
+        )
     }
 }
 

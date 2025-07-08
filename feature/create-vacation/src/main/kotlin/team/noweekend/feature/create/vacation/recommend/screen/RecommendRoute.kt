@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.flow.collectLatest
+import team.noweekend.feature.create.vacation.recommend.mvi.RecommendIntent
 import team.noweekend.feature.create.vacation.recommend.mvi.RecommendSideEffectHandler
 import team.noweekend.feature.create.vacation.recommend.mvi.RecommendUiState
 import team.noweekend.feature.create.vacation.recommend.mvi.RecommendViewModel
@@ -14,12 +15,13 @@ import team.noweekend.feature.create.vacation.recommend.mvi.rememberRecommendSid
 
 @Composable
 internal fun RecommendRoute(
+    navigateToHistoryBack: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: RecommendViewModel = hiltViewModel(),
 ) {
     val uiState: State<RecommendUiState> = viewModel.uiState.collectAsStateWithLifecycle()
     val sideEffectHandler: RecommendSideEffectHandler = rememberRecommendSideEffectHandler(
-        navigateToHistoryBack = {},
+        navigateToHistoryBack = navigateToHistoryBack,
     )
 
     LaunchedEffect(key1 = Unit) {
@@ -31,6 +33,6 @@ internal fun RecommendRoute(
     RecommendScreen(
         uiState = uiState,
         modifier = modifier,
-        onBackClick = {},
+        onBackClick = { viewModel.intent(RecommendIntent.ClickBackButton) },
     )
 }
