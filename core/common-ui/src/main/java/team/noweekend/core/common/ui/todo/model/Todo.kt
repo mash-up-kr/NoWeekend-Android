@@ -5,6 +5,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.graphics.Color
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.resource.NWKStringResource
 
@@ -14,7 +16,30 @@ data class Todo(
     val description: String,
     val todoType: TodoType,
     val isDone: Boolean = false,
-)
+) {
+    companion object {
+        val previewDummy: ImmutableList<Todo> = persistentListOf<Todo>(
+            Todo(
+                title = "축구하기",
+                description = "1",
+                todoType = TodoType.Personal(),
+                isDone = false,
+            ),
+            Todo(
+                title = "출근하기",
+                description = "2",
+                todoType = TodoType.Company(),
+                isDone = false,
+            ),
+            Todo(
+                title = "기타등등",
+                description = "1",
+                todoType = TodoType.Etc(),
+                isDone = false,
+            ),
+        )
+    }
+}
 
 @Stable
 sealed interface TodoType {

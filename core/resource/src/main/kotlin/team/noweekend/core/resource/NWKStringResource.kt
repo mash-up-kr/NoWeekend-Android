@@ -51,18 +51,23 @@ object NWKStringResource {
     val Week: Int = R.string.week
     val Month: Int = R.string.month
 
-    val AnteMeridiem : Int = R.string.am
-    val PostMeridiem : Int = R.string.pm
+    val AnteMeridiem: Int = R.string.am
+    val PostMeridiem: Int = R.string.pm
     val YearFormat: Int = R.string.year_format
     val MonthFormat: Int = R.string.month_format
     val DayFormat: Int = R.string.day_format
     val HourFormat: Int = R.string.hour_format
     val MinuteFormat: Int = R.string.minute_format
 
-    val DegreeCardTitle: Int= R.string.degree_card_title
+    val DegreeCardTitle: Int = R.string.degree_card_title
     val DegreeCardAnnualLeaveTitle: Int = R.string.degree_card_annual_leave_title
 
     val TodoEditActionTitle : Int = R.string.todo_edit_action
     val TodoAddSameActionTitle: Int = R.string.todo_add_same_action
     val TodoDeleteActionTitle: Int = R.string.todo_delete_action
+
+    val MonthChooseButtonTitle : Int = R.string.month_choose_button_title
+    val TodoAddTitle: Int = R.string.add_todo_title
+    val TodoAddDirect: Int = R.string.add_todo_direct
+
 }
