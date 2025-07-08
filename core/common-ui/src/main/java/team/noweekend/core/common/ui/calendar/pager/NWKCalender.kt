@@ -1,72 +1,57 @@
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.PagerState
-import androidx.compose.foundation.pager.VerticalPager
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
-import androidx.compose.runtime.snapshots.SnapshotStateMap
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import kotlinx.datetime.LocalDate
-import team.noweekend.core.common.ui.calendar.component.CalendarItem
+import androidx.compose.ui.tooling.preview.Preview
 import team.noweekend.core.common.ui.calendar.component.DayOfWeekBar
+import team.noweekend.core.common.ui.calendar.model.CalendarState
 import team.noweekend.core.common.ui.calendar.model.DateOfWeek
-import team.noweekend.core.common.ui.calendar.model.WeeksData
-import team.noweekend.core.common.ui.calendar.state.CalendarPagerState.CalendarMode
+import team.noweekend.core.common.ui.calendar.pager.CalendarPager
+import team.noweekend.core.common.ui.calendar.rememberCalendarDataProvider
+import team.noweekend.core.common.ui.calendar.state.rememberCalendarPagerState
+import team.noweekend.core.design.system.foundation.theme.NWKTheme
 
 @Composable
 fun NWKCalender(
-    mode: CalendarMode,
-    weekPagerState: PagerState,
-    monthPagerState: PagerState,
-    selectedDate: State<LocalDate>,
-    calendarItemClickable: Boolean,
-    monthData: SnapshotStateMap<Int, WeeksData>,
-    weeksData: SnapshotStateMap<Int, WeeksData>,
+    calendarState: CalendarState,
     onClickDateOfWeek: (DateOfWeek) -> Unit,
+    userScrollEnabled: Boolean,
     modifier: Modifier = Modifier,
-
 ) {
     Column(
         modifier = modifier,
     ) {
         DayOfWeekBar(modifier = Modifier.fillMaxWidth(), isMondayStarted = true)
-        when (mode) {
-            CalendarMode.WEEK -> {
-                HorizontalPager(
-                    state = weekPagerState,
-                    modifier = Modifier.fillMaxWidth(),
-                ) { page ->
+        CalendarPager(
+            calendarState = calendarState,
+            onClickDateOfWeek = onClickDateOfWeek,
+            modifier = Modifier.fillMaxWidth(),
+            userScrollEnabled = userScrollEnabled,
+        )
+    }
+}
 
-                    val weekDates = weeksData[page] ?: WeeksData.default
+@Preview
+@Composable
+private fun PreviewNoneScrollCalendar() {
+    NWKTheme {
+        val calendarDataProvider = rememberCalendarDataProvider()
+        val calendarPagerState = rememberCalendarPagerState()
 
-                    CalendarItem(
-                        dataList = weekDates,
-                        calendarMode = mode,
-                        calendarItemClickable = calendarItemClickable,
-                        targetDate = selectedDate,
-                        onClickDateOfWeek = onClickDateOfWeek,
-                    )
-                }
-            }
-
-            CalendarMode.MONTH -> {
-                VerticalPager(
-                    state = monthPagerState,
-                    modifier = Modifier.fillMaxWidth(),
-                ) { page ->
-
-                    val dataList = monthData[page] ?: WeeksData.default
-
-                    CalendarItem(
-                        dataList = dataList,
-                        calendarMode = mode,
-                        calendarItemClickable = calendarItemClickable,
-                        targetDate = selectedDate,
-                        onClickDateOfWeek = onClickDateOfWeek,
-                    )
-                }
-            }
+        LaunchedEffect(Unit) {
+            calendarDataProvider.initWeekCalendar(initPage = calendarPagerState.initialPage)
         }
+        NWKCalender(
+            calendarState = CalendarState.Week(
+                pagerData = calendarDataProvider.weeksData,
+                pagerState = calendarPagerState.weekPagerState,
+                selectedDate = calendarDataProvider.targetDate,
+            ),
+            onClickDateOfWeek = {
+                println(it.toString())
+            },
+            userScrollEnabled = false,
+        )
     }
 }
