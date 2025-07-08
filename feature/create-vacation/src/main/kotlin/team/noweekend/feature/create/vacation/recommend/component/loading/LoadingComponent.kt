@@ -19,7 +19,7 @@ internal fun BoxScope.LoadingComponent(
 ) {
     Column(
         modifier = modifier.align(Alignment.Center),
-        verticalArrangement = Arrangement.spacedBy(NWKTheme.spacing.space175),
+        verticalArrangement = Arrangement.spacedBy(NWKTheme.spacing.space100),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
@@ -30,7 +30,7 @@ internal fun BoxScope.LoadingComponent(
             ),
         )
         LoadingAnimation(
-            modifier = Modifier.size(width = 52.dp, height = 24.dp),
+            modifier = Modifier.size(width = 200.dp, height = 45.dp),
         )
     }
 }
