@@ -77,6 +77,9 @@
     <string name="profile_topbar_save_button_title">저장</string>
     <string name="profile_topbar_frequent_schedule_title">자주하는 일정</string>
 
+    <string name="vacation_board_less_count_title">남은 연차</string>
+    <string name="vacation_board_used_count_title">사용한 연차</string>
+
 
 
 </resources>

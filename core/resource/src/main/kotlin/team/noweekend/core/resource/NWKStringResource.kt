@@ -76,4 +76,7 @@ object NWKStringResource {
     val ProfileAccountSettingTitle: Int = R.string.profile_topbar_account_setting_title
     val ProfileSaveButtonTitle: Int = R.string.profile_topbar_save_button_title
     val ProfileFrequentScheduleTitle: Int = R.string.profile_topbar_frequent_schedule_title
+
+    val ProfileVacationBoardLessCountTitle: Int = R.string.vacation_board_less_count_title
+    val ProfileVacationBoardUsedCountTitle: Int = R.string.vacation_board_used_count_title
 }
