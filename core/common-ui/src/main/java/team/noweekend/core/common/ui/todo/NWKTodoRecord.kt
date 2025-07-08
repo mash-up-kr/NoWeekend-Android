@@ -1,7 +1,9 @@
 package team.noweekend.core.common.ui.todo
 
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
@@ -9,13 +11,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.unit.dp
 import team.noweekend.core.common.ui.todo.model.Todo
 import team.noweekend.core.common.ui.todo.preview.PreviewTodoRecordParameterProvider
 import team.noweekend.core.design.system.core.component.checkbox.NWKCheckBox
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 
 @Composable
-internal fun NWKTodoRecord(
+fun NWKTodoRecord(
     todo: Todo,
     onClickOptionButton: () -> Unit,
     modifier: Modifier = Modifier,
@@ -29,6 +32,7 @@ internal fun NWKTodoRecord(
             isChecked = todo.isDone,
             onClick = onClickCheckBox,
         )
+        Spacer(modifier = Modifier.width(12.dp))
         TodoRecordContent(
             modifier = Modifier.weight(1f),
             todo = todo,

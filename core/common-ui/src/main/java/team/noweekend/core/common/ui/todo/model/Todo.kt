@@ -7,6 +7,7 @@ import androidx.compose.runtime.Stable
 import androidx.compose.ui.graphics.Color
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toImmutableList
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.resource.NWKStringResource
 
@@ -18,6 +19,15 @@ data class Todo(
     val isDone: Boolean = false,
 ) {
     companion object {
+        val dummy = (1..100).map {
+            Todo(
+                title = "title $it",
+                description = "description $it",
+                todoType = TodoType.Company(),
+                isDone = it % 2 == 0,
+            )
+        }.toImmutableList()
+
         val previewDummy: ImmutableList<Todo> = persistentListOf<Todo>(
             Todo(
                 title = "축구하기",

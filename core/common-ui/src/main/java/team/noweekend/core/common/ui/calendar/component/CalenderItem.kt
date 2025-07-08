@@ -17,6 +17,7 @@ internal fun CalendarItem(
     calendarMode: CalendarPagerState.CalendarMode,
     dataList: WeeksData,
     targetDate: State<LocalDate>,
+    calendarItemClickable: Boolean,
     modifier: Modifier = Modifier,
     onClickDateOfWeek: (DateOfWeek) -> Unit = {},
 ) {
@@ -31,6 +32,7 @@ internal fun CalendarItem(
                             CalendarDay(
                                 modifier = Modifier.weight(1f),
                                 dateOfWeek = dateOfWeek,
+                                calendarDayClickable = calendarItemClickable,
                                 isSelectedDay = dateOfWeek.localDate == targetDate.value,
                                 isCurrentMonth = dateOfWeek.localDate.monthNumber == dataList.month,
                                 calendarMode = calendarMode,

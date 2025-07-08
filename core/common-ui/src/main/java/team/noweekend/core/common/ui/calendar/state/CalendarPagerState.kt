@@ -65,9 +65,8 @@ class CalendarPagerState(
         updateNextWeekPage: (Int) -> Unit = { _ -> },
     ) {
         checkPageValid(currentPage)
-        val localPreviousPage = previousWeekPage.lastOrNull() ?: currentPage
 
-        println("currentPage = $currentPage ")
+        val localPreviousPage = previousWeekPage.lastOrNull() ?: currentPage
 
         previousWeekPage.add(currentPage)
         if (previousWeekPage.size > 2) previousWeekPage.removeAt(0)
@@ -76,12 +75,10 @@ class CalendarPagerState(
 
         when (direction) {
             Direction.Previous -> {
-                log("Moved to previous week.")
                 updatePreviousWeekPage(currentPage)
             }
 
             Direction.Next -> {
-                log("Moved to next week.")
                 updateNextWeekPage(currentPage)
             }
 
@@ -161,5 +158,13 @@ class CalendarPagerState(
         } else {
             Log.e(TAG, message)
         }
+    }
+
+    fun updateCalendarMode() {
+        calendarMode.value = if (calendarMode.value == CalendarMode.WEEK) CalendarMode.MONTH else CalendarMode.WEEK
+    }
+
+    fun updateCalendarMode(isMonth: Boolean) {
+        calendarMode.value = if (isMonth) CalendarMode.MONTH else CalendarMode.WEEK
     }
 }
