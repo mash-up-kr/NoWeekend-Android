@@ -1,17 +1,15 @@
 package team.noweekend.feature.calendar.component.bottomsheet
 
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.unit.dp
 import team.noweekend.core.common.ui.todo.model.Todo
 import team.noweekend.core.common.ui.todo.model.TodoType
+import team.noweekend.core.design.system.core.component.bottomSheet.BottomSheetType
+import team.noweekend.core.design.system.core.component.bottomSheet.NWKBottomSheet
+import team.noweekend.core.design.system.core.component.bottomSheet.rememberNWKBottomSheetState
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.feature.calendar.model.TodoRecordAction
 
@@ -23,13 +21,14 @@ fun TodoBottomSheet(
     onClickAction: (TodoRecordAction) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val bottomSheetState = rememberModalBottomSheetState(
-        skipPartiallyExpanded = true,
-        confirmValueChange = { false },
+    val nwkBottomSheetState = rememberNWKBottomSheetState(
+        bottomSheetType = BottomSheetType.OnlyContents,
     )
-    ModalBottomSheet(
-        modifier = modifier.padding(bottom = 4.dp),
-        sheetState = bottomSheetState,
+
+    NWKBottomSheet(
+        modifier = modifier,
+        nwkBottomSheetState = nwkBottomSheetState,
+        shouldDismissOnBackPress = true,
         onDismissRequest = onDismissRequest,
     ) {
         when (todo.todoType) {
@@ -61,14 +60,14 @@ fun TodoBottomSheet(
 
 @Preview
 @Composable
-private fun PreviewTodoBottomSheet(){
+private fun PreviewTodoBottomSheet() {
     NWKTheme {
         TodoBottomSheet(
             todo = Todo(
                 title = "",
                 description = "",
                 todoType = TodoType.Etc(),
-                isDone = false
+                isDone = false,
             ),
             onDismissRequest = {},
             onClickAction = {},
