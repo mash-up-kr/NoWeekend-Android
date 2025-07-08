@@ -10,8 +10,12 @@ internal fun NavController.navigateToVacationRecommendation() {
     navigate(CreateVacation.Recommend)
 }
 
-internal fun NavGraphBuilder.recommendGraph() {
+internal fun NavGraphBuilder.recommendGraph(
+    navigateToHistoryBack: () -> Unit,
+) {
     composable<CreateVacation.Recommend> {
-        RecommendRoute()
+        RecommendRoute(
+            navigateToHistoryBack = navigateToHistoryBack,
+        )
     }
 }

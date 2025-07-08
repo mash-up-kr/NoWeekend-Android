@@ -12,7 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -34,9 +33,6 @@ internal fun RecommendScreen(
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val isLoading: State<Boolean> = rememberUpdatedState(
-        newValue = uiState.value.isLoading
-    )
     NWKScaffold(
         modifier = modifier,
         containerColor = NWKTheme.color.Toast.toast50,
@@ -57,7 +53,7 @@ internal fun RecommendScreen(
         },
         content = { paddingValues ->
             RecommendScreenContent(
-                isLoading = isLoading,
+                isLoading = uiState.value.isLoading,
                 recommendedVacation = uiState.value.recommendedVacation,
                 modifier = Modifier
                     .fillMaxSize()
@@ -69,7 +65,7 @@ internal fun RecommendScreen(
 
 @Composable
 private fun RecommendScreenContent(
-    isLoading: State<Boolean>,
+    isLoading: Boolean,
     recommendedVacation: RecommendedVacationUiModel,
     modifier: Modifier = Modifier,
 ) {
@@ -88,7 +84,7 @@ private fun RecommendScreenContent(
             painter = painterResource(NWKDrawableResource.Toaster),
             contentDescription = null,
         )
-        if (isLoading.value) {
+        if (isLoading) {
             LoadingComponent(
                 modifier = Modifier,
             )
