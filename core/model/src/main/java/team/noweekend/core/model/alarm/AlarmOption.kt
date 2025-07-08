@@ -1,6 +1,5 @@
 package team.noweekend.core.model.alarm
 
-
 enum class AlarmOption {
     NONE,
     ONE_DAY_BEFORE,

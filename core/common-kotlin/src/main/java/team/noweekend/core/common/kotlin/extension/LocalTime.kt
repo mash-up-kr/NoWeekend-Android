@@ -6,7 +6,6 @@ import kotlinx.datetime.toJavaLocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
-
 val LocalTime.Companion.MERIDIEM_HOUR_MINUTE_KR_PATTERN
     get() = "(a) HH:mm"
 
@@ -17,4 +16,3 @@ fun LocalDateTime.toFormattedString(pattern: String): String {
     )
     return javaLocalDateTime.format(formatter)
 }
-
