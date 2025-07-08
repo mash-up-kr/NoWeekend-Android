@@ -8,9 +8,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
+import team.noweekend.core.resource.NWKStringResource
 import team.noweekend.feature.create.vacation.recommend.component.lottie.LoadingAnimation
 
 @Composable
@@ -23,7 +25,7 @@ internal fun BoxScope.LoadingComponent(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
-            text = "휴가를 굽고 있어요",
+            text = stringResource(NWKStringResource.CreateVacationRecommendLoading),
             style = NWKTheme.typography.heading4.copy(
                 fontWeight = FontWeight.W700,
                 color = NWKTheme.color.Semantic.Text.neutral,
