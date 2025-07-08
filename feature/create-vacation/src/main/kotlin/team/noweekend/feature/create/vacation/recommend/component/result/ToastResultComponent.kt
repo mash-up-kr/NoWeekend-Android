@@ -14,41 +14,43 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.feature.create.vacation.recommend.model.RecommendVacationType
 import team.noweekend.feature.create.vacation.recommend.model.RecommendVacationType.Companion.getRecommendedVacationImageResource
 import team.noweekend.feature.create.vacation.recommend.model.RecommendedVacationUiModel
+import kotlin.math.roundToInt
 
 @Composable
 internal fun ToastResultComponent(
-    isLoading: State<Boolean>,
+    isLoading: Boolean,
     recommendedVacation: RecommendedVacationUiModel,
     modifier: Modifier = Modifier,
 ) {
-    val targetOffsetY = if (isLoading.value) 84.dp else (-257).dp
-    val animatedOffsetY = animateDpAsState(targetValue = targetOffsetY)
-    var isTextVisible by remember { mutableStateOf(false) }
-    val textAlpha by animateFloatAsState(
-        targetValue = if (isTextVisible) 1f else 0f,
-        animationSpec = tween(durationMillis = 500),
+    val targetOffsetY: Dp = if (isLoading) 84.dp else (-257).dp
+    val animatedToastOffsetY: State<Dp> = animateDpAsState(targetValue = targetOffsetY)
+
+    val (isRecommendDateTextVisible, setRecommendDateVisibility) = remember { mutableStateOf(false) }
+    val animatedRecommendDateTextAlpha: State<Float> = animateFloatAsState(
+        targetValue = if (isRecommendDateTextVisible) 1f else 0f,
+        animationSpec = tween(durationMillis = 1000),
     )
 
-    LaunchedEffect(key1 = isLoading.value) {
-        if (isLoading.value.not()) {
+    LaunchedEffect(key1 = isLoading) {
+        if (isLoading.not()) {
             delay(1000L)
-            isTextVisible = true
+            setRecommendDateVisibility(true)
         }
     }
 
@@ -61,14 +63,20 @@ internal fun ToastResultComponent(
             modifier = Modifier
                 .offset(y = (-257).dp)
                 .graphicsLayer {
-                    alpha = textAlpha
+                    alpha = animatedRecommendDateTextAlpha.value
                 }
                 .align(Alignment.CenterHorizontally),
         )
         Box(
             modifier = Modifier
                 .size(260.dp)
-                .offset(y = animatedOffsetY.value),
+                .offset {
+                    val offsetY = with(this) { animatedToastOffsetY.value.toPx() }
+                    IntOffset(
+                        x = 0,
+                        y = offsetY.roundToInt(),
+                    )
+                },
         ) {
             Image(
                 modifier = Modifier,
@@ -96,7 +104,7 @@ private fun ToastResultComponentPreview() {
     NWKTheme {
         Box {
             ToastResultComponent(
-                isLoading = remember { mutableStateOf(true) },
+                isLoading = true,
                 recommendedVacation = RecommendedVacationUiModel.INITIAL_DATA.copy(
                     recommendedContent = "나는 바보입니다",
                     vacationType = RecommendVacationType.LOCAL,
