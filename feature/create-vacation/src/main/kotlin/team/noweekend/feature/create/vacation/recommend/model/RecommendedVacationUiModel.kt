@@ -5,6 +5,7 @@ import kotlinx.datetime.LocalDate
 import team.noweekend.core.common.kotlin.extension.MONTH_DATE_WITH_DAY_OF_WEEK_PATTERN
 import team.noweekend.core.common.kotlin.extension.now
 import team.noweekend.core.common.kotlin.extension.toFormattedString
+import team.noweekend.core.common.ui.calendar.util.CalendarUtils.plusMonths
 import team.noweekend.core.resource.NWKDrawableResource
 
 @Stable
@@ -12,16 +13,17 @@ data class RecommendedVacationUiModel(
     val vacationType: RecommendVacationType,
     val recommendedContent: String,
     val recommendedStartDate: LocalDate,
-    val recommendedEndDate: LocalDate,
+    val recommendedEndDate: LocalDate?,
 ) {
     val displayRecommendedDate: String = formatDisplayDate(recommendedStartDate, recommendedEndDate)
 
     private fun formatDisplayDate(startLocalDate: LocalDate, endLocalDate: LocalDate?): String {
         val startDisplayDate: String =
             startLocalDate.toFormattedString(LocalDate.MONTH_DATE_WITH_DAY_OF_WEEK_PATTERN)
-        val endDisplayDate: String? = endLocalDate?.toFormattedString(LocalDate.MONTH_DATE_WITH_DAY_OF_WEEK_PATTERN)
+        val endDisplayDate: String? =
+            endLocalDate?.toFormattedString(LocalDate.MONTH_DATE_WITH_DAY_OF_WEEK_PATTERN)
 
-        return if (endDisplayDate.isNullOrEmpty()) {
+        return if (endDisplayDate.isNullOrEmpty().not()) {
             "$startDisplayDate ~ $endDisplayDate"
         } else {
             startDisplayDate
@@ -33,7 +35,7 @@ data class RecommendedVacationUiModel(
             recommendedContent = "",
             vacationType = RecommendVacationType.UNDEFINED,
             recommendedStartDate = LocalDate.now(),
-            recommendedEndDate = LocalDate.now(),
+            recommendedEndDate = LocalDate.now().plusMonths(2),
         )
     }
 }
