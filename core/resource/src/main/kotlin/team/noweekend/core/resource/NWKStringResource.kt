@@ -79,4 +79,14 @@ object NWKStringResource {
 
     val ProfileVacationBoardLessCountTitle: Int = R.string.vacation_board_less_count_title
     val ProfileVacationBoardUsedCountTitle: Int = R.string.vacation_board_used_count_title
+
+    val InfoMenuTitle: Int = R.string.info_menu_title
+    val InfoMenuManageVacationTitle: Int = R.string.info_menu_manage_vacation_title
+    val InfoMenuDefaultCategoryTitle: Int = R.string.info_menu_default_category_title
+    val InfoMenuSettingAlarmTitle: Int = R.string.info_menu_setting_alarm_title
+
+    val EtcMenuTitle: Int = R.string.etc_menu_title
+    val EtcMenuContactServiceTitle: Int = R.string.etc_menu_contact_service_title
+    val EtcMenuPolicyTitle: Int = R.string.etc_menu_policy_title
+    val EtcMenuCurrentVersionTitle: Int = R.string.etc_menu_current_version_title
 }

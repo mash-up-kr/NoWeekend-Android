@@ -80,6 +80,16 @@
     <string name="vacation_board_less_count_title">남은 연차</string>
     <string name="vacation_board_used_count_title">사용한 연차</string>
 
+    <string name="info_menu_title">정보</string>
+    <string name="info_menu_manage_vacation_title">연차 관리</string>
+    <string name="info_menu_default_category_title">기본 카테고리</string>
+    <string name="info_menu_setting_alarm_title">알림 설정</string>
+
+    <string name="etc_menu_title">기타</string>
+    <string name="etc_menu_contact_service_title">서비스 문의</string>
+    <string name="etc_menu_policy_title">정책</string>
+    <string name="etc_menu_current_version_title">현재 버전</string>
+
 
 
 </resources>
