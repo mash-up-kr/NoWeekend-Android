@@ -38,9 +38,10 @@ data class PopularVacationUiModel(
     private fun formatDisplayDate(startLocalDate: LocalDate, endLocalDate: LocalDate?): String {
         val startDisplayDate: String =
             startLocalDate.toFormattedString(LocalDate.MONTH_DATE_WITH_DAY_OF_WEEK_KR_PATTERN)
-        val endDisplayDate: String? = endLocalDate?.toFormattedString(LocalDate.MONTH_DATE_WITH_DAY_OF_WEEK_KR_PATTERN)
+        val endDisplayDate: String? =
+            endLocalDate?.toFormattedString(LocalDate.MONTH_DATE_WITH_DAY_OF_WEEK_KR_PATTERN)
 
-        return if (endDisplayDate.isNullOrEmpty()) {
+        return if (endDisplayDate.isNullOrEmpty().not()) {
             "$startDisplayDate ~ $endDisplayDate"
         } else {
             startDisplayDate
