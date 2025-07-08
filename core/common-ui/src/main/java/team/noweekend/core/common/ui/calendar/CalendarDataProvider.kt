@@ -9,14 +9,11 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.snapshots.SnapshotStateMap
 import kotlinx.collections.immutable.toImmutableList
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.receiveAsFlow
-import kotlinx.coroutines.launch
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalDate
@@ -36,20 +33,14 @@ import team.noweekend.core.common.ui.calendar.util.CalendarUtils.previousOrSame
 import team.noweekend.core.resource.NWKDrawableResource
 
 @Composable
-fun rememberCalendarDataProvider(
-    coroutineScope: CoroutineScope = rememberCoroutineScope(),
-): CalendarDataProvider {
+fun rememberCalendarDataProvider(): CalendarDataProvider {
     return remember {
-        CalendarDataProvider(
-            coroutineScope = coroutineScope,
-        )
+        CalendarDataProvider()
     }
 }
 
 @Stable
-class CalendarDataProvider(
-    private val coroutineScope: CoroutineScope,
-) {
+class CalendarDataProvider() {
 
     private val _targetDate: MutableState<LocalDate> = mutableStateOf(LocalDate.now())
 
@@ -168,17 +159,15 @@ class CalendarDataProvider(
     /**
      * 월 캘린더 데이터 초기화
      */
-    fun initMonthCalendar(page: Int, chooserMonth: LocalDate) {
+    suspend fun initMonthCalendar(page: Int, chooserMonth: LocalDate) {
         monthData.clear()
         monthData[page] = getMonthDates(monthStart = chooserMonth)
         monthData[page - 1] = getMonthDates(monthStart = chooserMonth.minusMonths(1))
         monthData[page + 1] = getMonthDates(monthStart = chooserMonth.plusMonths(1))
 
-        coroutineScope.launch {
-            _calendarDataProviderEventChannel.send(
-                element = CalendarDataProviderEvent.CompleteInitMonthCalendar,
-            )
-        }
+        _calendarDataProviderEventChannel.send(
+            element = CalendarDataProviderEvent.CompleteInitMonthCalendar,
+        )
     }
 
     /**
