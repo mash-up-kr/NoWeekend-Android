@@ -1,12 +1,8 @@
 package team.noweekend.feature.calendar.component.bottomsheet
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -15,13 +11,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import kotlinx.datetime.LocalDate
 import team.noweekend.core.common.kotlin.extension.now
 import team.noweekend.core.common.ui.datepicker.WheelDatePicker
 import team.noweekend.core.common.ui.datepicker.model.DatePickerType
-import team.noweekend.core.design.system.core.component.button.defaults.BoxButtonType
-import team.noweekend.core.design.system.core.component.button.fill.NWKFillButton
+import team.noweekend.core.design.system.core.component.bottomSheet.BottomSheetType
+import team.noweekend.core.design.system.core.component.bottomSheet.NWKBottomSheet
+import team.noweekend.core.design.system.core.component.bottomSheet.rememberNWKBottomSheetState
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.resource.NWKStringResource.MonthChooseButtonTitle
 
@@ -30,45 +26,43 @@ import team.noweekend.core.resource.NWKStringResource.MonthChooseButtonTitle
 fun MonthChooserBottomSheet(
     onClickSelectButton: (LocalDate) -> Unit,
     modifier: Modifier = Modifier,
+    bottomSheetTitle: String = "",
     onDismissRequest: () -> Unit = {},
 ) {
 
-    val selectedDate = remember { mutableStateOf(LocalDate.now())}
-    val sheetState = rememberModalBottomSheetState(
-        skipPartiallyExpanded = true
+    val selectedDate = remember { mutableStateOf(LocalDate.now()) }
+
+    val nwkBottomSheetState = rememberNWKBottomSheetState(
+        bottomSheetType = BottomSheetType.UseButton(
+            bottomSheetButtonTitle = stringResource(id = MonthChooseButtonTitle),
+            onClickButton = {
+                onClickSelectButton(selectedDate.value)
+            },
+            bottomSheetTitle = bottomSheetTitle,
+        ),
+        sheetState = rememberModalBottomSheetState(
+            skipPartiallyExpanded = true,
+        ),
     )
 
-    ModalBottomSheet(
+    NWKBottomSheet(
         modifier = modifier.fillMaxWidth(),
-        sheetState = sheetState,
+        nwkBottomSheetState = nwkBottomSheetState,
         onDismissRequest = onDismissRequest,
         containerColor = NWKTheme.color.Neutral.white,
+        shouldDismissOnBackPress = true,
     ) {
         Column(
-            modifier= Modifier.fillMaxWidth().padding(horizontal = 20.dp)
-        ){
+            modifier = Modifier
+                .fillMaxWidth(),
+        ) {
             WheelDatePicker(
-                modifier= Modifier.align(Alignment.CenterHorizontally),
-                onSelectedDate = { date->
+                modifier = Modifier.align(Alignment.CenterHorizontally),
+                onSelectedDate = { date ->
                     selectedDate.value = date
                 },
                 wheelDatePickerType = DatePickerType.YearMonth,
             )
-            Row(
-                modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center
-            ){
-                NWKFillButton(
-                    onClick = {
-                        onClickSelectButton(selectedDate.value)
-                    },
-                    text = stringResource(id = MonthChooseButtonTitle),
-                    type =  BoxButtonType.BLACK,
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
-
         }
     }
 }
@@ -83,9 +77,10 @@ private fun PreviewMonthChooserBottomSheet() {
                 onClickSelectButton = {
                     println(it)
                 },
+                bottomSheetTitle = "확인하고 싶은\n" +
+                    "휴가 날짜를 선택하세요",
                 onDismissRequest = { isVisible.value = false },
             )
-
         }
     }
 }

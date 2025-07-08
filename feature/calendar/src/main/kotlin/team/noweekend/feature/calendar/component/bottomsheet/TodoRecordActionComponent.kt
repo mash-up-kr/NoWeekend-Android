@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import team.noweekend.core.common.android.extension.fillMaxWidthOfScreen
 import team.noweekend.core.design.system.core.component.image.NWKImage
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.feature.calendar.model.TodoRecordAction
@@ -28,7 +29,7 @@ internal fun TodoRecordActionComponent(
 ) {
     Row(
         modifier = modifier
-            .fillMaxWidth()
+            .fillMaxWidthOfScreen()
             .height(56.dp).clickable{
                 onClickAction(todoRecordAction)
             }
