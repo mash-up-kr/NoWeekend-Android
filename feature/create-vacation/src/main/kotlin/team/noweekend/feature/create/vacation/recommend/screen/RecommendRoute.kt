@@ -34,5 +34,6 @@ internal fun RecommendRoute(
         uiState = uiState,
         modifier = modifier,
         onBackClick = { viewModel.intent(RecommendIntent.ClickBackButton) },
+        onRecommendDateClick = { viewModel.intent(RecommendIntent.ClickRecommendedDate(it)) },
     )
 }

@@ -1,6 +1,5 @@
 package team.noweekend.feature.create.vacation.recommend.screen
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -14,11 +13,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import team.noweekend.core.common.android.extension.fillMaxWidthOfScreen
 import team.noweekend.core.design.system.core.component.icon.NWKIcon
+import team.noweekend.core.design.system.core.component.image.NWKImage
 import team.noweekend.core.design.system.core.component.scaffold.NWKScaffold
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.resource.NWKDrawableResource
@@ -31,6 +30,7 @@ import team.noweekend.feature.create.vacation.recommend.mvi.RecommendUiState
 internal fun RecommendScreen(
     uiState: State<RecommendUiState>,
     onBackClick: () -> Unit,
+    onRecommendDateClick: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     NWKScaffold(
@@ -55,6 +55,7 @@ internal fun RecommendScreen(
             RecommendScreenContent(
                 isLoading = uiState.value.isLoading,
                 recommendedVacation = uiState.value.recommendedVacation,
+                onRecommendDateClick = onRecommendDateClick,
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(paddingValues),
@@ -67,6 +68,7 @@ internal fun RecommendScreen(
 private fun RecommendScreenContent(
     isLoading: Boolean,
     recommendedVacation: RecommendedVacationUiModel,
+    onRecommendDateClick: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -75,14 +77,14 @@ private fun RecommendScreenContent(
         ToastResultComponent(
             isLoading = isLoading,
             recommendedVacation = recommendedVacation,
+            onRecommendDateClick = onRecommendDateClick,
             modifier = Modifier.align(Alignment.BottomCenter),
         )
-        Image(
+        NWKImage(
             modifier = Modifier
                 .fillMaxWidthOfScreen()
                 .align(Alignment.BottomCenter),
-            painter = painterResource(NWKDrawableResource.Toaster),
-            contentDescription = null,
+            drawableResId = NWKDrawableResource.Toaster,
         )
         if (isLoading) {
             LoadingComponent(
@@ -100,6 +102,7 @@ private fun RecommendScreenPreview() {
         RecommendScreen(
             uiState = uiState,
             onBackClick = {},
+            onRecommendDateClick = {},
         )
     }
 }

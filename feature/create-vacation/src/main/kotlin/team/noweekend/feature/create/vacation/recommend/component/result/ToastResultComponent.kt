@@ -3,7 +3,6 @@ package team.noweekend.feature.create.vacation.recommend.component.result
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,13 +18,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
+import team.noweekend.core.design.system.core.component.image.NWKImage
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.feature.create.vacation.recommend.model.RecommendVacationType
 import team.noweekend.feature.create.vacation.recommend.model.RecommendVacationType.Companion.getRecommendedVacationImageResource
@@ -36,6 +35,7 @@ import kotlin.math.roundToInt
 internal fun ToastResultComponent(
     isLoading: Boolean,
     recommendedVacation: RecommendedVacationUiModel,
+    onRecommendDateClick: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val targetOffsetY: Dp = if (isLoading) 84.dp else (-257).dp
@@ -60,6 +60,7 @@ internal fun ToastResultComponent(
     ) {
         RecommendDateText(
             recommendedDate = recommendedVacation.displayRecommendedDate,
+            onRecommendDateClick = onRecommendDateClick,
             modifier = Modifier
                 .offset(y = (-257).dp)
                 .graphicsLayer {
@@ -78,10 +79,9 @@ internal fun ToastResultComponent(
                     )
                 },
         ) {
-            Image(
-                modifier = Modifier,
-                painter = painterResource(recommendedVacation.vacationType.getRecommendedVacationImageResource()),
-                contentDescription = null,
+            NWKImage(
+                modifier = Modifier.size(260.dp),
+                drawableResId = recommendedVacation.vacationType.getRecommendedVacationImageResource(),
             )
             Text(
                 modifier = Modifier
@@ -109,6 +109,7 @@ private fun ToastResultComponentPreview() {
                     recommendedContent = "나는 바보입니다",
                     vacationType = RecommendVacationType.LOCAL,
                 ),
+                onRecommendDateClick = {},
             )
         }
     }

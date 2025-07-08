@@ -4,4 +4,7 @@ import team.noweekend.core.common.android.mvi.Intent
 
 sealed interface RecommendIntent : Intent {
     data object ClickBackButton : RecommendIntent
+    data class ClickRecommendedDate(
+        val date: String,
+    ) : RecommendIntent
 }

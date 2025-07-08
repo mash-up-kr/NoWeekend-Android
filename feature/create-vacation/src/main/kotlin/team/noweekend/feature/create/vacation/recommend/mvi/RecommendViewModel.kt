@@ -28,7 +28,10 @@ class RecommendViewModel @Inject constructor(
 
     override suspend fun handleIntent(intent: RecommendIntent) {
         when (intent) {
-            RecommendIntent.ClickBackButton -> navigateToHistoryBack()
+            is RecommendIntent.ClickBackButton -> navigateToHistoryBack()
+            is RecommendIntent.ClickRecommendedDate -> {
+                // TODO(JaesungLeee) : TODO 입력 바텀시트 노출
+            }
         }
     }
 
