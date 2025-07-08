@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
@@ -32,6 +33,7 @@ internal fun VacationBoard(
 ) {
     Row(
         modifier = modifier
+            .padding(top = 16.dp, bottom = 24.dp)
             .fillMaxWidth()
             .height(84.dp)
             .background(

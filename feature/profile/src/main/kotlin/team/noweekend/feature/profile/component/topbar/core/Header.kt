@@ -28,7 +28,7 @@ fun Header(
                 when (alignment) {
                     HeaderAlignmentType.StartFill -> {
                         if (index == 0) {
-                            component(Modifier.weight(1f))
+                            component(Modifier.padding(start= 12.dp).weight(1f))
                         } else {
                             component(Modifier)
                         }
