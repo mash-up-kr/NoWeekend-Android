@@ -25,6 +25,7 @@ import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.resource.NWKDrawableResource
 import team.noweekend.feature.create.vacation.recommend.component.loading.LoadingComponent
 import team.noweekend.feature.create.vacation.recommend.component.result.ToastResultComponent
+import team.noweekend.feature.create.vacation.recommend.model.RecommendedVacationUiModel
 import team.noweekend.feature.create.vacation.recommend.mvi.RecommendUiState
 
 @Composable
@@ -57,6 +58,7 @@ internal fun RecommendScreen(
         content = { paddingValues ->
             RecommendScreenContent(
                 isLoading = isLoading,
+                recommendedVacation = uiState.value.recommendedVacation,
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(paddingValues),
@@ -68,6 +70,7 @@ internal fun RecommendScreen(
 @Composable
 private fun RecommendScreenContent(
     isLoading: State<Boolean>,
+    recommendedVacation: RecommendedVacationUiModel,
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -75,6 +78,7 @@ private fun RecommendScreenContent(
     ) {
         ToastResultComponent(
             isLoading = isLoading,
+            recommendedVacation = recommendedVacation,
             modifier = Modifier.align(Alignment.BottomCenter),
         )
         Image(

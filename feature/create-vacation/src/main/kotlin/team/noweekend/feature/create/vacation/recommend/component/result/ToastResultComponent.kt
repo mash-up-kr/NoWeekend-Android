@@ -25,11 +25,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
-import team.noweekend.core.resource.NWKDrawableResource
+import team.noweekend.feature.create.vacation.recommend.model.RecommendVacationType
+import team.noweekend.feature.create.vacation.recommend.model.RecommendVacationType.Companion.getRecommendedVacationImageResource
+import team.noweekend.feature.create.vacation.recommend.model.RecommendedVacationUiModel
 
 @Composable
 internal fun ToastResultComponent(
     isLoading: State<Boolean>,
+    recommendedVacation: RecommendedVacationUiModel,
     modifier: Modifier = Modifier,
 ) {
     val targetOffsetY = if (isLoading.value) 84.dp else (-257).dp
@@ -46,6 +49,7 @@ internal fun ToastResultComponent(
             isTextVisible = true
         }
     }
+
     Box(
         modifier = modifier
             .size(260.dp)
@@ -53,7 +57,7 @@ internal fun ToastResultComponent(
     ) {
         Image(
             modifier = Modifier,
-            painter = painterResource(NWKDrawableResource.ToasterHome),
+            painter = painterResource(recommendedVacation.vacationType.getRecommendedVacationImageResource()),
             contentDescription = null,
         )
         Text(
@@ -64,7 +68,7 @@ internal fun ToastResultComponent(
                 .graphicsLayer {
                     alpha = textAlpha
                 },
-            text = "asdfasdf",
+            text = recommendedVacation.recommendedContent,
             style = NWKTheme.typography.heading3.copy(
                 fontWeight = FontWeight.W700,
                 color = NWKTheme.color.Toast.toast500,
@@ -80,6 +84,10 @@ private fun ToastResultComponentPreview() {
         Box {
             ToastResultComponent(
                 isLoading = remember { mutableStateOf(true) },
+                recommendedVacation = RecommendedVacationUiModel.INITIAL_DATA.copy(
+                    recommendedContent = "나는 바보입니다",
+                    vacationType = RecommendVacationType.LOCAL,
+                ),
             )
         }
     }
