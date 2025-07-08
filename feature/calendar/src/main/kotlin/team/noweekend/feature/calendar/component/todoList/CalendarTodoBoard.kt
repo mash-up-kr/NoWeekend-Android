@@ -27,7 +27,8 @@ fun TodoCalendarBoard(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .height(54.dp).padding(top = 20.dp),
+            .height(54.dp)
+            .padding(top = 20.dp),
     ) {
         Text(
             text = finishedBoard(todoList),
@@ -41,16 +42,11 @@ fun TodoCalendarBoard(
 private fun finishedBoard(
     todoList: ImmutableList<Todo>,
 ): AnnotatedString {
-    val isDonCount = todoList.count { it.isDone }
+    val isDoneCount = todoList.count { it.isDone }
     val totalCount = todoList.size
     return buildAnnotatedString {
-        withStyle(
-            style = SpanStyle(
-                color = NWKTheme.color.Semantic.Text.neutral,
-            ),
-        ) {
-            append("할 일 $isDonCount")
-        }
+
+        append("할 일 $isDoneCount")
         withStyle(
             style = SpanStyle(
                 color = NWKTheme.color.Neutral.neutralGray700,
@@ -65,13 +61,7 @@ private fun finishedBoard(
         ) {
             append("$totalCount ")
         }
-        withStyle(
-            style = SpanStyle(
-                color = NWKTheme.color.Semantic.Text.neutral,
-            ),
-        ) {
-            append("개")
-        }
+        append("개")
     }
 }
 
@@ -103,5 +93,4 @@ private fun PreviewTodoCalendarBoard() {
             ),
         )
     }
-
 }
