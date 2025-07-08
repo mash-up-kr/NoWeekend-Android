@@ -61,6 +61,7 @@
     <string name="degree_card_title">오늘의 열정 온도</string>
     <string name="degree_card_annual_leave_title">연차라서 열정 온도</string>
 
+    <string name="month_choose_button_title">선택하기</string>
     <string name="add_todo_title">할 일 추가</string>
     <string name="add_todo_direct">직접 입력</string>
 

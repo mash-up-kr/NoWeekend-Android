@@ -62,6 +62,7 @@ object NWKStringResource {
     val DegreeCardTitle: Int = R.string.degree_card_title
     val DegreeCardAnnualLeaveTitle: Int = R.string.degree_card_annual_leave_title
 
+    val MonthChooseButtonTitle : Int = R.string.month_choose_button_title
     val TodoAddTitle: Int = R.string.add_todo_title
     val TodoAddDirect: Int = R.string.add_todo_direct
 
