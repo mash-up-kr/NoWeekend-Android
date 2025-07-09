@@ -19,6 +19,9 @@ sealed interface InfoMenu : Menu {
         val category: TodoType,
     ) : InfoMenu
 
+    /**
+     * Todo 나중에 구현합니다.
+     */
     data class SettingAlarm(
         override val title: Int = InfoMenuSettingAlarmTitle,
         val isEnabled: Boolean,
@@ -28,7 +31,6 @@ sealed interface InfoMenu : Menu {
         val infoMenuList: ImmutableList<InfoMenu> = persistentListOf(
             ManageVacation(),
             DefaultCategory(category = TodoType.Personal()),
-            SettingAlarm(isEnabled = false),
         )
     }
 }
