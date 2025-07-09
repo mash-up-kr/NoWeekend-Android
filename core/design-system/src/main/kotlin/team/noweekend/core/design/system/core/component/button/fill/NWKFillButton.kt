@@ -3,7 +3,6 @@ package team.noweekend.core.design.system.core.component.button.fill
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,20 +11,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.airbnb.lottie.compose.LottieAnimation
-import com.airbnb.lottie.compose.LottieCompositionSpec
-import com.airbnb.lottie.compose.LottieConstants
-import com.airbnb.lottie.compose.animateLottieCompositionAsState
-import com.airbnb.lottie.compose.rememberLottieComposition
 import team.noweekend.core.design.system.core.component.button.defaults.BoxButtonType
 import team.noweekend.core.design.system.core.component.button.defaults.Button
 import team.noweekend.core.design.system.core.component.button.defaults.ButtonSizeType
 import team.noweekend.core.design.system.core.component.button.defaults.NWKButtonDefaults
+import team.noweekend.core.design.system.core.component.lottie.NWKLottieAnimation
 import team.noweekend.core.design.system.core.component.scaffold.NWKScaffold
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.resource.NWKDrawableResource
@@ -122,19 +116,11 @@ fun NWKFillButton(
             },
         )
         if (isLoading) {
-            val lottieComposition by rememberLottieComposition(
-                spec = LottieCompositionSpec.RawRes(NWKDrawableResource.ButtonLoading),
-            )
-            val foreverProgress by animateLottieCompositionAsState(
-                composition = lottieComposition,
-                iterations = LottieConstants.IterateForever,
-                speed = 1f,
-            )
-
-            LottieAnimation(
-                modifier = Modifier.width(120.dp).height(27.dp),
-                composition = lottieComposition,
-                progress = { foreverProgress },
+            NWKLottieAnimation(
+                lottieResId = NWKDrawableResource.ButtonLoading,
+                modifier = Modifier
+                    .width(120.dp)
+                    .height(27.dp),
             )
         }
 
@@ -179,14 +165,14 @@ private fun NWKFillButtonPreview() {
                     text = "BTNBTNBTNBTNBTNBTNBTNBTNBTNBTNBTNBTN",
                     modifier = Modifier.fillMaxWidth(),
                     type = BoxButtonType.BLACK,
-                    isLoading = true
+                    isLoading = true,
                 )
                 NWKFillButton(
                     onClick = {},
                     text = "isLoading = false",
                     modifier = Modifier.fillMaxWidth(),
                     type = BoxButtonType.BLACK,
-                    isLoading = false
+                    isLoading = false,
                 )
             }
         }
