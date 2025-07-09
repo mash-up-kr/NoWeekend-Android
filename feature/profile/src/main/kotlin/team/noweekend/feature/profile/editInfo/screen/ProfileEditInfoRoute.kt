@@ -10,7 +10,8 @@ internal fun ProfileEditInfoRoute(
     ProfileEditInfoScreen(
         modifier = modifier,
         accountName = "",
-        onClickBackButton = {}
+        onClickBackButton = {},
+        onClickRemoveAccount = {}
     )
 
 }
