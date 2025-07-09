@@ -63,12 +63,30 @@ object NWKStringResource {
     val DegreeCardTitle: Int = R.string.degree_card_title
     val DegreeCardAnnualLeaveTitle: Int = R.string.degree_card_annual_leave_title
 
-    val TodoEditActionTitle : Int = R.string.todo_edit_action
+    val TodoEditActionTitle: Int = R.string.todo_edit_action
     val TodoAddSameActionTitle: Int = R.string.todo_add_same_action
     val TodoDeleteActionTitle: Int = R.string.todo_delete_action
 
-    val MonthChooseButtonTitle : Int = R.string.month_choose_button_title
+    val MonthChooseButtonTitle: Int = R.string.month_choose_button_title
     val TodoAddTitle: Int = R.string.add_todo_title
     val TodoAddDirect: Int = R.string.add_todo_direct
 
+    val ProfileEditButtonTitle: Int = R.string.profile_topbar_edit_button_title
+    val ProfileInfoEditTitle: Int = R.string.profile_topbar_info_edit_title
+    val ProfileAccountSettingTitle: Int = R.string.profile_topbar_account_setting_title
+    val ProfileSaveButtonTitle: Int = R.string.profile_topbar_save_button_title
+    val ProfileFrequentScheduleTitle: Int = R.string.profile_topbar_frequent_schedule_title
+
+    val ProfileVacationBoardLessCountTitle: Int = R.string.vacation_board_less_count_title
+    val ProfileVacationBoardUsedCountTitle: Int = R.string.vacation_board_used_count_title
+
+    val InfoMenuTitle: Int = R.string.info_menu_title
+    val InfoMenuManageVacationTitle: Int = R.string.info_menu_manage_vacation_title
+    val InfoMenuDefaultCategoryTitle: Int = R.string.info_menu_default_category_title
+    val InfoMenuSettingAlarmTitle: Int = R.string.info_menu_setting_alarm_title
+
+    val EtcMenuTitle: Int = R.string.etc_menu_title
+    val EtcMenuContactServiceTitle: Int = R.string.etc_menu_contact_service_title
+    val EtcMenuPolicyTitle: Int = R.string.etc_menu_policy_title
+    val EtcMenuCurrentVersionTitle: Int = R.string.etc_menu_current_version_title
 }
