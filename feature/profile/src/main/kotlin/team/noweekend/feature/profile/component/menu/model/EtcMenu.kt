@@ -6,6 +6,7 @@ import team.noweekend.core.resource.NWKStringResource.EtcMenuContactServiceTitle
 import team.noweekend.core.resource.NWKStringResource.EtcMenuCurrentVersionTitle
 import team.noweekend.core.resource.NWKStringResource.EtcMenuPolicyTitle
 import team.noweekend.core.resource.NWKStringResource.EtcMenuTitle
+import team.noweekend.feature.profile.BuildConfig
 
 sealed interface EtcMenu : Menu {
     data class ContactService(
@@ -25,7 +26,7 @@ sealed interface EtcMenu : Menu {
         val etcMenuList: ImmutableList<EtcMenu> = persistentListOf(
             ContactService(),
             Policy(),
-            CurrentVersion(versionCode = "1.0.0"),
+            CurrentVersion(versionCode = BuildConfig.VERSION_NAME),
         )
     }
 }
