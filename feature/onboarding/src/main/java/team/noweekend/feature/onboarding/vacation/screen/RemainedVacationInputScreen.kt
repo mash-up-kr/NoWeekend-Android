@@ -18,6 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import team.noweekend.core.design.system.core.component.input.status.TextInputType
 import team.noweekend.core.design.system.core.component.button.defaults.BoxButtonType
 import team.noweekend.core.design.system.core.component.button.fill.NWKFillButton
 import team.noweekend.core.design.system.core.component.header.NWKHeader
@@ -217,7 +218,10 @@ private fun ErrorTextContainer(isError: Boolean, modifier: Modifier = Modifier) 
 }
 
 @Composable
-private fun WholeVacationInputField(wholeVacationDayFieldState: TextFieldState, modifier: Modifier = Modifier) {
+private fun WholeVacationInputField(
+    wholeVacationDayFieldState: TextFieldState,
+    modifier: Modifier = Modifier
+) {
     val keyboardController = LocalSoftwareKeyboardController.current
 
     NWKInputField(
