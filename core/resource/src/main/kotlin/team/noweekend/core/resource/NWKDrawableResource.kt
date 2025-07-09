@@ -18,10 +18,12 @@ object NWKDrawableResource {
     val DayTypeOverFiftyUnderSeventyFiveDegree: Int = R.drawable.ic_day_type_over_fifty_under_seventy_degree
     val ChevronDown: Int = R.drawable.icn_chevron_down
     val ChevronLeft: Int = R.drawable.icn_chevron_left
+    val ChevronRight: Int = R.drawable.icn_chevron_right
     val Close: Int = R.drawable.icn_close
     val ArrowRight : Int = R.drawable.icn_arrow_right
     val Delete: Int = R.drawable.icn_delete
     val Edit: Int = R.drawable.icn_edit
+    val GoogleLogo : Int = R.drawable.icn_google_logo
 
     /* Image */
     val Cake: Int = R.drawable.img_cake
