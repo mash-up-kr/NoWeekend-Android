@@ -8,8 +8,8 @@ internal fun ProfileInputRoute(
     modifier: Modifier = Modifier,
 ) {
     ProfileInputScreen(
-        onClickBack = {},
-        onClickConfirm = {},
+        onBackClick = {},
+        onConfirmClick = {},
         modifier = modifier,
     )
 }
