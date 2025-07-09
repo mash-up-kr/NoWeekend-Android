@@ -3,7 +3,6 @@ package team.noweekend.feature.profile.component.menu.info
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
@@ -20,8 +19,8 @@ import androidx.compose.ui.unit.dp
 import team.noweekend.core.common.android.extension.fillMaxWidthOfScreen
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.feature.profile.component.menu.model.InfoMenu
-import team.noweekend.feature.profile.component.toggle.Toggle
-import team.noweekend.feature.profile.component.toggle.ToggleState
+import team.noweekend.core.design.system.core.component.toggle.Toggle
+import team.noweekend.core.design.system.core.component.toggle.ToggleState
 
 @Composable
 fun InfoMenuComponent(
