@@ -90,6 +90,10 @@
     <string name="etc_menu_policy_title">정책</string>
     <string name="etc_menu_current_version_title">현재 버전</string>
 
+    <string name="day">일</string>
+    <string name="time">시간</string>
+    <string name="next">다음</string>
+
     <string name="edit_info_menu_account_title">계정</string>
     <string name="edit_info_menu_frequent_schedule_title">자주하는 일정</string>
     <string name="edit_info_menu_logout_title">로그아웃</string>

@@ -23,6 +23,7 @@ object NWKDrawableResource {
     val ArrowRight : Int = R.drawable.icn_arrow_right
     val Delete: Int = R.drawable.icn_delete
     val Edit: Int = R.drawable.icn_edit
+    val TextClear: Int = R.drawable.ic_text_clear
     val GoogleLogo : Int = R.drawable.icn_google_logo
 
     /* Image */

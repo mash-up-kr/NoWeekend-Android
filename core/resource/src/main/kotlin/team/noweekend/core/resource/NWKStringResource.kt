@@ -90,6 +90,10 @@ object NWKStringResource {
     val EtcMenuPolicyTitle: Int = R.string.etc_menu_policy_title
     val EtcMenuCurrentVersionTitle: Int = R.string.etc_menu_current_version_title
 
+    val Day: Int = R.string.day
+    val Time: Int = R.string.time
+    val Next: Int = R.string.next
+
     val EditInfoMenuAccountTitle: Int = R.string.edit_info_menu_account_title
     val EditInfoMenuFrequentScheduleTitle: Int = R.string.edit_info_menu_frequent_schedule_title
     val EditInfoMenuLogoutTitle: Int = R.string.edit_info_menu_logout_title
