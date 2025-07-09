@@ -45,4 +45,5 @@ object NWKDrawableResource {
 
     /* Lottie */
     val Loading: Int = R.raw.lottie_loading
+    val ButtonLoading : Int = R.raw.lottie_button_loading
 }
