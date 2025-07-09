@@ -90,9 +90,9 @@ fun NWKFillButton(
     onClick: () -> Unit,
     text: String,
     type: BoxButtonType,
+    isLoading: Boolean,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    isLoading: Boolean = false,
 ) {
 
     val colors = when (type) {
