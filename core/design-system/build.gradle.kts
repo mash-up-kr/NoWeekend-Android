@@ -16,4 +16,5 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.coil.compose)
     implementation(libs.androidx.animation)
+    implementation(libs.lottie.compose)
 }

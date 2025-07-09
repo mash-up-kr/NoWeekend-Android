@@ -94,5 +94,12 @@
     <string name="time">시간</string>
     <string name="next">다음</string>
 
+    <string name="edit_info_menu_account_title">계정</string>
+    <string name="edit_info_menu_frequent_schedule_title">자주하는 일정</string>
+    <string name="edit_info_menu_logout_title">로그아웃</string>
+    <string name="edit_info_delete_account_title">계정 삭제</string>
+    <string name="edit_info_google_account_title">구글 계정</string>
+
+
 
 </resources>

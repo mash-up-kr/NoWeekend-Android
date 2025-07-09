@@ -1,4 +1,4 @@
-package team.noweekend.feature.profile.component.menu.etc
+package team.noweekend.feature.profile.component.menu
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -7,35 +7,36 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kotlinx.collections.immutable.ImmutableList
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
-import team.noweekend.core.resource.NWKStringResource.EtcMenuTitle
-import team.noweekend.feature.profile.component.menu.model.EtcMenu.Companion.etcMenuList
-import team.noweekend.feature.profile.component.menu.model.InfoMenu.Companion.infoMenuList
+import team.noweekend.feature.profile.model.Menu
 
 @Composable
-fun EtcMenuLayout(
+fun MenuLayout(
+    menuList: ImmutableList<Menu>,
     onClickMenuItem: () -> Unit,
     modifier: Modifier = Modifier,
+    title: String = "",
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
     ) {
-        Text(
-            text = stringResource(id = EtcMenuTitle),
-            style = NWKTheme.typography.body2,
-            color = NWKTheme.color.Semantic.Text.body,
-        )
-        etcMenuList.forEachIndexed { index, etcMenu ->
-            key(etcMenu) {
-                EtcMenuComponent(
+        if (title.isNotEmpty()) {
+            Text(
+                text = title,
+                style = NWKTheme.typography.body2,
+                color = NWKTheme.color.Semantic.Text.body,
+            )
+        }
+        menuList.forEachIndexed { index, menu ->
+            key(menu) {
+                MenuComponent(
                     modifier = Modifier.fillMaxWidth(),
-                    menu = etcMenu,
+                    menu = menu,
                     onClickMenuItem = onClickMenuItem,
                 )
-                if (index < infoMenuList.size - 1) {
+                if (index < menuList.lastIndex) {
                     HorizontalDivider(
                         modifier = Modifier.fillMaxWidth(),
                         thickness = 1.dp,
@@ -43,15 +44,8 @@ fun EtcMenuLayout(
                     )
                 }
             }
+
         }
     }
-}
 
-
-@Preview(showBackground = true)
-@Composable
-private fun PreviewInfoMenuLayout() {
-    NWKTheme {
-        EtcMenuLayout(onClickMenuItem = {})
-    }
 }
