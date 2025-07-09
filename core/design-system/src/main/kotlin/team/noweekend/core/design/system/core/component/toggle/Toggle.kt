@@ -1,5 +1,4 @@
-package team.noweekend.feature.profile.component.toggle
-
+package team.noweekend.core.design.system.core.component.toggle
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
@@ -42,8 +41,8 @@ import kotlin.math.roundToInt
 @Composable
 fun Toggle(
     modifier: Modifier = Modifier,
-    width : Dp = 39.dp,
-    height : Dp = 24.dp,
+    width: Dp = 39.dp,
+    height: Dp = 24.dp,
     thumbSize: Dp = 18.dp,
     thumbPadding: Dp = 3.dp,
     toggleState: ToggleState = ToggleState.OFF,
@@ -147,6 +146,11 @@ private fun PreviewCalendarTypeToggle() {
     NWKTheme {
         Column(modifier = Modifier.background(color = NWKTheme.color.Neutral.white)) {
             var toggleState by remember { mutableStateOf(ToggleState.OFF) }
+
+            LaunchedEffect(toggleState) {
+                println("Toggle state changed to: $toggleState")
+            }
+
             Toggle(
                 toggleState = toggleState,
                 onToggleStateChanged = { isOn ->
