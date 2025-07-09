@@ -11,9 +11,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import team.noweekend.core.design.system.core.component.lottie.NWKLottieAnimation
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
+import team.noweekend.core.resource.NWKDrawableResource.Loading
 import team.noweekend.core.resource.NWKStringResource
-import team.noweekend.feature.create.vacation.recommend.component.lottie.LoadingAnimation
 
 @Composable
 internal fun BoxScope.LoadingComponent(
@@ -31,7 +32,8 @@ internal fun BoxScope.LoadingComponent(
                 color = NWKTheme.color.Semantic.Text.neutral,
             ),
         )
-        LoadingAnimation(
+        NWKLottieAnimation(
+            lottieResId = Loading,
             modifier = Modifier.size(width = 200.dp, height = 45.dp),
         )
     }
