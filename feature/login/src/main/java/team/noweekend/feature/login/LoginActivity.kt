@@ -10,10 +10,16 @@ import androidx.compose.ui.Modifier
 import dagger.hilt.android.AndroidEntryPoint
 import team.noweekend.core.common.android.extension.showToast
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
+import team.noweekend.core.navigator.delegate.LoginNavigationDelegate
 import team.noweekend.feature.login.screen.LoginRoute
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var loginNavigationDelegate: LoginNavigationDelegate
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -21,7 +27,10 @@ class LoginActivity : ComponentActivity() {
                 LoginRoute(
                     modifier = Modifier.fillMaxSize(),
                     navigateToOnboarding = {
-                        // TODO: 온보딩 화면으로 넘어가는 로직
+                        loginNavigationDelegate.navigateToOnboard(
+                            activity = this@LoginActivity,
+                            intentBuilder = null,  // TODO : 필요시 추가
+                        )
                     },
                     navigateToGoogleSignUp = { startGoogleSignUpScreen() },
                     showGoogleSignUpErrorToast = {
