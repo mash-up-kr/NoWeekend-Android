@@ -22,6 +22,7 @@ object NWKDrawableResource {
     val ArrowRight : Int = R.drawable.icn_arrow_right
     val Delete: Int = R.drawable.icn_delete
     val Edit: Int = R.drawable.icn_edit
+    val TextClear: Int = R.drawable.ic_text_clear
 
     /* Image */
     val Cake: Int = R.drawable.img_cake

@@ -89,4 +89,7 @@ object NWKStringResource {
     val EtcMenuContactServiceTitle: Int = R.string.etc_menu_contact_service_title
     val EtcMenuPolicyTitle: Int = R.string.etc_menu_policy_title
     val EtcMenuCurrentVersionTitle: Int = R.string.etc_menu_current_version_title
+    val Day: Int = R.string.day
+    val Time: Int = R.string.time
+    val Next: Int = R.string.next
 }

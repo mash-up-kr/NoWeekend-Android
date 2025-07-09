@@ -90,6 +90,9 @@
     <string name="etc_menu_policy_title">정책</string>
     <string name="etc_menu_current_version_title">현재 버전</string>
 
+    <string name="day">일</string>
+    <string name="time">시간</string>
+    <string name="next">다음</string>
 
 
 </resources>
