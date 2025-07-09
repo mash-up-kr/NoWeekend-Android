@@ -7,13 +7,17 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
+import team.noweekend.core.resource.NWKStringResource.EtcMenuTitle
+import team.noweekend.core.resource.NWKStringResource.InfoMenuTitle
 import team.noweekend.feature.profile.component.VacationBoard
-import team.noweekend.feature.profile.component.menu.etc.EtcMenuLayout
-import team.noweekend.feature.profile.component.menu.info.InfoMenuLayout
+import team.noweekend.feature.profile.component.menu.MenuLayout
 import team.noweekend.feature.profile.component.topbar.ProfileTopBar
+import team.noweekend.feature.profile.model.EtcMenu.Companion.etcMenuList
+import team.noweekend.feature.profile.model.InfoMenu.Companion.infoMenuList
 
 @Composable
 internal fun ProfileScreen(
@@ -32,16 +36,19 @@ internal fun ProfileScreen(
             lessVacationCount = 12.5f,
             usedVacationCount = 5.5f,
         )
-        InfoMenuLayout(
-            onClickMenuItem = {},
+        MenuLayout(
+            title = stringResource(id = InfoMenuTitle),
+            menuList = infoMenuList,
+            onClickMenuItem = {}
         )
-
         Spacer(
             modifier = Modifier.height(16.dp),
         )
 
-        EtcMenuLayout(
-            onClickMenuItem = {},
+        MenuLayout(
+            title = stringResource(id = EtcMenuTitle),
+            menuList = etcMenuList,
+            onClickMenuItem = {}
         )
     }
 
