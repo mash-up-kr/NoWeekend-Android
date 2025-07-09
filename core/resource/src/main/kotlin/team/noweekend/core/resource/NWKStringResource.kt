@@ -90,6 +90,12 @@ object NWKStringResource {
     val EtcMenuPolicyTitle: Int = R.string.etc_menu_policy_title
     val EtcMenuCurrentVersionTitle: Int = R.string.etc_menu_current_version_title
 
+    val OnboardProfileInputHeaderTitle = R.string.onboard_profile_input_header_title
+    val OnboardProfileInputHeaderSubtitle = R.string.onboard_profile_input_header_subtitle
+    val OnboardingNicknameTitle = R.string.onboard_title
+    val OnboardingNicknameSubTitle = R.string.onboard_subtitle
+    val OnboardingNicknameInputHint = R.string.onboard_nickname_input_hint
+
     val Day: Int = R.string.day
     val Time: Int = R.string.time
     val Next: Int = R.string.next
@@ -99,10 +105,6 @@ object NWKStringResource {
     val EditInfoMenuLogoutTitle: Int = R.string.edit_info_menu_logout_title
     val EditInfoDeleteAccountTitle: Int = R.string.edit_info_delete_account_title
     val EditInfoGoogleAccountTitle: Int = R.string.edit_info_google_account_title
-
-    val OnboardingNicknameTitle = R.string.onboard_title
-    val OnboardingNicknameSubTitle = R.string.onboard_subtitle
-    val OnboardingNicknameInputHint = R.string.onboard_nickname_input_hint
 
     val InputDateError = R.string.input_date_error
     val InputVacationError = R.string.input_vacation_error

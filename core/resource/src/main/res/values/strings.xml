@@ -87,6 +87,12 @@
     <string name="etc_menu_policy_title">정책</string>
     <string name="etc_menu_current_version_title">현재 버전</string>
 
+    <string name="onboard_profile_input_header_title">정보를 작성해 주세요</string>
+    <string name="onboard_profile_input_header_subtitle">언제든 변경할 수 있어요.</string>
+    <string name="onboard_title">닉네임을 알려주세요!</string>
+    <string name="onboard_subtitle">언제든 변경할 수 있어요</string>
+    <string name="onboard_nickname_input_hint">닉네임을 입력해주세요</string>
+
     <string name="day">일</string>
     <string name="time">시간</string>
     <string name="next">다음</string>
@@ -97,9 +103,7 @@
     <string name="edit_info_delete_account_title">계정 삭제</string>
     <string name="edit_info_google_account_title">구글 계정</string>
 
-    <string name="onboard_title">닉네임을 알려주세요!</string>
-    <string name="onboard_subtitle">언제든 변경할 수 있어요</string>
-    <string name="onboard_nickname_input_hint">닉네임을 입력해주세요</string>
+
     <string name="input_date_error">숫자만 입력할 수 있어요.</string>
     <string name="input_vacation_error">남은 연차는 전체 연차보다 많을 수 없어요.</string>
 
