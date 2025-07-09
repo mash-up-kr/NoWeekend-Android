@@ -2,7 +2,8 @@ package team.noweekend.core.design.system.core.component.header
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -10,69 +11,69 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import team.noweekend.core.design.system.core.component.image.NWKImage
+import team.noweekend.core.design.system.core.component.header.defaults.NWKHeaderDefaults
+import team.noweekend.core.design.system.core.component.icon.NWKIcon
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.resource.NWKDrawableResource
 
 @Composable
 fun NWKHeader(
-    onClickBack: () -> Unit,
+    onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
-    title: String? = null,
+    text: String? = null,
+    trailingContent: @Composable (() -> Unit)? = null,
 ) {
-    Box(
+    Row(
         modifier = modifier
-            .background(NWKTheme.color.Semantic.Background.normal)
-            .padding(horizontal = 12.dp, vertical = 16.dp),
+            .fillMaxWidth()
+            .background(NWKTheme.color.Neutral.white)
+            .padding(NWKHeaderDefaults.getContentPadding()),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
-        BackButton(
+        NWKIcon(
             modifier = Modifier
-                .align(Alignment.CenterStart)
-                .size(26.dp),
-            onClick = onClickBack,
+                .size(24.dp)
+                .clickable(onClick = onBackClick),
+            resourceId = NWKDrawableResource.ChevronLeft,
+            tint = NWKTheme.color.Semantic.Text.body,
         )
-        HeaderTitle(
-            modifier = Modifier.align(Alignment.Center),
-            title = title,
-        )
+        text?.let {
+            Text(
+                modifier = Modifier.weight(1f),
+                text = it,
+                style = NWKTheme.typography.heading6.copy(
+                    fontWeight = FontWeight.W700,
+                    color = NWKTheme.color.Semantic.Text.neutral,
+                ),
+                textAlign = TextAlign.Center,
+            )
+        }
+        trailingContent?.let {
+            trailingContent.invoke()
+        } ?: Spacer(modifier = Modifier.size(NWKTheme.spacing.space300))
     }
 }
 
-@Composable
-private fun BackButton(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-) {
-    NWKImage(
-        modifier = modifier.clickable { onClick() },
-        drawableResId = NWKDrawableResource.ChevronLeft,
-    )
-}
-
-@Composable
-private fun HeaderTitle(
-    title: String?,
-    modifier: Modifier = Modifier,
-) {
-    title?.let { text ->
-        Text(
-            modifier = modifier,
-            text = text,
-            color = NWKTheme.color.Semantic.Text.neutral,
-            style = NWKTheme.typography.heading6,
-        )
-    }
-}
-
-
-@Preview(showBackground = true)
+@Preview
 @Composable
 private fun NWKHeaderPreview() {
-    NWKHeader(
-        onClickBack = {},
-        title = "Header Title",
-        modifier = Modifier.fillMaxWidth(),
-    )
+    NWKTheme {
+        NWKHeader(
+            text = "1/3",
+            trailingContent = {
+                Text(
+                    text = "저장",
+                    style = NWKTheme.typography.heading6.copy(
+                        fontWeight = FontWeight.W700,
+                        color = NWKTheme.color.Toast.toast500,
+                    ),
+                )
+            },
+            onBackClick = {},
+        )
+    }
 }
