@@ -36,7 +36,7 @@ fun MenuLayout(
                     menu = menu,
                     onClickMenuItem = onClickMenuItem,
                 )
-                if (index < menuList.size - 1) {
+                if (index < menuList.lastIndex) {
                     HorizontalDivider(
                         modifier = Modifier.fillMaxWidth(),
                         thickness = 1.dp,
