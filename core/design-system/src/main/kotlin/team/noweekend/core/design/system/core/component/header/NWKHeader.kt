@@ -47,7 +47,7 @@ private fun BackButton(
 ) {
     NWKImage(
         modifier = modifier.clickable { onClick() },
-        drawableResId = NWKDrawableResource.LeftArrow,
+        drawableResId = NWKDrawableResource.ChevronLeft,
     )
 }
 

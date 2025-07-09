@@ -26,3 +26,14 @@ sealed interface CreateVacation : DestinationRoute {
     @Serializable
     data object Recommend : CreateVacation
 }
+
+sealed interface Onboard : DestinationRoute {
+    @Serializable
+    data object Profile : Onboard
+
+    @Serializable
+    data object RemainedVacation : Onboard
+
+    @Serializable
+    data object Schedule : Onboard
+}
