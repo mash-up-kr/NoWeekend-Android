@@ -9,12 +9,6 @@
     <string name="label_calendar">캘린더</string>
     <string name="label_profile">내 정보</string>
 
-    <string name="onboard_profile_input_header_title">정보를 작성해 주세요</string>
-    <string name="onboard_profile_input_header_subtitle">언제든 변경할 수 있어요.</string>
-    <string name="onboard_title">닉네임을 알려주세요!</string>
-    <string name="onboard_subtitle">언제든 변경할 수 있어요</string>
-    <string name="onboard_nickname_input_hint">닉네임을 입력해주세요</string>
-
     <string name="home_average_temperature_text_span_1">"평균 열정온도: "</string>
     <string name="home_average_temperature_text_span_2">"%1$s°C"</string>
     <string name="home_create_vacation_button_text">"최대 %1$s일 휴가 굽기"</string>
@@ -56,7 +50,6 @@
     <string name="week">주</string>
     <string name="month">월</string>
 
-
     <string name="am">오전</string>
     <string name="pm">오후</string>
     <string name="year_format">%d년</string>
@@ -67,7 +60,6 @@
 
     <string name="degree_card_title">오늘의 열정 온도</string>
     <string name="degree_card_annual_leave_title">연차라서 열정 온도</string>
-
 
     <string name="todo_edit_action">할 일 수정</string>
     <string name="todo_add_same_action">내일 또 하기</string>
@@ -105,4 +97,24 @@
     <string name="edit_info_menu_logout_title">로그아웃</string>
     <string name="edit_info_delete_account_title">계정 삭제</string>
     <string name="edit_info_google_account_title">구글 계정</string>
+
+    <!-- :core:common-ui -->
+    <string name="profile_input_header_title">정보를 작성해 주세요</string>
+    <string name="profile_input_header_subtitle">언제든 변경할 수 있어요.</string>
+    <string name="birth_input_label">생년월일</string>
+    <string name="birth_input_placeholder">예)19991213</string>
+    <string name="birth_input_error_msg">올바른 생년월일을 입력해 주세요.</string>
+    <string name="nickname_input_label">닉네임</string>
+    <string name="nickname_input_placeholder">1~6자 이내, 영문 숫자 사용 가능</string>
+    <string name="nickname_input_error_msg">6글자까지 작성할 수 있어요.</string>
+
+    <string name="remained_vacation_header_title">올해 남은 연차를 알려주세요</string>
+    <string name="remained_vacation_header_subtitle">"%1$s일 %1$s시간"</string>
+    <string name="remained_vacation_input_label">남은 연차</string>
+    <string name="remained_vacation_input_placeholder">0</string>
+    <string name="remained_half_vacation_description">반차도 남았어요.</string>
+
+    <string name="frequent_schedule_header_title">자주하는 일정을 알려주세요</string>
+    <string name="frequent_schedule_header_subtitle">할일 등록을 AI에게 추천받을 수 있어요</string>
+    <string name="frequent_schedule_button_disabled">3개 이상 선택해주세요</string>
 </resources>
