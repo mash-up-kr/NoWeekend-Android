@@ -29,11 +29,12 @@ class ChipColors(
     }
 
     override fun equals(other: Any?): Boolean {
-        return this === other || (other is ChipColors &&
-            contentColor == other.contentColor &&
-            borderColor == other.borderColor &&
-            unselectedContentColor == other.unselectedContentColor &&
-            unselectedBorderColor == other.unselectedBorderColor
+        return this === other || (
+            other is ChipColors &&
+                contentColor == other.contentColor &&
+                borderColor == other.borderColor &&
+                unselectedContentColor == other.unselectedContentColor &&
+                unselectedBorderColor == other.unselectedBorderColor
             )
     }
 

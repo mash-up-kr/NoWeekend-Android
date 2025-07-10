@@ -26,7 +26,7 @@ fun ColumnScope.RemainedVacationHeader(
             fontWeight = FontWeight.W700,
             color = NWKTheme.color.Neutral.neutralGray900,
         ),
-        textAlign = TextAlign.Center
+        textAlign = TextAlign.Center,
     )
     Spacer(modifier = Modifier.size(NWKTheme.spacing.space400))
     Text(
