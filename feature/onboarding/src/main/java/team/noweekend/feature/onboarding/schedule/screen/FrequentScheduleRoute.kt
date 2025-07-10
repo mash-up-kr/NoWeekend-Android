@@ -4,8 +4,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-internal fun ScheduleRoute(
+internal fun FrequentScheduleRoute(
     modifier: Modifier = Modifier,
 ) {
-    ScheduleScreen()
+    FrequentScheduleScreen(
+        onBackClick = {},
+        onConfirmClick = {},
+    )
 }
