@@ -8,8 +8,8 @@ internal fun RemainedVacationInputRoute(
     modifier: Modifier = Modifier,
 ) {
     RemainedVacationInputScreen(
-        onClickBack = {},
-        onClickConfirm = {},
+        onBackClick = {},
+        onConfirmClick = {},
         modifier = modifier,
     )
 }

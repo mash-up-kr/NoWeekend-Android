@@ -21,7 +21,7 @@ import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.resource.NWKStringResource
 
 @Composable
-fun ProfileInputScreen(
+internal fun ProfileInputScreen(
     onBackClick: () -> Unit,
     onConfirmClick: () -> Unit,
     modifier: Modifier = Modifier,

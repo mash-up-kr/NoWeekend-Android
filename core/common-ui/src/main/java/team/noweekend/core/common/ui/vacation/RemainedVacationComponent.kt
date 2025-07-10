@@ -39,6 +39,7 @@ fun RemainedVacationComponent(
             .fillMaxSize()
             .verticalScroll(rememberScrollState()),
     ) {
+        Spacer(modifier = Modifier.size(48.dp))
         RemainedVacationHeader(
             days = days,
             hours = hours,
