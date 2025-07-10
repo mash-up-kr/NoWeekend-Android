@@ -5,12 +5,6 @@ object NWKStringResource {
     val LabelCalendar: Int = R.string.label_calendar
     val LabelProfile: Int = R.string.label_profile
 
-    val OnboardProfileInputHeaderTitle = R.string.onboard_profile_input_header_title
-    val OnboardProfileInputHeaderSubtitle = R.string.onboard_profile_input_header_subtitle
-    val OnboardingNicknameTitle = R.string.onboard_title
-    val OnboardingNicknameSubTitle = R.string.onboard_subtitle
-    val OnboardingNicknameInputHint = R.string.onboard_nickname_input_hint
-
     val HomeAverageTemperatureTextSpan1: Int = R.string.home_average_temperature_text_span_1
     val HomeAverageTemperatureTextSpan2: Int = R.string.home_average_temperature_text_span_2
     val HomeCreateVacationButtonText: Int = R.string.home_create_vacation_button_text
@@ -105,4 +99,23 @@ object NWKStringResource {
     val EditInfoMenuLogoutTitle: Int = R.string.edit_info_menu_logout_title
     val EditInfoDeleteAccountTitle: Int = R.string.edit_info_delete_account_title
     val EditInfoGoogleAccountTitle: Int = R.string.edit_info_google_account_title
+
+    val ProfileInputHeaderTitle: Int = R.string.profile_input_header_title
+    val ProfileInputHeaderSubtitle: Int = R.string.profile_input_header_subtitle
+    val BirthInputLabel: Int = R.string.birth_input_label
+    val BirthInputPlaceholder: Int = R.string.birth_input_placeholder
+    val BirthInputErrorMessage: Int = R.string.birth_input_error_msg
+    val NicknameInputLabel: Int = R.string.nickname_input_label
+    val NicknameInputPlaceholder: Int = R.string.nickname_input_placeholder
+    val NicknameInputErrorMessage: Int = R.string.nickname_input_error_msg
+
+    val RemainedVacationHeaderTitle: Int = R.string.remained_vacation_header_title
+    val RemainedVacationHeaderSubtitle: Int = R.string.remained_vacation_header_subtitle
+    val RemainedVacationInputLabel: Int = R.string.remained_vacation_input_label
+    val RemainedVacationInputPlaceholder: Int = R.string.remained_vacation_input_placeholder
+    val RemainedHalfVacationDescription: Int = R.string.remained_half_vacation_description
+
+    val FrequentScheduleHeaderTitle: Int = R.string.frequent_schedule_header_title
+    val FrequentScheduleHeaderSubtitle: Int = R.string.frequent_schedule_header_subtitle
+    val FrequentScheduleButtonDisabled: Int = R.string.frequent_schedule_button_disabled
 }

@@ -18,7 +18,7 @@ fun ColumnScope.ProfileInputScreenHeader(
     showSubtitle: Boolean = true,
 ) {
     Text(
-        text = stringResource(NWKStringResource.OnboardProfileInputHeaderTitle),
+        text = stringResource(NWKStringResource.ProfileInputHeaderTitle),
         style = NWKTheme.typography.heading2.copy(
             fontWeight = FontWeight.W700,
             color = NWKTheme.color.Neutral.neutralGray900,
@@ -27,7 +27,7 @@ fun ColumnScope.ProfileInputScreenHeader(
     if (showSubtitle) {
         Spacer(modifier = Modifier.size(4.dp))
         Text(
-            text = stringResource(NWKStringResource.OnboardProfileInputHeaderSubtitle),
+            text = stringResource(NWKStringResource.ProfileInputHeaderSubtitle),
             style = NWKTheme.typography.body1.copy(
                 fontWeight = FontWeight.W500,
                 color = NWKTheme.color.Semantic.Text.body,
