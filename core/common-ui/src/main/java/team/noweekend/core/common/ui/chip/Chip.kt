@@ -24,7 +24,7 @@ import team.noweekend.core.design.system.foundation.theme.NWKTheme
 fun Chip(
     text: String,
     isSelected: Boolean,
-    onClick: () -> Unit,
+    onChipSelect: () -> Unit,
     modifier: Modifier = Modifier,
     colors: ChipColors = ChipDefaults.colors(),
 ) {
@@ -37,7 +37,7 @@ fun Chip(
             .clip(NWKTheme.radius.borderRadius400)
             .clickable(
                 enabled = true,
-                onClick = onClick,
+                onClick = onChipSelect,
             ),
         shape = ChipDefaults.shape,
         color = ChipDefaults.backgroundColor,
@@ -65,7 +65,7 @@ private fun ChipPreview() {
         Chip(
             text = "포카칩",
             isSelected = true,
-            onClick = {},
+            onChipSelect = {},
         )
     }
 }
