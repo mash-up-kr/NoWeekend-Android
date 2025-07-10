@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import team.noweekend.core.common.ui.schedule.model.FrequentSchedule
 import team.noweekend.core.common.ui.schedule.preview.PreviewFrequentSchedulesProvider
@@ -27,6 +28,7 @@ fun FrequentScheduleComponent(
             .fillMaxSize()
             .verticalScroll(rememberScrollState()),
     ) {
+        Spacer(modifier = Modifier.size(48.dp))
         FrequentScheduleHeader()
         Spacer(modifier = Modifier.size(NWKTheme.spacing.space500))
         FrequentScheduleChips(

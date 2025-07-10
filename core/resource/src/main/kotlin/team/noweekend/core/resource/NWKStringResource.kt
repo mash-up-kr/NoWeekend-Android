@@ -99,6 +99,7 @@ object NWKStringResource {
     val Day: Int = R.string.day
     val Time: Int = R.string.time
     val Next: Int = R.string.next
+    val Start: Int = R.string.start
 
     val EditInfoMenuAccountTitle: Int = R.string.edit_info_menu_account_title
     val EditInfoMenuFrequentScheduleTitle: Int = R.string.edit_info_menu_frequent_schedule_title
