@@ -5,6 +5,12 @@ object NWKStringResource {
     val LabelCalendar: Int = R.string.label_calendar
     val LabelProfile: Int = R.string.label_profile
 
+    val OnboardProfileInputHeaderTitle = R.string.onboard_profile_input_header_title
+    val OnboardProfileInputHeaderSubtitle = R.string.onboard_profile_input_header_subtitle
+    val OnboardingNicknameTitle = R.string.onboard_title
+    val OnboardingNicknameSubTitle = R.string.onboard_subtitle
+    val OnboardingNicknameInputHint = R.string.onboard_nickname_input_hint
+
     val HomeAverageTemperatureTextSpan1: Int = R.string.home_average_temperature_text_span_1
     val HomeAverageTemperatureTextSpan2: Int = R.string.home_average_temperature_text_span_2
     val HomeCreateVacationButtonText: Int = R.string.home_create_vacation_button_text
