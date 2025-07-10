@@ -1,5 +1,6 @@
 package team.noweekend.core.common.ui.profile
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,6 +17,7 @@ import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import team.noweekend.core.common.ui.profile.input.BirthInputField
 import team.noweekend.core.common.ui.profile.input.NickNameInputField
@@ -57,6 +59,20 @@ fun ProfileInputComponent(
             textFieldState = birth,
             inputFieldStatus = birthInputFieldStatus,
             onKeyboardAction = { focusManager.clearFocus() },
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun ProfileInputComponentPreview() {
+    NWKTheme {
+        ProfileInputComponent(
+            nickName = TextFieldState(),
+            birth = TextFieldState(),
+            nickNameInputFieldStatus = InputFieldStatus.ERROR,
+            birthInputFieldStatus = InputFieldStatus.ERROR,
+            modifier = Modifier.background(NWKTheme.color.Neutral.white),
         )
     }
 }
