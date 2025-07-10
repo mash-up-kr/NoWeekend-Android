@@ -17,8 +17,8 @@ import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
-import team.noweekend.core.common.ui.profile.inputfield.BirthInputField
-import team.noweekend.core.common.ui.profile.inputfield.NickNameInputField
+import team.noweekend.core.common.ui.profile.input.BirthInputField
+import team.noweekend.core.common.ui.profile.input.NickNameInputField
 import team.noweekend.core.design.system.core.component.input.status.InputFieldStatus
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 
