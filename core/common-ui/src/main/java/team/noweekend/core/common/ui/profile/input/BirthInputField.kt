@@ -2,6 +2,7 @@ package team.noweekend.core.common.ui.profile.input
 
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.res.stringResource
@@ -17,7 +18,7 @@ fun BirthInputField(
     onKeyboardAction: () -> Unit,
     inputFieldStatus: InputFieldStatus,
     modifier: Modifier = Modifier,
-    focusRequester: FocusRequester = FocusRequester(),
+    focusRequester: FocusRequester = remember { FocusRequester() },
 ) {
     NWKInputField(
         label = stringResource(NWKStringResource.BirthInputLabel),
