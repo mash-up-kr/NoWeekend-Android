@@ -23,6 +23,7 @@ import team.noweekend.core.resource.NWKStringResource
 internal fun FrequentScheduleScreen(
     onBackClick: () -> Unit,
     onConfirmClick: () -> Unit,
+    onScheduleSelect: (FrequentSchedule) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     NWKScaffold(
@@ -36,7 +37,7 @@ internal fun FrequentScheduleScreen(
         content = {
             FrequentScheduleScreenContent(
                 frequentSchedules = persistentListOf(),
-                onScheduleSelect = {},
+                onScheduleSelect = onScheduleSelect,
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(it),
@@ -76,6 +77,7 @@ private fun FrequentScheduleScreenPreview() {
         FrequentScheduleScreen(
             onBackClick = {},
             onConfirmClick = {},
+            onScheduleSelect = {},
         )
     }
 }

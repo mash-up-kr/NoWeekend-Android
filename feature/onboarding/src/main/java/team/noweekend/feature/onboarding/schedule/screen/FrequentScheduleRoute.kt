@@ -10,5 +10,6 @@ internal fun FrequentScheduleRoute(
     FrequentScheduleScreen(
         onBackClick = {},
         onConfirmClick = {},
+        onScheduleSelect = {},
     )
 }
