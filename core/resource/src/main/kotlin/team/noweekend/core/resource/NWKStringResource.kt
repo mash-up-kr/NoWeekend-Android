@@ -136,4 +136,9 @@ object NWKStringResource {
     val FrequentScheduleHeaderTitle: Int = R.string.frequent_schedule_header_title
     val FrequentScheduleHeaderSubtitle: Int = R.string.frequent_schedule_header_subtitle
     val FrequentScheduleButtonDisabled: Int = R.string.frequent_schedule_button_disabled
+
+    val AddTaskHeaderTitle: Int = R.string.add_task_title
+    val AddTaskInputHint: Int = R.string.input_title_hint
+    val AddTaskDetailLabel: Int = R.string.detail_label
+    val InputTextSaveLabel: Int = R.string.input_save_label
 }

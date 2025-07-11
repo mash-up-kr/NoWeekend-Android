@@ -136,4 +136,11 @@
     <string name="frequent_schedule_header_title">자주하는 일정을 알려주세요</string>
     <string name="frequent_schedule_header_subtitle">할일 등록을 AI에게 추천받을 수 있어요</string>
     <string name="frequent_schedule_button_disabled">3개 이상 선택해주세요</string>
+
+    <string name="add_task_title">할 일 추가</string>
+    <string name="input_title_hint">제목</string>
+    <string name="detail_label">세부사항</string>
+    <string name="input_save_label">저장</string>
+
+
 </resources>
