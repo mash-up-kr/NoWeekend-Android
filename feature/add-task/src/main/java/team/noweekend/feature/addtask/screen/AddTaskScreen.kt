@@ -127,8 +127,9 @@ private fun AddTaskTypeContainer(modifier: Modifier = Modifier) {
                         if (selectedType == type) {
                             Modifier
                                 .border(
-                                    1.dp, NWKTheme.color.TaskItem.company,
-                                    NWKTheme.radius.borderRadius400,
+                                    width = 1.dp,
+                                    color = NWKTheme.color.TaskItem.company,
+                                    shape = NWKTheme.radius.borderRadius400,
                                 )
                                 .clip(NWKTheme.radius.borderRadius400)
                         } else {
