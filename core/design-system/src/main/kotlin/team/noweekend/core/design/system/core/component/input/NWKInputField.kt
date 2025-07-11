@@ -36,12 +36,12 @@ import team.noweekend.core.design.system.foundation.theme.NWKTheme
 
 @Composable
 fun NWKInputField(
-    label: String,
     placeholder: String,
-    errorText: String,
     textFieldState: TextFieldState,
     onKeyboardAction: () -> Unit,
     modifier: Modifier = Modifier,
+    errorText: String = "",
+    label: String? = null,
     inputFieldStatus: InputFieldStatus = InputFieldStatus.DEFAULT,
     focusRequester: FocusRequester = FocusRequester(),
     textInputType: TextInputType = TextInputType.TEXT,
@@ -55,9 +55,11 @@ fun NWKInputField(
     }
 
     Column(modifier = modifier) {
-        NWKTextFieldLabel(
-            text = label,
-        )
+        label?.let {
+            NWKTextFieldLabel(
+                text = label,
+            )
+        }
         BasicTextField(
             modifier = Modifier
                 .fillMaxWidth()
