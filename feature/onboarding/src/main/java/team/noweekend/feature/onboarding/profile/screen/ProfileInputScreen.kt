@@ -75,7 +75,6 @@ private fun ProfileInputScreenContent(
     )
 }
 
-
 @Preview
 @Composable
 private fun ProfileInputScreenPreview() {
