@@ -25,7 +25,7 @@ fun NWKHeader(
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
     text: String? = null,
-    trailingContent: @Composable (() -> Unit)? = null,
+    content: @Composable (() -> Unit)? = null,
 ) {
     Row(
         modifier = modifier
@@ -52,9 +52,7 @@ fun NWKHeader(
                 textAlign = TextAlign.Center,
             )
         }
-        trailingContent?.let {
-            trailingContent.invoke()
-        } ?: Spacer(modifier = Modifier.size(NWKTheme.spacing.space300))
+        content?.invoke() ?: Spacer(modifier = Modifier.size(NWKTheme.spacing.space300))
     }
 }
 
@@ -64,7 +62,7 @@ private fun NWKHeaderPreview() {
     NWKTheme {
         NWKHeader(
             text = "1/3",
-            trailingContent = {
+            content = {
                 Text(
                     text = "저장",
                     style = NWKTheme.typography.heading6.copy(
