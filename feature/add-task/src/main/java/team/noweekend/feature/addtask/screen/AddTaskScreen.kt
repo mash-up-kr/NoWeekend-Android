@@ -76,7 +76,6 @@ fun AddTaskScreen(
             )
         }
     }
-
 }
 
 @Composable
@@ -143,7 +142,6 @@ private fun AddTaskTypeContainer(modifier: Modifier = Modifier) {
         }
     }
 }
-
 
 @Composable
 @Preview
