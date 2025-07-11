@@ -126,8 +126,10 @@ private fun AddTaskTypeContainer(modifier: Modifier = Modifier) {
                     .then(
                         if (selectedType == type) {
                             Modifier
-                                .background(NWKTheme.color.Semantic.Border.border01, NWKTheme.radius.borderRadius400)
-                                .border(1.dp, NWKTheme.color.TaskItem.company, NWKTheme.radius.borderRadius400)
+                                .border(
+                                    1.dp, NWKTheme.color.TaskItem.company,
+                                    NWKTheme.radius.borderRadius400,
+                                )
                                 .clip(NWKTheme.radius.borderRadius400)
                         } else {
                             Modifier
@@ -137,7 +139,11 @@ private fun AddTaskTypeContainer(modifier: Modifier = Modifier) {
                     .padding(horizontal = 26.dp, vertical = 5.dp),
                 text = type.tag,
                 style = NWKTheme.typography.body1,
-                color = if (selectedType == type) NWKTheme.color.TaskItem.company else NWKTheme.color.Semantic.Text.body,
+                color = if (selectedType == type) {
+                    NWKTheme.color.TaskItem.company
+                } else {
+                    NWKTheme.color.Semantic.Text.body
+                },
             )
         }
     }
