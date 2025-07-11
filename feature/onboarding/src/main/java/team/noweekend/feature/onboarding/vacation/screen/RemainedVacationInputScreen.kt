@@ -79,10 +79,9 @@ private fun RemainedVacationInputScreenContent(
             focusManager.clearFocus()
         },
         onHalfVacationClick = onHalfVacationClick,
-        modifier = modifier
+        modifier = modifier,
     )
 }
-
 
 @Preview
 @Composable

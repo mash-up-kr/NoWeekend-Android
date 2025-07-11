@@ -29,7 +29,7 @@ class LoginActivity : ComponentActivity() {
                     navigateToOnboarding = {
                         loginNavigationDelegate.navigateToOnboard(
                             activity = this@LoginActivity,
-                            intentBuilder = null,  // TODO : 필요시 추가
+                            intentBuilder = null, // TODO : 필요시 추가
                         )
                     },
                     navigateToGoogleSignUp = { startGoogleSignUpScreen() },
