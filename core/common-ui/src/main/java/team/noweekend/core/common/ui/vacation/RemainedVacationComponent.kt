@@ -20,9 +20,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import team.noweekend.core.common.ui.vacation.input.RemainedVacationInputField
+import team.noweekend.core.design.system.core.component.input.status.InputFieldStatus
 import team.noweekend.core.design.system.core.component.toggle.Toggle
+import team.noweekend.core.design.system.core.component.toggle.ToggleState
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.resource.NWKStringResource
+import team.noweekend.core.resource.NWKStringResource.InputDateError
 
 @Composable
 fun RemainedVacationComponent(
@@ -33,6 +36,8 @@ fun RemainedVacationComponent(
     onKeyboardAction: () -> Unit,
     onHalfVacationClick: () -> Unit,
     modifier: Modifier = Modifier,
+    isToggleOn: Boolean = false,
+    inputFieldStatus: InputFieldStatus = InputFieldStatus.DEFAULT,
 ) {
     Column(
         modifier = modifier
@@ -49,10 +54,13 @@ fun RemainedVacationComponent(
             vacationState = vacationState,
             onKeyboardAction = onKeyboardAction,
             focusRequester = focusRequester,
+            errorText = stringResource(id = InputDateError),
+            inputTextFieldStatus = inputFieldStatus,
         )
         Spacer(modifier = Modifier.size(24.dp))
         RemainedHalfVacationToggle(
             onHalfVacationClick = onHalfVacationClick,
+            isToggleOn = isToggleOn,
         )
     }
 }
@@ -61,6 +69,7 @@ fun RemainedVacationComponent(
 private fun RemainedHalfVacationToggle(
     onHalfVacationClick: () -> Unit,
     modifier: Modifier = Modifier,
+    isToggleOn: Boolean = false,
 ) {
     Row(
         modifier = modifier.fillMaxWidth(),
@@ -75,6 +84,7 @@ private fun RemainedHalfVacationToggle(
             ),
         )
         Toggle(
+            toggleState = if (isToggleOn) ToggleState.ON else ToggleState.OFF,
             onClickToggle = onHalfVacationClick,
         )
     }
