@@ -1,5 +1,6 @@
 package team.noweekend.feature.home.component.holiday
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -28,7 +29,10 @@ private fun HolidayRecommendComponent(
     modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = modifier.fillMaxWidthOfScreen(),
+        modifier = modifier
+            .fillMaxWidthOfScreen()
+            .background(NWKTheme.color.Neutral.neutralGray100)
+            .padding(vertical = NWKTheme.spacing.space300),
     ) {
         HolidayRecommendHeader()
         HolidayRecommendCarousel(

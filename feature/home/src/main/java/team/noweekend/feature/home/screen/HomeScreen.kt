@@ -4,10 +4,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.persistentMapOf
 import kotlinx.datetime.LocalDate
@@ -15,10 +17,10 @@ import team.noweekend.core.common.android.extension.fillMaxWidthOfScreen
 import team.noweekend.core.common.kotlin.extension.now
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.model.vacation.VacationType
+import team.noweekend.feature.home.component.common.spacer.itemSpacer
 import team.noweekend.feature.home.component.holiday.holidayRecommend
 import team.noweekend.feature.home.component.popular.PopularVacationRecommendComponent
 import team.noweekend.feature.home.component.recommend.monthly.monthlyVacationRecommendComponent
-import team.noweekend.feature.home.component.recommend.personal.personalVacationRecommend
 import team.noweekend.feature.home.component.vacation.createVacation
 import team.noweekend.feature.home.model.MonthlyVacationRecommendUiModel
 import team.noweekend.feature.home.model.PopularVacationUiModel
@@ -35,34 +37,18 @@ internal fun HomeScreen(
             .fillMaxSize()
             .background(NWKTheme.color.Neutral.white),
     ) {
-        item {
-            Text(
-                modifier = Modifier
-                    .fillMaxWidthOfScreen()
-                    .padding(
-                        top = NWKTheme.spacing.space175,
-                        start = NWKTheme.spacing.space300,
-                        end = NWKTheme.spacing.space300,
-                        bottom = NWKTheme.spacing.space100,
-                    ),
-                text = "오늘 연차쓸래?",
-                style = NWKTheme.typography.heading4.copy(
-                    color = NWKTheme.color.Semantic.Text.neutral,
-                ),
-            )
-        }
+        homeHeader()
         createVacation(
             temperature = 90,
             maximumVacation = 3,
             guideMessage = "",
             onCreateVacationClick = onCreateVacationClick,
         )
-        personalVacationRecommend(
-            vacationDays = 5,
-            userName = "자성리",
-            onCardClick = {},
-            onFilterClick = {},
+        itemSpacer(40.dp)
+        holidayRecommend(
+            onHolidayCardClick = {},
         )
+        itemSpacer(40.dp)
         monthlyVacationRecommendComponent(
             currentMonthWeek = LocalDate.now(),
             currentLocation = "서울특별시 용산구 동자동",
@@ -85,9 +71,7 @@ internal fun HomeScreen(
                 ),
             ),
         )
-        holidayRecommend(
-            onHolidayCardClick = {},
-        )
+        itemSpacer(40.dp)
         item {
             PopularVacationRecommendComponent(
                 onDateSelectableChipClick = {},
@@ -170,6 +154,29 @@ internal fun HomeScreen(
                 ),
             )
         }
+        itemSpacer(72.dp)
+    }
+}
+
+private fun LazyListScope.homeHeader(
+    modifier: Modifier = Modifier,
+) {
+    item {
+        Text(
+            modifier = Modifier
+                .fillMaxWidthOfScreen()
+                .background(NWKTheme.color.Toast.toast50)
+                .padding(
+                    top = NWKTheme.spacing.space175,
+                    start = NWKTheme.spacing.space300,
+                    end = NWKTheme.spacing.space300,
+                    bottom = NWKTheme.spacing.space100,
+                ),
+            text = "오늘 연차쓸래?",
+            style = NWKTheme.typography.heading4.copy(
+                color = NWKTheme.color.Semantic.Text.neutral,
+            ),
+        )
     }
 }
 
