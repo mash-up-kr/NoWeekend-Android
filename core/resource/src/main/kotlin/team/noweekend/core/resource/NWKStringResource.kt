@@ -141,4 +141,6 @@ object NWKStringResource {
     val AddTaskInputHint: Int = R.string.input_title_hint
     val AddTaskDetailLabel: Int = R.string.detail_label
     val InputTextSaveLabel: Int = R.string.input_save_label
+
+    val ManageVacation : Int = R.string.manage_vacation
 }

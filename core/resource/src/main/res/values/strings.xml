@@ -128,7 +128,7 @@
     <string name="nickname_input_error_msg">6글자까지 작성할 수 있어요.</string>
 
     <string name="remained_vacation_header_title">올해 남은 연차를 알려주세요</string>
-    <string name="remained_vacation_header_subtitle">"%1$s일 %1$s시간"</string>
+    <string name="remained_vacation_header_subtitle">"%1$s일 %2$s시간"</string>
     <string name="remained_vacation_input_label">남은 연차</string>
     <string name="remained_vacation_input_placeholder">0</string>
     <string name="remained_half_vacation_description">반차도 남았어요.</string>
@@ -141,6 +141,8 @@
     <string name="input_title_hint">제목</string>
     <string name="detail_label">세부사항</string>
     <string name="input_save_label">저장</string>
+
+    <string name="manage_vacation">연차 관리</string>
 
 
 </resources>
