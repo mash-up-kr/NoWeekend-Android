@@ -24,7 +24,8 @@ object NWKDrawableResource {
     val Delete: Int = R.drawable.icn_delete
     val Edit: Int = R.drawable.icn_edit
     val TextClear: Int = R.drawable.ic_text_clear
-    val GoogleLogo : Int = R.drawable.icn_google_logo
+    val GoogleLogo: Int = R.drawable.icn_google_logo
+    val Location: Int = R.drawable.icn_location
 
     /* Image */
     val Cake: Int = R.drawable.img_cake
@@ -48,5 +49,5 @@ object NWKDrawableResource {
 
     /* Lottie */
     val Loading: Int = R.raw.lottie_loading
-    val ButtonLoading : Int = R.raw.lottie_button_loading
+    val ButtonLoading: Int = R.raw.lottie_button_loading
 }
