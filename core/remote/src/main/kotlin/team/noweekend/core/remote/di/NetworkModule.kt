@@ -28,7 +28,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 internal class NetworkModule {
-    
+
     @Provides
     @Singleton
     fun provideJson(): Json {
@@ -38,7 +38,7 @@ internal class NetworkModule {
             ignoreUnknownKeys = true
         }
     }
-    
+
     @Provides
     @Singleton
     @BasicClient
@@ -52,7 +52,7 @@ internal class NetworkModule {
             install(DefaultRequest) {
                 contentType(ContentType.Application.Json)
                 url {
-                    host = "api.github.com"
+                    host = "noweekend.store"
                     protocol = URLProtocol.HTTPS
                 }
             }
@@ -71,7 +71,7 @@ internal class NetworkModule {
             }
         }
     }
-    
+
     companion object {
         private const val REQUEST_TIMEOUT_MILLIS = 10_000L
         private const val CONNECT_TIMEOUT_MILLIS = 10_000L

@@ -1,5 +1,6 @@
 package team.noweekend.core.remote.base
 
+import kotlinx.serialization.Contextual
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -8,7 +9,7 @@ data class NWKResponse<T>(
     @SerialName("result")
     val result: String,
     @SerialName("data")
-    val data: T,
+    val data: T?,
     @SerialName("error")
     val error: NWKErrorResponse?,
 )
@@ -19,6 +20,8 @@ data class NWKErrorResponse(
     val code: String,
     @SerialName("message")
     val message: String,
+    @SerialName("data")
+    @Contextual val data: Any?,
 )
 
 data class NWKApiException(
