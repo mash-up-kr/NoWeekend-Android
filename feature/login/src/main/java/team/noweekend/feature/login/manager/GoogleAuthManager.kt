@@ -7,7 +7,7 @@ import androidx.credentials.GetCredentialRequest
 import com.google.android.gms.auth.api.identity.AuthorizationRequest
 import com.google.android.gms.auth.api.identity.AuthorizationResult
 import com.google.android.gms.auth.api.identity.Identity
-import com.google.android.libraries.identity.googleid.GetGoogleIdOption
+import com.google.android.libraries.identity.googleid.GetSignInWithGoogleOption
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -22,15 +22,12 @@ class GoogleAuthManager @Inject constructor(
     fun startGoogleLogin(context: Context): Flow<AuthorizationResult> {
         credentialManager = CredentialManager.create(context)
 
-        val googleIdOption = GetGoogleIdOption
-            .Builder()
-            .setFilterByAuthorizedAccounts(false)
-            .setServerClientId(BuildConfig.GOOGLE_CLIENT_ID)
-            .setAutoSelectEnabled(false)
+        val googleSignInOption = GetSignInWithGoogleOption
+            .Builder(BuildConfig.GOOGLE_CLIENT_ID)
             .build()
 
         val request = GetCredentialRequest.Builder()
-            .addCredentialOption(googleIdOption)
+            .addCredentialOption(googleSignInOption)
             .build()
 
         return handleGoogleSignIn(request, context)
@@ -54,7 +51,7 @@ class GoogleAuthManager @Inject constructor(
                             trySend(authorizationResult)
                         }
                         .addOnFailureListener { e ->
-                            throw e
+                            close(e)
                         }
                 }
             }
