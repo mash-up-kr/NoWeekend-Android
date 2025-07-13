@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
@@ -23,6 +24,19 @@ import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.feature.home.component.recommend.monthly.card.MonthlyVacationCard
 import team.noweekend.feature.home.component.recommend.monthly.header.MonthlyVacationRecommendHeader
 import team.noweekend.feature.home.model.MonthlyVacationRecommendUiModel
+
+internal fun LazyListScope.monthlyVacationRecommendComponent(
+    currentMonthWeek: LocalDate,
+    currentLocation: String,
+    recommends: ImmutableList<MonthlyVacationRecommendUiModel>,
+    modifier: Modifier = Modifier,
+) = item {
+    MonthlyVacationRecommendComponent(
+        currentMonthWeek = currentMonthWeek,
+        currentLocation = currentLocation,
+        recommends = recommends,
+    )
+}
 
 @Composable
 internal fun MonthlyVacationRecommendComponent(
