@@ -2,12 +2,12 @@ package team.noweekend.feature.profile.editInfo.screen
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -44,30 +44,36 @@ internal fun ProfileEditInfoScreen(
         }.toImmutableList()
     }
 
-    Column(modifier = modifier) {
-        EditInfoTopBar(
-            onClickBackButton = onClickBackButton,
-        )
+    Scaffold(
+        modifier = modifier,
+        topBar = {
+            EditInfoTopBar(
+                onClickBackButton = onClickBackButton,
+            )
+        },
+        bottomBar = {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(40.dp)
+                    .clickable(onClick = onClickRemoveAccount),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center,
+            ) {
+                Text(
+                    text = stringResource(id = EditInfoDeleteAccountTitle),
+                    style = NWKTheme.typography.body1,
+                    color = NWKTheme.color.Semantic.Text.body,
+                )
+
+            }
+        },
+    ) { paddingValues ->
         MenuLayout(
+            modifier = Modifier.fillMaxSize().padding(paddingValues),
             menuList = editInfoMenus,
             onClickMenuItem = {},
         )
-        Spacer(modifier = Modifier.weight(1f))
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(40.dp)
-                .clickable(onClick = onClickRemoveAccount),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Text(
-                text = stringResource(id = EditInfoDeleteAccountTitle),
-                style = NWKTheme.typography.body1,
-                color = NWKTheme.color.Semantic.Text.body
-            )
-
-        }
     }
 }
 
@@ -80,7 +86,7 @@ private fun PreviewProfileEditInfoScreen() {
             modifier = Modifier.fillMaxSize(),
             accountName = "김매숑",
             onClickBackButton = {},
-            onClickRemoveAccount = {}
+            onClickRemoveAccount = {},
         )
     }
 }
