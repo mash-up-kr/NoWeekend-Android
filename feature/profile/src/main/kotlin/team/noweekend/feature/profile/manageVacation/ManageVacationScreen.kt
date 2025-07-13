@@ -7,11 +7,10 @@ import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.LocalFocusManager
@@ -26,25 +25,16 @@ import team.noweekend.feature.profile.component.topbar.ManageVacationTopBar
 fun ManageVacationScreen(
     onClickBackButton: () -> Unit,
     onClickSaveButton: () -> Unit,
-    hours: Int,
-    days: Int,
+    toggleState: State<Boolean>,
+    inputFieldStatusState: State<InputFieldStatus>,
+    onHalfVacationClick: () -> Unit,
+    vacationState: TextFieldState,
     modifier: Modifier = Modifier,
-) {
+
+    ) {
     val focusRequester = remember { FocusRequester() }
-    var toggleState by remember { mutableStateOf(days != 0) }
-    val hoursWithToggleState = if (toggleState) hours else 0
-    val vacationState: TextFieldState = rememberTextFieldState(initialText = days.toString())
-    val inputFieldStatus by remember {
-        derivedStateOf {
-            val vacationStateText = vacationState.text.toString()
-            if (checkIsAllDigit(vacationStateText)) {
-                InputFieldStatus.DEFAULT
-            } else {
-                InputFieldStatus.ERROR
-            }
-        }
-    }
-    val onlyDigitVacationState by remember{
+
+    val onlyDigitVacationState = remember {
         derivedStateOf {
             vacationState.text.filter { it.isDigit() }.toString().toIntOrNull() ?: 0
         }
@@ -73,21 +63,19 @@ fun ManageVacationScreen(
                 .fillMaxSize()
                 .padding(paddingValues)
                 .focusable(),
-            hours = hoursWithToggleState,
-            days = onlyDigitVacationState,
+            hours = if (toggleState.value) 4 else 0,
+            days = onlyDigitVacationState.value,
             vacationState = vacationState,
             focusRequester = focusRequester,
             onKeyboardAction = {
-                if(inputFieldStatus != InputFieldStatus.ERROR){
+                if (inputFieldStatusState.value != InputFieldStatus.ERROR) {
                     focusManager.clearFocus()
                 }
 
             },
-            onHalfVacationClick = {
-                toggleState = toggleState.not()
-            },
-            inputFieldStatus = inputFieldStatus,
-            isToggleOn = toggleState,
+            onHalfVacationClick = onHalfVacationClick,
+            inputFieldStatus = inputFieldStatusState.value,
+            isToggleOn = toggleState.value,
         )
     }
 }
@@ -100,12 +88,31 @@ fun checkIsAllDigit(text: String): Boolean {
 @Composable
 private fun PreviewManageVacationScreen() {
     NWKTheme {
+        val days = 15
+        val toggleState = remember { mutableStateOf(false) }
+        val vacationState: TextFieldState = rememberTextFieldState(initialText = days.toString())
+        val inputFieldStatusState = remember {
+            derivedStateOf {
+                val vacationStateText = vacationState.text.toString()
+                if (checkIsAllDigit(vacationStateText)) {
+                    InputFieldStatus.DEFAULT
+                } else {
+                    InputFieldStatus.ERROR
+                }
+            }
+        }
+
+
         ManageVacationScreen(
             modifier = Modifier.fillMaxSize(),
             onClickBackButton = {},
             onClickSaveButton = {},
-            hours = 4,
-            days = 2,
+            onHalfVacationClick = {
+                toggleState.value = toggleState.value.not()
+            },
+            toggleState = toggleState,
+            vacationState = vacationState,
+            inputFieldStatusState = inputFieldStatusState,
         )
     }
 }
