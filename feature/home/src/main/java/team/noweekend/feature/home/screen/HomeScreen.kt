@@ -17,8 +17,10 @@ import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.model.vacation.VacationType
 import team.noweekend.feature.home.component.holiday.holidayRecommend
 import team.noweekend.feature.home.component.popular.PopularVacationRecommendComponent
+import team.noweekend.feature.home.component.recommend.monthly.monthlyVacationRecommendComponent
 import team.noweekend.feature.home.component.recommend.personal.personalVacationRecommend
 import team.noweekend.feature.home.component.vacation.createVacation
+import team.noweekend.feature.home.model.MonthlyVacationRecommendUiModel
 import team.noweekend.feature.home.model.PopularVacationUiModel
 import team.noweekend.feature.home.mvi.HomeUiState
 
@@ -60,6 +62,28 @@ internal fun HomeScreen(
             userName = "자성리",
             onCardClick = {},
             onFilterClick = {},
+        )
+        monthlyVacationRecommendComponent(
+            currentMonthWeek = LocalDate.now(),
+            currentLocation = "서울특별시 용산구 동자동",
+            recommends = persistentListOf(
+                MonthlyVacationRecommendUiModel(
+                    localDate = LocalDate.now(),
+                    recommendContent = "오후에 비 와요, 연차 어때요?",
+                ),
+                MonthlyVacationRecommendUiModel(
+                    localDate = LocalDate.now(),
+                    recommendContent = "오전 눈 예보, 반차 추천!",
+                ),
+                MonthlyVacationRecommendUiModel(
+                    localDate = LocalDate.now(),
+                    recommendContent = "오후에 비 와요, 연차 어때요?",
+                ),
+                MonthlyVacationRecommendUiModel(
+                    localDate = LocalDate.now(),
+                    recommendContent = "오전 눈 예보, 반차 추천!",
+                ),
+            ),
         )
         holidayRecommend(
             onHolidayCardClick = {},
