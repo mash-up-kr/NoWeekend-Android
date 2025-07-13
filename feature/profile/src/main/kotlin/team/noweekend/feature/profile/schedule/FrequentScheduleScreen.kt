@@ -13,6 +13,7 @@ import team.noweekend.core.common.ui.schedule.FrequentScheduleComponent
 import team.noweekend.core.common.ui.schedule.model.FrequentSchedule
 import team.noweekend.core.design.system.core.component.button.defaults.BoxButtonType
 import team.noweekend.core.design.system.core.component.button.fill.NWKFillButton
+import team.noweekend.core.design.system.core.component.scaffold.NWKScaffold
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.feature.profile.component.topbar.FrequentScheduleTopBar
 
@@ -25,7 +26,7 @@ fun FrequentScheduleScreen(
     modifier: Modifier = Modifier,
     isLoading: Boolean = false,
 ) {
-    Scaffold(
+    NWKScaffold(
         modifier = modifier,
         topBar = {
             FrequentScheduleTopBar(
