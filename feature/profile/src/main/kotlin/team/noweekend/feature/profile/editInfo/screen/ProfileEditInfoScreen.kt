@@ -18,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
+import team.noweekend.core.design.system.core.component.scaffold.NWKScaffold
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.resource.NWKStringResource.EditInfoDeleteAccountTitle
 import team.noweekend.feature.profile.component.menu.MenuLayout
@@ -44,7 +45,7 @@ internal fun ProfileEditInfoScreen(
         }.toImmutableList()
     }
 
-    Scaffold(
+    NWKScaffold(
         modifier = modifier,
         topBar = {
             EditInfoTopBar(
