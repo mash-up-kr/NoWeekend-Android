@@ -2,6 +2,7 @@ package team.noweekend.feature.home.mvi
 
 import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import team.noweekend.core.common.android.base.MVIViewModel
 import javax.inject.Inject
 
@@ -19,11 +20,20 @@ class HomeViewModel @Inject constructor(
 
     override suspend fun handleIntent(intent: HomeIntent) {
         when (intent) {
+            is HomeIntent.CreateVacation -> {
+                updateCreateVacationStatus(CreateVacationStatus.IN_PROGRESS)
+                delay(5000L)
+                updateCreateVacationStatus(CreateVacationStatus.COMPLETE)
+            }
             is HomeIntent.ClickCreateVacation -> {
                 postSideEffect(HomeSideEffect.NavigateToCreateVacation)
             }
 
             else -> {}
         }
+    }
+
+    private fun updateCreateVacationStatus(status: CreateVacationStatus) {
+        reduce { copy(createVacationStatus = status) }
     }
 }

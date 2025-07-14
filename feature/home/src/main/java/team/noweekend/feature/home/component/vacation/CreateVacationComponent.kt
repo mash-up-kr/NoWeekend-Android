@@ -21,20 +21,20 @@ import team.noweekend.core.design.system.core.component.button.defaults.BoxButto
 import team.noweekend.core.design.system.core.component.button.fill.NWKFillButton
 import team.noweekend.core.design.system.core.component.image.NWKImage
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
-import team.noweekend.core.resource.NWKDrawableResource
 import team.noweekend.core.resource.NWKStringResource
+import team.noweekend.feature.home.mvi.CreateVacationStatus
 
 internal fun LazyListScope.createVacation(
     temperature: Int,
     maximumVacation: Int,
-    guideMessage: String,
+    createVacationStatus: CreateVacationStatus,
     onCreateVacationClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) = item {
     CreateVacationComponent(
         temperature = temperature,
         maximumVacation = maximumVacation,
-        guideMessage = guideMessage,
+        createVacationStatus = createVacationStatus,
         onCreateVacationClick = onCreateVacationClick,
         modifier = modifier,
     )
@@ -44,7 +44,7 @@ internal fun LazyListScope.createVacation(
 internal fun CreateVacationComponent(
     temperature: Int,
     maximumVacation: Int,
-    guideMessage: String,
+    createVacationStatus: CreateVacationStatus,
     onCreateVacationClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -55,10 +55,10 @@ internal fun CreateVacationComponent(
     ) {
         AverageTemperature(
             temperature = temperature,
-            guideMessage = guideMessage,
+            guideMessageResId = createVacationStatus.messageResourceId,
         )
         NWKImage(
-            drawableResId = NWKDrawableResource.MainToaster,
+            drawableResId = createVacationStatus.imageResourceId,
         )
         NWKFillButton(
             onClick = onCreateVacationClick,
@@ -71,7 +71,7 @@ internal fun CreateVacationComponent(
 @Composable
 private fun AverageTemperature(
     temperature: Int,
-    guideMessage: String,
+    guideMessageResId: Int,
     modifier: Modifier = Modifier,
 ) {
     val message: AnnotatedString = buildAnnotatedString {
@@ -96,7 +96,7 @@ private fun AverageTemperature(
         )
 
         Text(
-            text = guideMessage,
+            text = stringResource(guideMessageResId),
             style = NWKTheme.typography.heading4.copy(
                 fontWeight = FontWeight.W700,
                 color = NWKTheme.color.Semantic.Text.neutral,
@@ -113,7 +113,7 @@ private fun CreateVacationComponentPreview() {
         CreateVacationComponent(
             temperature = 97,
             maximumVacation = 3,
-            guideMessage = "온도를 식히는 휴식 어떠세요?",
+            createVacationStatus = CreateVacationStatus.IN_PROGRESS,
             onCreateVacationClick = {},
         )
     }

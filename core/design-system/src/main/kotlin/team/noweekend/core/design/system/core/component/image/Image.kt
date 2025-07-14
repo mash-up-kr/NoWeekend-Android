@@ -127,7 +127,7 @@ private fun NWKImagePreview() {
     NWKTheme {
         Box(modifier = Modifier.background(NWKTheme.color.Neutral.white)) {
             NWKImage(
-                drawableResId = NWKDrawableResource.MainToaster,
+                drawableResId = NWKDrawableResource.MainToasterDefault,
             )
         }
     }
