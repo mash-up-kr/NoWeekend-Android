@@ -155,5 +155,11 @@
     <string name="google_login_label">Google 계정으로 시작</string>
 
 
+    <string name="add_task_all_day">하루 종일</string>
+    <string name="add_task_start_label">시작</string>
+    <string name="add_task_end_label">종료</string>
+    <string name="passion_temperature">열정 온도</string>
+    <string name="passion_temperature_description">0 ~ 100°C 범위</string>
+    <string name="passion_temperature_label">°C</string>
 
 </resources>
