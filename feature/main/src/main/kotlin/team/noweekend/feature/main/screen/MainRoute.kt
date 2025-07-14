@@ -9,7 +9,7 @@ import team.noweekend.feature.main.navigation.rememberMainNavigator
 
 @Composable
 internal fun MainRoute(
-    navigateToCreateVacation: (ActivityResultLauncher<Intent>) -> Unit,
+    navigateToCreateVacation: ((Intent.() -> Intent)?, ActivityResultLauncher<Intent>?) -> Unit,
     modifier: Modifier = Modifier,
     navigator: MainNavigator = rememberMainNavigator(),
 ) {

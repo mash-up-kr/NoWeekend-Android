@@ -22,9 +22,10 @@ class MainActivity : ComponentActivity() {
         setContent {
             NWKTheme {
                 MainRoute(
-                    navigateToCreateVacation = { launcher ->
+                    navigateToCreateVacation = { intentBuilder, launcher ->
                         homeNavigationDelegate.navigateToCreateVacation(
                             activity = this,
+                            intentBuilder = intentBuilder,
                             launcher = launcher,
                         )
                     },

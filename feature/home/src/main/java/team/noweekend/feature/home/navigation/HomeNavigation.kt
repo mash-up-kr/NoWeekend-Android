@@ -8,7 +8,7 @@ import team.noweekend.core.navigator.model.Home
 import team.noweekend.feature.home.screen.HomeRoute
 
 fun NavGraphBuilder.homeNavGraph(
-    navigateToCreateVacation: (ActivityResultLauncher<Intent>) -> Unit,
+    navigateToCreateVacation: ((Intent.() -> Intent)?, ActivityResultLauncher<Intent>?) -> Unit,
 ) {
     composable<Home> {
         HomeRoute(

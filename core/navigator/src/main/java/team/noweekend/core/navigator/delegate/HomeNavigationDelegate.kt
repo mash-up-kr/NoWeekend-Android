@@ -15,7 +15,7 @@ class HomeNavigationDelegate @Inject constructor(
     fun navigateToCreateVacation(
         activity: ComponentActivity = context as ComponentActivity,
         intentBuilder: (Intent.() -> Intent)? = null,
-        launcher: ActivityResultLauncher<Intent>,
+        launcher: ActivityResultLauncher<Intent>?,
     ) {
         createVacationNavigator.navigateWithLauncher(
             activity = activity,

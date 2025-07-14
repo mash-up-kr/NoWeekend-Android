@@ -17,7 +17,7 @@ import team.noweekend.feature.main.navigation.rememberMainNavigator
 
 @Composable
 internal fun MainScreen(
-    navigateToCreateVacation: (ActivityResultLauncher<Intent>) -> Unit,
+    navigateToCreateVacation: ((Intent.() -> Intent)?, ActivityResultLauncher<Intent>?) -> Unit,
     onTabSelected: (MainTab) -> Unit,
     modifier: Modifier = Modifier,
     navigator: MainNavigator = rememberMainNavigator(),
@@ -48,7 +48,7 @@ internal fun MainScreen(
 private fun MainScreenPreview() {
     NWKTheme {
         MainScreen(
-            navigateToCreateVacation = {},
+            navigateToCreateVacation = { _, _ ->},
             onTabSelected = {},
         )
     }
