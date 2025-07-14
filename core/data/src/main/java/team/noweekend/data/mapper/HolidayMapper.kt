@@ -6,7 +6,7 @@ import team.noweekend.core.remote.model.holiday.HolidayResponse
 fun HolidayResponse.toDomain(): List<Holiday> {
     return this.holidays.map {
         Holiday(
-            date = it.holiday,
+            date = it.date,
             holiday = it.holiday,
         )
     }

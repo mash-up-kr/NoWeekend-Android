@@ -46,6 +46,7 @@ internal fun HomeScreen(
         )
         itemSpacer(40.dp)
         holidayRecommend(
+            holidays = uiState.remainedHolidays,
             onHolidayCardClick = {},
         )
         itemSpacer(40.dp)

@@ -10,21 +10,26 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import kotlinx.collections.immutable.ImmutableList
 import team.noweekend.core.common.android.extension.fillMaxWidthOfScreen
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.resource.NWKStringResource
 import team.noweekend.feature.home.component.holiday.carousel.HolidayRecommendCarousel
+import team.noweekend.feature.home.model.HolidayUiModel
 
 internal fun LazyListScope.holidayRecommend(
+    holidays: ImmutableList<HolidayUiModel>,
     onHolidayCardClick: () -> Unit,
 ) = item {
     HolidayRecommendComponent(
+        holidays = holidays,
         onHolidayCardClick = onHolidayCardClick,
     )
 }
 
 @Composable
 private fun HolidayRecommendComponent(
+    holidays: ImmutableList<HolidayUiModel>,
     onHolidayCardClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -36,6 +41,7 @@ private fun HolidayRecommendComponent(
     ) {
         HolidayRecommendHeader()
         HolidayRecommendCarousel(
+            holidays = holidays,
             onCardClick = onHolidayCardClick,
         )
     }
