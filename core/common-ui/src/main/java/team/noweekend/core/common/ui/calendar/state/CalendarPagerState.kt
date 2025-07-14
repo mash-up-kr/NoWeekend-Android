@@ -1,7 +1,5 @@
 package team.noweekend.core.common.ui.calendar.state
 
-import android.util.Log
-import androidx.annotation.StringRes
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
@@ -12,7 +10,7 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
-import team.noweekend.core.resource.NWKStringResource
+import team.noweekend.core.common.ui.calendar.model.CalendarMode
 
 @Composable
 fun rememberCalendarPagerState(
@@ -27,9 +25,6 @@ fun rememberCalendarPagerState(
 class CalendarPagerState(
     private val coroutineScope: CoroutineScope,
 ) {
-    enum class CalendarMode(@StringRes val id: Int) {
-        WEEK(id = NWKStringResource.Week), MONTH(id = NWKStringResource.Month)
-    }
 
     var calendarMode: MutableStateFlow<CalendarMode> = MutableStateFlow(CalendarMode.WEEK)
 
@@ -113,12 +108,10 @@ class CalendarPagerState(
         val direction = detectDirection(localPreviousPage, currentPage)
         when (direction) {
             Direction.Previous -> {
-                log("Moved to previous month")
                 updatePreviousMonthPage(currentPage)
             }
 
             Direction.Next -> {
-                log("Moved to next month.")
                 updateNextMonthPage(currentPage)
             }
 
@@ -134,10 +127,6 @@ class CalendarPagerState(
         }
     }
 
-    fun updateCalendarMode(calendarMode: CalendarMode) {
-        this.calendarMode.value = calendarMode
-    }
-
     enum class Direction {
         Previous, Next, Same
     }
@@ -150,21 +139,5 @@ class CalendarPagerState(
             currentPage < previousPage -> Direction.Previous
             else -> Direction.Same
         }
-    }
-
-    private fun log(message: String, isDebugLevel: Boolean = true) {
-        if (isDebugLevel) {
-            Log.d(TAG, message)
-        } else {
-            Log.e(TAG, message)
-        }
-    }
-
-    fun updateCalendarMode() {
-        calendarMode.value = if (calendarMode.value == CalendarMode.WEEK) CalendarMode.MONTH else CalendarMode.WEEK
-    }
-
-    fun updateCalendarMode(isMonth: Boolean) {
-        calendarMode.value = if (isMonth) CalendarMode.MONTH else CalendarMode.WEEK
     }
 }
