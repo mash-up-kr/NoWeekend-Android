@@ -32,21 +32,21 @@ class ScheduleApiImpl @Inject constructor(
         editScheduleRequest: EditScheduleRequest,
     ): ScheduleModel {
         return client.putApiCall(
-            path = ScheduleApi.SCHEDULE_PATH_WITH_ID,
+            path = ScheduleApi.SCHEDULE_PATH + "/${id}",
             body = editScheduleRequest,
         )
     }
 
     override suspend fun deleteSchedule(id: String): DeleteScheduleResponse {
         return client.deleteApiCall(
-            path = ScheduleApi.SCHEDULE_PATH_WITH_ID,
+            path = ScheduleApi.SCHEDULE_PATH + "/${id}",
         )
     }
 
     override suspend fun createSchedule(createScheduleRequest: ScheduleModel): ScheduleModel {
         return client.postApiCall(
             path = ScheduleApi.SCHEDULE_PATH,
-            body = createScheduleRequest
+            body = createScheduleRequest,
         )
     }
 }

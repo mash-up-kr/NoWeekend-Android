@@ -26,7 +26,6 @@ interface ScheduleApi {
 
     companion object {
         const val SCHEDULE_PATH: String = "/api/v1/schedule"
-        const val SCHEDULE_PATH_WITH_ID: String = "/api/v1/schedule/{id}"
         const val START_DATE: String = "start_date"
         const val END_DATE: String = "end_date"
     }
