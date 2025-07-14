@@ -41,8 +41,8 @@ internal object NWKButtonDefaults {
     fun primaryButtonColors(
         backgroundColor: Color = NWKTheme.color.Toast.toast500,
         contentColor: Color = NWKTheme.color.Neutral.white,
-        disabledBackgroundColor: Color = Color.Unspecified,
-        disabledContentColor: Color = Color.Unspecified,
+        disabledBackgroundColor: Color = NWKTheme.color.Neutral.neutralGray700,
+        disabledContentColor: Color = NWKTheme.color.Neutral.white,
     ): NWKButtonColors {
         return NWKButtonColors(
             backgroundColor = backgroundColor,
