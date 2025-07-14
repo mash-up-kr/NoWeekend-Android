@@ -2,6 +2,7 @@ package team.noweekend.feature.home.component.vacation
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,14 +27,12 @@ import team.noweekend.feature.home.mvi.CreateVacationStatus
 
 internal fun LazyListScope.createVacation(
     temperature: Int,
-    maximumVacation: Int,
     createVacationStatus: CreateVacationStatus,
     onCreateVacationClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) = item {
     CreateVacationComponent(
         temperature = temperature,
-        maximumVacation = maximumVacation,
         createVacationStatus = createVacationStatus,
         onCreateVacationClick = onCreateVacationClick,
         modifier = modifier,
@@ -43,7 +42,6 @@ internal fun LazyListScope.createVacation(
 @Composable
 internal fun CreateVacationComponent(
     temperature: Int,
-    maximumVacation: Int,
     createVacationStatus: CreateVacationStatus,
     onCreateVacationClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -58,12 +56,20 @@ internal fun CreateVacationComponent(
             guideMessageResId = createVacationStatus.messageResourceId,
         )
         NWKImage(
+            modifier = Modifier.size(140.dp),
             drawableResId = createVacationStatus.imageResourceId,
         )
         NWKFillButton(
             onClick = onCreateVacationClick,
-            text = stringResource(NWKStringResource.HomeCreateVacationButtonText, maximumVacation),
+            text = when (createVacationStatus) {
+                is CreateVacationStatus.Default -> {
+                    stringResource(createVacationStatus.buttonText, createVacationStatus.maximumVacation)
+                }
+
+                else -> stringResource(createVacationStatus.buttonText)
+            },
             type = BoxButtonType.PRIMARY,
+            enabled = (createVacationStatus is CreateVacationStatus.Complete).not(),
         )
     }
 }
@@ -112,8 +118,7 @@ private fun CreateVacationComponentPreview() {
     NWKTheme {
         CreateVacationComponent(
             temperature = 97,
-            maximumVacation = 3,
-            createVacationStatus = CreateVacationStatus.IN_PROGRESS,
+            createVacationStatus = CreateVacationStatus.InProgress,
             onCreateVacationClick = {},
         )
     }

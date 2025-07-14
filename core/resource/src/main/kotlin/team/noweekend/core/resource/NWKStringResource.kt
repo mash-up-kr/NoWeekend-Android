@@ -7,13 +7,17 @@ object NWKStringResource {
 
     val HomeAverageTemperatureTextSpan1: Int = R.string.home_average_temperature_text_span_1
     val HomeAverageTemperatureTextSpan2: Int = R.string.home_average_temperature_text_span_2
-    val HomeCreateVacationButtonText: Int = R.string.home_create_vacation_button_text
+    val HomeCreateVacationDefaultButtonText: Int = R.string.home_create_vacation_default_button_text
+    val HomeCreateVacationProgressButtonText: Int = R.string.home_create_vacation_progress_button_text
+    val HomeCreateVacationCompleteButtonText: Int = R.string.home_create_vacation_complete_button_text
+    val HomeCreateVacationDoneButtonText: Int = R.string.home_create_vacation_done_button_text
     val HomePersonalRecommendHeaderSpan1: Int = R.string.home_personal_recommend_header_span_1
     val HomePersonalRecommendHeaderSpan2: Int = R.string.home_personal_recommend_header_span_2
     val HomePersonalRecommendHeaderSpan3: Int = R.string.home_personal_recommend_header_span_3
     val HomeToastDefaultTitle: Int = R.string.home_toast_default_title
     val HomeToastProgressTitle: Int = R.string.home_toast_progress_title
     val HomeToastCompleteTitle: Int = R.string.home_toast_complete_title
+    val HomeToastDoneTitle: Int = R.string.home_toast_done_title
 
     val TodoCompany: Int = R.string.company
     val TodoPersonal: Int = R.string.personal

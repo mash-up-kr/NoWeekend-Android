@@ -40,7 +40,6 @@ internal fun HomeScreen(
         homeHeader()
         createVacation(
             temperature = 90,
-            maximumVacation = 3,
             createVacationStatus = uiState.createVacationStatus,
             onCreateVacationClick = onCreateVacationClick,
         )
