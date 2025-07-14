@@ -1,4 +1,4 @@
-package team.noweekend.data.model
+package team.noweekend.data.mapper
 
 import team.noweekend.core.model.alarm.AlarmOption
 import team.noweekend.core.model.schedule.DateWithSchedules
