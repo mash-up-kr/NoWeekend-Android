@@ -144,5 +144,9 @@
 
     <string name="manage_vacation">연차 관리</string>
 
+    <string name="login_title">나만의 연차 추천 받고</string>
+    <string name="google_login_label">Google 계정으로 시작</string>
+
+
 
 </resources>

@@ -142,5 +142,8 @@ object NWKStringResource {
     val AddTaskDetailLabel: Int = R.string.detail_label
     val InputTextSaveLabel: Int = R.string.input_save_label
 
-    val ManageVacation : Int = R.string.manage_vacation
+    val ManageVacation: Int = R.string.manage_vacation
+
+    val LoginTitle: Int = R.string.login_title
+    val GoogleLoginLabel: Int = R.string.google_login_label
 }
