@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.datetime.LocalDate
 import team.noweekend.core.common.kotlin.extension.now
 import team.noweekend.core.common.ui.calendar.component.CalendarTypeToggle
-import team.noweekend.core.common.ui.calendar.state.CalendarPagerState.CalendarMode
+import team.noweekend.core.common.ui.calendar.model.CalendarMode
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 
 @Composable
