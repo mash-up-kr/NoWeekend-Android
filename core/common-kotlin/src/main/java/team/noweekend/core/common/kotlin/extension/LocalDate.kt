@@ -4,6 +4,8 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.toJavaLocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
+import java.time.temporal.WeekFields
+import java.util.Locale
 
 val LocalDate.Companion.YEAR_MONTH_DATE_WITH_DAY_OF_WEEK_PATTERN
     get() = "yyyy.M.dd (EE)"
@@ -31,5 +33,22 @@ fun LocalDate.Companion.parseLocalDateString(isoString: String): LocalDate {
     } catch (e: DateTimeParseException) {
         e.printStackTrace()
         LocalDate.now()
+    }
+}
+
+fun LocalDate.getWeekOfMonth(): String {
+    val javaLocalDate = this.toJavaLocalDate()
+    val weekFields = WeekFields.of(Locale.getDefault())
+    return javaLocalDate.get(weekFields.weekOfMonth()).toKrPattern()
+}
+
+private fun Int.toKrPattern(): String {
+    return when (this) {
+        1 -> "첫째주"
+        2 -> "둘째주"
+        3 -> "셋째주"
+        4 -> "넷째주"
+        5 -> "다섯째주"
+        else -> "${this}주차"
     }
 }
