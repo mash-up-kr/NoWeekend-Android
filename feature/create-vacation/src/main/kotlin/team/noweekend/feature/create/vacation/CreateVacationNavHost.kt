@@ -1,5 +1,8 @@
 package team.noweekend.feature.create.vacation
 
+import android.app.Activity
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.LocalActivity
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -9,19 +12,20 @@ import team.noweekend.core.navigator.model.CreateVacation
 import team.noweekend.feature.create.vacation.date.navigation.vacationDateGraph
 import team.noweekend.feature.create.vacation.information.navigation.informationGraph
 import team.noweekend.feature.create.vacation.information.navigation.navigateToInformation
-import team.noweekend.feature.create.vacation.recommend.navigation.navigateToVacationRecommendation
 import team.noweekend.feature.create.vacation.recommend.navigation.recommendGraph
 
 @Composable
 internal fun CreateVacationNavHost(
     finish: () -> Unit,
     modifier: Modifier = Modifier,
+    startDestination: CreateVacation = CreateVacation.Date,
 ) {
+    val activity: ComponentActivity? = LocalActivity.current as? ComponentActivity
     val navController: NavHostController = rememberNavController()
 
     NavHost(
         modifier = modifier,
-        startDestination = CreateVacation.Date,
+        startDestination = startDestination,
         navController = navController,
     ) {
         vacationDateGraph(
@@ -30,7 +34,12 @@ internal fun CreateVacationNavHost(
         )
         informationGraph(
             navigateToHistoryBack = { navController.popBackStack(finish) },
-            navigateToVacationRecommendation = navController::navigateToVacationRecommendation,
+            navigateToHome = {
+                activity?.run {
+                    setResult(Activity.RESULT_OK)
+                    finish()
+                }
+            },
         )
         recommendGraph(
             navigateToHistoryBack = { navController.popBackStack(finish) },
