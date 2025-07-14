@@ -6,12 +6,13 @@ enum class ImageType {
     BURN_OUT,
     REST,
     OVER_ZERO_UNDER_FIFTY_DEGREE,
-    OVER_FIFTY_UNDER_SEVENTY_FIVE_DEGREE
+    OVER_FIFTY_UNDER_SEVENTY_FIVE_DEGREE,
+
     ;
 }
 
-fun getImageType(temperature: Int, isFuture: Boolean, hasRest: Boolean) : ImageType{
-    return when{
+fun getImageType(temperature: Int, isFuture: Boolean, hasRest: Boolean): ImageType {
+    return when {
         hasRest -> ImageType.REST
         isFuture -> ImageType.FUTURE_SCHEDULE
         temperature in 1..49 -> ImageType.OVER_ZERO_UNDER_FIFTY_DEGREE
@@ -19,5 +20,4 @@ fun getImageType(temperature: Int, isFuture: Boolean, hasRest: Boolean) : ImageT
         temperature >= 75 -> ImageType.BURN_OUT
         else -> ImageType.NONE
     }
-
 }

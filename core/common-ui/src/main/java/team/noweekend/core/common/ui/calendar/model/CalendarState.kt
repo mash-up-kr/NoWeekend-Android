@@ -2,7 +2,6 @@ package team.noweekend.core.common.ui.calendar.model
 
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.runtime.Stable
-import androidx.compose.runtime.State
 import kotlinx.collections.immutable.ImmutableMap
 import kotlinx.datetime.LocalDate
 
@@ -12,7 +11,7 @@ sealed interface CalendarState {
     val pagerState: PagerState
     val calendarItemClickable: Boolean
     val pagerData: ImmutableMap<Int, CalendarWeeksData>
-    val selectedDate: State<LocalDate>
+    val selectedDate: LocalDate
 
     @Stable
     data class Week(
@@ -20,7 +19,7 @@ sealed interface CalendarState {
         override val pagerState: PagerState,
         override val calendarItemClickable: Boolean = true,
         override val pagerData: ImmutableMap<Int, CalendarWeeksData>,
-        override val selectedDate: State<LocalDate>,
+        override val selectedDate: LocalDate,
     ) : CalendarState
 
     @Stable
@@ -29,6 +28,6 @@ sealed interface CalendarState {
         override val pagerState: PagerState,
         override val calendarItemClickable: Boolean = true,
         override val pagerData: ImmutableMap<Int, CalendarWeeksData>,
-        override val selectedDate: State<LocalDate>,
+        override val selectedDate: LocalDate,
     ) : CalendarState
 }

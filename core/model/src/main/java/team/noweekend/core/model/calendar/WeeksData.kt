@@ -1,7 +1,5 @@
 package team.noweekend.core.model.calendar
 
-import kotlinx.datetime.LocalDate
-
 data class WeeksData(
     val year: Int,
     val month: Int,
@@ -21,4 +19,3 @@ data class WeeksData(
 //        )
 //    }
 }
-

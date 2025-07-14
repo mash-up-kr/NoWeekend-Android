@@ -48,13 +48,11 @@ class CalendarDataProviderUseCase @Inject constructor(
     val monthData: StateFlow<Map<Int, WeeksData>> = _monthData.asStateFlow()
 
     private suspend fun getWeekDates(startedMonday: LocalDate, month: Int = startedMonday.monthNumber): WeeksData {
-
         val startDate = startedMonday.toFormattedString(LocalDate.YEAR_MONTH_DAY_PATTERN)
         val endDate = startedMonday.plusDays(6).toFormattedString(LocalDate.YEAR_MONTH_DAY_PATTERN)
 
         val scheduleList = scheduleRepository.getSchedule(startDate = startDate, endDate = endDate)
         val currentDate = LocalDate.now()
-
 
         return WeeksData(
             year = startedMonday.year,
@@ -78,7 +76,6 @@ class CalendarDataProviderUseCase @Inject constructor(
         )
     }
 
-
     private suspend fun getWeekDates(startedMonday: LocalDate): WeeksData {
         return getWeekDates(startedMonday = startedMonday, month = startedMonday.monthNumber)
     }
@@ -87,7 +84,6 @@ class CalendarDataProviderUseCase @Inject constructor(
         val currentDay: LocalDate = LocalDate.now()
         _targetDate.update { currentDay }
         val targetWeekMonday: LocalDate = currentDay.previousOrSame(DayOfWeek.MONDAY)
-
 
         val newMap = mapOf(
             initPage - 1 to getWeekDates(targetWeekMonday.minusWeeks(1)),
@@ -141,7 +137,6 @@ class CalendarDataProviderUseCase @Inject constructor(
         }
     }
 
-
     /**
      * 월 캘린더 데이터 초기화
      */
@@ -159,7 +154,6 @@ class CalendarDataProviderUseCase @Inject constructor(
         )
     }
 
-
     /**
      * 현재 페이지 의 이전 페이지 월 데이터 update
      */
@@ -174,9 +168,7 @@ class CalendarDataProviderUseCase @Inject constructor(
 
         copiedMap.remove(removeNeededPage)
         _monthData.update { copiedMap }
-
     }
-
 
     /**
      * 현재 페이지 의 다음 페이지 월 데이터 update
@@ -197,7 +189,6 @@ class CalendarDataProviderUseCase @Inject constructor(
             copiedMap
         }
     }
-
 
     /**
      * 월의 첫 날이 포함된 주의 월요일부터 마지막 날이 포함된 주의 일요일까지 날짜 리스트 반환
@@ -230,7 +221,6 @@ class CalendarDataProviderUseCase @Inject constructor(
             localDate.plus(1, DateTimeUnit.DAY)
         }.takeWhile { it <= lastSundayOfWeekContainingLastDay }
             .count()
-
 
         val startDate = firstMondayOfWeekContainingFirstDay.toFormattedString(LocalDate.YEAR_MONTH_DAY_PATTERN)
         val endDate = firstMondayOfWeekContainingFirstDay.plusDays(daysInPeriod - 1)
@@ -285,7 +275,6 @@ class CalendarDataProviderUseCase @Inject constructor(
 
     fun getWeeksData(page: Int): WeeksData? = _weeksData.value[page]
     fun getMonthData(page: Int): WeeksData? = _monthData.value[page]
-
 
     sealed interface CalendarDataProviderEvent {
         data object CompleteInitWeeksCalendar : CalendarDataProviderEvent

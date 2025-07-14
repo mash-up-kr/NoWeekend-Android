@@ -48,7 +48,7 @@ private fun PreviewNoneScrollCalendar() {
             calendarState = CalendarState.Week(
                 pagerData = calendarDataProvider.calendarWeeksData.toImmutableMap(),
                 pagerState = calendarPagerState.weekPagerState,
-                selectedDate = calendarDataProvider.targetDate,
+                selectedDate = calendarDataProvider.targetDate.value,
                 mode = CalendarMode.WEEK,
             ),
             onClickDateOfWeek = {

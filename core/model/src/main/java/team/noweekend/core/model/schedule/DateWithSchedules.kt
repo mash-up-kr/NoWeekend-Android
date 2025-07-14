@@ -12,5 +12,5 @@ data class DateWithSchedules(
     /**
      * 해당 날짜에 있는 스케줄 정보
      */
-    val schedules: List<Schedule>
+    val schedules: List<Schedule>,
 )

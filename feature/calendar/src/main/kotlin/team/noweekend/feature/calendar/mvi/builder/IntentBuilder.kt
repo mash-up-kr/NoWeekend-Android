@@ -12,9 +12,7 @@ import team.noweekend.feature.calendar.mvi.CalendarIntent
 fun rememberIntentBuilder(
     send: (CalendarIntent) -> Unit,
 ) = remember {
-
     IntentBuilder(send = send)
-
 }
 
 @Stable

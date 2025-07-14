@@ -6,11 +6,11 @@ import team.noweekend.core.model.schedule.Schedule
 import team.noweekend.core.model.schedule.ScheduleCategory
 import team.noweekend.core.remote.model.schedule.response.GetScheduleResponse
 
-fun GetScheduleResponse.toDomain() : DateWithSchedules {
+fun GetScheduleResponse.toDomain(): DateWithSchedules {
     return DateWithSchedules(
         date = this.date,
-        dailyTemperature =  this.dailyTemperature,
-        schedules = this.schedules.map{ scheduleModel->
+        dailyTemperature = this.dailyTemperature,
+        schedules = this.schedules.map { scheduleModel ->
             Schedule(
                 id = scheduleModel.id,
                 title = scheduleModel.title,
@@ -20,9 +20,8 @@ fun GetScheduleResponse.toDomain() : DateWithSchedules {
                 temperature = scheduleModel.temperature,
                 allDay = scheduleModel.allDay,
                 completed = scheduleModel.completed,
-                alarmOption = AlarmOption.valueOf(scheduleModel.alarmOption)
+                alarmOption = AlarmOption.valueOf(scheduleModel.alarmOption),
             )
-        }
+        },
     )
-
 }

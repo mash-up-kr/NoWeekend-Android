@@ -4,20 +4,18 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
 import kotlinx.datetime.LocalDate
 import team.noweekend.core.common.ui.calendar.model.CalendarDateOfWeek
 import team.noweekend.core.common.ui.calendar.model.CalendarMode
 import team.noweekend.core.common.ui.calendar.model.CalendarWeeksData
-import team.noweekend.core.common.ui.calendar.state.CalendarPagerState
 
 @Composable
 internal fun CalendarItem(
     calendarMode: CalendarMode,
     dataList: CalendarWeeksData,
-    targetDate: State<LocalDate>,
+    targetDate: LocalDate,
     calendarItemClickable: Boolean,
     modifier: Modifier = Modifier,
     onClickDateOfWeek: (CalendarDateOfWeek) -> Unit = {},
@@ -34,7 +32,7 @@ internal fun CalendarItem(
                                 modifier = Modifier.weight(1f),
                                 calendarDateOfWeek = dateOfWeek,
                                 calendarDayClickable = calendarItemClickable,
-                                isSelectedDay = dateOfWeek.localDate == targetDate.value,
+                                isSelectedDay = dateOfWeek.localDate == targetDate,
                                 isCurrentMonth = dateOfWeek.localDate.monthNumber == dataList.month,
                                 calendarMode = calendarMode,
                                 onClickDateOfWeek = onClickDateOfWeek,
