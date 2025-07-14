@@ -41,7 +41,7 @@ internal fun HomeScreen(
         createVacation(
             temperature = 90,
             maximumVacation = 3,
-            guideMessage = "",
+            createVacationStatus = uiState.createVacationStatus,
             onCreateVacationClick = onCreateVacationClick,
         )
         itemSpacer(40.dp)
