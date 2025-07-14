@@ -3,10 +3,10 @@ package team.noweekend.core.design.system.core.component.input.status
 import androidx.compose.ui.text.input.KeyboardType
 
 enum class TextInputType(
-    val keyboardType: KeyboardType
+    val keyboardType: KeyboardType,
 ) {
     NICKNAME(
-        keyboardType = KeyboardType.Text
+        keyboardType = KeyboardType.Text,
     ),
     TEXT(
         keyboardType = KeyboardType.Text,
@@ -16,6 +16,9 @@ enum class TextInputType(
     ),
     TIME(
         keyboardType = KeyboardType.Number,
-    )
+    ),
+    NUMBER(
+        keyboardType = KeyboardType.Number,
+    ),
     ;
 }
