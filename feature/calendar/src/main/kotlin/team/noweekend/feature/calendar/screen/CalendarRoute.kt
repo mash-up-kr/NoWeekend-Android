@@ -3,141 +3,97 @@ package team.noweekend.feature.calendar.screen
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.State
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import kotlinx.coroutines.launch
-import kotlinx.datetime.LocalDate
-import team.noweekend.core.common.ui.calendar.CalendarDataProvider
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import team.noweekend.core.common.ui.calendar.model.CalendarMode
 import team.noweekend.core.common.ui.calendar.model.CalendarState
-import team.noweekend.core.common.ui.calendar.model.WeeksData
-import team.noweekend.core.common.ui.calendar.rememberCalendarDataProvider
-import team.noweekend.core.common.ui.calendar.state.CalendarPagerState
 import team.noweekend.core.common.ui.calendar.state.rememberCalendarPagerState
 import team.noweekend.core.common.ui.todo.model.Todo
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
+import team.noweekend.feature.calendar.mvi.CalendarViewModel
+import team.noweekend.feature.calendar.mvi.builder.rememberIntentBuilder
+import team.noweekend.feature.calendar.mvi.rememberSideEffectHandler
 
 @Composable
 internal fun CalendarRoute(
     modifier: Modifier = Modifier,
+    calendarViewModel: CalendarViewModel = hiltViewModel(),
 ) {
 
-    val calendarDataProvider = rememberCalendarDataProvider()
     val calendarPagerState = rememberCalendarPagerState()
-    val selectedDate = calendarDataProvider.targetDate
+
+    val intentBuilder = rememberIntentBuilder { calendarIntent ->
+        calendarViewModel.intent(calendarIntent)
+    }
+
+    val state = calendarViewModel.uiState.collectAsStateWithLifecycle()
     val chooserMonth = remember {
-        mutableStateOf(selectedDate.value)
+        derivedStateOf {
+            state.value.chooserMonth
+        }
     }
-    val calendarMode: CalendarPagerState.CalendarMode by calendarPagerState.calendarMode.collectAsState()
 
-    val calendarState: CalendarState by remember(calendarMode) {
-        mutableStateOf(
-            when (calendarMode) {
-                CalendarPagerState.CalendarMode.WEEK -> {
+    val calendarSideEffectHandler = rememberSideEffectHandler(
+        calendarPagerState = calendarPagerState,
+        scrollToInitialWeekPage = calendarPagerState::scrollToInitialWeekPage,
+        scrollToMonthPage = calendarPagerState::scrollToMonthPage,
+        collectMonthPagerData = intentBuilder::updateMonthCalendarAndChooser,
+        collectWeekPagerData = intentBuilder::updateWeekCalendarAndChooser,
+        updateNextWeekPage = intentBuilder::updateNextWeekPage,
+        updateNextMonthPage = intentBuilder::updateNextMonthPage,
+        updatePreviousMonthPage = intentBuilder::updatePreviousMonthPage,
+        updatePreviousWeekPage = intentBuilder::updatePreviousWeekPage,
+    )
+
+    val calendarState: State<CalendarState> = remember {
+        derivedStateOf {
+            when (state.value.calendarMode) {
+                CalendarMode.WEEK -> {
                     CalendarState.Week(
-                        mode = calendarMode,
-                        selectedDate = selectedDate,
+                        mode = state.value.calendarMode,
+                        selectedDate = mutableStateOf(state.value.selectedDate),
                         pagerState = calendarPagerState.weekPagerState,
-                        pagerData = calendarDataProvider.weeksData,
+                        pagerData = state.value.calendarWeeksData,
                     )
                 }
 
-                CalendarPagerState.CalendarMode.MONTH -> {
+                CalendarMode.MONTH -> {
                     CalendarState.Month(
-                        mode = calendarMode,
-                        selectedDate = selectedDate,
+                        mode = state.value.calendarMode,
+                        selectedDate = mutableStateOf(state.value.selectedDate),
                         pagerState = calendarPagerState.monthPagerState,
-                        pagerData = calendarDataProvider.monthData,
+                        pagerData = state.value.calendarMonthsData,
                     )
                 }
-            },
-        )
+            }
+        }
     }
-
 
 
     LaunchedEffect(Unit) {
-        calendarDataProvider.calendarDataProviderEventFlow.collect { event ->
-            when (event) {
-                is CalendarDataProvider.CalendarDataProviderEvent.CompleteInitWeeksCalendar -> {
-                    calendarPagerState.scrollToInitialWeekPage()
-                }
-
-                is CalendarDataProvider.CalendarDataProviderEvent.CompleteInitMonthCalendar -> {
-                    calendarPagerState.scrollToMonthPage()
-                }
-            }
+        with(intentBuilder) {
+            collectCalendarEvent()
+            updateCalendarData()
         }
+        calendarViewModel.sideEffect.collect(calendarSideEffectHandler::handleSideEffect)
     }
-
-    LaunchedEffect(calendarMode) {
-        when (calendarMode) {
-            CalendarPagerState.CalendarMode.WEEK -> {
-                launch {
-                    calendarDataProvider.initWeekCalendar(initPage = calendarPagerState.initialPage)
-                    snapshotFlow {
-                        calendarPagerState.weekPagerState.currentPage
-                    }.collect { currentPage ->
-
-                        val currentWeekData: WeeksData? = calendarDataProvider.weeksData[currentPage]
-                        if (currentWeekData != null) {
-                            chooserMonth.value = LocalDate(
-                                year = currentWeekData.year,
-                                monthNumber = currentWeekData.month,
-                                dayOfMonth = 1,
-                            )
-                        }
-
-
-                        calendarPagerState.updateWeekCalendar(
-                            currentPage = currentPage,
-                            updatePreviousWeekPage = calendarDataProvider::updatePreviousWeeksData,
-                            updateNextWeekPage = calendarDataProvider::updateNextWeeksData,
-                        )
-                    }
-                }
-
-            }
-
-            CalendarPagerState.CalendarMode.MONTH -> {
-                launch {
-                    calendarDataProvider.initMonthCalendar(
-                        page = calendarPagerState.initialPage,
-                        chooserMonth = chooserMonth.value,
-                    )
-                    snapshotFlow { calendarPagerState.monthPagerState.currentPage }.collect { currentPage ->
-
-                        val currentWeekData: WeeksData? = calendarDataProvider.monthData[currentPage]
-                        if (currentWeekData != null) {
-                            chooserMonth.value = LocalDate(
-                                year = currentWeekData.year,
-                                monthNumber = currentWeekData.month,
-                                dayOfMonth = 1,
-                            )
-                        }
-
-                        calendarPagerState.updateMonthCalendar(
-                            currentPage = currentPage,
-                            updateNextMonthPage = calendarDataProvider::updateNextMonthData,
-                            updatePreviousMonthPage = calendarDataProvider::updatePreviousMonthData,
-                        )
-                    }
-                }
-            }
-        }
+    LaunchedEffect(state.value.calendarMode) {
+        intentBuilder.initCalendarData(calendarPagerState.initialPage)
     }
 
     CalendarScreen(
         modifier = modifier,
-        calendarState = calendarState,
+        calendarState = calendarState.value,
         chooserDate = chooserMonth,
-        onToggleStateChanged = calendarPagerState::updateCalendarMode,
-        onClickToggle = calendarPagerState::updateCalendarMode,
-        onClickDateOfWeek = calendarDataProvider::updateTargetDate,
+        onToggleStateChanged = intentBuilder::updateCalendarModeWithToggleState,
+        onClickToggle = intentBuilder::updateCalendarMode,
+        onClickDateOfWeek = intentBuilder::updateTargetDate,
         onClickYearMonthButton = {},
         onClickCheckBox = {},
         onClickOptionButton = {},
