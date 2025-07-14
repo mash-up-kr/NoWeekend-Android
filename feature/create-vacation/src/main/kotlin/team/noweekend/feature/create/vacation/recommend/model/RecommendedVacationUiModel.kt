@@ -5,7 +5,7 @@ import kotlinx.datetime.LocalDate
 import team.noweekend.core.common.kotlin.extension.MONTH_DATE_WITH_DAY_OF_WEEK_PATTERN
 import team.noweekend.core.common.kotlin.extension.now
 import team.noweekend.core.common.kotlin.extension.toFormattedString
-import team.noweekend.core.common.ui.calendar.util.CalendarUtils.plusMonths
+import team.noweekend.core.common.kotlin.extension.CalendarUtils.plusMonths
 import team.noweekend.core.resource.NWKDrawableResource
 
 @Stable

@@ -5,7 +5,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -57,7 +56,7 @@ internal fun CalendarRoute(
                 CalendarMode.WEEK -> {
                     CalendarState.Week(
                         mode = state.value.calendarMode,
-                        selectedDate = mutableStateOf(state.value.selectedDate),
+                        selectedDate = state.value.selectedDate,
                         pagerState = calendarPagerState.weekPagerState,
                         pagerData = state.value.calendarWeeksData,
                     )
@@ -66,7 +65,7 @@ internal fun CalendarRoute(
                 CalendarMode.MONTH -> {
                     CalendarState.Month(
                         mode = state.value.calendarMode,
-                        selectedDate = mutableStateOf(state.value.selectedDate),
+                        selectedDate = state.value.selectedDate,
                         pagerState = calendarPagerState.monthPagerState,
                         pagerData = state.value.calendarMonthsData,
                     )
