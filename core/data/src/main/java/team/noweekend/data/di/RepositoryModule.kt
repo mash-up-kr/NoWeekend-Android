@@ -5,8 +5,10 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import team.noweekend.core.domain.repository.AuthRepository
+import team.noweekend.core.domain.repository.HolidayRepository
 import team.noweekend.core.domain.repository.ScheduleRepository
 import team.noweekend.data.repository.AuthRepositoryImpl
+import team.noweekend.data.repository.HolidayRepositoryImpl
 import team.noweekend.data.repository.ScheduleRepositoryImpl
 import javax.inject.Singleton
 
@@ -21,4 +23,8 @@ internal interface RepositoryModule {
     @Singleton
     @Binds
     fun bindScheduleRepository(scheduleRepositoryImpl: ScheduleRepositoryImpl): ScheduleRepository
+
+    @Singleton
+    @Binds
+    fun bindHolidayRepository(impl: HolidayRepositoryImpl): HolidayRepository
 }
