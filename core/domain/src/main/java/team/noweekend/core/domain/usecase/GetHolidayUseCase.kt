@@ -8,11 +8,11 @@ import javax.inject.Inject
 class GetHolidayUseCase @Inject constructor(
     private val holidayRepository: HolidayRepository,
 ) {
-    suspend operator fun invoke(date: LocalDate): Result<List<Holiday>> = runCatching {
+    suspend fun getMonthlyHolidays(date: LocalDate): Result<List<Holiday>> = runCatching {
         holidayRepository.getHoliday(year = date.year, month = date.monthNumber)
     }
 
-    suspend fun getRemainedHoliday(): Result<List<Holiday>> = runCatching {
+    suspend fun getRemainedHolidays(): Result<List<Holiday>> = runCatching {
         holidayRepository.getRemainedHoliday()
     }
 }
