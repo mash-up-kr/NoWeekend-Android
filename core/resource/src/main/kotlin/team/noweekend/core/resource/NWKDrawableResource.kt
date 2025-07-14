@@ -35,7 +35,8 @@ object NWKDrawableResource {
     val Star: Int = R.drawable.img_star
     val Train: Int = R.drawable.img_train
     val Trip: Int = R.drawable.img_trip
-    val MainToaster: Int = R.drawable.img_main_toaster
+    val MainToasterDefault: Int = R.drawable.img_main_toaster_default
+    val MainToasterProgress: Int = R.drawable.img_main_toaster_progress
     val Toaster: Int = R.drawable.img_toaster_1
     val Degree25: Int = R.drawable.img_degree_25
     val Degree50: Int = R.drawable.img_degree_50

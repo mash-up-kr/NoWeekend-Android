@@ -11,6 +11,9 @@ object NWKStringResource {
     val HomePersonalRecommendHeaderSpan1: Int = R.string.home_personal_recommend_header_span_1
     val HomePersonalRecommendHeaderSpan2: Int = R.string.home_personal_recommend_header_span_2
     val HomePersonalRecommendHeaderSpan3: Int = R.string.home_personal_recommend_header_span_3
+    val HomeToastDefaultTitle: Int = R.string.home_toast_default_title
+    val HomeToastProgressTitle: Int = R.string.home_toast_progress_title
+    val HomeToastCompleteTitle: Int = R.string.home_toast_complete_title
 
     val TodoCompany: Int = R.string.company
     val TodoPersonal: Int = R.string.personal
