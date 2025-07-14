@@ -5,22 +5,22 @@ import kotlinx.collections.immutable.persistentListOf
 import kotlinx.datetime.LocalDate
 import team.noweekend.core.common.kotlin.extension.now
 
-data class WeeksData(
+data class CalendarWeeksData(
     val year: Int,
     val month: Int,
     /**
      * 월과 주의 데이터 관리를 위해 2차원 List 로 관리
      */
-    val dateOfWeeks: ImmutableList<ImmutableList<DateOfWeek>>,
+    val calendarDateOfWeeks: ImmutableList<ImmutableList<CalendarDateOfWeek>>,
 ) {
     companion object {
 
         private val now = LocalDate.now()
 
-        val default = WeeksData(
+        val default = CalendarWeeksData(
             year = now.year,
             month = now.monthNumber,
-            dateOfWeeks = persistentListOf(),
+            calendarDateOfWeeks = persistentListOf(),
         )
     }
 }
