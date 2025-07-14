@@ -46,6 +46,8 @@ object NWKDrawableResource {
     val ToasterHome: Int = R.drawable.img_toaster_home
     val ToasterTrain: Int = R.drawable.img_toaster_train
     val ToasterTrip: Int = R.drawable.img_toaster_trip
+    val AppLogo: Int = R.drawable.img_app_logo
+    val AppTitle: Int = R.drawable.img_login_title
 
     /* Lottie */
     val Loading: Int = R.raw.lottie_loading
