@@ -14,6 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toImmutableMap
 import kotlinx.datetime.LocalDate
 import team.noweekend.core.common.kotlin.extension.now
 import team.noweekend.core.common.ui.calendar.model.CalendarState
@@ -63,9 +64,9 @@ internal fun MonthlyVacationRecommendComponent(
         )
         NWKCalender(
             calendarState = CalendarState.Week(
-                pagerData = calendarDataProvider.weeksData,
+                pagerData = calendarDataProvider.calendarWeeksData.toImmutableMap(),
                 pagerState = calendarPagerState.weekPagerState,
-                selectedDate = calendarDataProvider.targetDate,
+                selectedDate = calendarDataProvider.targetDate.value,
             ),
             onClickDateOfWeek = {},
             userScrollEnabled = false,

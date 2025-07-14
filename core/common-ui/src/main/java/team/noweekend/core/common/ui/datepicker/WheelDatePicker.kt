@@ -24,9 +24,9 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.datetime.LocalDate
-import team.noweekend.core.common.ui.calendar.util.CalendarUtils.currentLocalDate
-import team.noweekend.core.common.ui.calendar.util.CalendarUtils.isLeapYear
-import team.noweekend.core.common.ui.calendar.util.CalendarUtils.monthLength
+import team.noweekend.core.common.kotlin.extension.CalendarUtils.currentLocalDate
+import team.noweekend.core.common.kotlin.extension.CalendarUtils.isLeapYear
+import team.noweekend.core.common.kotlin.extension.CalendarUtils.monthLength
 import team.noweekend.core.common.ui.datepicker.core.WheelPicker
 import team.noweekend.core.common.ui.datepicker.model.DatePickerType
 import team.noweekend.core.common.ui.datepicker.preview.PreviewWheelDatePickerParameterProvider

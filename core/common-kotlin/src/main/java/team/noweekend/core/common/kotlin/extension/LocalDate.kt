@@ -21,6 +21,9 @@ val LocalDate.Companion.MONTH_DATE_WITH_DAY_OF_WEEK_PATTERN
 val LocalDate.Companion.MONTH_DATE_PATTERN
     get() = "M/dd"
 
+val LocalDate.Companion.YEAR_MONTH_DAY_PATTERN
+    get() = "yyyy-MM-dd"
+
 fun LocalDate.toFormattedString(pattern: String): String {
     return this.toJavaLocalDate().format(DateTimeFormatter.ofPattern(pattern))
 }

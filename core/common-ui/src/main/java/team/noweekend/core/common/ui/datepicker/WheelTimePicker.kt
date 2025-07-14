@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.datetime.LocalTime
-import team.noweekend.core.common.ui.calendar.util.CalendarUtils.currentLocalDateTime
+import team.noweekend.core.common.kotlin.extension.CalendarUtils.currentLocalDateTime
 import team.noweekend.core.common.ui.datepicker.core.LocalTimeUtil.convertToLocalTime
 import team.noweekend.core.common.ui.datepicker.core.WheelPicker
 import team.noweekend.core.common.ui.datepicker.model.Meridiem

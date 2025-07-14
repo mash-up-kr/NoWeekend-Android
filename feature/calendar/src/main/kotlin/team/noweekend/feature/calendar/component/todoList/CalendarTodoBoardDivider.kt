@@ -26,13 +26,6 @@ fun CalendarTodoBoardDivider(
 
     val isCanScrollBackward = remember { derivedStateOf { state.canScrollBackward } }
 
-    LaunchedEffect(Unit) {
-        snapshotFlow { state.canScrollBackward }.collect {
-            println(it)
-
-        }
-    }
-
     // 색상 애니메이션 정의
     val startColor = NWKTheme.color.Neutral.neutralGray100
     val endColor by animateColorAsState(

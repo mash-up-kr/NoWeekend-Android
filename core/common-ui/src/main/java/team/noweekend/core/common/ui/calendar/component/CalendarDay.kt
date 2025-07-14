@@ -21,21 +21,21 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.datetime.LocalDate
 import team.noweekend.core.common.kotlin.extension.now
-import team.noweekend.core.common.ui.calendar.CalendarDataProvider.ImageType
-import team.noweekend.core.common.ui.calendar.model.DateOfWeek
-import team.noweekend.core.common.ui.calendar.state.CalendarPagerState.CalendarMode
+import team.noweekend.core.common.ui.calendar.model.CalendarDateOfWeek
+import team.noweekend.core.common.ui.calendar.model.CalendarImageType
+import team.noweekend.core.common.ui.calendar.model.CalendarMode
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 
 @Composable
 internal fun CalendarDay(
-    dateOfWeek: DateOfWeek,
+    calendarDateOfWeek: CalendarDateOfWeek,
     calendarMode: CalendarMode,
     calendarDayClickable: Boolean,
     modifier: Modifier = Modifier,
     isSelectedDay: Boolean = false,
     isCurrentMonth: Boolean = false,
     horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
-    onClickDateOfWeek: (DateOfWeek) -> Unit = {},
+    onClickDateOfWeek: (CalendarDateOfWeek) -> Unit = {},
 ) {
     val condition = if (calendarMode == CalendarMode.MONTH) {
         if (isCurrentMonth) 1f else 0f
@@ -50,7 +50,7 @@ internal fun CalendarDay(
             .clickable(
                 enabled = (isCurrentMonth || calendarMode == CalendarMode.WEEK) && calendarDayClickable,
             ) {
-                onClickDateOfWeek(dateOfWeek)
+                onClickDateOfWeek(calendarDateOfWeek)
             },
         horizontalAlignment = horizontalAlignment,
     ) {
@@ -66,7 +66,7 @@ internal fun CalendarDay(
             horizontalArrangement = Arrangement.Center,
         ) {
             Text(
-                text = dateOfWeek.localDate.dayOfMonth.toString(),
+                text = calendarDateOfWeek.localDate.dayOfMonth.toString(),
                 color = if (isSelectedDay) {
                     NWKTheme.color.Toast.toast700
                 } else {
@@ -78,7 +78,7 @@ internal fun CalendarDay(
         }
         Image(
             modifier = Modifier.size(41.dp),
-            painter = painterResource(id = dateOfWeek.imageType.id),
+            painter = painterResource(id = calendarDateOfWeek.calendarImageType.id),
             contentDescription = null,
         )
     }
@@ -89,13 +89,13 @@ internal fun CalendarDay(
 private fun PreviewCalendarDay() {
     NWKTheme {
         val targetDate = LocalDate.now()
-        val date = DateOfWeek(
+        val date = CalendarDateOfWeek(
             localDate = targetDate,
-            imageType = ImageType.NONE,
+            calendarImageType = CalendarImageType.NONE,
             isCurrentDate = true,
         )
         CalendarDay(
-            dateOfWeek = date,
+            calendarDateOfWeek = date,
             isSelectedDay = true,
             isCurrentMonth = true,
             calendarMode = CalendarMode.WEEK,

@@ -6,13 +6,14 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.datetime.LocalDate
+import team.noweekend.core.common.ui.calendar.model.CalendarDateOfWeek
+import team.noweekend.core.common.ui.calendar.model.CalendarMode
 import team.noweekend.core.common.ui.calendar.model.CalendarState
-import team.noweekend.core.common.ui.calendar.model.DateOfWeek
-import team.noweekend.core.common.ui.calendar.state.CalendarPagerState.CalendarMode
 import team.noweekend.core.common.ui.todo.model.Todo
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.feature.calendar.component.choose.YearMonthCalendarTypeChooser
@@ -22,7 +23,7 @@ import team.noweekend.feature.calendar.component.todoList.CalendarTodoList
 internal fun CalendarScreen(
     chooserDate: State<LocalDate>,
     calendarState: CalendarState,
-    onClickDateOfWeek: (DateOfWeek) -> Unit,
+    onClickDateOfWeek: (CalendarDateOfWeek) -> Unit,
     onClickYearMonthButton: () -> Unit,
     onClickToggle: () -> Unit,
     onToggleStateChanged: (Boolean) -> Unit,
@@ -31,6 +32,7 @@ internal fun CalendarScreen(
     modifier: Modifier = Modifier,
     todoList: ImmutableList<Todo> = persistentListOf(),
 ) {
+
 
     Column(
         modifier = modifier
@@ -47,7 +49,7 @@ internal fun CalendarScreen(
         NWKCalender(
             calendarState = calendarState,
             onClickDateOfWeek = onClickDateOfWeek,
-            userScrollEnabled = true
+            userScrollEnabled = true,
         )
         if (calendarState.mode == CalendarMode.WEEK) {
             CalendarTodoList(

@@ -1,4 +1,4 @@
-package team.noweekend.core.common.ui.calendar.util
+package team.noweekend.core.common.kotlin.extension
 
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.DayOfWeek
@@ -7,9 +7,6 @@ import kotlinx.datetime.Month
 import kotlinx.datetime.minus
 import kotlinx.datetime.number
 import kotlinx.datetime.plus
-import team.noweekend.core.common.kotlin.extension.instant
-import team.noweekend.core.common.kotlin.extension.toLocalDate
-import team.noweekend.core.common.kotlin.extension.toLocalDateTime
 
 object CalendarUtils {
 

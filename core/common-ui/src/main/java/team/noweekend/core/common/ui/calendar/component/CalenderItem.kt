@@ -4,25 +4,24 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
 import kotlinx.datetime.LocalDate
-import team.noweekend.core.common.ui.calendar.model.DateOfWeek
-import team.noweekend.core.common.ui.calendar.model.WeeksData
-import team.noweekend.core.common.ui.calendar.state.CalendarPagerState
+import team.noweekend.core.common.ui.calendar.model.CalendarDateOfWeek
+import team.noweekend.core.common.ui.calendar.model.CalendarMode
+import team.noweekend.core.common.ui.calendar.model.CalendarWeeksData
 
 @Composable
 internal fun CalendarItem(
-    calendarMode: CalendarPagerState.CalendarMode,
-    dataList: WeeksData,
-    targetDate: State<LocalDate>,
+    calendarMode: CalendarMode,
+    dataList: CalendarWeeksData,
+    targetDate: LocalDate,
     calendarItemClickable: Boolean,
     modifier: Modifier = Modifier,
-    onClickDateOfWeek: (DateOfWeek) -> Unit = {},
+    onClickDateOfWeek: (CalendarDateOfWeek) -> Unit = {},
 ) {
     Column(modifier = modifier) {
-        dataList.dateOfWeeks.forEachIndexed { index, dateOfWeeks ->
+        dataList.calendarDateOfWeeks.forEachIndexed { index, dateOfWeeks ->
             key(index) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -31,9 +30,9 @@ internal fun CalendarItem(
                         key(dateOfWeek) {
                             CalendarDay(
                                 modifier = Modifier.weight(1f),
-                                dateOfWeek = dateOfWeek,
+                                calendarDateOfWeek = dateOfWeek,
                                 calendarDayClickable = calendarItemClickable,
-                                isSelectedDay = dateOfWeek.localDate == targetDate.value,
+                                isSelectedDay = dateOfWeek.localDate == targetDate,
                                 isCurrentMonth = dateOfWeek.localDate.monthNumber == dataList.month,
                                 calendarMode = calendarMode,
                                 onClickDateOfWeek = onClickDateOfWeek,
