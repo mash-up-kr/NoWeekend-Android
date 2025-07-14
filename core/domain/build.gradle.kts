@@ -8,4 +8,5 @@ dependencies {
 
     implementation(libs.kotlinx.coroutine.core)
     implementation(libs.javax.inject)
+    implementation(libs.kotlinx.datetime)
 }
