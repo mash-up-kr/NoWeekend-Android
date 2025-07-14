@@ -1,5 +1,7 @@
 package team.noweekend.feature.main
 
+import android.content.Intent
+import androidx.activity.result.ActivityResultLauncher
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
@@ -10,7 +12,7 @@ import team.noweekend.feature.profile.navigation.profileNavGraph
 
 @Composable
 internal fun MainNavHost(
-    navigateToCreateVacation: () -> Unit,
+    navigateToCreateVacation: (ActivityResultLauncher<Intent>) -> Unit,
     navigator: MainNavigator,
     modifier: Modifier = Modifier,
 ) {

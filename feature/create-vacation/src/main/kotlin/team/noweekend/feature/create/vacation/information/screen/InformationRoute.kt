@@ -14,14 +14,14 @@ import team.noweekend.feature.create.vacation.information.mvi.rememberInformatio
 @Composable
 internal fun InformationRoute(
     navigateToHistoryBack: () -> Unit,
-    navigateToVacationRecommendation: () -> Unit,
+    navigateToHome: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: InformationViewModel = hiltViewModel(),
 ) {
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
     val sideEffectHandler: InformationSideEffectHandler = rememberInformationSideEffectHandler(
         navigateToHistoryBack = navigateToHistoryBack,
-        navigateToVacationRecommendation = navigateToVacationRecommendation,
+        navigateToHome = navigateToHome,
     )
 
     LaunchedEffect(key1 = Unit) {
@@ -33,7 +33,7 @@ internal fun InformationRoute(
     InformationScreen(
         uiState = uiState,
         onBackClick = { viewModel.intent(InformationIntent.ClickBackButton) },
-        onNextClick = { viewModel.intent(InformationIntent.ClickNextButton) },
+        onBbassakCreateClick = { viewModel.intent(InformationIntent.ClickBbaSsakButton) },
         selectInformation = { row, information ->
             viewModel.intent(InformationIntent.SelectInformation(row, information))
         },

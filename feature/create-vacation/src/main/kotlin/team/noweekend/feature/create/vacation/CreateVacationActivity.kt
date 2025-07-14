@@ -11,6 +11,7 @@ class CreateVacationActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
         setContent {
             CreateVacationNavHost(
                 finish = this::finish,

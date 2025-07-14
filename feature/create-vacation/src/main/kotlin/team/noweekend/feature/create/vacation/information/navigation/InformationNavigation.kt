@@ -12,12 +12,12 @@ internal fun NavController.navigateToInformation() {
 
 internal fun NavGraphBuilder.informationGraph(
     navigateToHistoryBack: () -> Unit,
-    navigateToVacationRecommendation: () -> Unit,
+    navigateToHome: () -> Unit,
 ) {
     composable<CreateVacation.Information>{
         InformationRoute(
             navigateToHistoryBack = navigateToHistoryBack,
-            navigateToVacationRecommendation = navigateToVacationRecommendation,
+            navigateToHome = navigateToHome,
         )
     }
 }

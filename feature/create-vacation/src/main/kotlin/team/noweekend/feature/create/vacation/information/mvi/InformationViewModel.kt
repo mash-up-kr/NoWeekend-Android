@@ -23,7 +23,7 @@ class InformationViewModel @Inject constructor(
     override suspend fun handleIntent(intent: InformationIntent) {
         when (intent) {
             is InformationIntent.ClickBackButton -> navigateToHistoryBack()
-            is InformationIntent.ClickNextButton -> navigateToRecommendResult()
+            is InformationIntent.ClickBbaSsakButton -> navigateToHome()
             is InformationIntent.SelectInformation -> updateInformationCheckStatus(intent.row, intent.information)
         }
     }
@@ -54,7 +54,7 @@ class InformationViewModel @Inject constructor(
         postSideEffect(InformationSideEffect.NavigateToHistoryBack)
     }
 
-    private fun navigateToRecommendResult() = execute {
-        postSideEffect(InformationSideEffect.NavigateToVacationRecommendation)
+    private fun navigateToHome() = execute {
+        postSideEffect(InformationSideEffect.NavigateToHome)
     }
 }

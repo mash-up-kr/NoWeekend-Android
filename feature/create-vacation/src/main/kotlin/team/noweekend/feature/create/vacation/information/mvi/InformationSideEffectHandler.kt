@@ -8,22 +8,22 @@ import team.noweekend.core.common.android.mvi.SideEffectHandler
 @Composable
 internal fun rememberInformationSideEffectHandler(
     navigateToHistoryBack: () -> Unit,
-    navigateToVacationRecommendation: () -> Unit,
+    navigateToHome: () -> Unit,
 ): InformationSideEffectHandler = remember {
     InformationSideEffectHandler(
         navigateToHistoryBack = navigateToHistoryBack,
-        navigateToVacationRecommendation = navigateToVacationRecommendation,
+        navigateToHome = navigateToHome,
     )
 }
 
 internal class InformationSideEffectHandler(
     private val navigateToHistoryBack: () -> Unit,
-    private val navigateToVacationRecommendation: () -> Unit,
+    private val navigateToHome: () -> Unit,
 ) : SideEffectHandler<SideEffect> {
     override fun handleSideEffect(sideEffect: SideEffect) {
         when (sideEffect) {
             InformationSideEffect.NavigateToHistoryBack -> navigateToHistoryBack()
-            InformationSideEffect.NavigateToVacationRecommendation -> navigateToVacationRecommendation()
+            InformationSideEffect.NavigateToHome -> navigateToHome()
         }
     }
 }

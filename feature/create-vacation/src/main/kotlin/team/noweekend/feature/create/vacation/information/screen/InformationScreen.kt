@@ -38,7 +38,7 @@ import team.noweekend.feature.create.vacation.information.mvi.InformationUiState
 internal fun InformationScreen(
     uiState: State<InformationUiState>,
     onBackClick: () -> Unit,
-    onNextClick: () -> Unit,
+    onBbassakCreateClick: () -> Unit,
     selectInformation: (Int, InformationRadioGroupUiModel) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -76,8 +76,8 @@ internal fun InformationScreen(
                         horizontal = 20.dp,
                         vertical = 8.dp,
                     ),
-                onClick = onNextClick,
-                text = "다음",
+                onClick = onBbassakCreateClick,
+                text = "휴가 빠삭하게 굽기",
                 type = BoxButtonType.BLACK,
                 enabled = uiState.value.isButtonEnabled.value,
             )
@@ -133,7 +133,7 @@ private fun InformationScreenPreview() {
         InformationScreen(
             uiState = uiState,
             onBackClick = {},
-            onNextClick = {},
+            onBbassakCreateClick = {},
             selectInformation = { _, _ -> },
         )
     }

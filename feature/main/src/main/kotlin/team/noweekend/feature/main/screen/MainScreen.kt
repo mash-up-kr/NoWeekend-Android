@@ -1,5 +1,7 @@
 package team.noweekend.feature.main.screen
 
+import android.content.Intent
+import androidx.activity.result.ActivityResultLauncher
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -15,7 +17,7 @@ import team.noweekend.feature.main.navigation.rememberMainNavigator
 
 @Composable
 internal fun MainScreen(
-    navigateToCreateVacation: () -> Unit,
+    navigateToCreateVacation: (ActivityResultLauncher<Intent>) -> Unit,
     onTabSelected: (MainTab) -> Unit,
     modifier: Modifier = Modifier,
     navigator: MainNavigator = rememberMainNavigator(),
