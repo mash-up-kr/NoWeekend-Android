@@ -27,6 +27,7 @@ data class HomeUiState(
  * - [CreateVacationStatus.Done] : 생성된 휴가 할일 추가 완료
  */
 sealed interface CreateVacationStatus {
+    val tag: String
     val messageResourceId: Int
     val imageResourceId: Int
     val buttonText: Int
@@ -34,24 +35,28 @@ sealed interface CreateVacationStatus {
     data class Default(
         val maximumVacation: Int,
     ) : CreateVacationStatus {
+        override val tag: String = "Default"
         override val messageResourceId: Int = NWKStringResource.HomeToastDefaultTitle
         override val imageResourceId: Int = NWKDrawableResource.MainToasterDefault
         override val buttonText: Int = NWKStringResource.HomeCreateVacationDefaultButtonText
     }
 
     data object InProgress : CreateVacationStatus {
+        override val tag: String = "InProgress"
         override val messageResourceId: Int = NWKStringResource.HomeToastProgressTitle
         override val imageResourceId: Int = NWKDrawableResource.MainToasterProgress
         override val buttonText: Int = NWKStringResource.HomeCreateVacationProgressButtonText
     }
 
     data object Complete : CreateVacationStatus {
+        override val tag: String = "Complete"
         override val messageResourceId: Int = NWKStringResource.HomeToastCompleteTitle
         override val imageResourceId: Int = NWKDrawableResource.MainToasterDefault
         override val buttonText: Int = NWKStringResource.HomeCreateVacationCompleteButtonText
     }
 
     data object Done : CreateVacationStatus {
+        override val tag: String = "Done"
         override val messageResourceId: Int = NWKStringResource.HomeToastDoneTitle
         override val imageResourceId: Int = NWKDrawableResource.MainToasterDefault
         override val buttonText: Int = NWKStringResource.HomeCreateVacationDoneButtonText

@@ -22,15 +22,26 @@ class HomeViewModel @Inject constructor(
         when (intent) {
             is HomeIntent.CreateVacation -> {
                 updateCreateVacationStatus(CreateVacationStatus.InProgress)
-                delay(5000L)  // TODO (JaesungLeee) : API 연동
+                delay(5000L) // TODO (JaesungLeee) : API 연동
                 updateCreateVacationStatus(CreateVacationStatus.Complete)
             }
+
             is HomeIntent.ClickCreateVacation -> {
-                postSideEffect(HomeSideEffect.NavigateToCreateVacation)
+                navigateToCreateVacation()
             }
 
             else -> {}
         }
+    }
+
+    private fun navigateToCreateVacation() = execute {
+        postSideEffect(
+            HomeSideEffect.NavigateToCreateVacation(
+                intentBuilder = {
+                    putExtra("CREATE_VACATION_STATUS", currentState.createVacationStatus.tag)
+                },
+            ),
+        )
     }
 
     private fun updateCreateVacationStatus(status: CreateVacationStatus) {

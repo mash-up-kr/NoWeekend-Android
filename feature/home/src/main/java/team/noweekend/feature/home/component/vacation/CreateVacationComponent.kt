@@ -69,7 +69,7 @@ internal fun CreateVacationComponent(
                 else -> stringResource(createVacationStatus.buttonText)
             },
             type = BoxButtonType.PRIMARY,
-            enabled = (createVacationStatus is CreateVacationStatus.Complete).not(),
+            enabled = (createVacationStatus is CreateVacationStatus.Done).not(),
         )
     }
 }
