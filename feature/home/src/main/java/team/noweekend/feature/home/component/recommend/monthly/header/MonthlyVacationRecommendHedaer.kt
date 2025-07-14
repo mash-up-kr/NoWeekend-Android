@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import kotlinx.datetime.LocalDate
+import team.noweekend.core.common.kotlin.extension.getWeekOfMonth
 import team.noweekend.core.design.system.core.component.icon.NWKIcon
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.resource.NWKDrawableResource
@@ -28,7 +29,7 @@ internal fun ColumnScope.MonthlyVacationRecommendHeader(
     ) {
         Text(
             modifier = Modifier.weight(1f),
-            text = "6월 첫째주 휴가를 추천드려요",
+            text = "${currentMonthWeek.monthNumber}월 ${currentMonthWeek.getWeekOfMonth()} 휴가를 추천드려요",
             style = NWKTheme.typography.heading5.copy(
                 fontWeight = FontWeight.W700,
                 color = NWKTheme.color.Semantic.Text.neutral,

@@ -38,6 +38,7 @@ internal fun HomeScreen(
             .background(NWKTheme.color.Neutral.white),
     ) {
         homeHeader()
+        itemSpacer(32.dp)
         createVacation(
             temperature = 90,
             createVacationStatus = uiState.createVacationStatus,
