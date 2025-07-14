@@ -1,0 +1,101 @@
+package team.noweekend.feature.calendar.mvi
+
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.snapshotFlow
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
+import team.noweekend.core.common.android.mvi.SideEffectHandler
+import team.noweekend.core.common.ui.calendar.state.CalendarPagerState
+import team.noweekend.core.common.ui.calendar.state.rememberCalendarPagerState
+
+@Composable
+fun rememberSideEffectHandler(
+    scrollToInitialWeekPage: () -> Unit,
+    scrollToMonthPage: () -> Unit,
+    collectMonthPagerData: (Int) -> Unit,
+    collectWeekPagerData: (Int) -> Unit,
+    updatePreviousWeekPage: (page: Int) -> Unit,
+    updateNextWeekPage: (page: Int) -> Unit,
+    updatePreviousMonthPage: (page: Int) -> Unit,
+    updateNextMonthPage: (page: Int) -> Unit,
+    calendarPagerState: CalendarPagerState = rememberCalendarPagerState(),
+    coroutineScope: CoroutineScope = rememberCoroutineScope(),
+) = remember(calendarPagerState, coroutineScope) {
+
+    CalendarSideEffectHandler(
+        scrollToInitialWeekPage = scrollToInitialWeekPage,
+        scrollToMonthPage = scrollToMonthPage,
+        collectWeekPagerData = collectWeekPagerData,
+        collectMonthPagerData = collectMonthPagerData,
+        updateNextMonthPage = updateNextMonthPage,
+        updatePreviousMonthPage = updatePreviousMonthPage,
+        updateNextWeekPage = updateNextWeekPage,
+        updatePreviousWeekPage = updatePreviousWeekPage,
+        calendarPagerState = calendarPagerState,
+        coroutineScope = coroutineScope,
+    )
+}
+
+@Stable
+class CalendarSideEffectHandler(
+    private val scrollToInitialWeekPage: () -> Unit,
+    private val scrollToMonthPage: () -> Unit,
+    private val collectMonthPagerData: (Int) -> Unit,
+    private val collectWeekPagerData: (Int) -> Unit,
+    private val updatePreviousWeekPage: (page: Int) -> Unit,
+    private val updateNextWeekPage: (page: Int) -> Unit,
+    private val updatePreviousMonthPage: (page: Int) -> Unit,
+    private val updateNextMonthPage: (page: Int) -> Unit,
+    private val calendarPagerState: CalendarPagerState,
+    private val coroutineScope: CoroutineScope,
+) : SideEffectHandler<CalendarSideEffect> {
+
+    override fun handleSideEffect(sideEffect: CalendarSideEffect) {
+        when (sideEffect) {
+            is CalendarSideEffect.CompleteInitWeekCalendar -> {
+                scrollToInitialWeekPage()
+            }
+
+            is CalendarSideEffect.CompleteInitMonthCalendar -> {
+                scrollToMonthPage()
+
+            }
+
+            is CalendarSideEffect.CollectMonthPagerStatePage -> {
+                coroutineScope.launch {
+                    snapshotFlow { calendarPagerState.monthPagerState.currentPage }.collect { page ->
+                        collectMonthPagerData(page)
+                    }
+                }
+            }
+
+            is CalendarSideEffect.CollectWeekPagerStatePage -> {
+                coroutineScope.launch {
+                    snapshotFlow { calendarPagerState.weekPagerState.currentPage }.collect { page ->
+                        collectWeekPagerData(page)
+                    }
+                }
+            }
+
+            is CalendarSideEffect.UpdateWeekCalendar -> {
+                calendarPagerState.updateWeekCalendar(
+                    currentPage = sideEffect.currentPage,
+                    updatePreviousWeekPage = updatePreviousWeekPage,
+                    updateNextWeekPage = updateNextWeekPage,
+                )
+
+            }
+
+            is CalendarSideEffect.UpdateMonthCalendar -> {
+                calendarPagerState.updateMonthCalendar(
+                    currentPage = sideEffect.currentPage,
+                    updateNextMonthPage = updateNextMonthPage,
+                    updatePreviousMonthPage = updatePreviousMonthPage,
+                )
+            }
+        }
+    }
+}
