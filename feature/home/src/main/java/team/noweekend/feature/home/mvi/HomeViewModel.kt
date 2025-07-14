@@ -21,9 +21,9 @@ class HomeViewModel @Inject constructor(
     override suspend fun handleIntent(intent: HomeIntent) {
         when (intent) {
             is HomeIntent.CreateVacation -> {
-                updateCreateVacationStatus(CreateVacationStatus.IN_PROGRESS)
-                delay(5000L)
-                updateCreateVacationStatus(CreateVacationStatus.COMPLETE)
+                updateCreateVacationStatus(CreateVacationStatus.InProgress)
+                delay(5000L)  // TODO (JaesungLeee) : API 연동
+                updateCreateVacationStatus(CreateVacationStatus.Complete)
             }
             is HomeIntent.ClickCreateVacation -> {
                 postSideEffect(HomeSideEffect.NavigateToCreateVacation)

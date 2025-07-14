@@ -13,7 +13,11 @@
     <string name="home_toast_default_title">온도를 식히는 휴식 어떠세요?</string>
     <string name="home_toast_progress_title">최대 2분 이내 확인할 수 있어요</string>
     <string name="home_toast_complete_title">토스트가 노릇하게 구워졌어요</string>
-    <string name="home_create_vacation_button_text">"최대 %1$s일 휴가 굽기"</string>
+    <string name="home_toast_done_title">오늘은 이미 구웠어요</string>
+    <string name="home_create_vacation_default_button_text">"최대 %1$s일 휴가 굽기"</string>
+    <string name="home_create_vacation_progress_button_text">휴가 굽는 중</string>
+    <string name="home_create_vacation_complete_button_text">휴가 쓸래말래?</string>
+    <string name="home_create_vacation_done_button_text">오늘은 이미 구웠어요</string>
     <string name="home_personal_recommend_header_span_1">"%1$s님을 위한 "</string>
     <string name="home_personal_recommend_header_span_2">"%1$s일 "</string>
     <string name="home_personal_recommend_header_span_3">"휴가에요"</string>
