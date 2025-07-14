@@ -4,16 +4,17 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.VerticalPager
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
 import team.noweekend.core.common.ui.calendar.component.CalendarItem
 import team.noweekend.core.common.ui.calendar.model.CalendarState
-import team.noweekend.core.common.ui.calendar.model.DateOfWeek
-import team.noweekend.core.common.ui.calendar.model.WeeksData
+import team.noweekend.core.common.ui.calendar.model.CalendarDateOfWeek
+import team.noweekend.core.common.ui.calendar.model.CalendarWeeksData
 
 @Composable
 internal fun CalendarPager(
     calendarState: CalendarState,
-    onClickDateOfWeek: (DateOfWeek) -> Unit,
+    onClickDateOfWeek: (CalendarDateOfWeek) -> Unit,
     modifier: Modifier = Modifier,
     userScrollEnabled: Boolean = true,
 ) {
@@ -25,7 +26,7 @@ internal fun CalendarPager(
                 userScrollEnabled = userScrollEnabled,
             ) { page ->
 
-                val weekDates = calendarState.pagerData[page] ?: WeeksData.default
+                val weekDates = calendarState.pagerData[page] ?: CalendarWeeksData.default
 
                 CalendarItem(
                     dataList = weekDates,
@@ -44,7 +45,7 @@ internal fun CalendarPager(
                 userScrollEnabled = userScrollEnabled,
             ) { page ->
 
-                val monthWeekDates = calendarState.pagerData[page] ?: WeeksData.default
+                val monthWeekDates = calendarState.pagerData[page] ?: CalendarWeeksData.default
 
                 CalendarItem(
                     dataList = monthWeekDates,

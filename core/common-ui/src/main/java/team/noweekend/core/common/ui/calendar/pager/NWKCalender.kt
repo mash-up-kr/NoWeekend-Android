@@ -4,9 +4,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import kotlinx.collections.immutable.toImmutableMap
 import team.noweekend.core.common.ui.calendar.component.DayOfWeekBar
+import team.noweekend.core.common.ui.calendar.model.CalendarDateOfWeek
+import team.noweekend.core.common.ui.calendar.model.CalendarMode
 import team.noweekend.core.common.ui.calendar.model.CalendarState
-import team.noweekend.core.common.ui.calendar.model.DateOfWeek
 import team.noweekend.core.common.ui.calendar.pager.CalendarPager
 import team.noweekend.core.common.ui.calendar.rememberCalendarDataProvider
 import team.noweekend.core.common.ui.calendar.state.rememberCalendarPagerState
@@ -15,7 +17,7 @@ import team.noweekend.core.design.system.foundation.theme.NWKTheme
 @Composable
 fun NWKCalender(
     calendarState: CalendarState,
-    onClickDateOfWeek: (DateOfWeek) -> Unit,
+    onClickDateOfWeek: (CalendarDateOfWeek) -> Unit,
     userScrollEnabled: Boolean,
     modifier: Modifier = Modifier,
 ) {
@@ -44,9 +46,10 @@ private fun PreviewNoneScrollCalendar() {
         }
         NWKCalender(
             calendarState = CalendarState.Week(
-                pagerData = calendarDataProvider.weeksData,
+                pagerData = calendarDataProvider.calendarWeeksData.toImmutableMap(),
                 pagerState = calendarPagerState.weekPagerState,
                 selectedDate = calendarDataProvider.targetDate,
+                mode = CalendarMode.WEEK,
             ),
             onClickDateOfWeek = {
                 println(it.toString())

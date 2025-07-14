@@ -38,7 +38,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-import team.noweekend.core.common.ui.calendar.state.CalendarPagerState.CalendarMode
+import team.noweekend.core.common.ui.calendar.model.CalendarMode
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import kotlin.math.roundToInt
 
