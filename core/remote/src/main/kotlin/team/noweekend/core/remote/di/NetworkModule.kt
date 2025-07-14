@@ -22,7 +22,7 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import team.noweekend.core.remote.BuildConfig
 import team.noweekend.core.remote.provider.AuthenticationProvider
-import team.noweekend.core.remote.qulifier.BasicClient
+import team.noweekend.core.remote.qualifier.BasicClient
 import javax.inject.Singleton
 
 @Module
