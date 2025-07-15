@@ -22,7 +22,6 @@ import team.noweekend.feature.home.component.holiday.holidayRecommend
 import team.noweekend.feature.home.component.popular.PopularVacationRecommendComponent
 import team.noweekend.feature.home.component.recommend.monthly.monthlyVacationRecommendComponent
 import team.noweekend.feature.home.component.vacation.createVacation
-import team.noweekend.feature.home.model.MonthlyVacationRecommendUiModel
 import team.noweekend.feature.home.model.PopularVacationUiModel
 import team.noweekend.feature.home.mvi.HomeUiState
 
