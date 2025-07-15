@@ -5,8 +5,12 @@ import androidx.navigation.compose.composable
 import team.noweekend.core.navigator.model.Calendar
 import team.noweekend.feature.calendar.screen.CalendarRoute
 
-fun NavGraphBuilder.calendarNavGraph() {
+fun NavGraphBuilder.calendarNavGraph(
+    navigateToDetailDate: (String) -> Unit,
+) {
     composable<Calendar> {
-        CalendarRoute()
+        CalendarRoute(
+            navigateToDetailDate = navigateToDetailDate,
+        )
     }
 }

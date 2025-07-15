@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import kotlinx.collections.immutable.ImmutableList
@@ -17,7 +16,7 @@ import team.noweekend.core.common.ui.calendar.model.CalendarMode
 import team.noweekend.core.common.ui.todo.model.Todo
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.feature.calendar.component.choose.YearMonthCalendarTypeChooser
-import team.noweekend.feature.calendar.component.todoList.CalendarTodoList
+import team.noweekend.core.common.ui.calendar.component.CalendarTodoList
 import team.noweekend.feature.calendar.mvi.CalendarUiState
 
 @Composable

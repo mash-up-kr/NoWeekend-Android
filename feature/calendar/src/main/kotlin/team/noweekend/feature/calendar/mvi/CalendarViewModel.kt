@@ -9,6 +9,8 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.combine
 import kotlinx.datetime.LocalDate
 import team.noweekend.core.common.android.base.MVIViewModel
+import team.noweekend.core.common.kotlin.extension.YEAR_MONTH_DAY_PATTERN
+import team.noweekend.core.common.kotlin.extension.toFormattedString
 import team.noweekend.core.common.ui.calendar.model.CalendarDateOfWeek
 import team.noweekend.core.common.ui.calendar.model.CalendarMode
 import team.noweekend.core.common.ui.calendar.model.CalendarState
@@ -77,7 +79,7 @@ class CalendarViewModel @Inject constructor(
     private suspend fun initWeekCalendar(initPage: Int) {
         calendarDataProviderUseCase.initWeekCalendar(initPage = initPage)
         updateCalendarState(
-            initFirstTodoList = true
+            initFirstTodoList = true,
         )
         postSideEffect(sideEffect = CalendarSideEffect.CollectWeekPagerStatePage)
 
@@ -86,7 +88,7 @@ class CalendarViewModel @Inject constructor(
     private suspend fun initMonthCalendar(initPage: Int) {
         calendarDataProviderUseCase.initMonthCalendar(page = initPage, currentState.chooserMonth)
         updateCalendarState(
-            initFirstTodoList = true
+            initFirstTodoList = true,
         )
         postSideEffect(sideEffect = CalendarSideEffect.CollectMonthPagerStatePage)
     }
@@ -160,23 +162,23 @@ class CalendarViewModel @Inject constructor(
 
         reduce {
             this.copy(
-                selectedTodoList = calendarData
+                selectedTodoList = calendarData,
             )
         }
     }
 
-    private fun updateTargetDate(calendarDateOfWeek: CalendarDateOfWeek) {
+    private suspend fun updateTargetDate(calendarDateOfWeek: CalendarDateOfWeek) {
         val targetDate = calendarDateOfWeek.localDate
         calendarDataProviderUseCase.updateTargetDate(localDate = targetDate)
 
 
         val calendarState = when (currentState.calendarState) {
             is CalendarState.Week -> (currentState.calendarState as CalendarState.Week).copy(
-                selectedDate = targetDate
+                selectedDate = targetDate,
             )
 
             is CalendarState.Month -> (currentState.calendarState as CalendarState.Month).copy(
-                selectedDate = targetDate
+                selectedDate = targetDate,
             )
         }
 
@@ -184,6 +186,13 @@ class CalendarViewModel @Inject constructor(
             this.copy(
                 calendarState = calendarState,
             )
+        }
+
+        if (currentState.calendarMode == CalendarMode.MONTH) {
+            val localDateString = targetDate.toFormattedString(
+                LocalDate.YEAR_MONTH_DAY_PATTERN,
+            )
+            postSideEffect(CalendarSideEffect.NavigateToDetailDate(date = localDateString))
         }
     }
 
@@ -209,7 +218,7 @@ class CalendarViewModel @Inject constructor(
                                         ),
                                         todoList = dateOfWeek.scheduleList.map { schedule ->
                                             schedule.toTodo()
-                                        }.toImmutableList()
+                                        }.toImmutableList(),
                                     )
                                 }.toImmutableList()
                                 calendarDateOfWeek
@@ -230,7 +239,7 @@ class CalendarViewModel @Inject constructor(
                                         ),
                                         todoList = dateOfWeek.scheduleList.map { schedule: Schedule ->
                                             schedule.toTodo()
-                                        }.toImmutableList()
+                                        }.toImmutableList(),
                                     )
 
                                 }.toImmutableList()
@@ -305,7 +314,7 @@ class CalendarViewModel @Inject constructor(
                                 key to value.toCalendarWeeksData()
                             }.toImmutableMap(),
                     )
-                }
+                },
             )
         }
     }
@@ -327,7 +336,7 @@ class CalendarViewModel @Inject constructor(
 
     private suspend fun updateChooserAndSendUpdateCalenderSideEffect(
         page: Int,
-        calendarMode: CalendarMode
+        calendarMode: CalendarMode,
     ) {
         intent(
             CalendarIntent.UpdateChooserMonth(
