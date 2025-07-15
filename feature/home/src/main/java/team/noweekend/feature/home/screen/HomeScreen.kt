@@ -57,7 +57,6 @@ internal fun HomeScreen(
         itemSpacer(40.dp)
         item {
             PopularVacationRecommendComponent(
-                onDateSelectableChipClick = {},
                 popularVacations = persistentMapOf(
                     Pair(
                         0,

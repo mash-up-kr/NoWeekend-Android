@@ -2,10 +2,8 @@ package team.noweekend.feature.home.component.popular
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -14,13 +12,11 @@ import kotlinx.collections.immutable.ImmutableMap
 import team.noweekend.core.common.android.extension.fillMaxWidthOfScreen
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.feature.home.component.popular.carousel.PopularVacationCarousel
-import team.noweekend.feature.home.component.popular.chip.DateSelectableChip
 import team.noweekend.feature.home.model.PopularVacationUiModel
 
 @Composable
 internal fun PopularVacationRecommendComponent(
     popularVacations: ImmutableMap<Int, ImmutableList<PopularVacationUiModel>>,
-    onDateSelectableChipClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -29,7 +25,6 @@ internal fun PopularVacationRecommendComponent(
         PopularVacationRecommendHeader()
         PopularVacationRecommendContent(
             popularVacations = popularVacations,
-            onDateSelectableChipClick = onDateSelectableChipClick,
         )
     }
 }
@@ -56,16 +51,8 @@ private fun PopularVacationRecommendHeader(
 @Composable
 private fun ColumnScope.PopularVacationRecommendContent(
     popularVacations: ImmutableMap<Int, ImmutableList<PopularVacationUiModel>>,
-    onDateSelectableChipClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    DateSelectableChip(
-        modifier = Modifier.padding(
-            start = NWKTheme.spacing.space300,
-        ),
-        onChipClick = onDateSelectableChipClick,
-    )
-    Spacer(Modifier.size(NWKTheme.spacing.space175))
     PopularVacationCarousel(
         popularVacations = popularVacations,
     )
