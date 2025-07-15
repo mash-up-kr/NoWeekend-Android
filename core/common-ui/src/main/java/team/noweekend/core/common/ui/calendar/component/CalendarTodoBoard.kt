@@ -1,4 +1,4 @@
-package team.noweekend.feature.calendar.component.todoList
+package team.noweekend.core.common.ui.calendar.component
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth

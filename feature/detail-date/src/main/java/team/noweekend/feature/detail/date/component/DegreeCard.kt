@@ -1,4 +1,4 @@
-package team.noweekend.feature.calendar.component
+package team.noweekend.feature.detail.date.component
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,10 +19,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
+import team.noweekend.feature.detail.date.model.DegreeUIModel
+import team.noweekend.feature.detail.date.preview.PreviewDegreeCardParameterProvider
 import team.noweekend.core.design.system.core.component.image.NWKImage
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
-import team.noweekend.feature.calendar.model.DegreeUIModel
-import team.noweekend.feature.calendar.preview.PreviewDegreeCardParameterProvider
 
 @Composable
 fun DegreeCard(

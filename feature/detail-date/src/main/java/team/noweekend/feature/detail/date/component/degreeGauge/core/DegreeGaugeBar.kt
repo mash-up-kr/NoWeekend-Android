@@ -1,4 +1,4 @@
-package team.noweekend.feature.calendar.component.degreeGauge.core
+package team.noweekend.feature.detail.date.component.degreeGauge.core
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxWidth

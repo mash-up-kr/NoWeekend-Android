@@ -1,4 +1,4 @@
-package team.noweekend.feature.calendar.component.degreeGauge.preview
+package team.noweekend.feature.detail.date.component.degreeGauge.preview
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 
