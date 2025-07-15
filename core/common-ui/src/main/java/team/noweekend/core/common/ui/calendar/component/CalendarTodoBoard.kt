@@ -1,4 +1,4 @@
-package team.noweekend.feature.calendar.component.todoList
+package team.noweekend.core.common.ui.calendar.component
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -37,7 +37,6 @@ fun TodoCalendarBoard(
     }
 }
 
-
 @Composable
 private fun finishedBoard(
     todoList: ImmutableList<Todo>,
@@ -45,7 +44,6 @@ private fun finishedBoard(
     val isDoneCount = todoList.count { it.isDone }
     val totalCount = todoList.size
     return buildAnnotatedString {
-
         append("할 일 $isDoneCount")
         withStyle(
             style = SpanStyle(
@@ -64,7 +62,6 @@ private fun finishedBoard(
         append("개")
     }
 }
-
 
 @Preview
 @Composable

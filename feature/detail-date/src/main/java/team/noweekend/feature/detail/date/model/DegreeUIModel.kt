@@ -1,10 +1,11 @@
-package team.noweekend.feature.calendar.model
+package team.noweekend.feature.detail.date.model
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
+import kotlinx.serialization.Serializable
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.resource.NWKDrawableResource.Degree100
 import team.noweekend.core.resource.NWKDrawableResource.Degree25
@@ -13,6 +14,7 @@ import team.noweekend.core.resource.NWKDrawableResource.DegreeAnnualLeave
 import team.noweekend.core.resource.NWKStringResource.DegreeCardAnnualLeaveTitle
 import team.noweekend.core.resource.NWKStringResource.DegreeCardTitle
 
+@Serializable
 @Immutable
 data class DegreeUIModel(
     val degree: Int,
@@ -46,4 +48,3 @@ data class DegreeUIModel(
         }
     }
 }
-

@@ -1,4 +1,4 @@
-package team.noweekend.feature.calendar.component.degreeGauge
+package team.noweekend.feature.detail.date.component.degreeGauge
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,9 +9,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
-import team.noweekend.feature.calendar.component.degreeGauge.core.DegreeGaugeBar
-import team.noweekend.feature.calendar.component.degreeGauge.core.DegreeGaugeTextLayout
-import team.noweekend.feature.calendar.component.degreeGauge.preview.PreviewDegreeGaugeParameterProvider
+import team.noweekend.feature.detail.date.component.degreeGauge.core.DegreeGaugeBar
+import team.noweekend.feature.detail.date.component.degreeGauge.core.DegreeGaugeTextLayout
+import team.noweekend.feature.detail.date.component.degreeGauge.preview.PreviewDegreeGaugeParameterProvider
 
 @Composable
 internal fun DegreeGauge(
@@ -34,7 +34,6 @@ internal fun DegreeGauge(
     }
 }
 
-
 @Preview(showBackground = true)
 @Composable
 private fun PreviewDegreeGauge(
@@ -42,7 +41,7 @@ private fun PreviewDegreeGauge(
 ) {
     NWKTheme {
         DegreeGauge(
-            modifier= Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth(),
             degree = param.first,
             isAnnualLeave = param.second,
         )

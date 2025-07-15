@@ -70,6 +70,7 @@ class CalendarDataProviderUseCase @Inject constructor(
                         isFuture = isFuture,
                         hasRest = hasRest,
                     ),
+                    scheduleList = dateWithSchedules.schedules,
                 )
                 dateOfWeek
             }.chunked(7),
@@ -246,6 +247,7 @@ class CalendarDataProviderUseCase @Inject constructor(
                         isFuture = isFuture,
                         hasRest = hasRest,
                     ),
+                    scheduleList = dateWithSchedules.schedules,
                 )
             }.chunked(7),
         )
@@ -269,8 +271,8 @@ class CalendarDataProviderUseCase @Inject constructor(
     /**
      * 현재 선택된 날짜를 update.
      */
-    fun updateTargetDate(dateOfWeek: DateOfWeek) {
-        _targetDate.value = dateOfWeek.localDate
+    fun updateTargetDate(localDate: LocalDate) {
+        _targetDate.value = localDate
     }
 
     fun getWeeksData(page: Int): WeeksData? = _weeksData.value[page]

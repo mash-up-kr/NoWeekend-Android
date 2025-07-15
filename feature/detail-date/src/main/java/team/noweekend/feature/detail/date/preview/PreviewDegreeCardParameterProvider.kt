@@ -1,9 +1,10 @@
-package team.noweekend.feature.calendar.preview
+package team.noweekend.feature.detail.date.preview
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import team.noweekend.feature.calendar.model.DegreeUIModel
+import team.noweekend.feature.detail.date.model.DegreeUIModel
 
-internal class PreviewDegreeCardParameterProvider : PreviewParameterProvider<DegreeUIModel> {
+internal class PreviewDegreeCardParameterProvider :
+    PreviewParameterProvider<DegreeUIModel> {
 
     override val values = sequenceOf(
         DegreeUIModel(

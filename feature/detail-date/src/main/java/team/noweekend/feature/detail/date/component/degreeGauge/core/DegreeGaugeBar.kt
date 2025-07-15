@@ -1,4 +1,4 @@
-package team.noweekend.feature.calendar.component.degreeGauge.core
+package team.noweekend.feature.detail.date.component.degreeGauge.core
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -50,7 +50,6 @@ internal fun DegreeGaugeBar(
          * start + 50 ~ 100 칸의 너비 * 칸의 변화 비율
          */
 
-
         val progressWidth = when {
             degree <= 0 -> 0f
 
@@ -82,7 +81,10 @@ internal fun DegreeGaugeBar(
         }
 
         val dividerOffsetList = listOf(
-            0f, barWidth / 3, barWidth * 2 / 3, barWidth - 1.dp.toPx(),
+            0f,
+            barWidth / 3,
+            barWidth * 2 / 3,
+            barWidth - 1.dp.toPx(),
         )
 
         dividerOffsetList.forEach { offset ->
@@ -106,4 +108,3 @@ private fun PreviewDegreeGaugeBar() {
         )
     }
 }
-

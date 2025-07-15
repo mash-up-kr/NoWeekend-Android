@@ -43,7 +43,7 @@ internal fun FabTodoAddButton(
         } else {
             NWKTheme.color.Neutral.black
         },
-        shape = if (isExpanded) CircleShape else NWKTheme.radius.borderRadius400,
+        shape = if (isExpanded) CircleShape else NWKTheme.radius.borderRadius700,
     ) {
         val animatedWidth = animateDpAsState(
             targetValue = if (isExpanded) 48.dp else 127.dp,

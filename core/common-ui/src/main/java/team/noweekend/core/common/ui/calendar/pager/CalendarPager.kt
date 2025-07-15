@@ -8,7 +8,6 @@ import androidx.compose.ui.Modifier
 import team.noweekend.core.common.ui.calendar.component.CalendarItem
 import team.noweekend.core.common.ui.calendar.model.CalendarDateOfWeek
 import team.noweekend.core.common.ui.calendar.model.CalendarState
-import team.noweekend.core.common.ui.calendar.model.CalendarWeeksData
 
 @Composable
 internal fun CalendarPager(
@@ -25,15 +24,16 @@ internal fun CalendarPager(
                 userScrollEnabled = userScrollEnabled,
             ) { page ->
 
-                val weekDates = calendarState.pagerData[page] ?: CalendarWeeksData.default
-
-                CalendarItem(
-                    dataList = weekDates,
-                    calendarMode = calendarState.mode,
-                    calendarItemClickable = calendarState.calendarItemClickable,
-                    targetDate = calendarState.selectedDate,
-                    onClickDateOfWeek = onClickDateOfWeek,
-                )
+                val weekDates = calendarState.pagerData[page]
+                weekDates?.let {
+                    CalendarItem(
+                        dataList = weekDates,
+                        calendarMode = calendarState.mode,
+                        calendarItemClickable = calendarState.calendarItemClickable,
+                        targetDate = calendarState.selectedDate,
+                        onClickDateOfWeek = onClickDateOfWeek,
+                    )
+                }
             }
         }
 
@@ -44,15 +44,16 @@ internal fun CalendarPager(
                 userScrollEnabled = userScrollEnabled,
             ) { page ->
 
-                val monthWeekDates = calendarState.pagerData[page] ?: CalendarWeeksData.default
-
-                CalendarItem(
-                    dataList = monthWeekDates,
-                    calendarMode = calendarState.mode,
-                    calendarItemClickable = calendarState.calendarItemClickable,
-                    targetDate = calendarState.selectedDate,
-                    onClickDateOfWeek = onClickDateOfWeek,
-                )
+                val monthWeekDates = calendarState.pagerData[page]
+                monthWeekDates?.let {
+                    CalendarItem(
+                        dataList = monthWeekDates,
+                        calendarMode = calendarState.mode,
+                        calendarItemClickable = calendarState.calendarItemClickable,
+                        targetDate = calendarState.selectedDate,
+                        onClickDateOfWeek = onClickDateOfWeek,
+                    )
+                }
             }
         }
     }

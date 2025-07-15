@@ -5,7 +5,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,6 +26,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import kotlinx.collections.immutable.ImmutableList
+import team.noweekend.core.common.android.extension.fillMaxWidthOfScreen
 import team.noweekend.core.common.ui.todo.model.Todo
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.feature.calendar.component.fab.core.FabDimAlpha
@@ -47,7 +50,7 @@ internal fun FabLayout(
     if (isExpanded) {
         Canvas(
             modifier = Modifier
-                .fillMaxSize().zIndex(FabZIndex)
+                .fillMaxWidthOfScreen().fillMaxHeight().zIndex(FabZIndex)
                 .clickable(onClick = onClickDim),
         ) {
             drawRect(

@@ -1,78 +1,59 @@
 package team.noweekend.feature.calendar.screen
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
-import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import team.noweekend.core.common.ui.calendar.model.CalendarMode
-import team.noweekend.core.common.ui.calendar.model.CalendarState
-import team.noweekend.core.common.ui.calendar.state.rememberCalendarPagerState
+import kotlinx.datetime.LocalDate
+import team.noweekend.core.common.android.extension.fillMaxWidthOfScreen
 import team.noweekend.core.common.ui.todo.model.Todo
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
+import team.noweekend.feature.calendar.component.fab.FabLayout
+import team.noweekend.feature.calendar.component.fab.core.FabZIndex
 import team.noweekend.feature.calendar.mvi.CalendarViewModel
 import team.noweekend.feature.calendar.mvi.builder.rememberIntentBuilder
 import team.noweekend.feature.calendar.mvi.rememberSideEffectHandler
 
 @Composable
 internal fun CalendarRoute(
+    navigateToDetailDate: (String) -> Unit,
     modifier: Modifier = Modifier,
     calendarViewModel: CalendarViewModel = hiltViewModel(),
 ) {
 
-    val calendarPagerState = rememberCalendarPagerState()
 
     val intentBuilder = rememberIntentBuilder { calendarIntent ->
         calendarViewModel.intent(calendarIntent)
     }
 
     val state = calendarViewModel.uiState.collectAsStateWithLifecycle()
-    val chooserMonth = remember {
-        derivedStateOf {
-            state.value.chooserMonth
-        }
-    }
 
     val calendarSideEffectHandler = rememberSideEffectHandler(
-        calendarPagerState = calendarPagerState,
-        scrollToInitialWeekPage = calendarPagerState::scrollToInitialWeekPage,
-        scrollToMonthPage = calendarPagerState::scrollToMonthPage,
+        calendarPagerState = state.value.calendarPagerState,
+        scrollToInitialWeekPage = state.value.calendarPagerState::scrollToInitialWeekPage,
+        scrollToMonthPage = state.value.calendarPagerState::scrollToMonthPage,
         collectMonthPagerData = intentBuilder::updateMonthCalendarAndChooser,
         collectWeekPagerData = intentBuilder::updateWeekCalendarAndChooser,
         updateNextWeekPage = intentBuilder::updateNextWeekPage,
         updateNextMonthPage = intentBuilder::updateNextMonthPage,
         updatePreviousMonthPage = intentBuilder::updatePreviousMonthPage,
         updatePreviousWeekPage = intentBuilder::updatePreviousWeekPage,
+        navigateToDetailDate = navigateToDetailDate
     )
 
-    val calendarState: State<CalendarState> = remember {
-        derivedStateOf {
-            when (state.value.calendarMode) {
-                CalendarMode.WEEK -> {
-                    CalendarState.Week(
-                        mode = state.value.calendarMode,
-                        selectedDate = state.value.selectedDate,
-                        pagerState = calendarPagerState.weekPagerState,
-                        pagerData = state.value.calendarWeeksData,
-                    )
-                }
-
-                CalendarMode.MONTH -> {
-                    CalendarState.Month(
-                        mode = state.value.calendarMode,
-                        selectedDate = state.value.selectedDate,
-                        pagerState = calendarPagerState.monthPagerState,
-                        pagerData = state.value.calendarMonthsData,
-                    )
-                }
-            }
-        }
-    }
 
 
     LaunchedEffect(Unit) {
@@ -83,21 +64,50 @@ internal fun CalendarRoute(
         calendarViewModel.sideEffect.collect(calendarSideEffectHandler::handleSideEffect)
     }
     LaunchedEffect(state.value.calendarMode) {
-        intentBuilder.initCalendarData(calendarPagerState.initialPage)
+        with(intentBuilder) {
+            initCalendarData(state.value.calendarPagerState.initialPage)
+        }
+    }
+    LaunchedEffect(state.value.calendarState.selectedDate) {
+        intentBuilder.updateTodoList(targetDate = state.value.calendarState.selectedDate)
     }
 
-    CalendarScreen(
-        modifier = modifier,
-        calendarState = calendarState.value,
-        chooserDate = chooserMonth,
-        onToggleStateChanged = intentBuilder::updateCalendarModeWithToggleState,
-        onClickToggle = intentBuilder::updateCalendarMode,
-        onClickDateOfWeek = intentBuilder::updateTargetDate,
-        onClickYearMonthButton = {},
-        onClickCheckBox = {},
-        onClickOptionButton = {},
-        todoList = Todo.dummy,
-    )
+
+    Box(
+        modifier = modifier
+            .fillMaxWidthOfScreen()
+            .fillMaxHeight(),
+    ) {
+        var isExpanded by remember { mutableStateOf(false) }
+        FabLayout(
+            isExpanded = isExpanded,
+            todoItemList = Todo.previewDummy,
+            onClickFabButton = { isExpanded = isExpanded.not() },
+            onClickTodo = { index: Int ->
+                println(Todo.previewDummy[index])
+            },
+            modifier = Modifier
+                .zIndex(FabZIndex)
+                .align(Alignment.BottomEnd)
+                .padding(bottom = 20.dp, end = 20.dp),
+            onClickDirectInput = {},
+            onClickDim = { isExpanded = isExpanded.not() },
+        )
+
+        CalendarScreen(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = NWKTheme.spacing.space200),
+            calendarUiState = state,
+            onToggleStateChanged = intentBuilder::updateCalendarModeWithToggleState,
+            onClickToggle = intentBuilder::updateCalendarMode,
+            onClickDateOfWeek = intentBuilder::updateTargetDate,
+            onClickYearMonthButton = {},
+            onClickCheckBox = {},
+            onClickOptionButton = {},
+            todoList = state.value.selectedTodoList,
+        )
+    }
 }
 
 @Preview
@@ -106,6 +116,7 @@ private fun CalendarRoutePreview() {
     NWKTheme {
         CalendarRoute(
             modifier = Modifier.fillMaxSize(),
+            navigateToDetailDate = {}
         )
     }
 }

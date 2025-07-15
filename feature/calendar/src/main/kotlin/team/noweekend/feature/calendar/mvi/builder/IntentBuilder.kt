@@ -3,8 +3,10 @@ package team.noweekend.feature.calendar.mvi.builder
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
+import kotlinx.datetime.LocalDate
 import team.noweekend.core.common.ui.calendar.model.CalendarDateOfWeek
 import team.noweekend.core.common.ui.calendar.model.CalendarMode
+import team.noweekend.feature.calendar.model.CalendarDateOfWeekWithTodoList
 import team.noweekend.feature.calendar.mvi.CalendarIntent
 
 
@@ -82,7 +84,10 @@ class IntentBuilder(
         initPage: Int,
     ) {
         build(CalendarIntent.InitCalendar(initPage = initPage))
+    }
 
+    fun updateTodoList(targetDate : LocalDate){
+        build(CalendarIntent.UpdateTodoList(targetDate = targetDate))
     }
 
 }

@@ -14,6 +14,9 @@ data object Home : DestinationRoute
 data object Calendar : DestinationRoute
 
 @Serializable
+data object DetailDate : DestinationRoute
+
+@Serializable
 data object Profile : DestinationRoute
 
 sealed interface CreateVacation : DestinationRoute {

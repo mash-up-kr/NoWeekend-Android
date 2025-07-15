@@ -29,6 +29,9 @@ dependencies {
     implementation(project(":feature:login"))
     implementation(project(":feature:onboarding"))
     implementation(project(":feature:create-vacation"))
+
+    implementation(project(":feature:detail-date"))
+
     implementation(project(":feature:add-task"))
     implementation(project(":feature:splash"))
 

@@ -1,8 +1,11 @@
 package team.noweekend.feature.calendar.mvi
 
+import kotlinx.datetime.LocalDate
 import team.noweekend.core.common.android.mvi.Intent
 import team.noweekend.core.common.ui.calendar.model.CalendarDateOfWeek
 import team.noweekend.core.common.ui.calendar.model.CalendarMode
+import team.noweekend.core.common.ui.calendar.model.CalendarState
+import team.noweekend.feature.calendar.model.CalendarDateOfWeekWithTodoList
 
 sealed interface CalendarIntent : Intent {
 
@@ -25,5 +28,7 @@ sealed interface CalendarIntent : Intent {
     data class UpdateCalendarModeWithToggleState(val isMonth: Boolean) : CalendarIntent
 
     data class UpdateCalendarDataAndChooser(val page: Int, val calendarMode: CalendarMode) : CalendarIntent
+
+    data class UpdateTodoList(val targetDate : LocalDate): CalendarIntent
 
 }
