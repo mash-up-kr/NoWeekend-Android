@@ -84,6 +84,13 @@ private fun RemainedHalfVacationToggle(
             ),
         )
         Toggle(
+            onToggleStateChanged = { isOn ->
+                if (isOn) {
+                    ToggleState.ON
+                } else {
+                    ToggleState.OFF
+                }
+            },
             toggleState = if (isToggleOn) ToggleState.ON else ToggleState.OFF,
             onClickToggle = onHalfVacationClick,
         )

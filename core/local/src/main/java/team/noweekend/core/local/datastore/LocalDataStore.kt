@@ -5,4 +5,6 @@ interface LocalDataStore {
     suspend fun setAccessToken(token: String)
     suspend fun getRefreshToken(): String
     suspend fun setRefreshToken(token: String)
+    suspend fun getOnboardIsFinished(): Boolean
+    suspend fun setOnboardIsFinished(isFinished: Boolean)
 }

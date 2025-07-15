@@ -130,6 +130,8 @@
     <string name="birth_input_label">생년월일</string>
     <string name="birth_input_placeholder">예)19991213</string>
     <string name="birth_input_error_msg">올바른 생년월일을 입력해 주세요.</string>
+    <string name="birth_input_number_error_msg">숫자만 입력할 수 있어요.</string>
+    <string name="birth_input_length_error_msg">8글자까지 작성할 수 있어요.</string>
     <string name="nickname_input_label">닉네임</string>
     <string name="nickname_input_placeholder">1~6자 이내, 영문 숫자 사용 가능</string>
     <string name="nickname_input_error_msg">6글자까지 작성할 수 있어요.</string>

@@ -27,10 +27,12 @@ import team.noweekend.core.design.system.foundation.theme.NWKTheme
 
 @Composable
 fun ProfileInputComponent(
-    nickName: TextFieldState,
-    birth: TextFieldState,
+    nicknameTextFieldState: TextFieldState,
+    birthTextFieldState: TextFieldState,
     nickNameInputFieldStatus: InputFieldStatus,
     birthInputFieldStatus: InputFieldStatus,
+    onValidateNicknameState: (Boolean) -> Unit,
+    onValidateBirthState: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val focusManager: FocusManager = LocalFocusManager.current
@@ -43,23 +45,26 @@ fun ProfileInputComponent(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .verticalScroll(rememberScrollState()).focusable(),
+            .verticalScroll(rememberScrollState())
+            .focusable(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Spacer(modifier = Modifier.size(48.dp))
         ProfileInputScreenHeader()
         Spacer(modifier = Modifier.size(NWKTheme.spacing.space500))
         NickNameInputField(
-            textFieldState = nickName,
+            textFieldState = nicknameTextFieldState,
             inputFieldStatus = nickNameInputFieldStatus,
             focusRequester = focusRequester,
             onKeyboardAction = { focusManager.moveFocus(FocusDirection.Down) },
+            onValidateNicknameState = onValidateNicknameState,
         )
         Spacer(modifier = Modifier.size(24.dp))
         BirthInputField(
-            textFieldState = birth,
+            textFieldState = birthTextFieldState,
             inputFieldStatus = birthInputFieldStatus,
             onKeyboardAction = { focusManager.clearFocus() },
+            onValidateBirthState = onValidateBirthState,
         )
     }
 }
@@ -69,11 +74,13 @@ fun ProfileInputComponent(
 private fun ProfileInputComponentPreview() {
     NWKTheme {
         ProfileInputComponent(
-            nickName = TextFieldState(),
-            birth = TextFieldState(),
+            nicknameTextFieldState = TextFieldState(),
             nickNameInputFieldStatus = InputFieldStatus.ERROR,
             birthInputFieldStatus = InputFieldStatus.ERROR,
+            birthTextFieldState = TextFieldState(),
             modifier = Modifier.background(NWKTheme.color.Neutral.white),
+            onValidateNicknameState = {},
+            onValidateBirthState = {},
         )
     }
 }

@@ -16,6 +16,7 @@ import team.noweekend.feature.splash.mvi.rememberSplashSideEffectHandler
 fun SplashRoute(
     navigateToLogin: () -> Unit,
     navigateToMain: () -> Unit,
+    navigateToOnboarding: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: SplashViewModel = hiltViewModel(),
 ) {
@@ -23,6 +24,7 @@ fun SplashRoute(
     val sideEffectHandler: SplashSideEffectHandler = rememberSplashSideEffectHandler(
         navigateToLogin = navigateToLogin,
         navigateToMain = navigateToMain,
+        navigateToOnboarding = navigateToOnboarding,
     )
 
     LaunchedEffect(key1 = Unit) {

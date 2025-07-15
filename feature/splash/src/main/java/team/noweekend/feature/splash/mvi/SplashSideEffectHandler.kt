@@ -8,11 +8,13 @@ import team.noweekend.core.common.android.mvi.SideEffectHandler
 internal fun rememberSplashSideEffectHandler(
     navigateToLogin: () -> Unit,
     navigateToMain: () -> Unit,
+    navigateToOnboarding: () -> Unit,
 ): SplashSideEffectHandler {
     return remember {
         SplashSideEffectHandler(
             navigateToLogin = navigateToLogin,
             navigateToMain = navigateToMain,
+            navigateToOnboarding = navigateToOnboarding,
         )
     }
 }
@@ -20,11 +22,13 @@ internal fun rememberSplashSideEffectHandler(
 internal class SplashSideEffectHandler(
     private val navigateToLogin: () -> Unit,
     private val navigateToMain: () -> Unit,
+    private val navigateToOnboarding: () -> Unit,
 ) : SideEffectHandler<SplashSideEffect> {
     override fun handleSideEffect(sideEffect: SplashSideEffect) {
         when (sideEffect) {
             is SplashSideEffect.NavigateToLogin -> navigateToLogin()
             is SplashSideEffect.NavigateToMain -> navigateToMain()
+            SplashSideEffect.NavigateToOnboarding -> navigateToOnboarding()
         }
     }
 }

@@ -32,6 +32,15 @@ fun RemainedVacationInputField(
         focusRequester = focusRequester,
         textInputType = TextInputType.DAY,
         inputFieldStatus = inputTextFieldStatus,
+        inputTransformation = {
+            val numericText = asCharSequence().filter { it.isDigit() }
+            // 숫자 범위 (0~100)로 제한
+            val limitedValue = numericText.toString().toIntOrNull()?.coerceIn(0, 100)
+            // 최종 값 설정 (null일 경우 빈칸)
+            val result = limitedValue?.toString() ?: ""
+            // 입력 필드에 최종 결과를 적용
+            replace(0, length, result)
+        },
         keyboardImeAction = ImeAction.Done,
     )
 }

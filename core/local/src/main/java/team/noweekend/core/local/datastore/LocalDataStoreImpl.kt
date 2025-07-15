@@ -26,9 +26,18 @@ internal class LocalDataStoreImpl @Inject constructor(
         dataStore.set(key = REFRESH_TOKEN_KEY, value = token)
     }
 
+    override suspend fun getOnboardIsFinished(): Boolean {
+        return dataStore.getOrThrow(ONBOARD_IS_FINISHED_KEY, "Onboard is finished key not found").toBoolean()
+    }
+
+    override suspend fun setOnboardIsFinished(isFinished: Boolean) {
+        dataStore.set(key = ONBOARD_IS_FINISHED_KEY, value = isFinished.toString())
+    }
+
     companion object {
         private const val ACCESS_TOKEN_KEY = "access_token_prefs"
         private const val REFRESH_TOKEN_KEY = "refresh_token_prefs"
+        private const val ONBOARD_IS_FINISHED_KEY = "onboard_is_finished_prefs"
     }
 }
 

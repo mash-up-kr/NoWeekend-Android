@@ -55,10 +55,12 @@ fun SettingAccountScreen(
         )
         Spacer(modifier = Modifier.height(48.dp))
         ProfileInputComponent(
-            nickName = nickName,
-            birth = birth,
             nickNameInputFieldStatus = nickNameInputFieldStatus,
             birthInputFieldStatus = birthInputFieldStatus,
+            nicknameTextFieldState = nickName,
+            birthTextFieldState = birth,
+            onValidateNicknameState = {},
+            onValidateBirthState = {},
         )
     }
 }
@@ -71,7 +73,7 @@ private fun PreviewSettingAccountScreen() {
         SettingAccountScreen(
             modifier = Modifier.fillMaxSize(),
             onClickSaveButton = {},
-            onclickBackButton = {}
+            onclickBackButton = {},
         )
     }
 }

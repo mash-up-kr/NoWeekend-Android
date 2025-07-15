@@ -6,8 +6,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -19,15 +22,19 @@ import team.noweekend.core.design.system.core.component.input.status.InputFieldS
 import team.noweekend.core.design.system.core.component.scaffold.NWKScaffold
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.resource.NWKStringResource
+import team.noweekend.feature.onboarding.mvi.OnboardUiState
 
 @Composable
 internal fun ProfileInputScreen(
     onBackClick: () -> Unit,
-    onConfirmClick: () -> Unit,
+    onConfirmClick: (String, String) -> Unit,
+    uiState: OnboardUiState,
     modifier: Modifier = Modifier,
 ) {
-    val textFieldState = rememberTextFieldState()
-    val keyboardController = LocalSoftwareKeyboardController.current
+    val nicknameFieldState = rememberTextFieldState()
+    val birthFieldState = rememberTextFieldState()
+    var validateNicknameState by remember { mutableStateOf(false) }
+    var validateBirthState by remember { mutableStateOf(false) }
 
     NWKScaffold(
         modifier = modifier,
@@ -42,6 +49,14 @@ internal fun ProfileInputScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(it),
+                nicknameTextFieldState = nicknameFieldState,
+                birthTextFieldState = birthFieldState,
+                onValidateNicknameState = {
+                    validateNicknameState = it
+                },
+                onValidateBirthState = {
+                    validateBirthState = it
+                },
             )
         },
         bottomBar = {
@@ -49,10 +64,18 @@ internal fun ProfileInputScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp, vertical = 8.dp),
-                onClick = onConfirmClick,
+                onClick = {
+                    onConfirmClick(
+                        nicknameFieldState.text.toString(),
+                        birthFieldState.text.toString(),
+                    )
+                },
                 text = stringResource(NWKStringResource.Next),
                 type = BoxButtonType.BLACK,
-                enabled = true,
+                enabled = validateBirthState &&
+                    validateNicknameState &&
+                    nicknameFieldState.text.isNotEmpty() &&
+                    birthFieldState.text.isNotEmpty(),
             )
         },
     )
@@ -60,18 +83,22 @@ internal fun ProfileInputScreen(
 
 @Composable
 private fun ProfileInputScreenContent(
+    nicknameTextFieldState: TextFieldState,
+    birthTextFieldState: TextFieldState,
+    onValidateNicknameState: (Boolean) -> Unit,
+    onValidateBirthState: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
-    nickName: TextFieldState = TextFieldState(),
-    birth: TextFieldState = TextFieldState(),
     nickNameInputFieldStatus: InputFieldStatus = InputFieldStatus.DEFAULT,
     birthInputFieldStatus: InputFieldStatus = InputFieldStatus.DEFAULT,
 ) {
     ProfileInputComponent(
         modifier = modifier,
-        nickName = nickName,
-        birth = birth,
+        nicknameTextFieldState = nicknameTextFieldState,
+        birthTextFieldState = birthTextFieldState,
         nickNameInputFieldStatus = nickNameInputFieldStatus,
         birthInputFieldStatus = birthInputFieldStatus,
+        onValidateNicknameState = onValidateNicknameState,
+        onValidateBirthState = onValidateBirthState,
     )
 }
 
@@ -81,7 +108,8 @@ private fun ProfileInputScreenPreview() {
     NWKTheme {
         ProfileInputScreen(
             onBackClick = {},
-            onConfirmClick = {},
+            onConfirmClick = { _, _ -> },
+            uiState = OnboardUiState.INITIAL_STATE,
         )
     }
 }
