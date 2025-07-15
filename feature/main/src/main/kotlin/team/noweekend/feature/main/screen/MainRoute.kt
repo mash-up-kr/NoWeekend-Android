@@ -10,15 +10,17 @@ import team.noweekend.feature.main.navigation.rememberMainNavigator
 @Composable
 internal fun MainRoute(
     navigateToCreateVacation: ((Intent.() -> Intent)?, ActivityResultLauncher<Intent>?) -> Unit,
-    navigateToDetailDate : ((Intent.() -> Intent)?) -> Unit,
+    navigateToDetailDate: ((Intent.() -> Intent)?) -> Unit,
+    navigateToExternalWebBrowser: (String) -> Unit,
     modifier: Modifier = Modifier,
     navigator: MainNavigator = rememberMainNavigator(),
 ) {
     MainScreen(
         navigateToCreateVacation = navigateToCreateVacation,
+        navigateToDetailDate = navigateToDetailDate,
+        navigateToExternalWebBrowser = navigateToExternalWebBrowser,
         onTabSelected = { navigator.navigate(it) },
         modifier = modifier,
         navigator = navigator,
-        navigateToDetailDate = navigateToDetailDate
     )
 }

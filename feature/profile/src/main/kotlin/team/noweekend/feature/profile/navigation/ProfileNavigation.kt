@@ -5,8 +5,12 @@ import androidx.navigation.compose.composable
 import team.noweekend.core.navigator.model.Profile
 import team.noweekend.feature.profile.screen.ProfileRoute
 
-fun NavGraphBuilder.profileNavGraph() {
+fun NavGraphBuilder.profileNavGraph(
+    navigateToExternalWebBrowser: (String) -> Unit,
+) {
     composable<Profile> {
-        ProfileRoute()
+        ProfileRoute(
+            navigateToExternalWebBrowser = navigateToExternalWebBrowser,
+        )
     }
 }

@@ -90,8 +90,8 @@
     <string name="info_menu_setting_alarm_title">알림 설정</string>
 
     <string name="etc_menu_title">기타</string>
-    <string name="etc_menu_contact_service_title">서비스 문의</string>
-    <string name="etc_menu_policy_title">정책</string>
+    <string name="etc_menu_contact_service_title">이용약관</string>
+    <string name="etc_menu_policy_title">개인정보처리방침</string>
     <string name="etc_menu_current_version_title">현재 버전</string>
 
     <string name="onboard_profile_input_header_title">정보를 작성해 주세요</string>

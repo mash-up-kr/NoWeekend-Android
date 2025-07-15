@@ -15,7 +15,7 @@ import team.noweekend.feature.profile.model.Menu
 @Composable
 fun MenuLayout(
     menuList: ImmutableList<Menu>,
-    onClickMenuItem: () -> Unit,
+    onClickMenuItem: (Menu) -> Unit,
     modifier: Modifier = Modifier,
     title: String = "",
 ) {
@@ -34,7 +34,7 @@ fun MenuLayout(
                 MenuComponent(
                     modifier = Modifier.fillMaxWidth(),
                     menu = menu,
-                    onClickMenuItem = onClickMenuItem,
+                    onClickMenuItem = { onClickMenuItem(menu) },
                 )
                 if (index < menuList.lastIndex) {
                     HorizontalDivider(
