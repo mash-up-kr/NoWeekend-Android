@@ -4,8 +4,8 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import team.noweekend.core.remote.api.LoginApi
-import team.noweekend.core.remote.api.LoginApiImpl
+import team.noweekend.core.remote.api.login.LoginApi
+import team.noweekend.core.remote.api.login.LoginApiImpl
 import team.noweekend.core.remote.api.holiday.HolidayApi
 import team.noweekend.core.remote.api.holiday.HolidayApiImpl
 import team.noweekend.core.remote.api.location.LocationApi

@@ -1,7 +1,7 @@
 package team.noweekend.data.model
 
 import team.noweekend.core.model.login.LoginInfoDomainModel
-import team.noweekend.core.remote.model.LoginResponse
+import team.noweekend.core.remote.model.login.LoginResponse
 
 data class LoginInfoDataModel(
     val exists: Boolean,
