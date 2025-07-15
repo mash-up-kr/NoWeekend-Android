@@ -16,8 +16,9 @@ import team.noweekend.core.resource.NWKStringResource
 @Composable
 fun NickNameInputField(
     textFieldState: TextFieldState,
-    onKeyboardAction: () -> Unit,
     inputFieldStatus: InputFieldStatus,
+    onKeyboardAction: () -> Unit,
+    onValidateNicknameState: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
     focusRequester: FocusRequester = remember { FocusRequester() },
 ) {
@@ -28,7 +29,13 @@ fun NickNameInputField(
         textFieldState = textFieldState,
         onKeyboardAction = onKeyboardAction,
         modifier = modifier.fillMaxWidth(),
-        inputFieldStatus = inputFieldStatus,
+        inputFieldStatus = if (textFieldState.text.length > 6) {
+            onValidateNicknameState(false)
+            InputFieldStatus.ERROR
+        } else {
+            onValidateNicknameState(true)
+            InputFieldStatus.DEFAULT
+        },
         focusRequester = focusRequester,
         textInputType = TextInputType.NICKNAME,
         keyboardImeAction = ImeAction.Next,

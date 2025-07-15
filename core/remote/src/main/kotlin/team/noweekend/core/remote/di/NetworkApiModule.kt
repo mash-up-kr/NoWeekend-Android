@@ -12,6 +12,8 @@ import team.noweekend.core.remote.api.login.LoginApi
 import team.noweekend.core.remote.api.login.LoginApiImpl
 import team.noweekend.core.remote.api.recommend.RecommendApi
 import team.noweekend.core.remote.api.recommend.RecommendApiImpl
+import team.noweekend.core.remote.api.onboard.OnboardApi
+import team.noweekend.core.remote.api.onboard.OnboardApiImpl
 import team.noweekend.core.remote.api.schedule.ScheduleApi
 import team.noweekend.core.remote.api.schedule.ScheduleApiImpl
 import team.noweekend.core.remote.api.user.UserApi
@@ -45,4 +47,9 @@ internal interface NetworkApiModule {
     @Binds
     @Singleton
     fun bindUserApi(impl: UserApiImpl): UserApi
+
+    @Binds
+    @Singleton
+    fun bindOnboardingApi(onboardingApiImpl: OnboardApiImpl): OnboardApi
 }
+ // 하 시발 이거 해야 되는데 ㅈ됐다

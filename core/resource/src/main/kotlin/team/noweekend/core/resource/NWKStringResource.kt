@@ -130,6 +130,8 @@ object NWKStringResource {
     val BirthInputLabel: Int = R.string.birth_input_label
     val BirthInputPlaceholder: Int = R.string.birth_input_placeholder
     val BirthInputErrorMessage: Int = R.string.birth_input_error_msg
+    val BirthInputNumberErrorMessage: Int = R.string.birth_input_number_error_msg
+    val BirthInputLengthErrorMessage: Int = R.string.birth_input_length_error_msg
     val NicknameInputLabel: Int = R.string.nickname_input_label
     val NicknameInputPlaceholder: Int = R.string.nickname_input_placeholder
     val NicknameInputErrorMessage: Int = R.string.nickname_input_error_msg
