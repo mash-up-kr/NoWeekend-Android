@@ -3,7 +3,9 @@ package team.noweekend.core.common.ui.calendar.model
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.runtime.Stable
 import kotlinx.collections.immutable.ImmutableMap
+import kotlinx.collections.immutable.persistentMapOf
 import kotlinx.datetime.LocalDate
+import team.noweekend.core.common.kotlin.extension.now
 
 @Stable
 sealed interface CalendarState {
@@ -20,7 +22,15 @@ sealed interface CalendarState {
         override val calendarItemClickable: Boolean = true,
         override val pagerData: ImmutableMap<Int, CalendarWeeksData>,
         override val selectedDate: LocalDate,
-    ) : CalendarState
+    ) : CalendarState {
+        companion object {
+            val default = Week(
+                pagerState = PagerState() { 0 },
+                selectedDate = LocalDate.now(),
+                pagerData = persistentMapOf(),
+            )
+        }
+    }
 
     @Stable
     data class Month(
