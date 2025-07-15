@@ -11,7 +11,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.persistentListOf
-import kotlinx.collections.immutable.persistentMapOf
 import kotlinx.datetime.LocalDate
 import team.noweekend.core.common.android.extension.fillMaxWidthOfScreen
 import team.noweekend.core.common.kotlin.extension.now
@@ -19,7 +18,7 @@ import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.model.vacation.VacationType
 import team.noweekend.feature.home.component.common.spacer.itemSpacer
 import team.noweekend.feature.home.component.holiday.holidayRecommend
-import team.noweekend.feature.home.component.popular.PopularVacationRecommendComponent
+import team.noweekend.feature.home.component.popular.popularVacationRecommend
 import team.noweekend.feature.home.component.recommend.monthly.monthlyVacationRecommendComponent
 import team.noweekend.feature.home.component.vacation.createVacation
 import team.noweekend.feature.home.model.PopularVacationUiModel
@@ -55,88 +54,31 @@ internal fun HomeScreen(
             recommends = uiState.weatherRecommendVacations,
         )
         itemSpacer(40.dp)
-        item {
-            PopularVacationRecommendComponent(
-                popularVacations = persistentMapOf(
-                    Pair(
-                        0,
-                        persistentListOf(
-                            PopularVacationUiModel(
-                                vacationType = VacationType.HOLIDAY_EXIST,
-                                startLocalDate = LocalDate.now(),
-                                endLocalDate = LocalDate.now(),
-                            ),
-                            PopularVacationUiModel(
-                                vacationType = VacationType.BIRTHDAY_EXIST,
-                                startLocalDate = LocalDate.now(),
-                                endLocalDate = LocalDate.now(),
-                            ),
-                            PopularVacationUiModel(
-                                vacationType = VacationType.INCLUDE_MONDAY,
-                                startLocalDate = LocalDate.now(),
-                                endLocalDate = LocalDate.now(),
-                            ),
-                            PopularVacationUiModel(
-                                vacationType = VacationType.INCLUDE_MONDAY,
-                                startLocalDate = LocalDate.now(),
-                                endLocalDate = LocalDate.now(),
-                            ),
-                        ),
-                    ),
-                    Pair(
-                        1,
-                        persistentListOf(
-                            PopularVacationUiModel(
-                                vacationType = VacationType.HOLIDAY_EXIST,
-                                startLocalDate = LocalDate.now(),
-                                endLocalDate = LocalDate.now(),
-                            ),
-                            PopularVacationUiModel(
-                                vacationType = VacationType.BIRTHDAY_EXIST,
-                                startLocalDate = LocalDate.now(),
-                                endLocalDate = LocalDate.now(),
-                            ),
-                            PopularVacationUiModel(
-                                vacationType = VacationType.INCLUDE_MONDAY,
-                                startLocalDate = LocalDate.now(),
-                                endLocalDate = LocalDate.now(),
-                            ),
-                            PopularVacationUiModel(
-                                vacationType = VacationType.INCLUDE_MONDAY,
-                                startLocalDate = LocalDate.now(),
-                                endLocalDate = LocalDate.now(),
-                            ),
-                        ),
-                    ),
-                    Pair(
-                        2,
-                        persistentListOf(
-                            PopularVacationUiModel(
-                                vacationType = VacationType.HOLIDAY_EXIST,
-                                startLocalDate = LocalDate.now(),
-                                endLocalDate = LocalDate.now(),
-                            ),
-                            PopularVacationUiModel(
-                                vacationType = VacationType.BIRTHDAY_EXIST,
-                                startLocalDate = LocalDate.now(),
-                                endLocalDate = LocalDate.now(),
-                            ),
-                            PopularVacationUiModel(
-                                vacationType = VacationType.INCLUDE_MONDAY,
-                                startLocalDate = LocalDate.now(),
-                                endLocalDate = LocalDate.now(),
-                            ),
-                            PopularVacationUiModel(
-                                vacationType = VacationType.INCLUDE_MONDAY,
-                                startLocalDate = LocalDate.now(),
-                                endLocalDate = LocalDate.now(),
-                            ),
-                        ),
-                    ),
+        popularVacationRecommend(
+            popularVacations = persistentListOf(
+                PopularVacationUiModel(
+                    vacationType = VacationType.HOLIDAY_EXIST,
+                    startLocalDate = LocalDate.now(),
+                    endLocalDate = LocalDate.now(),
                 ),
-            )
-        }
-        itemSpacer(72.dp)
+                PopularVacationUiModel(
+                    vacationType = VacationType.BIRTHDAY_EXIST,
+                    startLocalDate = LocalDate.now(),
+                    endLocalDate = LocalDate.now(),
+                ),
+                PopularVacationUiModel(
+                    vacationType = VacationType.INCLUDE_MONDAY,
+                    startLocalDate = LocalDate.now(),
+                    endLocalDate = LocalDate.now(),
+                ),
+                PopularVacationUiModel(
+                    vacationType = VacationType.INCLUDE_MONDAY,
+                    startLocalDate = LocalDate.now(),
+                    endLocalDate = LocalDate.now(),
+                ),
+            ),
+        )
+//        itemSpacer(72.dp)
     }
 }
 
