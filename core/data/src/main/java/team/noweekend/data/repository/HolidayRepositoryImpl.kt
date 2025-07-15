@@ -6,7 +6,7 @@ import team.noweekend.core.remote.api.holiday.HolidayApi
 import team.noweekend.data.mapper.toDomain
 import javax.inject.Inject
 
-class HolidayRepositoryImpl @Inject constructor(
+internal class HolidayRepositoryImpl @Inject constructor(
     private val holidayApi: HolidayApi,
 ) : HolidayRepository {
     override suspend fun getHoliday(year: Int, month: Int): List<Holiday> {
