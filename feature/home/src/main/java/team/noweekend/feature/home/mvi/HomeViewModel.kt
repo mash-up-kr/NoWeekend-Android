@@ -5,9 +5,7 @@ import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.delay
-import kotlinx.datetime.LocalDate
 import team.noweekend.core.common.android.base.MVIViewModel
-import team.noweekend.core.common.kotlin.extension.now
 import team.noweekend.core.domain.usecase.GetHolidayUseCase
 import team.noweekend.core.domain.usecase.GetWeatherRecommendVacationUseCase
 import team.noweekend.core.domain.usecase.UserLocationUseCase
@@ -27,7 +25,6 @@ class HomeViewModel @Inject constructor(
 ) {
     init {
         getRemainedHolidays()
-        getHolidays()
         saveUserLocation()
     }
 
@@ -51,17 +48,6 @@ class HomeViewModel @Inject constructor(
 
             else -> {}
         }
-    }
-
-    private fun getHolidays(requestDate: LocalDate = LocalDate.now()) = execute {
-        getHolidayUseCase.getMonthlyHolidays(requestDate)
-            .onSuccess { remoteHolidays ->
-                val holidays: List<HolidayUiModel> = remoteHolidays.map { it.toUiModel() }
-                reduce { copy(monthlyHolidays = holidays.toImmutableList()) }
-            }
-            .onFailure { exception ->
-                Log.d("logtag", "$exception")
-            }
     }
 
     private fun getRemainedHolidays() = execute {
