@@ -55,30 +55,8 @@ internal fun HomeScreen(
         )
         itemSpacer(40.dp)
         popularVacationRecommend(
-            popularVacations = persistentListOf(
-                PopularVacationUiModel(
-                    vacationType = VacationType.HOLIDAY_EXIST,
-                    startLocalDate = LocalDate.now(),
-                    endLocalDate = LocalDate.now(),
-                ),
-                PopularVacationUiModel(
-                    vacationType = VacationType.BIRTHDAY_EXIST,
-                    startLocalDate = LocalDate.now(),
-                    endLocalDate = LocalDate.now(),
-                ),
-                PopularVacationUiModel(
-                    vacationType = VacationType.INCLUDE_MONDAY,
-                    startLocalDate = LocalDate.now(),
-                    endLocalDate = LocalDate.now(),
-                ),
-                PopularVacationUiModel(
-                    vacationType = VacationType.INCLUDE_MONDAY,
-                    startLocalDate = LocalDate.now(),
-                    endLocalDate = LocalDate.now(),
-                ),
-            ),
+            popularVacations = uiState.popularVacations,
         )
-//        itemSpacer(72.dp)
     }
 }
 

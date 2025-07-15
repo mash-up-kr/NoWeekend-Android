@@ -5,6 +5,7 @@ import kotlinx.datetime.LocalDate
 import team.noweekend.core.common.kotlin.extension.now
 import team.noweekend.core.common.kotlin.extension.parseLocalDateString
 import team.noweekend.core.model.holiday.Holiday
+import team.noweekend.core.model.vacation.VacationType
 
 @Stable
 data class HolidayUiModel(
@@ -22,4 +23,10 @@ data class HolidayUiModel(
 internal fun Holiday.toUiModel() = HolidayUiModel(
     date = LocalDate.parseLocalDateString(this.date),
     holiday = this.holiday,
+)
+
+internal fun Holiday.toPopularVacation() = PopularVacationUiModel(
+    vacationType = VacationType.HOLIDAY_EXIST,
+    startLocalDate = LocalDate.parseLocalDateString(this.date),
+    endLocalDate = null,
 )
