@@ -9,6 +9,8 @@ import kotlinx.datetime.LocalDate
 import team.noweekend.core.common.android.base.MVIViewModel
 import team.noweekend.core.common.kotlin.extension.now
 import team.noweekend.core.domain.usecase.GetHolidayUseCase
+import team.noweekend.core.domain.usecase.GetWeatherRecommendVacationUseCase
+import team.noweekend.core.domain.usecase.UserLocationUseCase
 import team.noweekend.feature.home.model.HolidayUiModel
 import team.noweekend.feature.home.model.toUiModel
 import javax.inject.Inject
@@ -17,12 +19,15 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val getHolidayUseCase: GetHolidayUseCase,
+    private val getWeatherRecommendVacationUseCase: GetWeatherRecommendVacationUseCase,
+    private val userLocationUseCase: UserLocationUseCase,
 ) : MVIViewModel<HomeIntent, HomeSideEffect, HomeUiState>(
     savedStateHandle = savedStateHandle,
 ) {
     init {
         getRemainedHolidays()
         getHolidays()
+        saveUserLocation()
     }
 
     override fun createInitialState(savedStateHandle: SavedStateHandle): HomeUiState {
@@ -64,6 +69,27 @@ class HomeViewModel @Inject constructor(
                 Log.d("logtag", "$remoteHolidays")
                 val holidays: List<HolidayUiModel> = remoteHolidays.map { it.toUiModel() }
                 reduce { copy(remainedHolidays = holidays.toImmutableList()) }
+            }
+            .onFailure { exception ->
+                Log.d("logtag", "$exception")
+            }
+    }
+
+    private fun saveUserLocation() = execute {
+        userLocationUseCase.saveLocation()
+            .onSuccess {
+                Log.d("logtag", "AA")
+                getWeatherRecommendVacation()
+            }
+            .onFailure { exception ->
+                Log.d("logtag", "$exception")
+            }
+    }
+
+    private fun getWeatherRecommendVacation() = execute {
+        getWeatherRecommendVacationUseCase()
+            .onSuccess {
+                Log.d("logtag", "$it")
             }
             .onFailure { exception ->
                 Log.d("logtag", "$exception")
