@@ -6,13 +6,18 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
+import kotlinx.datetime.LocalDate
 import team.noweekend.core.common.android.base.MVIViewModel
+import team.noweekend.core.common.kotlin.extension.parseLocalDateString
 import team.noweekend.core.domain.usecase.GetHolidayUseCase
 import team.noweekend.core.domain.usecase.GetSandwichRecommendVacationUseCase
+import team.noweekend.core.domain.usecase.GetUserProfileUseCase
 import team.noweekend.core.domain.usecase.GetWeatherRecommendVacationUseCase
 import team.noweekend.core.domain.usecase.UserLocationUseCase
+import team.noweekend.core.model.vacation.VacationType
 import team.noweekend.feature.home.model.HolidayUiModel
 import team.noweekend.feature.home.model.MonthlyVacationRecommendUiModel
+import team.noweekend.feature.home.model.PopularVacationUiModel
 import team.noweekend.feature.home.model.toPopularVacation
 import team.noweekend.feature.home.model.toUiModel
 import javax.inject.Inject
@@ -24,6 +29,7 @@ class HomeViewModel @Inject constructor(
     private val getWeatherRecommendVacationUseCase: GetWeatherRecommendVacationUseCase,
     private val userLocationUseCase: UserLocationUseCase,
     private val getSandwichRecommendVacationUseCase: GetSandwichRecommendVacationUseCase,
+    private val getUserProfileUseCase: GetUserProfileUseCase,
 ) : MVIViewModel<HomeIntent, HomeSideEffect, HomeUiState>(
     savedStateHandle = savedStateHandle,
 ) {
@@ -55,17 +61,36 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-
     private fun getPopularRecommendVacations() = execute {
         val remainedHolidaysDeferred = async { getHolidayUseCase.getRemainedHolidays() }
         val sandwichRecommendationsDeferred = async { getSandwichRecommendVacationUseCase.invoke() }
-        val userProfileDeferred = async { }
+        val userProfileDeferred = async { getUserProfileUseCase.invoke() }
 
-        val remainedRecentHolidays = remainedHolidaysDeferred.await().getOrNull()?.firstOrNull()?.toPopularVacation()
-        val sandwichRecommendations = sandwichRecommendationsDeferred.await().getOrNull()?.toPopularVacation()
+        val remainedRecentHolidays = remainedHolidaysDeferred.await()
+            .getOrNull()?.firstOrNull()?.toPopularVacation()
+
+        val sandwichRecommendations = sandwichRecommendationsDeferred.await()
+            .getOrNull()?.toPopularVacation()
+
+        val userBirth = userProfileDeferred.await()
+            .getOrNull()?.userBirth
+
+        val userBirthVacation = userBirth?.let { birth ->
+            PopularVacationUiModel(
+                vacationType = VacationType.BIRTHDAY_EXIST,
+                startLocalDate = LocalDate.parseLocalDateString(birth),
+                endLocalDate = null,
+            )
+        }
 
         reduce {
-            copy(popularVacations = listOfNotNull(remainedRecentHolidays, sandwichRecommendations).toImmutableList())
+            copy(
+                popularVacations = listOfNotNull(
+                    remainedRecentHolidays,
+                    sandwichRecommendations,
+                    userBirthVacation,
+                ).toImmutableList(),
+            )
         }
     }
 
