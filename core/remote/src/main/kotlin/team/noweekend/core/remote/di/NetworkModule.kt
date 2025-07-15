@@ -73,8 +73,8 @@ internal class NetworkModule {
     }
 
     companion object {
-        private const val REQUEST_TIMEOUT_MILLIS = 10_000L
-        private const val CONNECT_TIMEOUT_MILLIS = 10_000L
-        private const val SOCKET_TIMEOUT_MILLIS = 10_000L
+        private const val REQUEST_TIMEOUT_MILLIS = 100_000L
+        private const val CONNECT_TIMEOUT_MILLIS = 100_000L
+        private const val SOCKET_TIMEOUT_MILLIS = 100_000L
     }
 }
