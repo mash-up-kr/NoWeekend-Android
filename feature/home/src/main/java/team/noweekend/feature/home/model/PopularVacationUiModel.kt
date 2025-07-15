@@ -8,7 +8,6 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import kotlinx.datetime.LocalDate
-import team.noweekend.core.common.kotlin.extension.MONTH_DATE_WITH_DAY_OF_WEEK_KR_PATTERN
 import team.noweekend.core.common.kotlin.extension.MONTH_DATE_WITH_DAY_OF_WEEK_PATTERN
 import team.noweekend.core.common.kotlin.extension.toFormattedString
 import team.noweekend.core.design.system.foundation.theme.NWKTheme

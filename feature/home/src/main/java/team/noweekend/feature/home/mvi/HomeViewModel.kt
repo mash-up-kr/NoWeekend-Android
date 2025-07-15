@@ -105,7 +105,6 @@ class HomeViewModel @Inject constructor(
             }
     }
 
-
     private fun saveUserLocation() = execute {
         userLocationUseCase.saveLocation()
             .onSuccess {
