@@ -5,26 +5,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.snapshots.SnapshotStateList
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.launch
 import team.noweekend.core.common.ui.calendar.model.CalendarMode
 
 @Composable
-fun rememberCalendarPagerState(
-    coroutineScope: CoroutineScope = rememberCoroutineScope(),
-) = remember {
-    CalendarPagerState(
-        coroutineScope = coroutineScope,
-    )
+fun rememberCalendarPagerState() = remember {
+    CalendarPagerState()
 }
 
 @Stable
-class CalendarPagerState(
-    private val coroutineScope: CoroutineScope,
-) {
+class CalendarPagerState {
 
     var calendarMode: MutableStateFlow<CalendarMode> = MutableStateFlow(CalendarMode.WEEK)
 
@@ -81,16 +72,12 @@ class CalendarPagerState(
         }
     }
 
-    fun scrollToInitialWeekPage() {
-        coroutineScope.launch {
-            weekPagerState.scrollToPage(initialPage)
-        }
+    suspend fun scrollToInitialWeekPage() {
+        weekPagerState.scrollToPage(initialPage)
     }
 
-    fun scrollToMonthPage(page: Int = initialPage) {
-        coroutineScope.launch {
-            monthPagerState.scrollToPage(page)
-        }
+    suspend fun scrollToMonthPage(page: Int = initialPage) {
+        monthPagerState.scrollToPage(page)
     }
 
     fun updateMonthCalendar(
