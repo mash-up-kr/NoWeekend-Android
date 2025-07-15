@@ -8,6 +8,6 @@ import javax.inject.Inject
 class LoginUseCase @Inject constructor(
     private val repository: LoginRepository,
 ) {
-    suspend operator fun invoke(requestBody: LoginRequest): LoginInfoDomainModel =
-        repository.requestGoogleLogin(requestBody)
+    suspend operator fun invoke(requestBody: LoginRequest): Result<LoginInfoDomainModel> =
+        runCatching { repository.requestGoogleLogin(requestBody) }
 }
