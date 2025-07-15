@@ -41,4 +41,3 @@ include(":feature:create-vacation")
 include(":feature:add-task")
 include(":feature:detail-date")
 include(":feature:splash")
-
