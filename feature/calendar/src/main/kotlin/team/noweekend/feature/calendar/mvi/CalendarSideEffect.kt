@@ -8,7 +8,8 @@ sealed interface CalendarSideEffect : SideEffect {
 
     data object CollectWeekPagerStatePage : CalendarSideEffect
     data object CollectMonthPagerStatePage : CalendarSideEffect
-    data class UpdateWeekCalendar(val currentPage: Int) : CalendarSideEffect
-    data class UpdateMonthCalendar(val currentPage : Int) :CalendarSideEffect
+    data class UpdateWeekCalendarPage(val currentPage: Int) : CalendarSideEffect
+    data class UpdateMonthCalendarPage(val currentPage : Int) :CalendarSideEffect
+
 
 }
