@@ -28,7 +28,7 @@ internal fun LazyListScope.holidayRecommend(
 }
 
 @Composable
-private fun HolidayRecommendComponent(
+internal fun HolidayRecommendComponent(
     holidays: ImmutableList<HolidayUiModel>,
     onHolidayCardClick: () -> Unit,
     modifier: Modifier = Modifier,
