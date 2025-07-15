@@ -10,18 +10,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import kotlinx.collections.immutable.persistentListOf
 import kotlinx.datetime.LocalDate
 import team.noweekend.core.common.android.extension.fillMaxWidthOfScreen
 import team.noweekend.core.common.kotlin.extension.now
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
-import team.noweekend.core.model.vacation.VacationType
 import team.noweekend.feature.home.component.common.spacer.itemSpacer
 import team.noweekend.feature.home.component.holiday.holidayRecommend
 import team.noweekend.feature.home.component.popular.popularVacationRecommend
 import team.noweekend.feature.home.component.recommend.monthly.monthlyVacationRecommendComponent
 import team.noweekend.feature.home.component.vacation.createVacation
-import team.noweekend.feature.home.model.PopularVacationUiModel
 import team.noweekend.feature.home.mvi.HomeUiState
 
 @Composable
