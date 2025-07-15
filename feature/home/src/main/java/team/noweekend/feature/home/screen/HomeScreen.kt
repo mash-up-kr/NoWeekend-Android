@@ -35,7 +35,8 @@ internal fun HomeScreen(
         homeHeader()
         itemSpacer(32.dp)
         createVacation(
-            temperature = 90,
+            temperature = uiState.averageTemperature,
+            remainingVacation = uiState.remainingAnnualLeave,
             createVacationStatus = uiState.createVacationStatus,
             onCreateVacationClick = onCreateVacationClick,
         )
