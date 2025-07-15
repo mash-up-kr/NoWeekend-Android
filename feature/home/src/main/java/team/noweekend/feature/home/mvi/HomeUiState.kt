@@ -14,7 +14,6 @@ data class HomeUiState(
     val isLoading: Boolean,
     val createVacationStatus: CreateVacationStatus,
     val remainedHolidays: ImmutableList<HolidayUiModel>,
-    val monthlyHolidays: ImmutableList<HolidayUiModel>,
     val weatherRecommendVacations: ImmutableList<MonthlyVacationRecommendUiModel>,
 ) : UiState {
 
@@ -23,7 +22,6 @@ data class HomeUiState(
             isLoading = false,
             createVacationStatus = CreateVacationStatus.Default(6),
             remainedHolidays = persistentListOf(),
-            monthlyHolidays = persistentListOf(),
             weatherRecommendVacations = persistentListOf(),
         )
     }
