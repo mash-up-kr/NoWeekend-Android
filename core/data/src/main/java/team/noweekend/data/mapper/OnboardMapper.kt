@@ -1,6 +1,5 @@
 package team.noweekend.data.mapper
 
-import team.noweekend.core.model.onboard.Onboard
 import team.noweekend.core.model.onboard.OnboardProfileParam
 import team.noweekend.core.model.onboard.OnboardTags
 import team.noweekend.core.model.onboard.OnboardTagsParam
@@ -9,13 +8,6 @@ import team.noweekend.core.remote.model.onboard.OnboardProfileRequest
 import team.noweekend.core.remote.model.onboard.OnboardTagsRequest
 import team.noweekend.core.remote.model.onboard.OnboardTagsResponse
 import team.noweekend.core.remote.model.onboard.OnboardVacationRequest
-import team.noweekend.core.remote.model.schedule.response.OnboardResponse
-
-fun OnboardResponse.toDomainModel(): Onboard {
-    return Onboard(
-        data = data,
-    )
-}
 
 fun OnboardTagsResponse.toDomainModel(): OnboardTags {
     return OnboardTags(tags = tags)
