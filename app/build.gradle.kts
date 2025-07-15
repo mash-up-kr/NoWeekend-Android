@@ -29,6 +29,7 @@ dependencies {
     implementation(project(":feature:login"))
     implementation(project(":feature:onboarding"))
     implementation(project(":feature:create-vacation"))
+    implementation(project(":feature:detail-date"))
 
     implementation(libs.hilt.navigation.compose)
 }

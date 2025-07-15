@@ -35,5 +35,8 @@
             android:name="team.noweekend.feature.onboarding.OnboardActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="team.noweekend.feature.detail.date.DetailDateActivity"
+            android:exported="false" />
     </application>
 </manifest>
