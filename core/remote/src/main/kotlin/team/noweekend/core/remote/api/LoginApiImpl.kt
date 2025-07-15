@@ -4,7 +4,7 @@ import io.ktor.client.HttpClient
 import team.noweekend.core.remote.base.postApiCall
 import team.noweekend.core.remote.model.LoginRequestBody
 import team.noweekend.core.remote.model.LoginResponse
-import team.noweekend.core.remote.qulifier.BasicClient
+import team.noweekend.core.remote.qualifier.BasicClient
 import javax.inject.Inject
 
 internal class LoginApiImpl @Inject constructor(
