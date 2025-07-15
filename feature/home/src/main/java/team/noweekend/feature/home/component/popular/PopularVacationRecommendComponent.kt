@@ -72,10 +72,12 @@ private fun PopularVacationRecommendContent(
     popularVacations: ImmutableList<PopularVacationUiModel>,
     modifier: Modifier = Modifier,
 ) {
+    val height: Dp = if (popularVacations.size > 2) 500.dp else 250.dp
+
     LazyVerticalGrid(
         modifier = modifier
             .fillMaxWidth()
-            .height(500.dp)
+            .height(height)
             .padding(horizontal = 20.dp),
         columns = GridCells.Fixed(2),
         verticalArrangement = Arrangement.spacedBy(16.dp),

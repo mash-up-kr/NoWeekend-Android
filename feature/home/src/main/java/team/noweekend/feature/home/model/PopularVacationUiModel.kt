@@ -9,8 +9,10 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import kotlinx.datetime.LocalDate
 import team.noweekend.core.common.kotlin.extension.MONTH_DATE_WITH_DAY_OF_WEEK_KR_PATTERN
+import team.noweekend.core.common.kotlin.extension.MONTH_DATE_WITH_DAY_OF_WEEK_PATTERN
 import team.noweekend.core.common.kotlin.extension.toFormattedString
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
+import team.noweekend.core.model.vacation.SandwichRecommendVacation
 import team.noweekend.core.model.vacation.VacationType
 import team.noweekend.core.resource.NWKDrawableResource
 import team.noweekend.core.resource.NWKStringResource
@@ -37,9 +39,9 @@ data class PopularVacationUiModel(
 
     private fun formatDisplayDate(startLocalDate: LocalDate, endLocalDate: LocalDate?): String {
         val startDisplayDate: String =
-            startLocalDate.toFormattedString(LocalDate.MONTH_DATE_WITH_DAY_OF_WEEK_KR_PATTERN)
+            startLocalDate.toFormattedString(LocalDate.MONTH_DATE_WITH_DAY_OF_WEEK_PATTERN)
         val endDisplayDate: String? =
-            endLocalDate?.toFormattedString(LocalDate.MONTH_DATE_WITH_DAY_OF_WEEK_KR_PATTERN)
+            endLocalDate?.toFormattedString(LocalDate.MONTH_DATE_WITH_DAY_OF_WEEK_PATTERN)
 
         return if (endDisplayDate.isNullOrEmpty().not()) {
             "$startDisplayDate ~ $endDisplayDate"
@@ -111,3 +113,9 @@ data class PopularVacationUiModel(
         }
     }
 }
+
+internal fun SandwichRecommendVacation.toPopularVacation() = PopularVacationUiModel(
+    vacationType = VacationType.INCLUDE_MONDAY,
+    startLocalDate = LocalDate.parse(this.startDate),
+    endLocalDate = LocalDate.parse(this.endDate),
+)

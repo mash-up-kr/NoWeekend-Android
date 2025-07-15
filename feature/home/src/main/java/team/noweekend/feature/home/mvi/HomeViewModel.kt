@@ -4,13 +4,16 @@ import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toImmutableList
+import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import team.noweekend.core.common.android.base.MVIViewModel
 import team.noweekend.core.domain.usecase.GetHolidayUseCase
+import team.noweekend.core.domain.usecase.GetSandwichRecommendVacationUseCase
 import team.noweekend.core.domain.usecase.GetWeatherRecommendVacationUseCase
 import team.noweekend.core.domain.usecase.UserLocationUseCase
 import team.noweekend.feature.home.model.HolidayUiModel
 import team.noweekend.feature.home.model.MonthlyVacationRecommendUiModel
+import team.noweekend.feature.home.model.toPopularVacation
 import team.noweekend.feature.home.model.toUiModel
 import javax.inject.Inject
 
@@ -20,10 +23,12 @@ class HomeViewModel @Inject constructor(
     private val getHolidayUseCase: GetHolidayUseCase,
     private val getWeatherRecommendVacationUseCase: GetWeatherRecommendVacationUseCase,
     private val userLocationUseCase: UserLocationUseCase,
+    private val getSandwichRecommendVacationUseCase: GetSandwichRecommendVacationUseCase,
 ) : MVIViewModel<HomeIntent, HomeSideEffect, HomeUiState>(
     savedStateHandle = savedStateHandle,
 ) {
     init {
+        getPopularRecommendVacations()
         getRemainedHolidays()
         saveUserLocation()
     }
@@ -50,6 +55,20 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+
+    private fun getPopularRecommendVacations() = execute {
+        val remainedHolidaysDeferred = async { getHolidayUseCase.getRemainedHolidays() }
+        val sandwichRecommendationsDeferred = async { getSandwichRecommendVacationUseCase.invoke() }
+        val userProfileDeferred = async { }
+
+        val remainedRecentHolidays = remainedHolidaysDeferred.await().getOrNull()?.firstOrNull()?.toPopularVacation()
+        val sandwichRecommendations = sandwichRecommendationsDeferred.await().getOrNull()?.toPopularVacation()
+
+        reduce {
+            copy(popularVacations = listOfNotNull(remainedRecentHolidays, sandwichRecommendations).toImmutableList())
+        }
+    }
+
     private fun getRemainedHolidays() = execute {
         getHolidayUseCase.getRemainedHolidays()
             .onSuccess { remoteHolidays ->
@@ -60,6 +79,7 @@ class HomeViewModel @Inject constructor(
                 Log.d("logtag", "$exception")
             }
     }
+
 
     private fun saveUserLocation() = execute {
         userLocationUseCase.saveLocation()

@@ -8,6 +8,7 @@ import team.noweekend.core.resource.NWKDrawableResource
 import team.noweekend.core.resource.NWKStringResource
 import team.noweekend.feature.home.model.HolidayUiModel
 import team.noweekend.feature.home.model.MonthlyVacationRecommendUiModel
+import team.noweekend.feature.home.model.PopularVacationUiModel
 
 @Stable
 data class HomeUiState(
@@ -15,6 +16,7 @@ data class HomeUiState(
     val createVacationStatus: CreateVacationStatus,
     val remainedHolidays: ImmutableList<HolidayUiModel>,
     val weatherRecommendVacations: ImmutableList<MonthlyVacationRecommendUiModel>,
+    val popularVacations: ImmutableList<PopularVacationUiModel>,
 ) : UiState {
 
     companion object {
@@ -23,6 +25,7 @@ data class HomeUiState(
             createVacationStatus = CreateVacationStatus.Default(6),
             remainedHolidays = persistentListOf(),
             weatherRecommendVacations = persistentListOf(),
+            popularVacations = persistentListOf(),
         )
     }
 }
