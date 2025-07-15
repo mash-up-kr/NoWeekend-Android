@@ -52,25 +52,8 @@ internal fun HomeScreen(
         itemSpacer(40.dp)
         monthlyVacationRecommendComponent(
             currentMonthWeek = LocalDate.now(),
-            currentLocation = "서울특별시 용산구 동자동",
-            recommends = persistentListOf(
-                MonthlyVacationRecommendUiModel(
-                    localDate = LocalDate.now(),
-                    recommendContent = "오후에 비 와요, 연차 어때요?",
-                ),
-                MonthlyVacationRecommendUiModel(
-                    localDate = LocalDate.now(),
-                    recommendContent = "오전 눈 예보, 반차 추천!",
-                ),
-                MonthlyVacationRecommendUiModel(
-                    localDate = LocalDate.now(),
-                    recommendContent = "오후에 비 와요, 연차 어때요?",
-                ),
-                MonthlyVacationRecommendUiModel(
-                    localDate = LocalDate.now(),
-                    recommendContent = "오전 눈 예보, 반차 추천!",
-                ),
-            ),
+            currentLocation = "서울특별시 중구 소공동 세종대로18길 2",
+            recommends = uiState.weatherRecommendVacations,
         )
         itemSpacer(40.dp)
         item {

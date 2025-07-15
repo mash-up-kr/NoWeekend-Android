@@ -12,6 +12,7 @@ import team.noweekend.core.domain.usecase.GetHolidayUseCase
 import team.noweekend.core.domain.usecase.GetWeatherRecommendVacationUseCase
 import team.noweekend.core.domain.usecase.UserLocationUseCase
 import team.noweekend.feature.home.model.HolidayUiModel
+import team.noweekend.feature.home.model.MonthlyVacationRecommendUiModel
 import team.noweekend.feature.home.model.toUiModel
 import javax.inject.Inject
 
@@ -66,7 +67,6 @@ class HomeViewModel @Inject constructor(
     private fun getRemainedHolidays() = execute {
         getHolidayUseCase.getRemainedHolidays()
             .onSuccess { remoteHolidays ->
-                Log.d("logtag", "$remoteHolidays")
                 val holidays: List<HolidayUiModel> = remoteHolidays.map { it.toUiModel() }
                 reduce { copy(remainedHolidays = holidays.toImmutableList()) }
             }
@@ -78,7 +78,6 @@ class HomeViewModel @Inject constructor(
     private fun saveUserLocation() = execute {
         userLocationUseCase.saveLocation()
             .onSuccess {
-                Log.d("logtag", "AA")
                 getWeatherRecommendVacation()
             }
             .onFailure { exception ->
@@ -88,8 +87,11 @@ class HomeViewModel @Inject constructor(
 
     private fun getWeatherRecommendVacation() = execute {
         getWeatherRecommendVacationUseCase()
-            .onSuccess {
-                Log.d("logtag", "$it")
+            .onSuccess { remoteVacations ->
+                val weatherRecommendVacations: List<MonthlyVacationRecommendUiModel> = remoteVacations
+                    .map { it.toUiModel() }
+
+                reduce { copy(weatherRecommendVacations = weatherRecommendVacations.toImmutableList()) }
             }
             .onFailure { exception ->
                 Log.d("logtag", "$exception")
