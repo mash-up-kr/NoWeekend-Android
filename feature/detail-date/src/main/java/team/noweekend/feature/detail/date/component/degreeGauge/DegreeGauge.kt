@@ -34,7 +34,6 @@ internal fun DegreeGauge(
     }
 }
 
-
 @Preview(showBackground = true)
 @Composable
 private fun PreviewDegreeGauge(
@@ -42,7 +41,7 @@ private fun PreviewDegreeGauge(
 ) {
     NWKTheme {
         DegreeGauge(
-            modifier= Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth(),
             degree = param.first,
             isAnnualLeave = param.second,
         )

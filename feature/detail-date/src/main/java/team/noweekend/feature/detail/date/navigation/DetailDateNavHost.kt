@@ -16,7 +16,6 @@ fun DetailDateNavHost(
     onClickBackButton: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-
     val navController = rememberNavController()
     NWKScaffold(
         modifier = modifier,
@@ -30,11 +29,10 @@ fun DetailDateNavHost(
         ) {
             composable<DetailDate> {
                 DetailDateRoute(
-                    modifier= Modifier.fillMaxSize(),
+                    modifier = Modifier.fillMaxSize(),
                     onClickBackButton = onClickBackButton,
                 )
             }
         }
     }
-
 }

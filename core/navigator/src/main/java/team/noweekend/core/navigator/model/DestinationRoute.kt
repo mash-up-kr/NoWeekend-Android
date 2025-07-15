@@ -1,7 +1,6 @@
 package team.noweekend.core.navigator.model
 
 import kotlinx.serialization.Serializable
-import team.noweekend.core.navigator.feature.DetailDateNavigator
 
 /**
  * 각 feature의 NavHost에서 전환 가능한 Composable의 Destination

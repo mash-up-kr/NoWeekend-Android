@@ -8,13 +8,12 @@ import team.noweekend.core.navigator.feature.DetailDateNavigator
 import team.noweekend.feature.detail.date.DetailDateActivity
 import javax.inject.Inject
 
-class DetailDateNavigatorImpl @Inject constructor() : DetailDateNavigator{
-
+class DetailDateNavigatorImpl @Inject constructor() : DetailDateNavigator {
 
     override fun navigateWithLauncher(
         activity: ComponentActivity,
         intentBuilder: (Intent.() -> Intent)?,
-        launcher: ActivityResultLauncher<Intent>?
+        launcher: ActivityResultLauncher<Intent>?,
     ) {
         if (launcher == null) {
             activity.startActivity(activity.getIntent<DetailDateActivity>(intentBuilder ?: { this }))

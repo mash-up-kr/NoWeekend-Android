@@ -12,7 +12,7 @@ import javax.inject.Inject
 class HomeNavigationDelegate @Inject constructor(
     @ActivityContext private val context: Context,
     private val createVacationNavigator: CreateVacationNavigator,
-    private val detailDateNavigator: DetailDateNavigator
+    private val detailDateNavigator: DetailDateNavigator,
 ) {
     fun navigateToCreateVacation(
         activity: ComponentActivity = context as ComponentActivity,
@@ -30,11 +30,11 @@ class HomeNavigationDelegate @Inject constructor(
         activity: ComponentActivity = context as ComponentActivity,
         intentBuilder: (Intent.() -> Intent)? = null,
         launcher: ActivityResultLauncher<Intent>?,
-    ){
+    ) {
         detailDateNavigator.navigateWithLauncher(
             activity = activity,
             intentBuilder = intentBuilder,
-            launcher = launcher
+            launcher = launcher,
         )
     }
 }

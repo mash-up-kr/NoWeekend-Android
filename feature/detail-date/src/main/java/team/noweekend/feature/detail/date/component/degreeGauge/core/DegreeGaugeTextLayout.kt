@@ -43,7 +43,6 @@ internal fun DegreeGaugeTextLayout(
         },
     ) { measurables: List<Measurable>, constraints: Constraints ->
 
-
         /**
          * textConstraints를 사용하지 않고, constraints 람다를 사용하면,
          * 텍스트의 크기가 화면 사이즈가 같아짐.
@@ -52,12 +51,11 @@ internal fun DegreeGaugeTextLayout(
             minWidth = 0,
             maxWidth = Constraints.Infinity,
             minHeight = 0,
-            maxHeight = constraints.maxHeight
+            maxHeight = constraints.maxHeight,
         )
 
         val placeables: List<Placeable> =
             measurables.map { measurable: Measurable -> measurable.measure(textConstraints) }
-
 
         val zeroText = placeables[0]
         val twentyFiveText = placeables[1]
@@ -67,7 +65,6 @@ internal fun DegreeGaugeTextLayout(
         val layoutWidth = constraints.maxWidth
         val layoutHeight = placeables.maxOf { it.height }
 
-
         layout(layoutWidth, layoutHeight) {
             zeroText.placeRelative(x = 0, y = 0)
             twentyFiveText.placeRelative(x = layoutWidth / 3 - twentyFiveText.width / 2, y = 0)
@@ -76,7 +73,6 @@ internal fun DegreeGaugeTextLayout(
         }
     }
 }
-
 
 @Preview(showBackground = true)
 @Composable

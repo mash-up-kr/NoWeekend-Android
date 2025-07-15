@@ -33,7 +33,7 @@ fun DetailDateHeader(
             resourceId = ChevronLeft,
         )
         Text(
-            modifier= Modifier.weight(1f),
+            modifier = Modifier.weight(1f),
             text = dateTitle,
             style = NWKTheme.typography.heading6,
             color = NWKTheme.color.Semantic.Text.neutral,

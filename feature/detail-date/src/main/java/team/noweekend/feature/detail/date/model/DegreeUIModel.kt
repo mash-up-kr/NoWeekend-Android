@@ -48,4 +48,3 @@ data class DegreeUIModel(
         }
     }
 }
-

@@ -8,7 +8,6 @@ import team.noweekend.core.domain.usecase.CalendarDataProviderUseCase
 import team.noweekend.feature.detail.date.model.DegreeUIModel
 import javax.inject.Inject
 
-
 @HiltViewModel
 class DetailDateViewModel @Inject constructor(
     private val calendarDateProviderUseCase: CalendarDataProviderUseCase,
@@ -33,7 +32,5 @@ class DetailDateViewModel @Inject constructor(
     }
 
     override suspend fun handleIntent(intent: DetailDateIntent) {
-
     }
-
 }

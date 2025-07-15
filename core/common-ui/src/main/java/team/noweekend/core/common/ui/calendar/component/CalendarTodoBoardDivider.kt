@@ -19,9 +19,8 @@ import team.noweekend.core.design.system.foundation.theme.NWKTheme
 @Composable
 fun CalendarTodoBoardDivider(
     state: LazyListState,
-    modifier: Modifier= Modifier
-){
-
+    modifier: Modifier = Modifier,
+) {
     val isCanScrollBackward = remember { derivedStateOf { state.canScrollBackward } }
 
     // 색상 애니메이션 정의

@@ -19,10 +19,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
-import team.noweekend.feature.detail.date.model.DegreeUIModel
-import team.noweekend.feature.detail.date.preview.PreviewDegreeCardParameterProvider
 import team.noweekend.core.design.system.core.component.image.NWKImage
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
+import team.noweekend.feature.detail.date.model.DegreeUIModel
+import team.noweekend.feature.detail.date.preview.PreviewDegreeCardParameterProvider
 
 @Composable
 fun DegreeCard(
@@ -57,7 +57,6 @@ fun DegreeCard(
         }
     }
 }
-
 
 @Composable
 private fun DegreeTextComponent(
@@ -108,7 +107,6 @@ private fun DegreeTextComponent(
         }
     }
 }
-
 
 @Preview
 @Composable

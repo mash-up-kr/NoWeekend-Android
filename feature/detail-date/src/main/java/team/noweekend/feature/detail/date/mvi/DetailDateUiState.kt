@@ -10,5 +10,5 @@ import team.noweekend.feature.detail.date.model.DegreeUIModel
 data class DetailDateUiState(
     val dateTitle: String,
     val todoList: ImmutableList<Todo>,
-    val degreeUiModel: DegreeUIModel
+    val degreeUiModel: DegreeUIModel,
 ) : UiState

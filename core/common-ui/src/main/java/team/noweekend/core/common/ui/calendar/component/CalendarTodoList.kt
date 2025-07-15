@@ -26,7 +26,6 @@ fun CalendarTodoList(
 ) {
     val state = rememberLazyListState()
 
-
     LazyColumn(modifier = modifier, state = state) {
         stickyHeader {
             CalendarTodoBoardDivider(state = state, modifier = Modifier.fillMaxWidthOfScreen())

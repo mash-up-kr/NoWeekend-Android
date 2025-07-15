@@ -13,5 +13,5 @@ abstract class DetailDateNavigatorModule {
 
     @Binds
     @ActivityScoped
-    abstract fun bindDetailDateNavigator(detailDateNavigatorImpl: DetailDateNavigatorImpl) : DetailDateNavigator
+    abstract fun bindDetailDateNavigator(detailDateNavigatorImpl: DetailDateNavigatorImpl): DetailDateNavigator
 }

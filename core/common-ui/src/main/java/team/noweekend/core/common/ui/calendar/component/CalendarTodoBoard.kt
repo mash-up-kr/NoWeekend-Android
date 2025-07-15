@@ -37,7 +37,6 @@ fun TodoCalendarBoard(
     }
 }
 
-
 @Composable
 private fun finishedBoard(
     todoList: ImmutableList<Todo>,
@@ -45,7 +44,6 @@ private fun finishedBoard(
     val isDoneCount = todoList.count { it.isDone }
     val totalCount = todoList.size
     return buildAnnotatedString {
-
         append("할 일 $isDoneCount")
         withStyle(
             style = SpanStyle(
@@ -64,7 +62,6 @@ private fun finishedBoard(
         append("개")
     }
 }
-
 
 @Preview
 @Composable

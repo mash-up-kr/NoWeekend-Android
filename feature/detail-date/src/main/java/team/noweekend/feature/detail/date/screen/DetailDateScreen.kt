@@ -43,9 +43,7 @@ fun DetailDateScreen(
             )
         }
     }
-
 }
-
 
 @Preview
 @Composable
@@ -59,7 +57,7 @@ private fun PreviewDateDetailScreen() {
                     degree = 50,
                     isAnnualLeave = true,
                 ),
-                todoList = persistentListOf()
+                todoList = persistentListOf(),
             ),
             onClickBackButton = {},
             onClickOptionButton = {},
