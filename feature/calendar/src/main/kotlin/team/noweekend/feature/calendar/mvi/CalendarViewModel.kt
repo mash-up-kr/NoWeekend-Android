@@ -2,17 +2,23 @@ package team.noweekend.feature.calendar.mvi
 
 import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.collections.immutable.toImmutableMap
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.combine
 import kotlinx.datetime.LocalDate
 import team.noweekend.core.common.android.base.MVIViewModel
-import team.noweekend.core.common.kotlin.extension.now
 import team.noweekend.core.common.ui.calendar.model.CalendarDateOfWeek
 import team.noweekend.core.common.ui.calendar.model.CalendarMode
-import team.noweekend.core.common.ui.calendar.model.CalendarWeeksData
+import team.noweekend.core.common.ui.calendar.model.CalendarState
 import team.noweekend.core.domain.usecase.CalendarDataProviderUseCase
+import team.noweekend.core.model.schedule.Schedule
+import team.noweekend.feature.calendar.model.CalendarDateOfWeekWithTodoList
+import team.noweekend.feature.calendar.model.CalendarWeeksDataWithTodoList
+import team.noweekend.feature.calendar.model.CalendarWeeksDataWithTodoList.Companion.toCalendarWeeksData
 import team.noweekend.feature.calendar.model.mapper.toImageTypeWithId
+import team.noweekend.feature.calendar.model.mapper.toTodo
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,9 +28,7 @@ class CalendarViewModel @Inject constructor(
 ) : MVIViewModel<CalendarIntent, CalendarSideEffect, CalendarUiState>(savedStateHandle = savedStateHandle) {
 
     override fun createInitialState(savedStateHandle: SavedStateHandle): CalendarUiState {
-        return CalendarUiState.default.copy(
-            selectedDate = LocalDate.now(),
-        )
+        return CalendarUiState.Init
     }
 
     override fun handleClientException(throwable: Throwable) {
@@ -33,6 +37,7 @@ class CalendarViewModel @Inject constructor(
 
     override suspend fun handleIntent(intent: CalendarIntent) {
         when (intent) {
+            is CalendarIntent.UpdateTodoList -> updateTodoList(targetDate = intent.targetDate)
             is CalendarIntent.CollectCalendarEvent -> collectCalendarEvent()
             is CalendarIntent.UpdateCalendarDataAndChooser -> updateChooserAndSendUpdateCalenderSideEffect(
                 page = intent.page,
@@ -45,6 +50,7 @@ class CalendarViewModel @Inject constructor(
                 calendarMode = intent.calendarMode,
                 page = intent.page,
             )
+
             is CalendarIntent.UpdateNextWeeksData -> updateNextWeeksData(currentPage = intent.page)
             is CalendarIntent.UpdatePreviousWeeksData -> updatePreviousWeeksData(currentPage = intent.page)
             is CalendarIntent.UpdateNextMonthsData -> updateNextMonthsData(currentPage = intent.page)
@@ -55,12 +61,13 @@ class CalendarViewModel @Inject constructor(
         }
     }
 
-    private fun initCalendar(initPage: Int) = execute {
-        when(currentState.calendarMode){
-            CalendarMode.WEEK->{
+    private suspend fun initCalendar(initPage: Int) {
+        when (currentState.calendarMode) {
+            CalendarMode.WEEK -> {
                 initWeekCalendar(initPage)
             }
-            CalendarMode.MONTH->{
+
+            CalendarMode.MONTH -> {
                 initMonthCalendar(initPage)
             }
         }
@@ -69,29 +76,39 @@ class CalendarViewModel @Inject constructor(
 
     private suspend fun initWeekCalendar(initPage: Int) {
         calendarDataProviderUseCase.initWeekCalendar(initPage = initPage)
+        updateCalendarState(
+            initFirstTodoList = true
+        )
         postSideEffect(sideEffect = CalendarSideEffect.CollectWeekPagerStatePage)
 
     }
 
-    private suspend fun initMonthCalendar(initPage: Int)  {
+    private suspend fun initMonthCalendar(initPage: Int) {
         calendarDataProviderUseCase.initMonthCalendar(page = initPage, currentState.chooserMonth)
+        updateCalendarState(
+            initFirstTodoList = true
+        )
         postSideEffect(sideEffect = CalendarSideEffect.CollectMonthPagerStatePage)
     }
 
-    private fun updateNextWeeksData(currentPage: Int) = execute {
+    private suspend fun updateNextWeeksData(currentPage: Int) = coroutineScope {
         calendarDataProviderUseCase.updateNextWeeksData(currentPage = currentPage)
+        updateCalendarState()
     }
 
-    private fun updatePreviousWeeksData(currentPage: Int) = execute {
+    private suspend fun updatePreviousWeeksData(currentPage: Int) = coroutineScope {
         calendarDataProviderUseCase.updatePreviousWeeksData(currentPage = currentPage)
+        updateCalendarState()
     }
 
-    private fun updateNextMonthsData(currentPage: Int) = execute {
+    private suspend fun updateNextMonthsData(currentPage: Int) = coroutineScope {
         calendarDataProviderUseCase.updateNextMonthData(currentPage = currentPage)
+        updateCalendarState()
     }
 
-    private fun updatePreviousMonthsData(currentPage: Int) = execute {
+    private suspend fun updatePreviousMonthsData(currentPage: Int) = coroutineScope {
         calendarDataProviderUseCase.updatePreviousMonthData(currentPage = currentPage)
+        updateCalendarState()
     }
 
     private fun updateChooserMonth(
@@ -132,19 +149,40 @@ class CalendarViewModel @Inject constructor(
         }
     }
 
-    private fun updateTargetDate(calendarDateOfWeek: CalendarDateOfWeek) = execute {
-        val imageType = team.noweekend.core.model.calendar.ImageType.valueOf(
-            calendarDateOfWeek.calendarImageType.name,
-        )
-        val dateOfWeekModel = team.noweekend.core.model.calendar.DateOfWeek(
-            imageType = imageType,
-            localDate = calendarDateOfWeek.localDate,
-            isCurrentDate = calendarDateOfWeek.isCurrentDate,
-        )
-        calendarDataProviderUseCase.updateTargetDate(dateOfWeek = dateOfWeekModel)
+    private fun updateTodoList(targetDate: LocalDate) {
+        val calendarData = when (currentState.calendarState) {
+            is CalendarState.Week -> currentState.calendarWeeksData
+            is CalendarState.Month -> currentState.calendarMonthsData
+        }.map { it.value.calendarDateOfWeeksWithTodoList.flatten() }.flatten().find {
+            it.calendarDateOfWeek.localDate == targetDate
+        }?.todoList ?: persistentListOf()
+
+
         reduce {
             this.copy(
-                selectedDate = calendarDateOfWeek.localDate,
+                selectedTodoList = calendarData
+            )
+        }
+    }
+
+    private fun updateTargetDate(calendarDateOfWeek: CalendarDateOfWeek) {
+        val targetDate = calendarDateOfWeek.localDate
+        calendarDataProviderUseCase.updateTargetDate(localDate = targetDate)
+
+
+        val calendarState = when (currentState.calendarState) {
+            is CalendarState.Week -> (currentState.calendarState as CalendarState.Week).copy(
+                selectedDate = targetDate
+            )
+
+            is CalendarState.Month -> (currentState.calendarState as CalendarState.Month).copy(
+                selectedDate = targetDate
+            )
+        }
+
+        reduce {
+            this.copy(
+                calendarState = calendarState,
             )
         }
     }
@@ -158,15 +196,20 @@ class CalendarViewModel @Inject constructor(
             reduce {
                 this.copy(
                     calendarWeeksData = weekData.toList().associate { (key, value) ->
-                        key to CalendarWeeksData(
+                        key to CalendarWeeksDataWithTodoList(
                             year = value.year,
                             month = value.month,
-                            calendarDateOfWeeks = value.dateOfWeeks.map { dateOfWeekList ->
+                            calendarDateOfWeeksWithTodoList = value.dateOfWeeks.map { dateOfWeekList ->
                                 val calendarDateOfWeek = dateOfWeekList.map { dateOfWeek ->
-                                    CalendarDateOfWeek(
-                                        calendarImageType = dateOfWeek.imageType.toImageTypeWithId(),
-                                        localDate = dateOfWeek.localDate,
-                                        isCurrentDate = dateOfWeek.isCurrentDate,
+                                    CalendarDateOfWeekWithTodoList(
+                                        calendarDateOfWeek = CalendarDateOfWeek(
+                                            calendarImageType = dateOfWeek.imageType.toImageTypeWithId(),
+                                            localDate = dateOfWeek.localDate,
+                                            isCurrentDate = dateOfWeek.isCurrentDate,
+                                        ),
+                                        todoList = dateOfWeek.scheduleList.map { schedule ->
+                                            schedule.toTodo()
+                                        }.toImmutableList()
                                     )
                                 }.toImmutableList()
                                 calendarDateOfWeek
@@ -174,16 +217,22 @@ class CalendarViewModel @Inject constructor(
                         )
                     }.toImmutableMap(),
                     calendarMonthsData = monthData.toList().associate { (key, value) ->
-                        key to CalendarWeeksData(
+                        key to CalendarWeeksDataWithTodoList(
                             year = value.year,
                             month = value.month,
-                            calendarDateOfWeeks = value.dateOfWeeks.map { dateOfWeekList ->
+                            calendarDateOfWeeksWithTodoList = value.dateOfWeeks.map { dateOfWeekList ->
                                 val calendarDateOfWeek = dateOfWeekList.map { dateOfWeek ->
-                                    CalendarDateOfWeek(
-                                        calendarImageType = dateOfWeek.imageType.toImageTypeWithId(),
-                                        localDate = dateOfWeek.localDate,
-                                        isCurrentDate = dateOfWeek.isCurrentDate,
+                                    CalendarDateOfWeekWithTodoList(
+                                        calendarDateOfWeek = CalendarDateOfWeek(
+                                            calendarImageType = dateOfWeek.imageType.toImageTypeWithId(),
+                                            localDate = dateOfWeek.localDate,
+                                            isCurrentDate = dateOfWeek.isCurrentDate,
+                                        ),
+                                        todoList = dateOfWeek.scheduleList.map { schedule: Schedule ->
+                                            schedule.toTodo()
+                                        }.toImmutableList()
                                     )
+
                                 }.toImmutableList()
                                 calendarDateOfWeek
                             }.toImmutableList(),
@@ -194,7 +243,7 @@ class CalendarViewModel @Inject constructor(
         }
     }
 
-    private fun collectCalendarEvent() = execute {
+    private suspend fun collectCalendarEvent() {
         calendarDataProviderUseCase.calendarDataProviderEventFlow.collect { eventFlow ->
             when (eventFlow) {
                 CalendarDataProviderUseCase.CalendarDataProviderEvent.CompleteInitMonthCalendar -> {
@@ -208,23 +257,78 @@ class CalendarViewModel @Inject constructor(
         }
     }
 
-    private fun updateCalendarMode() = execute {
+    private fun updateCalendarState(
+        calendarMode: CalendarMode = currentState.calendarMode,
+        initFirstTodoList: Boolean = false,
+    ) {
+
+        val selectedTodoList = (if (initFirstTodoList) {
+            when (calendarMode) {
+                CalendarMode.MONTH -> {
+                    currentState.calendarMonthsData.map { it.value.calendarDateOfWeeksWithTodoList.flatten() }
+                        .flatten().find {
+                            it.calendarDateOfWeek.localDate == calendarDataProviderUseCase.targetDate.value
+                        }?.todoList
+                }
+
+                CalendarMode.WEEK -> {
+                    currentState.calendarWeeksData.map { it.value.calendarDateOfWeeksWithTodoList.flatten() }
+                        .flatten().find {
+                            it.calendarDateOfWeek.localDate == calendarDataProviderUseCase.targetDate.value
+                        }?.todoList
+                }
+            }
+        } else currentState.selectedTodoList) ?: currentState.selectedTodoList
+
+
+
         reduce {
             this.copy(
-                calendarMode = if (this.calendarMode == CalendarMode.MONTH) CalendarMode.WEEK else CalendarMode.MONTH,
+                selectedTodoList = selectedTodoList,
+                calendarState = when (calendarMode) {
+                    CalendarMode.WEEK -> CalendarState.Week(
+                        mode = calendarMode,
+                        selectedDate = calendarDataProviderUseCase.targetDate.value,
+                        pagerState = this.calendarPagerState.weekPagerState,
+                        pagerData = this.calendarWeeksData.toList()
+                            .associate { (key, value) ->
+                                key to value.toCalendarWeeksData()
+                            }.toImmutableMap(),
+                    )
+
+                    CalendarMode.MONTH -> CalendarState.Month(
+                        mode = calendarMode,
+                        selectedDate = this.calendarState.selectedDate,
+                        pagerState = this.calendarPagerState.monthPagerState,
+                        pagerData = this.calendarMonthsData.toList()
+                            .associate { (key, value) ->
+                                key to value.toCalendarWeeksData()
+                            }.toImmutableMap(),
+                    )
+                }
             )
         }
     }
 
-    private fun updateCalendarMode(isMonth: Boolean) = execute {
+    private fun updateCalendarMode() {
+        updateCalendarMode(isMonth = currentState.calendarMode == CalendarMode.WEEK)
+    }
+
+    private fun updateCalendarMode(isMonth: Boolean) {
+
+        val updatedCalendarMode = if (isMonth) CalendarMode.MONTH else CalendarMode.WEEK
+
         reduce {
             this.copy(
-                calendarMode = if (isMonth) CalendarMode.MONTH else CalendarMode.WEEK,
+                calendarMode = updatedCalendarMode,
             )
         }
     }
 
-    private fun updateChooserAndSendUpdateCalenderSideEffect(page: Int, calendarMode: CalendarMode) = execute {
+    private suspend fun updateChooserAndSendUpdateCalenderSideEffect(
+        page: Int,
+        calendarMode: CalendarMode
+    ) {
         intent(
             CalendarIntent.UpdateChooserMonth(
                 page = page,
@@ -234,11 +338,11 @@ class CalendarViewModel @Inject constructor(
 
         when (calendarMode) {
             CalendarMode.WEEK -> {
-                postSideEffect(sideEffect = CalendarSideEffect.UpdateWeekCalendar(currentPage = page))
+                postSideEffect(sideEffect = CalendarSideEffect.UpdateWeekCalendarPage(currentPage = page))
             }
 
             CalendarMode.MONTH -> {
-                postSideEffect(sideEffect = CalendarSideEffect.UpdateMonthCalendar(currentPage = page))
+                postSideEffect(sideEffect = CalendarSideEffect.UpdateMonthCalendarPage(currentPage = page))
             }
         }
     }
