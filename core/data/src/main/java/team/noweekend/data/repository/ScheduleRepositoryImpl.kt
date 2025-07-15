@@ -3,7 +3,7 @@ package team.noweekend.data.repository
 import team.noweekend.core.domain.repository.ScheduleRepository
 import team.noweekend.core.model.schedule.DateWithSchedules
 import team.noweekend.core.remote.api.schedule.ScheduleApi
-import team.noweekend.data.model.toDomain
+import team.noweekend.data.mapper.toDomain
 import javax.inject.Inject
 
 class ScheduleRepositoryImpl @Inject constructor(

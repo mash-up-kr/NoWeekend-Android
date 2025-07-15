@@ -153,4 +153,11 @@ object NWKStringResource {
 
     val LoginTitle: Int = R.string.login_title
     val GoogleLoginLabel: Int = R.string.google_login_label
+
+    val AddTaskAllDay: Int = R.string.add_task_all_day
+    val AddTaskStartLabel: Int = R.string.add_task_start_label
+    val AddTaskEndLabel: Int = R.string.add_task_end_label
+    val PassionTemperature: Int = R.string.passion_temperature
+    val PassionTemperatureDescription: Int = R.string.passion_temperature_description
+    val PassionTemperatureLabel: Int = R.string.passion_temperature_label
 }

@@ -15,14 +15,16 @@
         android:theme="@style/Theme.NoWeekend">
 
         <activity
-            android:name="team.noweekend.feature.main.MainActivity"
+            android:name="team.noweekend.feature.splash.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity
+            android:name="team.noweekend.feature.main.MainActivity"
+            android:exported="false" />
         <activity
             android:name="team.noweekend.feature.login.LoginActivity"
             android:exported="false" />

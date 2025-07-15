@@ -1,17 +1,30 @@
 package team.noweekend.feature.home.mvi
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.delay
+import kotlinx.datetime.LocalDate
 import team.noweekend.core.common.android.base.MVIViewModel
+import team.noweekend.core.common.kotlin.extension.now
+import team.noweekend.core.domain.usecase.GetHolidayUseCase
+import team.noweekend.feature.home.model.HolidayUiModel
+import team.noweekend.feature.home.model.toUiModel
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
+    private val getHolidayUseCase: GetHolidayUseCase,
 ) : MVIViewModel<HomeIntent, HomeSideEffect, HomeUiState>(
     savedStateHandle = savedStateHandle,
 ) {
+    init {
+        getRemainedHolidays()
+        getHolidays()
+    }
+
     override fun createInitialState(savedStateHandle: SavedStateHandle): HomeUiState {
         return HomeUiState.INITIAL_STATE
     }
@@ -32,6 +45,29 @@ class HomeViewModel @Inject constructor(
 
             else -> {}
         }
+    }
+
+    private fun getHolidays(requestDate: LocalDate = LocalDate.now()) = execute {
+        getHolidayUseCase.getMonthlyHolidays(requestDate)
+            .onSuccess { remoteHolidays ->
+                val holidays: List<HolidayUiModel> = remoteHolidays.map { it.toUiModel() }
+                reduce { copy(monthlyHolidays = holidays.toImmutableList()) }
+            }
+            .onFailure { exception ->
+                Log.d("logtag", "$exception")
+            }
+    }
+
+    private fun getRemainedHolidays() = execute {
+        getHolidayUseCase.getRemainedHolidays()
+            .onSuccess { remoteHolidays ->
+                Log.d("logtag", "$remoteHolidays")
+                val holidays: List<HolidayUiModel> = remoteHolidays.map { it.toUiModel() }
+                reduce { copy(remainedHolidays = holidays.toImmutableList()) }
+            }
+            .onFailure { exception ->
+                Log.d("logtag", "$exception")
+            }
     }
 
     private fun navigateToCreateVacation() = execute {

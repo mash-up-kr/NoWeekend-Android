@@ -1,4 +1,4 @@
-package team.noweekend.feature.addtask.model
+package team.noweekend.feature.addtask.input.model
 
 enum class AddTaskType(val tag: String) {
     COMPANY(tag = "회사"),

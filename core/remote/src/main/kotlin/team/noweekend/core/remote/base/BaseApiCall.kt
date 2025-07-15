@@ -11,7 +11,7 @@ import io.ktor.client.request.setBody
 
 internal suspend inline fun <reified T> HttpClient.getApiCall(
     path: String,
-    queries: Map<String, String>? = null,
+    queries: Map<String, Any>? = null,
 ): T =
     callApi<T> {
         this

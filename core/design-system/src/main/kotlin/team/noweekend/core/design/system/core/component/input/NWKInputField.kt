@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.input.InputTransformation
 import androidx.compose.foundation.text.input.TextFieldLineLimits
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.rememberTextFieldState
@@ -27,6 +28,7 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import team.noweekend.core.design.system.core.component.input.atomics.NWKTextFieldLabel
 import team.noweekend.core.design.system.core.component.input.atomics.TrailingContent
@@ -36,10 +38,13 @@ import team.noweekend.core.design.system.foundation.theme.NWKTheme
 
 @Composable
 fun NWKInputField(
-    placeholder: String,
     textFieldState: TextFieldState,
     onKeyboardAction: () -> Unit,
     modifier: Modifier = Modifier,
+    placeholder: String = "",
+    isUnderLine: Boolean = true,
+    underLinePadding: Dp = 8.dp,
+    inputTransformation: InputTransformation? = null,
     errorText: String = "",
     label: String? = null,
     inputFieldStatus: InputFieldStatus = InputFieldStatus.DEFAULT,
@@ -64,14 +69,24 @@ fun NWKInputField(
             modifier = Modifier
                 .fillMaxWidth()
                 .focusRequester(focusRequester)
+                .then(
+                    if (isUnderLine) {
+                        Modifier.padding(bottom = underLinePadding)
+                    } else {
+                        Modifier
+                    },
+                )
                 .drawBehind {
-                    drawLine(
-                        color = lineColor,
-                        start = Offset(0f, size.height - 1f),
-                        end = Offset(size.width, size.height - 1f),
-                        strokeWidth = 1f,
-                    )
-                },
+                    if (isUnderLine) {
+                        drawLine(
+                            color = lineColor,
+                            start = Offset(0f, size.height - 1f),
+                            end = Offset(size.width, size.height - 1f),
+                            strokeWidth = 1.dp.toPx(),
+                        )
+                    }
+                }
+                .padding(bottom = underLinePadding),
             state = textFieldState,
             lineLimits = if (isSingLine) TextFieldLineLimits.SingleLine else TextFieldLineLimits.Default,
             textStyle = NWKTheme.typography.body1.copy(
@@ -81,15 +96,14 @@ fun NWKInputField(
                 imeAction = keyboardImeAction,
                 keyboardType = textInputType.keyboardType,
             ),
+            inputTransformation = inputTransformation,
             onKeyboardAction = { onKeyboardAction() },
             cursorBrush = SolidColor(NWKTheme.color.Neutral.black),
             decorator = { innerTextField ->
                 Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 8.dp),
+                    modifier = Modifier.fillMaxWidth(),
                 ) {
-                    if (textFieldState.text.isEmpty()) {
+                    if (textFieldState.text.isEmpty() && placeholder.isNotEmpty()) {
                         Text(
                             modifier = Modifier.align(Alignment.CenterStart),
                             text = placeholder,

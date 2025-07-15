@@ -1,7 +1,6 @@
 package team.noweekend.feature.login.mvi
 
 import android.content.Context
-import android.util.Log
 import androidx.credentials.exceptions.GetCredentialCancellationException
 import androidx.credentials.exceptions.NoCredentialException
 import androidx.lifecycle.SavedStateHandle
@@ -11,13 +10,18 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import team.noweekend.core.common.android.base.MVIViewModel
+import team.noweekend.core.domain.usecase.LoginUseCase
+import team.noweekend.core.domain.usecase.SaveAccessTokenUseCase
 import team.noweekend.feature.login.manager.GoogleAuthManager
+import team.noweekend.feature.login.model.UserLoginInfo
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val googleAuthManager: GoogleAuthManager,
+    private val loginUseCase: LoginUseCase,
+    private val saveAccessTokenUseCase: SaveAccessTokenUseCase,
 ) : MVIViewModel<LoginIntent, LoginSideEffect, LoginUiState>(savedStateHandle) {
 
     override fun createInitialState(savedStateHandle: SavedStateHandle): LoginUiState {
@@ -39,9 +43,7 @@ class LoginViewModel @Inject constructor(
             }
 
             is LoginIntent.ClickGoogleAuthLogin -> {
-                Log.d("LoginViewModel", "auth code : ${intent.authCode}")
-                postSideEffect(LoginSideEffect.ShowGoogleLoginSuccessToast)
-                // TODO : 서버로 auth code 전달하는 로직 구현
+                requestLogin(userName = uiState.value.userName, authCode = intent.authCode ?: "")
             }
         }
     }
@@ -52,18 +54,25 @@ class LoginViewModel @Inject constructor(
                 .catch { exception ->
                     handleGoogleLoginException(exception)
                 }
-                .collectLatest { authResult ->
+                .collectLatest {
+                    val (userName, authResult) = it.first to it.second
+                    fetchUserName(userName = userName)
                     if (authResult.hasResolution()) {
                         authResult.pendingIntent?.intentSender?.let { intentSender ->
                             postSideEffect(LoginSideEffect.NavigateToGoogleAuth(intentSender))
                         }
                     } else {
-                        // TODO : authCode 서버로 보내는 api 연결
-                        Log.d("LoginViewModel", "Auth Code: ${authResult.serverAuthCode}")
-                        postSideEffect(LoginSideEffect.ShowGoogleLoginSuccessToast)
-                        postSideEffect(LoginSideEffect.NavigateToOnboarding)
+                        requestLogin(userName = userName, authCode = authResult.serverAuthCode ?: "")
                     }
                 }
+        }
+    }
+
+    private fun fetchUserName(userName: String) {
+        reduce {
+            copy(
+                userName = userName,
+            )
         }
     }
 
@@ -81,6 +90,27 @@ class LoginViewModel @Inject constructor(
             else -> {
                 postSideEffect(LoginSideEffect.ShowGoogleLoginErrorToast)
             }
+        }
+    }
+
+    private fun requestLogin(userName: String, authCode: String) {
+        val requestModel = UserLoginInfo(userName, authCode).toLoginRequest()
+        execute {
+            loginUseCase(requestModel)
+                .onSuccess {
+                    saveUserAccessToken(it.accessToken)
+                    postSideEffect(LoginSideEffect.ShowGoogleLoginSuccessToast)
+                    postSideEffect(LoginSideEffect.NavigateToOnboarding)
+                }
+                .onFailure {
+                    postSideEffect(LoginSideEffect.ShowErrorToast)
+                }
+        }
+    }
+
+    private fun saveUserAccessToken(accessToken: String) {
+        execute {
+            saveAccessTokenUseCase(accessToken)
         }
     }
 }

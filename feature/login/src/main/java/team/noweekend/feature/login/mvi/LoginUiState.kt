@@ -6,10 +6,12 @@ import team.noweekend.core.common.android.mvi.UiState
 @Stable
 data class LoginUiState(
     val isLoading: Boolean,
+    val userName: String,
 ) : UiState {
     companion object {
         val INITIAL_STATE: LoginUiState = LoginUiState(
             isLoading = false,
+            userName = "",
         )
     }
 }
