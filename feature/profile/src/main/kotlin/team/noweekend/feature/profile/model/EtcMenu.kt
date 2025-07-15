@@ -17,13 +17,15 @@ import team.noweekend.feature.profile.BuildConfig
 
 @Stable
 sealed interface EtcMenu : Menu {
-    data class ContactService(
+    data class TermsOfService(
         override val title: Int = EtcMenuContactServiceTitle,
-    ) : EtcMenu
+        override val url: String = "https://snow-chestnut-45b.notion.site/KR-EN-22ebee7f5996802ebe4bff5816112c35?source=copy_link",
+    ) : EtcMenu, WebLinkMenu
 
-    data class Policy(
+    data class PrivacyPolicy(
         override val title: Int = EtcMenuPolicyTitle,
-    ) : EtcMenu
+        override val url: String = "https://snow-chestnut-45b.notion.site/KR-EN-22ebee7f59968021846cdc54a1d0d987?source=copy_link",
+    ) : EtcMenu, WebLinkMenu
 
     data class CurrentVersion(
         override val title: Int = EtcMenuCurrentVersionTitle,
@@ -42,8 +44,8 @@ sealed interface EtcMenu : Menu {
 
     companion object {
         val etcMenuList: ImmutableList<EtcMenu> = persistentListOf(
-            ContactService(),
-            Policy(),
+            TermsOfService(),
+            PrivacyPolicy(),
             CurrentVersion(versionCode = BuildConfig.VERSION_NAME),
         )
     }

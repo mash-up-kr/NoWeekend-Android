@@ -18,10 +18,12 @@ import team.noweekend.feature.profile.component.menu.MenuLayout
 import team.noweekend.feature.profile.component.topbar.ProfileTopBar
 import team.noweekend.feature.profile.model.EtcMenu.Companion.etcMenuList
 import team.noweekend.feature.profile.model.InfoMenu.Companion.infoMenuList
+import team.noweekend.feature.profile.model.Menu
 
 @Composable
 internal fun ProfileScreen(
     modifier: Modifier = Modifier,
+    onMenuClick: (Menu) -> Unit,
 ) {
     Column(
         modifier = modifier
@@ -39,7 +41,7 @@ internal fun ProfileScreen(
         MenuLayout(
             title = stringResource(id = InfoMenuTitle),
             menuList = infoMenuList,
-            onClickMenuItem = {}
+            onClickMenuItem = {},
         )
         Spacer(
             modifier = Modifier.height(16.dp),
@@ -48,7 +50,7 @@ internal fun ProfileScreen(
         MenuLayout(
             title = stringResource(id = EtcMenuTitle),
             menuList = etcMenuList,
-            onClickMenuItem = {}
+            onClickMenuItem = onMenuClick,
         )
     }
 
@@ -64,6 +66,7 @@ private fun PreviewProfileScreen(
     NWKTheme {
         ProfileScreen(
             modifier = Modifier.fillMaxSize(),
+            onMenuClick = {},
         )
     }
 

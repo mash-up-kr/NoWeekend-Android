@@ -12,8 +12,9 @@ import team.noweekend.feature.profile.navigation.profileNavGraph
 
 @Composable
 internal fun MainNavHost(
+    navigateToExternalWebBrowser: (String) -> Unit,
     navigateToCreateVacation: ((Intent.() -> Intent)?, ActivityResultLauncher<Intent>?) -> Unit,
-    navigateToDetailDate : ((Intent.() -> Intent)?) -> Unit,
+    navigateToDetailDate: ((Intent.() -> Intent)?) -> Unit,
     navigator: MainNavigator,
     modifier: Modifier = Modifier,
 ) {
@@ -30,10 +31,12 @@ internal fun MainNavHost(
                 navigateToDetailDate(
                     {
                         putExtra("date", dateString)
-                    }
+                    },
                 )
             },
         )
-        profileNavGraph()
+        profileNavGraph(
+            navigateToExternalWebBrowser = navigateToExternalWebBrowser,
+        )
     }
 }

@@ -1,9 +1,11 @@
 package team.noweekend.feature.main
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.core.net.toUri
 import dagger.hilt.android.AndroidEntryPoint
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.navigator.delegate.HomeNavigationDelegate
@@ -33,11 +35,21 @@ class MainActivity : ComponentActivity() {
                         homeNavigationDelegate.navigateToDetailDate(
                             activity = this,
                             intentBuilder = intentBuilder,
-                            launcher = null
+                            launcher = null,
                         )
                     },
+                    navigateToExternalWebBrowser = ::openExternalWebBrowser,
                 )
             }
         }
+    }
+
+    fun openExternalWebBrowser(url: String) {
+        val intent = Intent().apply {
+            action = Intent.ACTION_VIEW
+            data = url.toUri()
+        }
+
+        startActivity(intent)
     }
 }
