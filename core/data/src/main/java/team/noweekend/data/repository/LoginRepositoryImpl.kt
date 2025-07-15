@@ -3,8 +3,8 @@ package team.noweekend.data.repository
 import team.noweekend.core.domain.repository.LoginRepository
 import team.noweekend.core.model.login.LoginInfoDomainModel
 import team.noweekend.core.model.login.LoginRequest
-import team.noweekend.core.remote.api.LoginApi
-import team.noweekend.core.remote.model.LoginRequestBody
+import team.noweekend.core.remote.api.login.LoginApi
+import team.noweekend.core.remote.model.login.LoginRequestBody
 import team.noweekend.data.model.toDataModel
 import javax.inject.Inject
 

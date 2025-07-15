@@ -1,4 +1,4 @@
-package team.noweekend.core.remote.model
+package team.noweekend.core.remote.model.login
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

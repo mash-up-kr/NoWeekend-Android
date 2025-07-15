@@ -1,4 +1,4 @@
-package team.noweekend.core.remote.model
+package team.noweekend.core.remote.model.user
 
 data class Token(
     val access: String,
