@@ -13,6 +13,8 @@ import team.noweekend.feature.home.model.PopularVacationUiModel
 @Stable
 data class HomeUiState(
     val isLoading: Boolean,
+    val averageTemperature: Float,
+    val remainingAnnualLeave: Float,
     val createVacationStatus: CreateVacationStatus,
     val remainedHolidays: ImmutableList<HolidayUiModel>,
     val weatherRecommendVacations: ImmutableList<MonthlyVacationRecommendUiModel>,
@@ -22,7 +24,9 @@ data class HomeUiState(
     companion object {
         val INITIAL_STATE: HomeUiState = HomeUiState(
             isLoading = false,
-            createVacationStatus = CreateVacationStatus.Default(6),
+            averageTemperature = 0f,
+            remainingAnnualLeave = 0f,
+            createVacationStatus = CreateVacationStatus.Default,
             remainedHolidays = persistentListOf(),
             weatherRecommendVacations = persistentListOf(),
             popularVacations = persistentListOf(),
@@ -43,9 +47,7 @@ sealed interface CreateVacationStatus {
     val imageResourceId: Int
     val buttonText: Int
 
-    data class Default(
-        val maximumVacation: Int,
-    ) : CreateVacationStatus {
+    data object Default : CreateVacationStatus {
         override val tag: String = "Default"
         override val messageResourceId: Int = NWKStringResource.HomeToastDefaultTitle
         override val imageResourceId: Int = NWKDrawableResource.MainToasterDefault

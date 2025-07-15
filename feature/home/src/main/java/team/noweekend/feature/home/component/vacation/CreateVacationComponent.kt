@@ -26,13 +26,15 @@ import team.noweekend.core.resource.NWKStringResource
 import team.noweekend.feature.home.mvi.CreateVacationStatus
 
 internal fun LazyListScope.createVacation(
-    temperature: Int,
+    temperature: Float,
+    remainingVacation: Float,
     createVacationStatus: CreateVacationStatus,
     onCreateVacationClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) = item {
     CreateVacationComponent(
         temperature = temperature,
+        remainingVacation = remainingVacation,
         createVacationStatus = createVacationStatus,
         onCreateVacationClick = onCreateVacationClick,
         modifier = modifier,
@@ -41,7 +43,8 @@ internal fun LazyListScope.createVacation(
 
 @Composable
 internal fun CreateVacationComponent(
-    temperature: Int,
+    temperature: Float,
+    remainingVacation: Float,
     createVacationStatus: CreateVacationStatus,
     onCreateVacationClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -63,7 +66,7 @@ internal fun CreateVacationComponent(
             onClick = onCreateVacationClick,
             text = when (createVacationStatus) {
                 is CreateVacationStatus.Default -> {
-                    stringResource(createVacationStatus.buttonText, createVacationStatus.maximumVacation)
+                    stringResource(createVacationStatus.buttonText, remainingVacation)
                 }
 
                 else -> stringResource(createVacationStatus.buttonText)
@@ -76,7 +79,7 @@ internal fun CreateVacationComponent(
 
 @Composable
 private fun AverageTemperature(
-    temperature: Int,
+    temperature: Float,
     guideMessageResId: Int,
     modifier: Modifier = Modifier,
 ) {
@@ -117,7 +120,8 @@ private fun AverageTemperature(
 private fun CreateVacationComponentPreview() {
     NWKTheme {
         CreateVacationComponent(
-            temperature = 97,
+            temperature = 7f,
+            remainingVacation = 36f,
             createVacationStatus = CreateVacationStatus.InProgress,
             onCreateVacationClick = {},
         )

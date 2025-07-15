@@ -34,6 +34,7 @@ class HomeViewModel @Inject constructor(
     savedStateHandle = savedStateHandle,
 ) {
     init {
+        getUserProfile()
         getPopularRecommendVacations()
         getRemainedHolidays()
         saveUserLocation()
@@ -59,6 +60,18 @@ class HomeViewModel @Inject constructor(
 
             else -> {}
         }
+    }
+
+    private fun getUserProfile() = execute {
+        getUserProfileUseCase.invoke()
+            .onSuccess { userProfile ->
+                reduce {
+                    copy(
+                        averageTemperature = userProfile.averageTemperature,
+                        remainingAnnualLeave = userProfile.remainingAnnualLeave,
+                    )
+                }
+            }
     }
 
     private fun getPopularRecommendVacations() = execute {
