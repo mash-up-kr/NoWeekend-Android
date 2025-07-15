@@ -29,6 +29,13 @@ class MainActivity : ComponentActivity() {
                             launcher = launcher,
                         )
                     },
+                    navigateToDetailDate = { intentBuilder ->
+                        homeNavigationDelegate.navigateToDetailDate(
+                            activity = this,
+                            intentBuilder = intentBuilder,
+                            launcher = null
+                        )
+                    },
                 )
             }
         }

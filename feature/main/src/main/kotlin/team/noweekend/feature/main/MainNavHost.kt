@@ -13,6 +13,7 @@ import team.noweekend.feature.profile.navigation.profileNavGraph
 @Composable
 internal fun MainNavHost(
     navigateToCreateVacation: ((Intent.() -> Intent)?, ActivityResultLauncher<Intent>?) -> Unit,
+    navigateToDetailDate : ((Intent.() -> Intent)?) -> Unit,
     navigator: MainNavigator,
     modifier: Modifier = Modifier,
 ) {
@@ -24,7 +25,15 @@ internal fun MainNavHost(
         homeNavGraph(
             navigateToCreateVacation = navigateToCreateVacation,
         )
-        calendarNavGraph()
+        calendarNavGraph(
+            navigateToDetailDate = { dateString ->
+                navigateToDetailDate(
+                    {
+                        putExtra("date", dateString)
+                    }
+                )
+            },
+        )
         profileNavGraph()
     }
 }

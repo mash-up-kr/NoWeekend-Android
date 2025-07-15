@@ -10,6 +10,7 @@ import team.noweekend.feature.main.navigation.rememberMainNavigator
 @Composable
 internal fun MainRoute(
     navigateToCreateVacation: ((Intent.() -> Intent)?, ActivityResultLauncher<Intent>?) -> Unit,
+    navigateToDetailDate : ((Intent.() -> Intent)?) -> Unit,
     modifier: Modifier = Modifier,
     navigator: MainNavigator = rememberMainNavigator(),
 ) {
@@ -18,5 +19,6 @@ internal fun MainRoute(
         onTabSelected = { navigator.navigate(it) },
         modifier = modifier,
         navigator = navigator,
+        navigateToDetailDate = navigateToDetailDate
     )
 }
