@@ -1,4 +1,4 @@
-package team.noweekend.feature.addtask.screen
+package team.noweekend.feature.addtask.input.screen
 
 import android.util.Log
 import androidx.compose.foundation.background
@@ -30,7 +30,7 @@ import team.noweekend.core.design.system.core.component.scaffold.NWKScaffold
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.resource.NWKDrawableResource
 import team.noweekend.core.resource.NWKStringResource
-import team.noweekend.feature.addtask.model.AddTaskType
+import team.noweekend.feature.addtask.input.model.AddTaskType
 
 @Composable
 fun AddTaskScreen(

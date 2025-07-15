@@ -1,4 +1,4 @@
-package team.noweekend.core.remote.qulifier
+package team.noweekend.core.remote.qualifier
 
 import javax.inject.Qualifier
 

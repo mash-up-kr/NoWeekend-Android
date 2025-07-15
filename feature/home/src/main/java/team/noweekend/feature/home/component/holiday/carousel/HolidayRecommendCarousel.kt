@@ -5,18 +5,16 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.persistentListOf
-import kotlinx.datetime.LocalDate
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.feature.home.component.common.carousel.CarouselLayout
 import team.noweekend.feature.home.component.holiday.card.HolidayCard
+import team.noweekend.feature.home.model.HolidayUiModel
 
 @Composable
 internal fun HolidayRecommendCarousel(
+    holidays: ImmutableList<HolidayUiModel>,
     onCardClick: () -> Unit,
     modifier: Modifier = Modifier,
-    // TODO (JaesungLeee) : API 연동 시 파라미터 수정 필요
-    holidays: ImmutableList<String> = persistentListOf("", "", "", "", ""),
 ) {
     val pagerState = rememberPagerState(pageCount = { holidays.size })
 
@@ -27,10 +25,11 @@ internal fun HolidayRecommendCarousel(
         pageSpacing = NWKTheme.spacing.space150,
         contentPadding = PaddingValues(horizontal = NWKTheme.spacing.space200),
         content = { index ->
+            val holiday = holidays.getOrNull(index) ?: return@CarouselLayout
             HolidayCard(
                 onCardClick = onCardClick,
-                date = LocalDate(2025, 6, 6),
-                holiday = "현충일",
+                date = holiday.date,
+                holiday = holiday.holiday,
             )
         },
     )

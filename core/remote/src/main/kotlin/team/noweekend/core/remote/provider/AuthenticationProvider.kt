@@ -20,7 +20,7 @@ internal class AuthenticationProvider @Inject constructor(
         authHeader: HttpAuthHeader?,
     ) {
         val accessToken = tokenProvider.tokenFlow.first().access
-        request.headers.append(HttpHeaders.Authorization, "Bearer $accessToken")
+        request.headers.append(HttpHeaders.Authorization, "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJ2MS0yMDI1MDcxNTAxMjkyMC03OTk1MTk4ZjViODc0OTBlYjU4YzBkZTBiNjBmYjRlZSIsImlzcyI6Imh0dHBzOi8vd3d3Lm5vd2Vla2VuZC5jb20iLCJpYXQiOjE3NTI1MTA1NjAsImV4cCI6MTc1MjU5Njk2MH0.4cf2wWftC94j6bnT_4gBwOqcwJU5IdUWklCtsgcTVM8")
     }
 
     override fun isApplicable(auth: HttpAuthHeader): Boolean {

@@ -2,6 +2,7 @@ package team.noweekend.feature.home.screen
 
 import android.app.Activity
 import android.content.Intent
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -25,6 +26,7 @@ internal fun HomeRoute(
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
     val uiState: HomeUiState by viewModel.uiState.collectAsStateWithLifecycle()
+    Log.d("logtag", "$uiState")
 
     val createVacationLauncher =
         rememberLauncherForActivityResult(

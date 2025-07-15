@@ -11,7 +11,7 @@ import team.noweekend.core.remote.model.schedule.common.ScheduleModel
 import team.noweekend.core.remote.model.schedule.response.DeleteScheduleResponse
 import team.noweekend.core.remote.model.schedule.response.EditScheduleRequest
 import team.noweekend.core.remote.model.schedule.response.GetScheduleResponse
-import team.noweekend.core.remote.qulifier.BasicClient
+import team.noweekend.core.remote.qualifier.BasicClient
 import javax.inject.Inject
 
 class ScheduleApiImpl @Inject constructor(

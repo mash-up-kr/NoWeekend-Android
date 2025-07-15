@@ -1,20 +1,27 @@
 package team.noweekend.feature.home.mvi
 
 import androidx.compose.runtime.Stable
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import team.noweekend.core.common.android.mvi.UiState
 import team.noweekend.core.resource.NWKDrawableResource
 import team.noweekend.core.resource.NWKStringResource
+import team.noweekend.feature.home.model.HolidayUiModel
 
 @Stable
 data class HomeUiState(
     val isLoading: Boolean,
     val createVacationStatus: CreateVacationStatus,
+    val remainedHolidays: ImmutableList<HolidayUiModel>,
+    val monthlyHolidays: ImmutableList<HolidayUiModel>,
 ) : UiState {
 
     companion object {
         val INITIAL_STATE: HomeUiState = HomeUiState(
             isLoading = false,
             createVacationStatus = CreateVacationStatus.Default(6),
+            remainedHolidays = persistentListOf(),
+            monthlyHolidays = persistentListOf(),
         )
     }
 }
