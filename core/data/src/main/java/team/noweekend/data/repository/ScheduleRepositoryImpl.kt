@@ -6,7 +6,7 @@ import team.noweekend.core.remote.api.schedule.ScheduleApi
 import team.noweekend.data.mapper.toDomain
 import javax.inject.Inject
 
-class ScheduleRepositoryImpl @Inject constructor(
+internal class ScheduleRepositoryImpl @Inject constructor(
     private val scheduleApi: ScheduleApi,
 ) : ScheduleRepository {
 
