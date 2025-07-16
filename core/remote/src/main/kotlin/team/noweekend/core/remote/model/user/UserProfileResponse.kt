@@ -21,13 +21,13 @@ data class UserProfileResponse(
     @SerialName("providerType")
     val oAuthType: String,
     @SerialName("revocableToken")
-    val revocableToken: String,
+    val revocableToken: String?,
     @SerialName("role")
     val role: String,
     @SerialName("remainingAnnualLeave")
     val remainingAnnualLeave: Float,
     @SerialName("location")
-    val location: UserLocationDto,
+    val location: UserLocationDto?,
     @SerialName("averageTemperature")
     val averageTemperature: Float,
 )

@@ -18,7 +18,6 @@ import team.noweekend.core.domain.usecase.GetHolidayUseCase
 import team.noweekend.core.domain.usecase.GetSandwichRecommendVacationUseCase
 import team.noweekend.core.domain.usecase.GetUserProfileUseCase
 import team.noweekend.core.domain.usecase.GetWeatherRecommendVacationUseCase
-import team.noweekend.core.domain.usecase.UserLocationUseCase
 import team.noweekend.core.model.calendar.WeeksData
 import team.noweekend.core.model.vacation.VacationType
 import team.noweekend.feature.home.mapper.toImageTypeWithId
@@ -34,7 +33,6 @@ class HomeViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val getHolidayUseCase: GetHolidayUseCase,
     private val getWeatherRecommendVacationUseCase: GetWeatherRecommendVacationUseCase,
-    private val userLocationUseCase: UserLocationUseCase,
     private val getSandwichRecommendVacationUseCase: GetSandwichRecommendVacationUseCase,
     private val getUserProfileUseCase: GetUserProfileUseCase,
     private val calendarDataProviderUseCase: CalendarDataProviderUseCase,
@@ -42,11 +40,11 @@ class HomeViewModel @Inject constructor(
     savedStateHandle = savedStateHandle,
 ) {
     init {
-        getUserProfile()
         getPopularRecommendVacations()
         getRemainedHolidays()
-        saveUserLocation()
+        getWeatherRecommendVacation()
         getCalendarData()
+        getUserProfile()
     }
 
     override fun createInitialState(savedStateHandle: SavedStateHandle): HomeUiState {
@@ -121,16 +119,6 @@ class HomeViewModel @Inject constructor(
             .onSuccess { remoteHolidays ->
                 val holidays: List<HolidayUiModel> = remoteHolidays.map { it.toUiModel() }
                 reduce { copy(remainedHolidays = holidays.toImmutableList()) }
-            }
-            .onFailure { exception ->
-                Log.d("logtag", "$exception")
-            }
-    }
-
-    private fun saveUserLocation() = execute {
-        userLocationUseCase.saveLocation()
-            .onSuccess {
-                getWeatherRecommendVacation()
             }
             .onFailure { exception ->
                 Log.d("logtag", "$exception")
