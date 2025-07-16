@@ -270,7 +270,7 @@ class CalendarViewModel @Inject constructor(
         }
     }
 
-    fun updateCalendarState(
+    private fun updateCalendarState(
         calendarMode: CalendarMode = currentState.calendarMode,
         initFirstTodoList: Boolean = false,
     ) {
