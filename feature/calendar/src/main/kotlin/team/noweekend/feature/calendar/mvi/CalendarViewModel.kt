@@ -40,7 +40,7 @@ class CalendarViewModel @Inject constructor(
     }
 
     override fun handleClientException(throwable: Throwable) {
-        TODO("Not yet implemented")
+        throwable.printStackTrace()
     }
 
     override suspend fun handleIntent(intent: CalendarIntent) {
