@@ -12,6 +12,7 @@ import team.noweekend.core.resource.NWKStringResource
 
 @Immutable
 data class Todo(
+    val id: String,
     val title: String,
     val description: String,
     val todoType: TodoType,
@@ -21,18 +22,21 @@ data class Todo(
 
         val previewDummy: ImmutableList<Todo> = persistentListOf<Todo>(
             Todo(
+                id = "1",
                 title = "축구하기",
                 description = "1",
                 todoType = TodoType.Personal(),
                 isDone = false,
             ),
             Todo(
+                id = "2",
                 title = "출근하기",
                 description = "2",
                 todoType = TodoType.Company(),
                 isDone = false,
             ),
             Todo(
+                id = "3",
                 title = "기타등등",
                 description = "1",
                 todoType = TodoType.Etc(),

@@ -68,6 +68,7 @@ private fun PreviewTodoBottomSheet() {
                 description = "",
                 todoType = TodoType.Etc(),
                 isDone = false,
+                id = "0"
             ),
             onDismissRequest = {},
             onClickAction = {},
