@@ -14,17 +14,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import team.noweekend.core.common.android.extension.fillMaxWidthOfScreen
 import team.noweekend.core.common.ui.calendar.state.CalendarPagerState.Companion.initialPage
+import team.noweekend.core.common.ui.fab.FabLayout
 import team.noweekend.core.common.ui.todo.model.Todo
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
-import team.noweekend.feature.calendar.component.fab.FabLayout
-import team.noweekend.feature.calendar.component.fab.core.FabZIndex
 import team.noweekend.feature.calendar.mvi.CalendarViewModel
 import team.noweekend.feature.calendar.mvi.builder.rememberIntentBuilder
 import team.noweekend.feature.calendar.mvi.rememberSideEffectHandler
@@ -93,7 +91,6 @@ internal fun CalendarRoute(
             onClickFabButton = { isExpanded = isExpanded.not() },
             onClickTodo = intentBuilder::clickRecommendTodoTag,
             modifier = Modifier
-                .zIndex(FabZIndex)
                 .align(Alignment.BottomEnd)
                 .padding(bottom = 20.dp, end = 20.dp),
             onClickDirectInput = {},
@@ -123,7 +120,7 @@ private fun CalendarRoutePreview() {
         CalendarRoute(
             modifier = Modifier.fillMaxSize(),
             navigateToDetailDate = {},
-            navigateToAddTodo = {}
+            navigateToAddTodo = {},
         )
     }
 }
