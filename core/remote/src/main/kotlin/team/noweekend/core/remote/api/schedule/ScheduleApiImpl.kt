@@ -49,4 +49,12 @@ class ScheduleApiImpl @Inject constructor(
             body = createScheduleRequest,
         )
     }
+
+    override suspend fun changeCompleteSchedule(id: String, isComplete: Boolean): ScheduleModel {
+        return client.putApiCall(
+            path = ScheduleApi.SCHEDULE_PATH + "/${id}/state",
+            body = null,
+            queries = mapOf("is_complete" to isComplete)
+        )
+    }
 }

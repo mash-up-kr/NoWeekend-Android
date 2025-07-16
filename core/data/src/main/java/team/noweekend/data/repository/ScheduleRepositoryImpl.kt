@@ -2,8 +2,10 @@ package team.noweekend.data.repository
 
 import team.noweekend.core.domain.repository.ScheduleRepository
 import team.noweekend.core.model.schedule.DateWithSchedules
+import team.noweekend.core.model.schedule.Schedule
 import team.noweekend.core.remote.api.schedule.ScheduleApi
 import team.noweekend.data.mapper.toDomain
+import team.noweekend.data.mapper.toSchedule
 import javax.inject.Inject
 
 internal class ScheduleRepositoryImpl @Inject constructor(
@@ -15,5 +17,13 @@ internal class ScheduleRepositoryImpl @Inject constructor(
             startDate = startDate,
             endDate = endDate,
         ).map { response -> response.toDomain() }
+    }
+
+
+    override suspend fun changeCompleteSchedule(id: String, isComplete: Boolean): Schedule {
+        return scheduleApi.changeCompleteSchedule(
+            id = id,
+            isComplete = isComplete,
+        ).toSchedule()
     }
 }

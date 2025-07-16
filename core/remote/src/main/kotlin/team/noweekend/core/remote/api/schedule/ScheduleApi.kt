@@ -24,6 +24,11 @@ interface ScheduleApi {
         createScheduleRequest: ScheduleModel
     ): ScheduleModel
 
+    suspend fun changeCompleteSchedule(
+        id :String,
+        isComplete: Boolean
+    ) : ScheduleModel
+
     companion object {
         const val SCHEDULE_PATH: String = "/api/v1/schedule"
         const val START_DATE: String = "start_date"
