@@ -2,6 +2,7 @@ package team.noweekend.feature.onboarding.profile.screen
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.rememberTextFieldState
@@ -37,7 +38,7 @@ internal fun ProfileInputScreen(
     var validateBirthState by remember { mutableStateOf(false) }
 
     NWKScaffold(
-        modifier = modifier,
+        modifier = modifier.imePadding(),
         topBar = {
             NWKHeader(
                 text = "1/3",
