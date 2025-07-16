@@ -28,9 +28,8 @@ object NWKApiErrorParser {
             val responseString = response.bodyAsText()
             val root = json.parseToJsonElement(responseString).jsonObject
 
-            if (root["error"]?.jsonNull != null) return null
+            val errorElement = root["error"]
 
-            val errorElement = root["errorResponse"]
             errorElement?.let {
                 json.decodeFromJsonElement<NWKErrorResponse>(it)
             }
