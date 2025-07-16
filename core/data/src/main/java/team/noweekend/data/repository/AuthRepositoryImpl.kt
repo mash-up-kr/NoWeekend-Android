@@ -11,7 +11,9 @@ internal class AuthRepositoryImpl @Inject constructor(
 ) : AuthRepository {
 
     override suspend fun getAccessToken(): String {
-        return localDataStore.getAccessToken()
+        val token = localDataStore.getAccessToken()
+        tokenProvider.updateAccessToken(token = token)
+        return token
     }
 
     override suspend fun setAccessToken(token: String) {
