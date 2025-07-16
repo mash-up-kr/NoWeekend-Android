@@ -1,4 +1,4 @@
-package team.noweekend.feature.calendar.component.fab.core
+package team.noweekend.core.common.ui.fab.core
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.clickable

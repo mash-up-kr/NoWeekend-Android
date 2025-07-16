@@ -1,4 +1,4 @@
-package team.noweekend.feature.calendar.component.fab.core
+package team.noweekend.core.common.ui.fab.core
 
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.layout.Arrangement
