@@ -53,7 +53,7 @@ class CalendarSideEffectHandler(
     private val updateNextWeekPage: (page: Int) -> Unit,
     private val updatePreviousMonthPage: (page: Int) -> Unit,
     private val updateNextMonthPage: (page: Int) -> Unit,
-    private val navigateToDetailDate : (String) -> Unit,
+    private val navigateToDetailDate : (date : String) -> Unit,
     private val calendarPagerState: CalendarPagerState,
     private val coroutineScope: CoroutineScope,
 ) : SideEffectHandler<CalendarSideEffect> {
