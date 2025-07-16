@@ -30,5 +30,9 @@ sealed interface CalendarIntent : Intent {
     data class UpdateCalendarDataAndChooser(val page: Int, val calendarMode: CalendarMode) : CalendarIntent
 
     data class UpdateTodoList(val targetDate : LocalDate): CalendarIntent
+    data class ChangeComplete(val index: Int): CalendarIntent
+
+    data object UpdateCalendarState : CalendarIntent
+
 
 }

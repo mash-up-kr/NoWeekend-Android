@@ -6,6 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import kotlinx.collections.immutable.persistentListOf
+import kotlinx.datetime.LocalDate
+import team.noweekend.core.common.kotlin.extension.now
 import team.noweekend.core.common.ui.calendar.component.CalendarTodoList
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.feature.detail.date.component.DegreeCard
@@ -57,6 +59,7 @@ private fun PreviewDateDetailScreen() {
                     degree = 50,
                     isAnnualLeave = true,
                 ),
+                date = LocalDate.now(),
                 todoList = persistentListOf(),
             ),
             onClickBackButton = {},

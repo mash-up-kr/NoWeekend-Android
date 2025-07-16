@@ -74,18 +74,21 @@ private fun PreviewTodoCalendarBoard() {
                     description = "description",
                     isDone = true,
                     todoType = TodoType.Etc(),
+                    id = "1",
                 ),
                 Todo(
                     title = "title",
                     description = "description",
                     isDone = false,
                     todoType = TodoType.Personal(),
+                    id = "2",
                 ),
                 Todo(
                     title = "title",
                     description = "description",
                     isDone = true,
                     todoType = TodoType.Company(),
+                    id = "3",
                 ),
             ),
         )

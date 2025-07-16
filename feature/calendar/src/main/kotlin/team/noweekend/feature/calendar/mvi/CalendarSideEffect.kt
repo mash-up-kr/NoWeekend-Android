@@ -1,6 +1,5 @@
 package team.noweekend.feature.calendar.mvi
 
-import kotlinx.datetime.LocalDate
 import team.noweekend.core.common.android.mvi.SideEffect
 
 sealed interface CalendarSideEffect : SideEffect {

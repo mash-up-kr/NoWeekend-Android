@@ -11,6 +11,7 @@ import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.plus
+import team.noweekend.core.common.kotlin.extension.CalendarUtils.currentLocalDate
 import team.noweekend.core.common.kotlin.extension.CalendarUtils.firstDayOfMonth
 import team.noweekend.core.common.kotlin.extension.CalendarUtils.lastDayOfMonth
 import team.noweekend.core.common.kotlin.extension.CalendarUtils.minusMonths
@@ -28,9 +29,12 @@ import team.noweekend.core.domain.repository.ScheduleRepository
 import team.noweekend.core.model.calendar.DateOfWeek
 import team.noweekend.core.model.calendar.WeeksData
 import team.noweekend.core.model.calendar.getImageType
+import team.noweekend.core.model.schedule.Schedule
 import team.noweekend.core.model.schedule.ScheduleCategory
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class CalendarDataProviderUseCase @Inject constructor(
     private val scheduleRepository: ScheduleRepository,
 ) {
@@ -277,6 +281,50 @@ class CalendarDataProviderUseCase @Inject constructor(
 
     fun getWeeksData(page: Int): WeeksData? = _weeksData.value[page]
     fun getMonthData(page: Int): WeeksData? = _monthData.value[page]
+
+    fun updateWeeksDataWithSchedule(schedule: Schedule) {
+        _weeksData.update { weeksDataMap ->
+            weeksDataMap.mapValues { entry ->
+                entry.value.copy(
+                    dateOfWeeks = entry.value.dateOfWeeks.map { dateOfWeekList ->
+                        dateOfWeekList.map { dateOfWeek ->
+                            dateOfWeek.copy(
+                                scheduleList = dateOfWeek.scheduleList.map { innerSchedule ->
+                                    if (schedule.id == innerSchedule.id) schedule else innerSchedule
+                                },
+                            )
+                        }
+                    },
+                )
+            }
+        }
+    }
+
+    fun updateMonthsDataWithSchedule(schedule: Schedule) {
+        _monthData.update { weeksDataMap ->
+            weeksDataMap.mapValues { entry ->
+                entry.value.copy(
+                    dateOfWeeks = entry.value.dateOfWeeks.map { dateOfWeekList ->
+                        dateOfWeekList.map { dateOfWeek ->
+
+                            val updateScheduleList = dateOfWeek.scheduleList.map { innerSchedule ->
+                                if (schedule.id == innerSchedule.id) schedule else innerSchedule
+                            }
+
+                            dateOfWeek.copy(
+                                scheduleList = updateScheduleList,
+                                imageType = getImageType(
+                                    temperature = updateScheduleList.filter { it.completed }.sumOf { it.temperature },
+                                    isFuture = dateOfWeek.localDate < currentLocalDate,
+                                    hasRest = updateScheduleList.any { it.category == ScheduleCategory.LEAVE },
+                                ),
+                            )
+                        }
+                    },
+                )
+            }
+        }
+    }
 
     sealed interface CalendarDataProviderEvent {
         data object CompleteInitWeeksCalendar : CalendarDataProviderEvent

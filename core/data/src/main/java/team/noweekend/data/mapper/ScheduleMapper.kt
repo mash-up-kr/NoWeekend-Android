@@ -4,6 +4,7 @@ import team.noweekend.core.model.alarm.AlarmOption
 import team.noweekend.core.model.schedule.DateWithSchedules
 import team.noweekend.core.model.schedule.Schedule
 import team.noweekend.core.model.schedule.ScheduleCategory
+import team.noweekend.core.remote.model.schedule.common.ScheduleModel
 import team.noweekend.core.remote.model.schedule.response.GetScheduleResponse
 
 fun GetScheduleResponse.toDomain(): DateWithSchedules {
@@ -11,17 +12,21 @@ fun GetScheduleResponse.toDomain(): DateWithSchedules {
         date = this.date,
         dailyTemperature = this.dailyTemperature,
         schedules = this.schedules.map { scheduleModel ->
-            Schedule(
-                id = scheduleModel.id,
-                title = scheduleModel.title,
-                startTime = scheduleModel.startTime,
-                endTime = scheduleModel.endTime,
-                category = ScheduleCategory.valueOf(scheduleModel.category),
-                temperature = scheduleModel.temperature,
-                allDay = scheduleModel.allDay,
-                completed = scheduleModel.completed,
-                alarmOption = AlarmOption.valueOf(scheduleModel.alarmOption),
-            )
+            scheduleModel.toSchedule()
         },
+    )
+}
+
+fun ScheduleModel.toSchedule(): Schedule {
+    return Schedule(
+        id = this.id,
+        title = this.title,
+        startTime = this.startTime,
+        endTime = this.endTime,
+        category = ScheduleCategory.valueOf(this.category),
+        temperature = this.temperature,
+        allDay = this.allDay,
+        completed = this.completed,
+        alarmOption = AlarmOption.valueOf(this.alarmOption),
     )
 }

@@ -16,6 +16,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LifecycleEventEffect
+import androidx.lifecycle.compose.LifecycleResumeEffect
+import androidx.lifecycle.compose.LifecycleStartEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.datetime.LocalDate
 import team.noweekend.core.common.android.extension.fillMaxWidthOfScreen
@@ -56,12 +60,15 @@ internal fun CalendarRoute(
 
 
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(Unit){
         with(intentBuilder) {
             collectCalendarEvent()
             updateCalendarData()
+            calendarViewModel.sideEffect.collect(calendarSideEffectHandler::handleSideEffect)
         }
-        calendarViewModel.sideEffect.collect(calendarSideEffectHandler::handleSideEffect)
+    }
+    LifecycleEventEffect(Lifecycle.Event.ON_START) {
+        intentBuilder.updateCalendarState()
     }
     LaunchedEffect(state.value.calendarMode) {
         with(intentBuilder) {
@@ -103,7 +110,7 @@ internal fun CalendarRoute(
             onClickToggle = intentBuilder::updateCalendarMode,
             onClickDateOfWeek = intentBuilder::updateTargetDate,
             onClickYearMonthButton = {},
-            onClickCheckBox = {},
+            onClickCheckBox = intentBuilder::changeCompleteSchedule,
             onClickOptionButton = {},
             todoList = state.value.selectedTodoList,
         )

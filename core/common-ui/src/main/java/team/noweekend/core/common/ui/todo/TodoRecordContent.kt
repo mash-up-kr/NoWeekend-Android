@@ -84,6 +84,7 @@ private fun PreviewTodoRecordContent() {
                 title = "회의 참석",
                 description = "10:00 ~ 11:00",
                 todoType = TodoType.Company(),
+                id = "0",
             ),
         )
     }

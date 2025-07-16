@@ -27,7 +27,7 @@ internal suspend inline fun <reified T> HttpClient.getApiCall(
 internal suspend inline fun <reified T> HttpClient.postApiCall(
     path: String,
     body: Any? = null,
-    queries: Map<String, String>? = null,
+    queries: Map<String, Any>? = null,
 ): T =
     callApi<T> {
         this.post(path) {
@@ -41,7 +41,7 @@ internal suspend inline fun <reified T> HttpClient.postApiCall(
 internal suspend inline fun <reified T> HttpClient.putApiCall(
     path: String,
     body: Any? = null,
-    queries: Map<String, String>? = null,
+    queries: Map<String, Any>? = null,
 ): T =
     callApi<T> {
         this
@@ -56,7 +56,7 @@ internal suspend inline fun <reified T> HttpClient.putApiCall(
 
 internal suspend inline fun <reified T> HttpClient.deleteApiCall(
     path: String,
-    queries: Map<String, String>? = null,
+    queries: Map<String, Any>? = null,
 ): T =
     callApi<T> {
         this.delete(path) {

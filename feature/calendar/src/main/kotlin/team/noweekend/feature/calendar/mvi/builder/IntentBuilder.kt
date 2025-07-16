@@ -90,4 +90,12 @@ class IntentBuilder(
         build(CalendarIntent.UpdateTodoList(targetDate = targetDate))
     }
 
+    fun changeCompleteSchedule(index: Int) {
+        build(CalendarIntent.ChangeComplete(index = index))
+    }
+
+    fun updateCalendarState(){
+        build(CalendarIntent.UpdateCalendarState)
+    }
+
 }
