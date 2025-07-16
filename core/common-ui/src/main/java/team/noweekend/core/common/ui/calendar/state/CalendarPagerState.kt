@@ -21,7 +21,6 @@ class CalendarPagerState {
 
     private val TAG = "CalendarState"
 
-    val initialPage = Int.MAX_VALUE / 2 + 1
     private val maxPageCount = Int.MAX_VALUE
 
     val weekPagerState: PagerState = PagerState(
@@ -126,5 +125,9 @@ class CalendarPagerState {
             currentPage < previousPage -> Direction.Previous
             else -> Direction.Same
         }
+    }
+
+    companion object {
+        const val initialPage = Int.MAX_VALUE / 2 + 1
     }
 }
