@@ -11,6 +11,7 @@ import team.noweekend.core.common.ui.calendar.model.CalendarMode
 import team.noweekend.core.common.ui.calendar.model.CalendarState
 import team.noweekend.core.common.ui.calendar.pager.CalendarPager
 import team.noweekend.core.common.ui.calendar.rememberCalendarDataProvider
+import team.noweekend.core.common.ui.calendar.state.CalendarPagerState.Companion.initialPage
 import team.noweekend.core.common.ui.calendar.state.rememberCalendarPagerState
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 
@@ -42,7 +43,7 @@ private fun PreviewNoneScrollCalendar() {
         val calendarPagerState = rememberCalendarPagerState()
 
         LaunchedEffect(Unit) {
-            calendarDataProvider.initWeekCalendar(initPage = calendarPagerState.initialPage)
+            calendarDataProvider.initWeekCalendar(initPage = initialPage)
         }
         NWKCalender(
             calendarState = CalendarState.Week(

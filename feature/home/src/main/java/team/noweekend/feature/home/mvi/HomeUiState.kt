@@ -2,8 +2,13 @@ package team.noweekend.feature.home.mvi
 
 import androidx.compose.runtime.Stable
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.ImmutableMap
 import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.persistentMapOf
+import kotlinx.datetime.LocalDate
 import team.noweekend.core.common.android.mvi.UiState
+import team.noweekend.core.common.kotlin.extension.now
+import team.noweekend.core.common.ui.calendar.model.CalendarWeeksData
 import team.noweekend.core.resource.NWKDrawableResource
 import team.noweekend.core.resource.NWKStringResource
 import team.noweekend.feature.home.model.HolidayUiModel
@@ -19,6 +24,8 @@ data class HomeUiState(
     val remainedHolidays: ImmutableList<HolidayUiModel>,
     val weatherRecommendVacations: ImmutableList<MonthlyVacationRecommendUiModel>,
     val popularVacations: ImmutableList<PopularVacationUiModel>,
+    val calendarData: ImmutableMap<Int, CalendarWeeksData>,
+    val selectedDate: LocalDate,
 ) : UiState {
 
     companion object {
@@ -30,6 +37,8 @@ data class HomeUiState(
             remainedHolidays = persistentListOf(),
             weatherRecommendVacations = persistentListOf(),
             popularVacations = persistentListOf(),
+            calendarData = persistentMapOf(),
+            selectedDate = LocalDate.now(),
         )
     }
 }

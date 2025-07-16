@@ -23,6 +23,7 @@ import androidx.lifecycle.compose.LifecycleStartEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.datetime.LocalDate
 import team.noweekend.core.common.android.extension.fillMaxWidthOfScreen
+import team.noweekend.core.common.ui.calendar.state.CalendarPagerState.Companion.initialPage
 import team.noweekend.core.common.ui.todo.model.Todo
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.feature.calendar.component.fab.FabLayout
@@ -72,7 +73,7 @@ internal fun CalendarRoute(
     }
     LaunchedEffect(state.value.calendarMode) {
         with(intentBuilder) {
-            initCalendarData(state.value.calendarPagerState.initialPage)
+            initCalendarData(initialPage)
         }
     }
     LaunchedEffect(state.value.calendarState.selectedDate) {
