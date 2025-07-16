@@ -1,0 +1,11 @@
+package team.noweekend.feature.home.mvi
+
+import team.noweekend.core.common.android.mvi.Intent
+
+sealed interface HomeIntent : Intent {
+    data class CreateVacation(
+        val a: String,
+    ) : HomeIntent
+
+    data object ClickCreateVacation : HomeIntent
+}

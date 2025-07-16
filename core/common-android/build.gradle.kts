@@ -1,0 +1,19 @@
+plugins {
+    alias(libs.plugins.team.noweekend.android.library)
+    alias(libs.plugins.team.noweekend.android.compose)
+    alias(libs.plugins.team.noweekend.hilt)
+}
+
+android {
+    namespace = "team.noweekend.core.common.android"
+}
+
+dependencies {
+    implementation(project(":core:model"))
+    implementation(project(":core:common-kotlin"))
+
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.bundles.kotlinx.coroutine)
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.androidx.navigation.compose)
+}

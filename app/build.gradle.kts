@@ -1,59 +1,39 @@
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.team.noweekend.android.application.compose)
+    alias(libs.plugins.team.noweekend.hilt)
 }
 
 android {
-    namespace = "team.noweekend"
-    compileSdk = 35
-
-    defaultConfig {
-        applicationId = "team.noweekend"
-        minSdk = 24
-        targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-    kotlinOptions {
-        jvmTarget = "11"
-    }
-    buildFeatures {
-        compose = true
-    }
+    namespace = "team.noweekend.app"
 }
 
 dependencies {
+    // Core modules
+    implementation(project(":core:common-android"))
+    implementation(project(":core:common-kotlin"))
+    implementation(project(":core:common-ui"))
+    implementation(project(":core:data"))
+    implementation(project(":core:domain"))
+    implementation(project(":core:design-system"))
+    implementation(project(":core:local"))
+    implementation(project(":core:model"))
+    implementation(project(":core:navigator"))
+    implementation(project(":core:remote"))
+    implementation(project(":core:resource"))
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.ui)
-    implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material3)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.ui.test.junit4)
-    debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
+    // Feature modules
+    implementation(project(":feature:main"))
+    implementation(project(":feature:home"))
+    implementation(project(":feature:calendar"))
+    implementation(project(":feature:profile"))
+    implementation(project(":feature:login"))
+    implementation(project(":feature:onboarding"))
+    implementation(project(":feature:create-vacation"))
+
+    implementation(project(":feature:detail-date"))
+
+    implementation(project(":feature:add-task"))
+    implementation(project(":feature:splash"))
+
+    implementation(libs.hilt.navigation.compose)
 }

@@ -1,0 +1,86 @@
+package team.noweekend.feature.home.mvi
+
+import androidx.compose.runtime.Stable
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.ImmutableMap
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.persistentMapOf
+import kotlinx.datetime.LocalDate
+import team.noweekend.core.common.android.mvi.UiState
+import team.noweekend.core.common.kotlin.extension.now
+import team.noweekend.core.common.ui.calendar.model.CalendarWeeksData
+import team.noweekend.core.resource.NWKDrawableResource
+import team.noweekend.core.resource.NWKStringResource
+import team.noweekend.feature.home.model.HolidayUiModel
+import team.noweekend.feature.home.model.MonthlyVacationRecommendUiModel
+import team.noweekend.feature.home.model.PopularVacationUiModel
+
+@Stable
+data class HomeUiState(
+    val isLoading: Boolean,
+    val averageTemperature: Float,
+    val remainingAnnualLeave: Float,
+    val createVacationStatus: CreateVacationStatus,
+    val remainedHolidays: ImmutableList<HolidayUiModel>,
+    val weatherRecommendVacations: ImmutableList<MonthlyVacationRecommendUiModel>,
+    val popularVacations: ImmutableList<PopularVacationUiModel>,
+    val calendarData: ImmutableMap<Int, CalendarWeeksData>,
+    val selectedDate: LocalDate,
+) : UiState {
+
+    companion object {
+        val INITIAL_STATE: HomeUiState = HomeUiState(
+            isLoading = false,
+            averageTemperature = 0f,
+            remainingAnnualLeave = 0f,
+            createVacationStatus = CreateVacationStatus.Default,
+            remainedHolidays = persistentListOf(),
+            weatherRecommendVacations = persistentListOf(),
+            popularVacations = persistentListOf(),
+            calendarData = persistentMapOf(),
+            selectedDate = LocalDate.now(),
+        )
+    }
+}
+
+/**
+ * 휴가 굽기 UI 노출 상태
+ * - [CreateVacationStatus.Default] : 기본 상태
+ * - [CreateVacationStatus.InProgress] : 휴가 굽는 중
+ * - [CreateVacationStatus.Complete] : 휴가 굽기 완료
+ * - [CreateVacationStatus.Done] : 생성된 휴가 할일 추가 완료
+ */
+sealed interface CreateVacationStatus {
+    val tag: String
+    val messageResourceId: Int
+    val imageResourceId: Int
+    val buttonText: Int
+
+    data object Default : CreateVacationStatus {
+        override val tag: String = "Default"
+        override val messageResourceId: Int = NWKStringResource.HomeToastDefaultTitle
+        override val imageResourceId: Int = NWKDrawableResource.MainToasterDefault
+        override val buttonText: Int = NWKStringResource.HomeCreateVacationDefaultButtonText
+    }
+
+    data object InProgress : CreateVacationStatus {
+        override val tag: String = "InProgress"
+        override val messageResourceId: Int = NWKStringResource.HomeToastProgressTitle
+        override val imageResourceId: Int = NWKDrawableResource.MainToasterProgress
+        override val buttonText: Int = NWKStringResource.HomeCreateVacationProgressButtonText
+    }
+
+    data object Complete : CreateVacationStatus {
+        override val tag: String = "Complete"
+        override val messageResourceId: Int = NWKStringResource.HomeToastCompleteTitle
+        override val imageResourceId: Int = NWKDrawableResource.MainToasterDefault
+        override val buttonText: Int = NWKStringResource.HomeCreateVacationCompleteButtonText
+    }
+
+    data object Done : CreateVacationStatus {
+        override val tag: String = "Done"
+        override val messageResourceId: Int = NWKStringResource.HomeToastDoneTitle
+        override val imageResourceId: Int = NWKDrawableResource.MainToasterDefault
+        override val buttonText: Int = NWKStringResource.HomeCreateVacationDoneButtonText
+    }
+}

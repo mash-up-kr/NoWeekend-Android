@@ -1,0 +1,74 @@
+name: NoWeekend Kotlin Lint Check
+on:
+  pull_request:
+    # feature/foo, feature/foo/bar/* 까지 대응
+    branches: [ "feature/**", "hotfix/**", "release/**", "develop", "main" ]
+
+jobs:
+  #  common-workflow-setup:
+  #    name: common workflow setup
+  #    uses: ./.github/workflows/common-setup.yaml
+  #    secrets: inherit
+
+  lint-check:
+    name: Run Kotlin Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout source
+        uses: actions/checkout@v4
+
+      #      - name: download signing artifacts
+      #        uses: actions/download-artifact@v4
+      #        with:
+      #          name: common signing artifacts
+      #          path: |
+      #            ./keystore.properties
+      #            ./keystore/dev.jks
+      #            ./keystore/qa.jks
+      #            ./keystore/prod.jks
+
+      - name: cache gradle
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: jdk 17 setup
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'gradle'
+
+      - name: grant execute permission for gradlew
+        run: chmod +x ./gradlew
+
+      - name: restore jks and keystore properties
+        run: |
+          mkdir -p ./keystore
+
+          echo "${{ secrets.DEV_JKS_BASE64 }}" | base64 -d > ./keystore/dev.jks
+          echo "${{ secrets.QA_JKS_BASE64 }}" | base64 -d > ./keystore/qa.jks
+          echo "${{ secrets.PROD_JKS_BASE64 }}" | base64 -d > ./keystore/prod.jks
+
+          echo "storeFileDev=./keystore/dev.jks" > keystore.properties
+          echo "storeFileQa=./keystore/qa.jks" >> keystore.properties
+          echo "storeFileProd=./keystore/prod.jks" >> keystore.properties
+          echo "storePassword=${{ secrets.STORE_PASSWORD }}" >> keystore.properties
+          echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> keystore.properties
+          echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> keystore.properties
+
+      # ci 빌드를 위한 secrets 세팅
+      - name: Access github actions secrets
+        env:
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+        run: |
+          echo google_client_id="$GOOGLE_CLIENT_ID" > ./local.properties
+
+      - name: run ktlint check
+        run: ./gradlew ktlintCheck

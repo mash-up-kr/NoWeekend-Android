@@ -1,0 +1,67 @@
+package team.noweekend.core.design.system.core.component.tabbar
+
+import androidx.compose.foundation.interaction.Interaction
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemColors
+import androidx.compose.material3.NavigationBarItemDefaults
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.emptyFlow
+import team.noweekend.core.design.system.core.component.icon.NWKIcon
+import team.noweekend.core.design.system.core.component.tabbar.defaults.NWKNavigationBarItemDefaults
+import team.noweekend.core.design.system.foundation.theme.NWKTheme
+
+@Composable
+fun RowScope.NWKNavigationBarItem(
+    onClick: () -> Unit,
+    isSelected: Boolean,
+    unselectedIconId: Int,
+    selectedIconId: Int,
+    labelId: Int,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    colors: NavigationBarItemColors = NWKNavigationBarItemDefaults.colors(),
+) {
+    NavigationBarItem(
+        selected = isSelected,
+        onClick = onClick,
+        icon = {
+            NWKIcon(
+                modifier = Modifier.size(24.dp),
+                resourceId = if (isSelected) selectedIconId else unselectedIconId,
+                tint = if (isSelected) colors.selectedIconColor else colors.unselectedIconColor,
+            )
+        },
+        modifier = modifier,
+        enabled = enabled,
+        label = {
+            Text(
+                text = stringResource(labelId),
+                style = NWKTheme.typography.body3.copy(
+                    fontWeight = if (isSelected) FontWeight.W700 else FontWeight.W600,
+                    color = if (isSelected) colors.selectedTextColor else colors.unselectedTextColor,
+                ),
+            )
+        },
+        interactionSource = NoRippleInteractionSource,
+        colors = NavigationBarItemDefaults.colors(indicatorColor = Color.Transparent),
+    )
+}
+
+internal object NoRippleInteractionSource : MutableInteractionSource {
+    override val interactions: Flow<Interaction> = emptyFlow()
+
+    override suspend fun emit(interaction: Interaction) = Unit
+
+    override fun tryEmit(interaction: Interaction): Boolean = true
+}
+

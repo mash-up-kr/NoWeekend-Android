@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <!-- Slack Compose Lint Rules -->
+    <issue id="ComposeViewModelForwarding" severity="error" />
+    <issue id="ComposeRememberMissing" severity="error" />
+    <issue id="ComposeUnstableCollections" severity="error" />
+    <issue id="ComposeMutableParameters" severity="error" />
+    <issue id="ComposeUnstableReceiver" severity="warning" />
+    <issue id="ComposeContentEmitterReturningValues" severity="error" />
+    <issue id="ComposeMultipleContentEmitters" severity="error" />
+    <issue id="SlotReused" severity="warning" />
+    <issue id="ComposePreviewNaming" severity="error" />
+    <issue id="ComposeNamingUppercase" severity="error" />
+    <issue id="ComposeNamingLowercase" severity="error" />
+    <issue id="ComposeParameterOrder" severity="error" />
+    <issue id="ComposeViewModelInjection" severity="error" />
+    <issue id="ComposeCompositionLocalUsage" severity="error">
+        <option name="allowed-composition-locals"
+            value="LocalNeutralColor, LocalToastColor, LocalColor, LocalBorderRadius, LocalSpacing, LocalTypography, LocalBackgroundColor, LocalBorderColor, LocalTextColor, LocalSemanticTheme, LocalTaskItemColor" />
+    </issue>
+    <issue id="ComposePreviewPublic" severity="error" />
+    <issue id="ComposeModifierMissing" severity="error">
+        <option name="visibility-threshold" value="all" />
+    </issue>
+    <issue id="ComposeModifierReused" severity="error" />
+    <issue id="ComposeModifierWithoutDefault" severity="error" />
+    <issue id="ComposeComposableModifier" severity="error" />
+    <issue id="ComposeModifierComposed" severity="error" />
+    <issue id="ComposeM2Api" severity="warning" />
+
+    <!-- Compose Naming -->
+    <issue id="ComposableLambdaParameterNaming" severity="error" />
+
+    <!-- Compose Modifier -->
+    <issue id="ModifierFactoryReturnType" severity="error" />
+    <issue id="ModifierFactoryExtensionFunction" severity="error" />
+
+    <!-- Color -->
+    <issue id="InvalidColorHexValue" severity="error" />
+    <issue id="MissingColorAlphaChannel" severity="error" />
+
+    <!-- Compose State and Composition -->
+    <issue id="AutoboxingStateCreation" severity="error" />
+    <issue id="AutoboxingStateValueProperty" severity="error" />
+    <issue id="MutableCollectionMutableState" severity="error" />
+    <issue id="FrequentlyChangedStateReadInComposition" severity="warning" />
+    <issue id="FrequentlyChangingValue" severity="error" />
+
+    <!-- Compose Architecture -->
+    <issue id="OpaqueUnitKey" severity="warning" />
+    <issue id="ReturnFromAwaitPointerEventScope" severity="warning" />
+    <issue id="MultipleAwaitPointerEventScopes" severity="warning" />
+    <issue id="UseOfNonLambdaOffsetOverload" severity="warning" />
+    <issue id="LocalContextResourcesRead" severity="warning" />
+    <issue id="ConfigurationScreenWidthHeight" severity="warning" />
+</lint>
