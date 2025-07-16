@@ -46,6 +46,7 @@ class DetailDateViewModel @Inject constructor(
     }
 
     override fun handleClientException(throwable: Throwable) {
+        throwable.printStackTrace()
     }
 
     override suspend fun handleIntent(intent: DetailDateIntent) {
