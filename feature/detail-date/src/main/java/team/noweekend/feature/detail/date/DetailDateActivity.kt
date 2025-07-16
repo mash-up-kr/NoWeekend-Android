@@ -7,6 +7,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
 import dagger.hilt.android.AndroidEntryPoint
+import team.noweekend.core.design.system.foundation.theme.NWKTheme
+import team.noweekend.core.navigator.model.DetailDate
 import team.noweekend.feature.detail.date.navigation.DetailDateNavHost
 
 @AndroidEntryPoint
@@ -17,10 +19,15 @@ class DetailDateActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         setContent {
-            DetailDateNavHost(
-                modifier = Modifier.fillMaxSize(),
-                onClickBackButton = ::finish,
-            )
+            NWKTheme {
+                val date = intent.getStringExtra("date") ?: ""
+                val todoList: String = intent.getStringExtra("todoList") ?: ""
+                DetailDateNavHost(
+                    startDestination = DetailDate(date = date, todoList = todoList),
+                    modifier = Modifier.fillMaxSize(),
+                    onClickBackButton = ::finish,
+                )
+            }
         }
     }
 }
