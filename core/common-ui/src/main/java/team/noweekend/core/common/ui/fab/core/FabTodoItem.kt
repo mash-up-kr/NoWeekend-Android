@@ -17,7 +17,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import team.noweekend.core.common.ui.todo.model.Todo
-import team.noweekend.core.common.ui.todo.model.TodoType
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 
 @Composable
@@ -54,7 +53,6 @@ internal fun FabTodoItem(
         )
     }
 }
-
 
 @Preview(showBackground = true)
 @Composable

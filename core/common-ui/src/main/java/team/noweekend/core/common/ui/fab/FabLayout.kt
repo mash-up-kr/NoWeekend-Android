@@ -26,12 +26,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import kotlinx.collections.immutable.ImmutableList
 import team.noweekend.core.common.android.extension.fillMaxWidthOfScreen
-import team.noweekend.core.common.ui.todo.model.Todo
-import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.common.ui.fab.core.FabDimAlpha
-import team.noweekend.core.common.ui.fab.core.FabZIndex
 import team.noweekend.core.common.ui.fab.core.FabTodoAddButton
 import team.noweekend.core.common.ui.fab.core.FabTodoItemContainer
+import team.noweekend.core.common.ui.fab.core.FabZIndex
+import team.noweekend.core.common.ui.todo.model.Todo
+import team.noweekend.core.design.system.foundation.theme.NWKTheme
 
 @Composable
 fun FabLayout(
@@ -43,7 +43,6 @@ fun FabLayout(
     onClickDim: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-
     val dimColor = NWKTheme.color.Neutral.neutralGray700
 
     if (isExpanded) {
@@ -54,7 +53,7 @@ fun FabLayout(
         ) {
             drawRect(
                 color = dimColor,
-                alpha = FabDimAlpha
+                alpha = FabDimAlpha,
             )
         }
     }
@@ -116,11 +115,9 @@ fun FabLayout(
     }
 }
 
-
 @Preview
 @Composable
 private fun PreviewFabLayout() {
-
     NWKTheme {
         Box(
             modifier = Modifier.fillMaxSize(),

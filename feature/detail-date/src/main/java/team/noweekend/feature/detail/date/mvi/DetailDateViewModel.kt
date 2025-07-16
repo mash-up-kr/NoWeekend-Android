@@ -143,4 +143,3 @@ class DetailDateViewModel @Inject constructor(
         postSideEffect(sideEffect = DetailDateSideEffect.NavigateToBack)
     }
 }
-

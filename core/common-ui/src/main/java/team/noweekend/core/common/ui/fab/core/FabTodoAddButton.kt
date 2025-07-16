@@ -63,7 +63,6 @@ internal fun FabTodoAddButton(
                     drawableResId = Close,
                     colorFilter = ColorFilter.tint(color = NWKTheme.color.Neutral.black),
                 )
-
             } else {
                 NWKIcon(
                     resourceId = Plus,
@@ -81,12 +80,10 @@ internal fun FabTodoAddButton(
     }
 }
 
-
 @Preview
 @Composable
 private fun PreviewFabTodoAddButton() {
     NWKTheme {
-
         var isExpanded by remember { mutableStateOf(false) }
         FabTodoAddButton(
             isExpanded = isExpanded,

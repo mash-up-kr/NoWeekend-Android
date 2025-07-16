@@ -85,7 +85,6 @@ internal fun FabTodoItemContainer(
     }
 }
 
-
 @Preview
 @Composable
 private fun PreviewFabTodoItemContainer() {

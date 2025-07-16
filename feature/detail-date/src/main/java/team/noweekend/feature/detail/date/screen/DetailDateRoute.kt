@@ -18,7 +18,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import team.noweekend.core.common.android.extension.fillMaxWidthOfScreen
 import team.noweekend.core.common.ui.fab.FabLayout
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
-import team.noweekend.feature.detail.date.mvi.DetailDateIntent
 import team.noweekend.feature.detail.date.mvi.DetailDateSideEffect
 import team.noweekend.feature.detail.date.mvi.DetailDateViewModel
 import team.noweekend.feature.detail.date.mvi.builder.rememberIntentBuilder
@@ -36,7 +35,7 @@ internal fun DetailDateRoute(
     )
 
     LaunchedEffect(Unit) {
-        with(intentBuilder){
+        with(intentBuilder) {
             getInitState()
             getRecommendTodoTagList()
         }
@@ -54,7 +53,6 @@ internal fun DetailDateRoute(
             .fillMaxWidthOfScreen()
             .fillMaxHeight(),
     ) {
-
         var isExpanded by remember { mutableStateOf(false) }
         FabLayout(
             isExpanded = isExpanded,
@@ -78,6 +76,4 @@ internal fun DetailDateRoute(
             onClickBackButton = intentBuilder::clickBackButton,
         )
     }
-
-
 }

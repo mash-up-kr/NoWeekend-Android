@@ -61,7 +61,7 @@ private fun PreviewDateDetailScreen() {
                 ),
                 date = LocalDate.now(),
                 todoList = persistentListOf(),
-                recommendTodoTagList = persistentListOf()
+                recommendTodoTagList = persistentListOf(),
             ),
             onClickBackButton = {},
             onClickOptionButton = {},
