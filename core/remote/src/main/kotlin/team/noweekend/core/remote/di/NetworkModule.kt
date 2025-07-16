@@ -36,6 +36,7 @@ internal class NetworkModule {
             prettyPrint = true
             isLenient = true
             ignoreUnknownKeys = true
+            explicitNulls = true
         }
     }
 

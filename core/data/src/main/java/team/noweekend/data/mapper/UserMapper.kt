@@ -14,7 +14,7 @@ internal fun UserProfileResponse.toDomain(): User = User(
     revocableToken = revocableToken,
     role = role,
     remainingAnnualLeave = remainingAnnualLeave,
-    latitude = location.latitude,
-    longitude = location.longitude,
+    latitude = location?.latitude,
+    longitude = location?.longitude,
     averageTemperature = averageTemperature,
 )
