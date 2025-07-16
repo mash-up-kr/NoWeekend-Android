@@ -60,21 +60,21 @@ private fun PreviewCalendarTodoList() {
                     description = "description",
                     isDone = false,
                     todoType = TodoType.Etc(),
-                    id = "0"
+                    id = "0",
                 ),
                 Todo(
                     title = "title",
                     description = "description",
                     isDone = false,
                     todoType = TodoType.Personal(),
-                    id = "0"
+                    id = "0",
                 ),
                 Todo(
                     title = "title",
                     description = "description",
                     isDone = false,
                     todoType = TodoType.Company(),
-                    id = "0"
+                    id = "0",
                 ),
             ),
             onClickCheckBox = {},

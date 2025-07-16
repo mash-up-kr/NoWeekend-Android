@@ -24,5 +24,4 @@ class IntentBuilder(
     fun changeCompleteSchedule(index: Int) {
         build(DetailDateIntent.ChangeComplete(index = index))
     }
-
 }

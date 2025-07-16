@@ -11,6 +11,6 @@ interface ScheduleRepository {
 
     suspend fun changeCompleteSchedule(
         id: String,
-        isComplete: Boolean
-    ) : Schedule
+        isComplete: Boolean,
+    ): Schedule
 }

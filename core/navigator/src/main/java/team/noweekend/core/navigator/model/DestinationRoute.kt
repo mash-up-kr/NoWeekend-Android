@@ -18,7 +18,7 @@ data object Calendar : DestinationRoute
 @Serializable
 data class DetailDate(
     val date: String,
-    val todoList : String,
+    val todoList: String,
 ) : DestinationRoute
 
 @Serializable

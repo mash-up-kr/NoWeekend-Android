@@ -19,7 +19,6 @@ internal class ScheduleRepositoryImpl @Inject constructor(
         ).map { response -> response.toDomain() }
     }
 
-
     override suspend fun changeCompleteSchedule(id: String, isComplete: Boolean): Schedule {
         return scheduleApi.changeCompleteSchedule(
             id = id,

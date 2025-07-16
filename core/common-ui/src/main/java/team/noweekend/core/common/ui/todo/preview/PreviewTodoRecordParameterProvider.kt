@@ -14,28 +14,28 @@ internal class PreviewTodoRecordParameterProvider : PreviewParameterProvider<Tod
                 description = "오전 9시 30분까지 출근하기",
                 isDone = true,
                 todoType = TodoType.Company(),
-                id = "0"
+                id = "0",
             ),
             Todo(
                 title = "친구 약속",
                 description = "밥먹기",
                 isDone = true,
                 todoType = TodoType.Personal(),
-                id = "0"
+                id = "0",
             ),
             Todo(
                 title = "여행",
                 description = "제주도 여행",
                 isDone = false,
                 todoType = TodoType.AnnualLeave(),
-                id = "0"
+                id = "0",
             ),
             Todo(
                 title = "집콕",
                 description = "집에서 쉬기",
                 isDone = false,
                 todoType = TodoType.Etc(),
-                id = "0"
+                id = "0",
             ),
         )
 }

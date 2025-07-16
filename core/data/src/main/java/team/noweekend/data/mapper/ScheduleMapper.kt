@@ -17,7 +17,7 @@ fun GetScheduleResponse.toDomain(): DateWithSchedules {
     )
 }
 
-fun ScheduleModel.toSchedule() : Schedule{
+fun ScheduleModel.toSchedule(): Schedule {
     return Schedule(
         id = this.id,
         title = this.title,

@@ -301,7 +301,6 @@ class CalendarDataProviderUseCase @Inject constructor(
     }
 
     fun updateMonthsDataWithSchedule(schedule: Schedule) {
-
         _monthData.update { weeksDataMap ->
             weeksDataMap.mapValues { entry ->
                 entry.value.copy(
@@ -315,7 +314,7 @@ class CalendarDataProviderUseCase @Inject constructor(
                             dateOfWeek.copy(
                                 scheduleList = updateScheduleList,
                                 imageType = getImageType(
-                                    temperature = updateScheduleList.filter{it.completed }.sumOf { it.temperature },
+                                    temperature = updateScheduleList.filter { it.completed }.sumOf { it.temperature },
                                     isFuture = dateOfWeek.localDate < currentLocalDate,
                                     hasRest = updateScheduleList.any { it.category == ScheduleCategory.LEAVE },
                                 ),

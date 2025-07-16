@@ -26,7 +26,6 @@ class DetailDateViewModel @Inject constructor(
     savedStateHandle = savedStateHandle,
 ) {
     override fun createInitialState(savedStateHandle: SavedStateHandle): DetailDateUiState {
-
         val date = savedStateHandle.toRoute<DetailDate>().date
         val localDate = LocalDate.parseLocalDateString(date)
         return DetailDateUiState(
@@ -75,8 +74,8 @@ class DetailDateViewModel @Inject constructor(
                     degreeUiModel = DegreeUIModel(
                         degree = scheduleList.filter { schedule -> schedule.completed }
                             .sumOf { schedule -> schedule.temperature },
-                        isAnnualLeave = scheduleList.any { schedule -> schedule.category == ScheduleCategory.LEAVE }
-                    )
+                        isAnnualLeave = scheduleList.any { schedule -> schedule.category == ScheduleCategory.LEAVE },
+                    ),
                 )
             }
         }
@@ -93,12 +92,15 @@ class DetailDateViewModel @Inject constructor(
         reduce {
             this.copy(
                 todoList = currentState.todoList.mapIndexed { innerIndex, todo ->
-                    if (innerIndex == index) todo.copy(
-                        isDone = schedule.completed
-                    ) else todo
-                }.toImmutableList()
+                    if (innerIndex == index) {
+                        todo.copy(
+                            isDone = schedule.completed,
+                        )
+                    } else {
+                        todo
+                    }
+                }.toImmutableList(),
             )
         }
-
     }
 }

@@ -17,7 +17,7 @@ fun Schedule.toTodo(): Todo {
         description = getDescription(allDay = this.allDay, startTime = this.startTime),
         todoType = this.category.toTodoType(),
         isDone = this.completed,
-        id = this.id
+        id = this.id,
     )
 }
 
@@ -40,4 +40,3 @@ fun getDescription(allDay: Boolean, startTime: String): String {
         localDateTime.toFormattedString(pattern = LocalTime.MERIDIEM_HOUR_MINUTE_KR_PATTERN)
     }
 }
-

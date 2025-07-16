@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import team.noweekend.feature.detail.date.mvi.DetailDateIntent
 import team.noweekend.feature.detail.date.mvi.DetailDateViewModel
@@ -18,8 +17,8 @@ internal fun DetailDateRoute(
 ) {
     val state = detailDateViewModel.uiState.collectAsStateWithLifecycle()
 
-    val intentBuilder= rememberIntentBuilder(
-        send = detailDateViewModel::intent
+    val intentBuilder = rememberIntentBuilder(
+        send = detailDateViewModel::intent,
     )
 
     LaunchedEffect(Unit) {
