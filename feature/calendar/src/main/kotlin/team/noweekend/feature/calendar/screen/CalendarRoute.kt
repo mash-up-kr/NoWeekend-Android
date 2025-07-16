@@ -18,10 +18,7 @@ import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
-import androidx.lifecycle.compose.LifecycleResumeEffect
-import androidx.lifecycle.compose.LifecycleStartEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import kotlinx.datetime.LocalDate
 import team.noweekend.core.common.android.extension.fillMaxWidthOfScreen
 import team.noweekend.core.common.ui.calendar.state.CalendarPagerState.Companion.initialPage
 import team.noweekend.core.common.ui.todo.model.Todo
@@ -35,6 +32,7 @@ import team.noweekend.feature.calendar.mvi.rememberSideEffectHandler
 @Composable
 internal fun CalendarRoute(
     navigateToDetailDate: (String) -> Unit,
+    navigateToAddTodo: (Todo) -> Unit,
     modifier: Modifier = Modifier,
     calendarViewModel: CalendarViewModel = hiltViewModel(),
 ) {
@@ -56,15 +54,17 @@ internal fun CalendarRoute(
         updateNextMonthPage = intentBuilder::updateNextMonthPage,
         updatePreviousMonthPage = intentBuilder::updatePreviousMonthPage,
         updatePreviousWeekPage = intentBuilder::updatePreviousWeekPage,
-        navigateToDetailDate = navigateToDetailDate
+        navigateToDetailDate = navigateToDetailDate,
+        navigateToAddTodo = navigateToAddTodo,
     )
 
 
 
-    LaunchedEffect(Unit){
+    LaunchedEffect(Unit) {
         with(intentBuilder) {
             collectCalendarEvent()
             updateCalendarData()
+            getRecommendTodoTagList()
             calendarViewModel.sideEffect.collect(calendarSideEffectHandler::handleSideEffect)
         }
     }
@@ -89,11 +89,9 @@ internal fun CalendarRoute(
         var isExpanded by remember { mutableStateOf(false) }
         FabLayout(
             isExpanded = isExpanded,
-            todoItemList = Todo.previewDummy,
+            todoItemList = state.value.recommendTodoList,
             onClickFabButton = { isExpanded = isExpanded.not() },
-            onClickTodo = { index: Int ->
-                println(Todo.previewDummy[index])
-            },
+            onClickTodo = intentBuilder::clickRecommendTodoTag,
             modifier = Modifier
                 .zIndex(FabZIndex)
                 .align(Alignment.BottomEnd)
@@ -124,7 +122,8 @@ private fun CalendarRoutePreview() {
     NWKTheme {
         CalendarRoute(
             modifier = Modifier.fillMaxSize(),
-            navigateToDetailDate = {}
+            navigateToDetailDate = {},
+            navigateToAddTodo = {}
         )
     }
 }

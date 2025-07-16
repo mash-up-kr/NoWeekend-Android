@@ -24,6 +24,7 @@ data class CalendarUiState(
     val selectedTodoList: ImmutableList<Todo>,
     val calendarPagerState: CalendarPagerState,
     val calendarState: CalendarState,
+    val recommendTodoList: ImmutableList<Todo>,
 ) : UiState {
     companion object {
         val Init = CalendarUiState(
@@ -34,6 +35,7 @@ data class CalendarUiState(
             selectedTodoList = persistentListOf(),
             calendarPagerState = CalendarPagerState(),
             calendarState = CalendarState.Week.default,
+            recommendTodoList = persistentListOf(),
         )
     }
 }
