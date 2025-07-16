@@ -50,6 +50,8 @@ internal fun HomeScreen(
             currentMonthWeek = LocalDate.now(),
             currentLocation = "서울특별시 중구 소공동 세종대로18길 2",
             recommends = uiState.weatherRecommendVacations,
+            calendarData = uiState.calendarData,
+            selectedDate = uiState.selectedDate,
         )
         itemSpacer(40.dp)
         popularVacationRecommend(

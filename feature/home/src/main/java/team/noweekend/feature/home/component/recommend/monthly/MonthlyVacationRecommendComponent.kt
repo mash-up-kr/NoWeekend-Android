@@ -8,17 +8,18 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.ImmutableMap
 import kotlinx.collections.immutable.persistentListOf
-import kotlinx.collections.immutable.toImmutableMap
+import kotlinx.collections.immutable.persistentMapOf
 import kotlinx.datetime.LocalDate
 import team.noweekend.core.common.kotlin.extension.now
 import team.noweekend.core.common.ui.calendar.model.CalendarState
-import team.noweekend.core.common.ui.calendar.rememberCalendarDataProvider
+import team.noweekend.core.common.ui.calendar.model.CalendarWeeksData
+import team.noweekend.core.common.ui.calendar.state.CalendarPagerState
 import team.noweekend.core.common.ui.calendar.state.rememberCalendarPagerState
 import team.noweekend.core.design.system.core.component.divider.NWKHorizontalDivider
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
@@ -30,12 +31,16 @@ internal fun LazyListScope.monthlyVacationRecommendComponent(
     currentMonthWeek: LocalDate,
     currentLocation: String,
     recommends: ImmutableList<MonthlyVacationRecommendUiModel>,
+    calendarData: ImmutableMap<Int, CalendarWeeksData>,
+    selectedDate: LocalDate,
     modifier: Modifier = Modifier,
 ) = item {
     MonthlyVacationRecommendComponent(
         currentMonthWeek = currentMonthWeek,
         currentLocation = currentLocation,
         recommends = recommends,
+        calendarData = calendarData,
+        selectedDate = selectedDate,
     )
 }
 
@@ -44,15 +49,11 @@ internal fun MonthlyVacationRecommendComponent(
     currentMonthWeek: LocalDate,
     currentLocation: String,
     recommends: ImmutableList<MonthlyVacationRecommendUiModel>,
+    calendarData: ImmutableMap<Int, CalendarWeeksData>,
+    selectedDate: LocalDate,
     modifier: Modifier = Modifier,
+    calendarPagerState: CalendarPagerState = rememberCalendarPagerState(),
 ) {
-    val calendarDataProvider = rememberCalendarDataProvider()
-    val calendarPagerState = rememberCalendarPagerState()
-
-    LaunchedEffect(Unit) {
-        calendarDataProvider.initWeekCalendar(initPage = calendarPagerState.initialPage)
-    }
-
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -64,9 +65,10 @@ internal fun MonthlyVacationRecommendComponent(
         )
         NWKCalender(
             calendarState = CalendarState.Week(
-                pagerData = calendarDataProvider.calendarWeeksData.toImmutableMap(),
+                pagerData = calendarData,
                 pagerState = calendarPagerState.weekPagerState,
-                selectedDate = calendarDataProvider.targetDate.value,
+                selectedDate = selectedDate,
+                calendarItemClickable = false,
             ),
             onClickDateOfWeek = {},
             userScrollEnabled = false,
@@ -111,6 +113,8 @@ private fun MonthlyVacationRecommendComponentPreview() {
                     recommendContent = "오전 눈 예보, 반차 추천!",
                 ),
             ),
+            calendarData = persistentMapOf(),
+            selectedDate = LocalDate.now(),
         )
     }
 }

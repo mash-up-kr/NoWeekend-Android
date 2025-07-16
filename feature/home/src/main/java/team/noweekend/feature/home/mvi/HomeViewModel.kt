@@ -4,17 +4,24 @@ import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toImmutableList
+import kotlinx.collections.immutable.toImmutableMap
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.datetime.LocalDate
 import team.noweekend.core.common.android.base.MVIViewModel
 import team.noweekend.core.common.kotlin.extension.parseLocalDateString
+import team.noweekend.core.common.ui.calendar.model.CalendarDateOfWeek
+import team.noweekend.core.common.ui.calendar.model.CalendarWeeksData
+import team.noweekend.core.common.ui.calendar.state.CalendarPagerState.Companion.initialPage
+import team.noweekend.core.domain.usecase.CalendarDataProviderUseCase
 import team.noweekend.core.domain.usecase.GetHolidayUseCase
 import team.noweekend.core.domain.usecase.GetSandwichRecommendVacationUseCase
 import team.noweekend.core.domain.usecase.GetUserProfileUseCase
 import team.noweekend.core.domain.usecase.GetWeatherRecommendVacationUseCase
 import team.noweekend.core.domain.usecase.UserLocationUseCase
+import team.noweekend.core.model.calendar.WeeksData
 import team.noweekend.core.model.vacation.VacationType
+import team.noweekend.feature.home.mapper.toImageTypeWithId
 import team.noweekend.feature.home.model.HolidayUiModel
 import team.noweekend.feature.home.model.MonthlyVacationRecommendUiModel
 import team.noweekend.feature.home.model.PopularVacationUiModel
@@ -30,6 +37,7 @@ class HomeViewModel @Inject constructor(
     private val userLocationUseCase: UserLocationUseCase,
     private val getSandwichRecommendVacationUseCase: GetSandwichRecommendVacationUseCase,
     private val getUserProfileUseCase: GetUserProfileUseCase,
+    private val calendarDataProviderUseCase: CalendarDataProviderUseCase,
 ) : MVIViewModel<HomeIntent, HomeSideEffect, HomeUiState>(
     savedStateHandle = savedStateHandle,
 ) {
@@ -38,6 +46,7 @@ class HomeViewModel @Inject constructor(
         getPopularRecommendVacations()
         getRemainedHolidays()
         saveUserLocation()
+        getCalendarData()
     }
 
     override fun createInitialState(savedStateHandle: SavedStateHandle): HomeUiState {
@@ -153,5 +162,32 @@ class HomeViewModel @Inject constructor(
 
     private fun updateCreateVacationStatus(status: CreateVacationStatus) {
         reduce { copy(createVacationStatus = status) }
+    }
+
+    private fun getCalendarData() = execute {
+        calendarDataProviderUseCase.initWeekCalendar(initialPage)
+        val weeksDate: Map<Int, WeeksData> = calendarDataProviderUseCase.weeksDate.value
+
+        val calendarDateOfWeek = weeksDate.toList().associate { (key, value) ->
+            key to CalendarWeeksData(
+                year = value.year,
+                month = value.month,
+                calendarDateOfWeeks = value.dateOfWeeks.map { dateOfWeekList ->
+                    dateOfWeekList.map { dateOfWeek ->
+                        CalendarDateOfWeek(
+                            calendarImageType = dateOfWeek.imageType.toImageTypeWithId(),
+                            localDate = dateOfWeek.localDate,
+                            isCurrentDate = dateOfWeek.isCurrentDate,
+                        )
+                    }.toImmutableList()
+                }.toImmutableList(),
+            )
+        }.toImmutableMap()
+
+        reduce {
+            copy(
+                calendarData = calendarDateOfWeek,
+            )
+        }
     }
 }
