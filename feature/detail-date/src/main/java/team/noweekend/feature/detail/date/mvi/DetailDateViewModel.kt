@@ -8,8 +8,11 @@ import kotlinx.collections.immutable.toImmutableList
 import kotlinx.datetime.LocalDate
 import team.noweekend.core.common.android.base.MVIViewModel
 import team.noweekend.core.common.kotlin.extension.parseLocalDateString
+import team.noweekend.core.common.ui.todo.model.Todo
+import team.noweekend.core.common.ui.todo.model.TodoType
 import team.noweekend.core.domain.usecase.CalendarDataProviderUseCase
 import team.noweekend.core.domain.usecase.ChangeCompleteScheduleUseCase
+import team.noweekend.core.domain.usecase.GetRecommendTodoTagUseCase
 import team.noweekend.core.model.schedule.Schedule
 import team.noweekend.core.model.schedule.ScheduleCategory
 import team.noweekend.core.navigator.model.DetailDate
@@ -21,6 +24,7 @@ import javax.inject.Inject
 class DetailDateViewModel @Inject constructor(
     private val calendarDateProviderUseCase: CalendarDataProviderUseCase,
     private val changeCompleteScheduleUseCase: ChangeCompleteScheduleUseCase,
+    private val getRecommendTodoTagUseCase: GetRecommendTodoTagUseCase,
     savedStateHandle: SavedStateHandle,
 ) : MVIViewModel<DetailDateIntent, DetailDateSideEffect, DetailDateUiState>(
     savedStateHandle = savedStateHandle,
@@ -33,6 +37,7 @@ class DetailDateViewModel @Inject constructor(
             date = localDate,
             degreeUiModel = DegreeUIModel(degree = 0, isAnnualLeave = false),
             todoList = persistentListOf(),
+            recommendTodoTagList = persistentListOf(),
         )
     }
 
@@ -49,6 +54,10 @@ class DetailDateViewModel @Inject constructor(
             is DetailDateIntent.ChangeComplete -> changeCompleteSchedule(
                 index = intent.index,
             )
+
+            is DetailDateIntent.GetRecommendTodoTagList -> getRecommendTodoTag()
+            is DetailDateIntent.ClickRecommendTodoTag -> clickRecommendTodoTag(index = intent.index)
+            is DetailDateIntent.ClickBackButton -> clickBackButton()
         }
     }
 
@@ -103,4 +112,35 @@ class DetailDateViewModel @Inject constructor(
             )
         }
     }
+
+    private fun getRecommendTodoTag() = execute {
+        val tagList = getRecommendTodoTagUseCase()
+        reduce {
+            this.copy(
+                recommendTodoTagList = tagList.mapIndexed { index, tagName ->
+                    Todo(
+                        id = tagName,
+                        title = tagName,
+                        description = "",
+                        todoType = when (index) {
+                            0 -> TodoType.Company()
+                            1 -> TodoType.Personal()
+                            else -> TodoType.Etc()
+                        },
+                        isDone = false,
+                    )
+                }.toImmutableList(),
+            )
+        }
+    }
+
+    private fun clickRecommendTodoTag(index: Int) = execute {
+        val todo = currentState.recommendTodoTagList[index]
+        postSideEffect(sideEffect = DetailDateSideEffect.NavigateToAddTodo(todo = todo))
+    }
+
+    private fun clickBackButton() = execute {
+        postSideEffect(sideEffect = DetailDateSideEffect.NavigateToBack)
+    }
 }
+

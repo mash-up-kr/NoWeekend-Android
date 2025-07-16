@@ -25,7 +25,7 @@ class DetailDateActivity : ComponentActivity() {
                 DetailDateNavHost(
                     startDestination = DetailDate(date = date, todoList = todoList),
                     modifier = Modifier.fillMaxSize(),
-                    onClickBackButton = ::finish,
+                    navigateToBack = ::finish,
                 )
             }
         }
