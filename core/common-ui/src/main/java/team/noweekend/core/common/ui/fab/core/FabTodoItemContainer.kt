@@ -1,4 +1,4 @@
-package team.noweekend.feature.calendar.component.fab.core
+package team.noweekend.core.common.ui.fab.core
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -84,7 +84,6 @@ internal fun FabTodoItemContainer(
         }
     }
 }
-
 
 @Preview
 @Composable

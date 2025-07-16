@@ -1,4 +1,4 @@
-package team.noweekend.feature.calendar.component.fab.core
+package team.noweekend.core.common.ui.fab.core
 
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.layout.Arrangement
@@ -63,7 +63,6 @@ internal fun FabTodoAddButton(
                     drawableResId = Close,
                     colorFilter = ColorFilter.tint(color = NWKTheme.color.Neutral.black),
                 )
-
             } else {
                 NWKIcon(
                     resourceId = Plus,
@@ -81,12 +80,10 @@ internal fun FabTodoAddButton(
     }
 }
 
-
 @Preview
 @Composable
 private fun PreviewFabTodoAddButton() {
     NWKTheme {
-
         var isExpanded by remember { mutableStateOf(false) }
         FabTodoAddButton(
             isExpanded = isExpanded,

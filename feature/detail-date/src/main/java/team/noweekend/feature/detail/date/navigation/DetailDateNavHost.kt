@@ -14,7 +14,7 @@ import team.noweekend.feature.detail.date.screen.DetailDateRoute
 @Composable
 fun DetailDateNavHost(
     startDestination: DetailDate,
-    onClickBackButton: () -> Unit,
+    navigateToBack: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val navController = rememberNavController()
@@ -31,7 +31,7 @@ fun DetailDateNavHost(
             composable<DetailDate> {
                 DetailDateRoute(
                     modifier = Modifier.fillMaxSize(),
-                    onClickBackButton = onClickBackButton,
+                    navigateToBack = navigateToBack,
                 )
             }
         }

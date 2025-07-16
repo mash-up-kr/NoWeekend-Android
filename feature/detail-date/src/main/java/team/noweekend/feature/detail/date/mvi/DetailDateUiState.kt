@@ -12,5 +12,6 @@ data class DetailDateUiState(
     val dateTitle: String,
     val date: LocalDate,
     val todoList: ImmutableList<Todo>,
+    val recommendTodoTagList: ImmutableList<Todo>,
     val degreeUiModel: DegreeUIModel,
 ) : UiState

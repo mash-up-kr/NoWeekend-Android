@@ -12,6 +12,7 @@ internal fun MainRoute(
     navigateToCreateVacation: ((Intent.() -> Intent)?, ActivityResultLauncher<Intent>?) -> Unit,
     navigateToDetailDate: ((Intent.() -> Intent)?) -> Unit,
     navigateToExternalWebBrowser: (String) -> Unit,
+    navigateToAddTodo : ((Intent.() -> Intent)?) -> Unit,
     modifier: Modifier = Modifier,
     navigator: MainNavigator = rememberMainNavigator(),
 ) {
@@ -19,6 +20,7 @@ internal fun MainRoute(
         navigateToCreateVacation = navigateToCreateVacation,
         navigateToDetailDate = navigateToDetailDate,
         navigateToExternalWebBrowser = navigateToExternalWebBrowser,
+        navigateToAddTodo = navigateToAddTodo,
         onTabSelected = { navigator.navigate(it) },
         modifier = modifier,
         navigator = navigator,

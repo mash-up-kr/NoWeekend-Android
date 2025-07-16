@@ -24,4 +24,20 @@ class IntentBuilder(
     fun changeCompleteSchedule(index: Int) {
         build(DetailDateIntent.ChangeComplete(index = index))
     }
+
+    fun getInitState() {
+        build(DetailDateIntent.InitState)
+    }
+
+    fun clickRecommendTodoTag(index: Int) {
+        build(DetailDateIntent.ClickRecommendTodoTag(index = index))
+    }
+
+    fun getRecommendTodoTagList() {
+        build(DetailDateIntent.GetRecommendTodoTagList)
+    }
+
+    fun clickBackButton() {
+        build(DetailDateIntent.ClickBackButton)
+    }
 }

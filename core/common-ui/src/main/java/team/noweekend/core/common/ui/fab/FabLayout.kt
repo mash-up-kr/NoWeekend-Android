@@ -1,4 +1,4 @@
-package team.noweekend.feature.calendar.component.fab
+package team.noweekend.core.common.ui.fab
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.clickable
@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,15 +26,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import kotlinx.collections.immutable.ImmutableList
 import team.noweekend.core.common.android.extension.fillMaxWidthOfScreen
+import team.noweekend.core.common.ui.fab.core.FabDimAlpha
+import team.noweekend.core.common.ui.fab.core.FabTodoAddButton
+import team.noweekend.core.common.ui.fab.core.FabTodoItemContainer
+import team.noweekend.core.common.ui.fab.core.FabZIndex
 import team.noweekend.core.common.ui.todo.model.Todo
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
-import team.noweekend.feature.calendar.component.fab.core.FabDimAlpha
-import team.noweekend.feature.calendar.component.fab.core.FabZIndex
-import team.noweekend.feature.calendar.component.fab.core.FabTodoAddButton
-import team.noweekend.feature.calendar.component.fab.core.FabTodoItemContainer
 
 @Composable
-internal fun FabLayout(
+fun FabLayout(
     isExpanded: Boolean,
     todoItemList: ImmutableList<Todo>,
     onClickFabButton: () -> Unit,
@@ -44,7 +43,6 @@ internal fun FabLayout(
     onClickDim: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-
     val dimColor = NWKTheme.color.Neutral.neutralGray700
 
     if (isExpanded) {
@@ -55,13 +53,13 @@ internal fun FabLayout(
         ) {
             drawRect(
                 color = dimColor,
-                alpha = FabDimAlpha
+                alpha = FabDimAlpha,
             )
         }
     }
 
     Layout(
-        modifier = modifier,
+        modifier = modifier.zIndex(FabZIndex),
         content = {
             if (isExpanded) {
                 FabTodoItemContainer(
@@ -117,11 +115,9 @@ internal fun FabLayout(
     }
 }
 
-
 @Preview
 @Composable
 private fun PreviewFabLayout() {
-
     NWKTheme {
         Box(
             modifier = Modifier.fillMaxSize(),
