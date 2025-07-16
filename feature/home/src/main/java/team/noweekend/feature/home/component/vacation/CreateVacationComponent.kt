@@ -1,8 +1,12 @@
 package team.noweekend.feature.home.component.vacation
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,6 +26,7 @@ import team.noweekend.core.design.system.core.component.button.defaults.BoxButto
 import team.noweekend.core.design.system.core.component.button.fill.NWKFillButton
 import team.noweekend.core.design.system.core.component.image.NWKImage
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
+import team.noweekend.core.resource.NWKDrawableResource
 import team.noweekend.core.resource.NWKStringResource
 import team.noweekend.feature.home.mvi.CreateVacationStatus
 
@@ -49,31 +54,42 @@ internal fun CreateVacationComponent(
     onCreateVacationClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Column(
+    Box(
         modifier = modifier.fillMaxWidthOfScreen(),
-        verticalArrangement = Arrangement.spacedBy(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        AverageTemperature(
-            temperature = temperature,
-            guideMessageResId = createVacationStatus.messageResourceId,
-        )
         NWKImage(
-            modifier = Modifier.size(140.dp),
-            drawableResId = createVacationStatus.imageResourceId,
+            modifier = Modifier
+                .width(385.dp)
+                .height(345.dp)
+                .offset(y = (-50).dp),
+            drawableResId = NWKDrawableResource.GradientBackground,
         )
-        NWKFillButton(
-            onClick = onCreateVacationClick,
-            text = when (createVacationStatus) {
-                is CreateVacationStatus.Default -> {
-                    stringResource(createVacationStatus.buttonText, remainingVacation)
-                }
+        Column(
+            modifier = Modifier.fillMaxWidthOfScreen(),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            AverageTemperature(
+                temperature = temperature,
+                guideMessageResId = createVacationStatus.messageResourceId,
+            )
+            NWKImage(
+                modifier = Modifier.size(140.dp),
+                drawableResId = createVacationStatus.imageResourceId,
+            )
+            NWKFillButton(
+                onClick = onCreateVacationClick,
+                text = when (createVacationStatus) {
+                    is CreateVacationStatus.Default -> {
+                        stringResource(createVacationStatus.buttonText, remainingVacation)
+                    }
 
-                else -> stringResource(createVacationStatus.buttonText)
-            },
-            type = BoxButtonType.PRIMARY,
-            enabled = (createVacationStatus is CreateVacationStatus.Done).not(),
-        )
+                    else -> stringResource(createVacationStatus.buttonText)
+                },
+                type = BoxButtonType.PRIMARY,
+                enabled = (createVacationStatus is CreateVacationStatus.Done).not(),
+            )
+        }
     }
 }
 

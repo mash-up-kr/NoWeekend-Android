@@ -40,7 +40,6 @@ internal fun HomeScreen(
             createVacationStatus = uiState.createVacationStatus,
             onCreateVacationClick = onCreateVacationClick,
         )
-        itemSpacer(40.dp)
         holidayRecommend(
             holidays = uiState.remainedHolidays,
             onHolidayCardClick = {},
