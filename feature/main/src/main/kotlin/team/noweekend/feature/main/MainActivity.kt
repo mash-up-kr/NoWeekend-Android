@@ -8,6 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.core.net.toUri
 import dagger.hilt.android.AndroidEntryPoint
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
+import team.noweekend.core.navigator.delegate.CalendarNavigationDelegate
 import team.noweekend.core.navigator.delegate.HomeNavigationDelegate
 import team.noweekend.feature.main.screen.MainRoute
 import javax.inject.Inject
@@ -17,6 +18,8 @@ class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var homeNavigationDelegate: HomeNavigationDelegate
+    @Inject
+    lateinit var calendarNavigationDelegate: CalendarNavigationDelegate
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,13 +35,18 @@ class MainActivity : ComponentActivity() {
                         )
                     },
                     navigateToDetailDate = { intentBuilder ->
-                        homeNavigationDelegate.navigateToDetailDate(
+                        calendarNavigationDelegate.navigateToDetailDate(
                             activity = this,
                             intentBuilder = intentBuilder,
                             launcher = null,
                         )
                     },
                     navigateToExternalWebBrowser = ::openExternalWebBrowser,
+                    navigateToAddTodo = {intentBuilder ->
+                        /* Todo use CalendarNavigationDelgate
+                          ex) calendarNavigationDelegate.navigateToAddTask()
+                         */
+                    }
                 )
             }
         }

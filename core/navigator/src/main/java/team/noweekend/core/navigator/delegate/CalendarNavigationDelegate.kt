@@ -5,22 +5,31 @@ import android.content.Intent
 import androidx.activity.ComponentActivity
 import androidx.activity.result.ActivityResultLauncher
 import dagger.hilt.android.qualifiers.ActivityContext
-import team.noweekend.core.navigator.feature.CreateVacationNavigator
+import dagger.hilt.android.scopes.ActivityScoped
+import team.noweekend.core.navigator.feature.DetailDateNavigator
 import javax.inject.Inject
 
-class HomeNavigationDelegate @Inject constructor(
+@ActivityScoped
+class CalendarNavigationDelegate @Inject constructor(
     @ActivityContext private val context: Context,
-    private val createVacationNavigator: CreateVacationNavigator,
+    private val detailDateNavigator: DetailDateNavigator,
 ) {
-    fun navigateToCreateVacation(
+    fun navigateToDetailDate(
         activity: ComponentActivity = context as ComponentActivity,
         intentBuilder: (Intent.() -> Intent)? = null,
         launcher: ActivityResultLauncher<Intent>?,
     ) {
-        createVacationNavigator.navigateWithLauncher(
+        detailDateNavigator.navigateWithLauncher(
             activity = activity,
             intentBuilder = intentBuilder,
             launcher = launcher,
         )
+    }
+
+    fun navigateToAddTask(
+        activity: ComponentActivity = context as ComponentActivity,
+        intentBuilder: (Intent.() -> Intent)? = null,
+        launcher: ActivityResultLauncher<Intent>?,
+    ) {
     }
 }
