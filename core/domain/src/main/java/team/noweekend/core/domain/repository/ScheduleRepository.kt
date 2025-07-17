@@ -1,7 +1,9 @@
 package team.noweekend.core.domain.repository
 
+import team.noweekend.core.model.schedule.CreateSchedule
 import team.noweekend.core.model.schedule.DateWithSchedules
 import team.noweekend.core.model.schedule.Schedule
+import team.noweekend.core.model.schedule.ScheduleCreateParam
 
 interface ScheduleRepository {
     suspend fun getSchedule(
@@ -13,4 +15,6 @@ interface ScheduleRepository {
         id: String,
         isComplete: Boolean,
     ): Schedule
+
+    suspend fun createSchedule(param: ScheduleCreateParam): CreateSchedule
 }

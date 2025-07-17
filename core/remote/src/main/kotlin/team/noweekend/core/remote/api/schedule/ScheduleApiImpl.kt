@@ -7,10 +7,12 @@ import team.noweekend.core.remote.base.deleteApiCall
 import team.noweekend.core.remote.base.getApiCall
 import team.noweekend.core.remote.base.postApiCall
 import team.noweekend.core.remote.base.putApiCall
+import team.noweekend.core.remote.model.schedule.ScheduleCreateRequest
 import team.noweekend.core.remote.model.schedule.common.ScheduleModel
 import team.noweekend.core.remote.model.schedule.response.DeleteScheduleResponse
 import team.noweekend.core.remote.model.schedule.response.EditScheduleRequest
 import team.noweekend.core.remote.model.schedule.response.GetScheduleResponse
+import team.noweekend.core.remote.model.schedule.response.ScheduleCreateResponse
 import team.noweekend.core.remote.qualifier.BasicClient
 import javax.inject.Inject
 
@@ -43,9 +45,9 @@ class ScheduleApiImpl @Inject constructor(
         )
     }
 
-    override suspend fun createSchedule(createScheduleRequest: ScheduleModel): ScheduleModel {
+    override suspend fun createSchedule(createScheduleRequest: ScheduleCreateRequest): ScheduleCreateResponse {
         return client.postApiCall(
-            path = ScheduleApi.SCHEDULE_PATH,
+            path = "/api/v2/schedule",
             body = createScheduleRequest,
         )
     }
@@ -54,7 +56,7 @@ class ScheduleApiImpl @Inject constructor(
         return client.putApiCall(
             path = ScheduleApi.SCHEDULE_PATH + "/${id}/state",
             body = null,
-            queries = mapOf("is_complete" to isComplete)
+            queries = mapOf("is_complete" to isComplete),
         )
     }
 }
