@@ -1,5 +1,9 @@
 package team.noweekend.core.model.calendar
 
+import kotlinx.datetime.LocalDate
+import team.noweekend.core.model.schedule.Schedule
+import team.noweekend.core.model.schedule.ScheduleCategory
+
 enum class ImageType {
     NONE,
     FUTURE_SCHEDULE,
@@ -20,4 +24,11 @@ fun getImageType(temperature: Int, isFuture: Boolean, hasRest: Boolean): ImageTy
         temperature >= 75 -> ImageType.BURN_OUT
         else -> ImageType.NONE
     }
+}
+
+fun List<Schedule>.getImageType(dateOfWeek: DateOfWeek, localDate: LocalDate): ImageType {
+    val temperature = this.filter { it.completed }.sumOf { it.temperature }
+    val isFuture = dateOfWeek.localDate > localDate
+    val hasRest = this.any { it.category == ScheduleCategory.LEAVE }
+    return getImageType(temperature = temperature, isFuture = isFuture, hasRest = hasRest)
 }

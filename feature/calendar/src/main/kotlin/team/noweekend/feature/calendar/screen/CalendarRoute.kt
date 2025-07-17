@@ -19,10 +19,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import team.noweekend.core.common.android.extension.fillMaxWidthOfScreen
-import team.noweekend.core.common.ui.calendar.state.CalendarPagerState.Companion.initialPage
 import team.noweekend.core.common.ui.fab.FabLayout
 import team.noweekend.core.common.ui.todo.model.Todo
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
+import team.noweekend.feature.calendar.component.bottomsheet.MonthChooserBottomSheet
+import team.noweekend.feature.calendar.model.StableLocalDate
 import team.noweekend.feature.calendar.mvi.CalendarViewModel
 import team.noweekend.feature.calendar.mvi.builder.rememberIntentBuilder
 import team.noweekend.feature.calendar.mvi.rememberSideEffectHandler
@@ -71,7 +72,7 @@ internal fun CalendarRoute(
     }
     LaunchedEffect(state.value.calendarMode) {
         with(intentBuilder) {
-            initCalendarData(initialPage)
+            initCalendarData()
         }
     }
     LaunchedEffect(state.value.calendarState.selectedDate) {
@@ -85,6 +86,7 @@ internal fun CalendarRoute(
             .fillMaxHeight(),
     ) {
         var isExpanded by remember { mutableStateOf(false) }
+
         FabLayout(
             isExpanded = isExpanded,
             todoItemList = state.value.recommendTodoList,
@@ -105,11 +107,19 @@ internal fun CalendarRoute(
             onToggleStateChanged = intentBuilder::updateCalendarModeWithToggleState,
             onClickToggle = intentBuilder::updateCalendarMode,
             onClickDateOfWeek = intentBuilder::updateTargetDate,
-            onClickYearMonthButton = {},
+            onClickYearMonthButton = intentBuilder::clickMonthChooser,
             onClickCheckBox = intentBuilder::changeCompleteSchedule,
             onClickOptionButton = {},
-            todoList = state.value.selectedTodoList,
+            todoListState = state.value.selectedTodoList,
         )
+
+        if (state.value.monthChooserVisible) {
+            MonthChooserBottomSheet(
+                initialDate = StableLocalDate(state.value.chooserMonth),
+                onClickSelectButton = intentBuilder::initCalendarDateWithDate,
+                onDismissRequest = intentBuilder::clickMonthChooser,
+            )
+        }
     }
 }
 

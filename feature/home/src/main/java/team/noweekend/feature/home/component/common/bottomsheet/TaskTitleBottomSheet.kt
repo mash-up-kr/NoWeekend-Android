@@ -31,6 +31,7 @@ internal fun TaskTitleBottomSheet(
             bottomSheetButtonTitle = "추가하기",
             onClickButton = {},
         ),
+        isDraggable = false,
     )
 
     NWKBottomSheet(

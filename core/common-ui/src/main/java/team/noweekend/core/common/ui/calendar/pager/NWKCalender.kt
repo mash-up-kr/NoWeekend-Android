@@ -4,7 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import kotlinx.collections.immutable.toImmutableMap
+import kotlinx.collections.immutable.persistentMapOf
+import kotlinx.coroutines.flow.MutableStateFlow
 import team.noweekend.core.common.ui.calendar.component.DayOfWeekBar
 import team.noweekend.core.common.ui.calendar.model.CalendarDateOfWeek
 import team.noweekend.core.common.ui.calendar.model.CalendarMode
@@ -47,7 +48,7 @@ private fun PreviewNoneScrollCalendar() {
         }
         NWKCalender(
             calendarState = CalendarState.Week(
-                pagerData = calendarDataProvider.calendarWeeksData.toImmutableMap(),
+                pagerData = MutableStateFlow(persistentMapOf()),
                 pagerState = calendarPagerState.weekPagerState,
                 selectedDate = calendarDataProvider.targetDate.value,
                 mode = CalendarMode.WEEK,

@@ -71,8 +71,6 @@ class HomeViewModel @Inject constructor(
             -> {
                 updateTaskTitleBottomSheetVisibility(true)
             }
-
-            else -> {}
         }
     }
 
