@@ -39,7 +39,6 @@ import team.noweekend.core.design.system.foundation.theme.NWKTheme
 @Composable
 fun NWKInputField(
     textFieldState: TextFieldState,
-    onKeyboardAction: () -> Unit,
     modifier: Modifier = Modifier,
     placeholder: String = "",
     isUnderLine: Boolean = true,
@@ -52,6 +51,7 @@ fun NWKInputField(
     textInputType: TextInputType = TextInputType.TEXT,
     keyboardImeAction: ImeAction = ImeAction.Default,
     isSingLine: Boolean = true,
+    onKeyboardAction: () -> Unit = {},
 ) {
     val lineColor: Color = when {
         inputFieldStatus == InputFieldStatus.ERROR -> NWKTheme.color.Toast.toast500
