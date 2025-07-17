@@ -36,9 +36,7 @@ fun DetailDateScreen(
             degreeUIModel = detailDateUiState.degreeUiModel,
         )
 
-
         Spacer(modifier = Modifier.height(16.dp))
-
 
         DegreeGauge(
             degree = detailDateUiState.degreeUiModel.degree,
@@ -46,7 +44,6 @@ fun DetailDateScreen(
         )
 
         Spacer(modifier = Modifier.height(16.dp))
-
 
         if (detailDateUiState.todoList.isNotEmpty()) {
             CalendarTodoList(
