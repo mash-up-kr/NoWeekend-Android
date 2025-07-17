@@ -1,7 +1,6 @@
 package team.noweekend.feature.home.mvi
 
 import android.content.Intent
-import kotlinx.datetime.LocalDate
 import team.noweekend.core.common.android.mvi.SideEffect
 
 sealed interface HomeSideEffect : SideEffect {
