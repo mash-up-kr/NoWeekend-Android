@@ -46,6 +46,9 @@ class MainActivity : ComponentActivity() {
                         /* Todo use CalendarNavigationDelgate
                           ex) calendarNavigationDelegate.navigateToAddTask()
                          */
+                    },
+                    navigateToAddTodoWithDirectInput = {
+
                     }
                 )
             }

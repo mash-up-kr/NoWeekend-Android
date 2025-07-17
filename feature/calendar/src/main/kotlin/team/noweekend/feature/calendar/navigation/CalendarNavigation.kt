@@ -9,11 +9,13 @@ import team.noweekend.feature.calendar.screen.CalendarRoute
 fun NavGraphBuilder.calendarNavGraph(
     navigateToDetailDate: (String) -> Unit,
     navigateToAddTodo: (Todo) -> Unit,
+    navigateToAddTodoWithDirectInput: () -> Unit,
 ) {
     composable<Calendar> {
         CalendarRoute(
             navigateToDetailDate = navigateToDetailDate,
             navigateToAddTodo = navigateToAddTodo,
+            navigateToAddTodoWithDirectInput = navigateToAddTodoWithDirectInput,
         )
     }
 }

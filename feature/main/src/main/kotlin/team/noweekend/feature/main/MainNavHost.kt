@@ -16,6 +16,7 @@ internal fun MainNavHost(
     navigateToCreateVacation: ((Intent.() -> Intent)?, ActivityResultLauncher<Intent>?) -> Unit,
     navigateToDetailDate: ((Intent.() -> Intent)?) -> Unit,
     navigateToAddTodo: ((Intent.() -> Intent)?) -> Unit,
+    navigateToAddTodoWithDirectInput: ((Intent.() -> Intent)?) -> Unit,
     navigator: MainNavigator,
     modifier: Modifier = Modifier,
 ) {
@@ -39,9 +40,14 @@ internal fun MainNavHost(
                 navigateToAddTodo(
                     {
                         putExtra("type", "")
-                    }
+                    },
                 )
-            }
+            },
+            navigateToAddTodoWithDirectInput = {
+                navigateToAddTodoWithDirectInput(
+                    { this },
+                )
+            },
         )
         profileNavGraph(
             navigateToExternalWebBrowser = navigateToExternalWebBrowser,

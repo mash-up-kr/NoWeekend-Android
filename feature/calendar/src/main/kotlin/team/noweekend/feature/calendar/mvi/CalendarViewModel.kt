@@ -86,6 +86,7 @@ class CalendarViewModel @Inject constructor(
             is CalendarIntent.GetRecommendTodoTagList -> getRecommendTodoTag()
             is CalendarIntent.ClickRecommendTodoTag -> clickRecommendTagTodo(index = intent.index)
             is CalendarIntent.ClickMonthChooser -> clickMonthChooser()
+            is CalendarIntent.ClickDirectInput -> clickDirectInput()
         }
     }
 
@@ -510,6 +511,10 @@ class CalendarViewModel @Inject constructor(
     private fun clickRecommendTagTodo(index: Int) = execute {
         val todo = currentState.recommendTodoList[index]
         postSideEffect(CalendarSideEffect.NavigateToAddTodo(todo = todo))
+    }
+
+    private fun clickDirectInput() = execute {
+        postSideEffect(CalendarSideEffect.NavigateToAddTodoWithDirectInput)
     }
 
     private fun <T> Flow<T>.toStateFlow(

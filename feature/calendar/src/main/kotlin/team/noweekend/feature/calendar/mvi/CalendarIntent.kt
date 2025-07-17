@@ -38,6 +38,7 @@ sealed interface CalendarIntent : Intent {
     data class ClickRecommendTodoTag(val index: Int) : CalendarIntent
 
     data object ClickMonthChooser : CalendarIntent
+    data object ClickDirectInput : CalendarIntent
 
 
 }

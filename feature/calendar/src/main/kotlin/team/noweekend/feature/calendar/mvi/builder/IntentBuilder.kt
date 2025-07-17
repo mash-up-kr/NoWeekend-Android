@@ -115,4 +115,7 @@ class IntentBuilder(
         build(CalendarIntent.ClickMonthChooser)
     }
 
+    fun clickDirectInput(){
+        build(CalendarIntent.ClickDirectInput)
+    }
 }
