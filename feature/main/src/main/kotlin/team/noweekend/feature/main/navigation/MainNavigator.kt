@@ -43,7 +43,7 @@ internal class MainNavigator(
         @Composable
         get() = navController.currentBackStackEntryAsState().value?.destination
 
-    @OptIn(InternalSerializationApi::class)
+    @Suppress("WrongNavigateRouteType")
     fun navigate(tab: MainTab) {
         val navOptions = navOptions {
             popUpTo(navController.graph.findStartDestination().id) {
