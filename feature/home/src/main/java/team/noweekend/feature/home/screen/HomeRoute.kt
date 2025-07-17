@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.flow.collectLatest
+import team.noweekend.feature.home.component.common.bottomsheet.TaskTitleBottomSheet
 import team.noweekend.feature.home.mvi.HomeIntent
 import team.noweekend.feature.home.mvi.HomeSideEffectHandler
 import team.noweekend.feature.home.mvi.HomeUiState
@@ -50,6 +51,15 @@ internal fun HomeRoute(
     HomeScreen(
         uiState = uiState,
         onCreateVacationClick = { viewModel.intent(HomeIntent.ClickCreateVacation) },
+        onHolidayVacationClick = { viewModel.intent(HomeIntent.ClickHolidayVacationCard) },
+        onRecommendedVacationClick = { viewModel.intent(HomeIntent.ClickRecommendationVacationCard) },
+        onPopularVacationClick = { viewModel.intent(HomeIntent.ClickPopularVacationClick) },
         modifier = modifier,
     )
+
+    if (uiState.showTaskTitleBottomSheet) {
+        TaskTitleBottomSheet(
+            onBottomSheetDismiss = {},
+        )
+    }
 }

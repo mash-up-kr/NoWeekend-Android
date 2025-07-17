@@ -65,6 +65,12 @@ class HomeViewModel @Inject constructor(
                 navigateToCreateVacation()
             }
 
+            is HomeIntent.ClickHolidayVacationCard,
+            is HomeIntent.ClickPopularVacationClick,
+            is HomeIntent.ClickRecommendationVacationCard -> {
+                updateTaskTitleBottomSheetVisibility(true)
+            }
+
             else -> {}
         }
     }
@@ -138,20 +144,6 @@ class HomeViewModel @Inject constructor(
             }
     }
 
-    private fun navigateToCreateVacation() = execute {
-        postSideEffect(
-            HomeSideEffect.NavigateToCreateVacation(
-                intentBuilder = {
-                    putExtra("CREATE_VACATION_STATUS", currentState.createVacationStatus.tag)
-                },
-            ),
-        )
-    }
-
-    private fun updateCreateVacationStatus(status: CreateVacationStatus) {
-        reduce { copy(createVacationStatus = status) }
-    }
-
     private fun getCalendarData() = execute {
         calendarDataProviderUseCase.initWeekCalendar(initialPage)
         val weeksDate: Map<Int, WeeksData> = calendarDataProviderUseCase.weeksDate.value
@@ -177,5 +169,23 @@ class HomeViewModel @Inject constructor(
                 calendarData = calendarDateOfWeek,
             )
         }
+    }
+
+    private fun navigateToCreateVacation() = execute {
+        postSideEffect(
+            HomeSideEffect.NavigateToCreateVacation(
+                intentBuilder = {
+                    putExtra("CREATE_VACATION_STATUS", currentState.createVacationStatus.tag)
+                },
+            ),
+        )
+    }
+
+    private fun updateCreateVacationStatus(status: CreateVacationStatus) {
+        reduce { copy(createVacationStatus = status) }
+    }
+
+    private fun updateTaskTitleBottomSheetVisibility(showBottomSheet: Boolean) {
+        reduce { copy(showTaskTitleBottomSheet = showBottomSheet) }
     }
 }

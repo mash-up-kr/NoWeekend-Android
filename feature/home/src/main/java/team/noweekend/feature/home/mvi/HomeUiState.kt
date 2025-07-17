@@ -18,6 +18,7 @@ import team.noweekend.feature.home.model.PopularVacationUiModel
 @Stable
 data class HomeUiState(
     val isLoading: Boolean,
+    val showTaskTitleBottomSheet: Boolean,
     val averageTemperature: Float,
     val remainingAnnualLeave: Float,
     val createVacationStatus: CreateVacationStatus,
@@ -31,6 +32,7 @@ data class HomeUiState(
     companion object {
         val INITIAL_STATE: HomeUiState = HomeUiState(
             isLoading = false,
+            showTaskTitleBottomSheet = false,
             averageTemperature = 0f,
             remainingAnnualLeave = 0f,
             createVacationStatus = CreateVacationStatus.Default,
