@@ -245,7 +245,7 @@ class HomeViewModel @Inject constructor(
 
         createScheduleUseCase.invoke(param)
             .onSuccess {
-
+                navigateToCalendar(param.startDateTime)
             }
             .onFailure {
                 Log.d("logtag", "$it")
@@ -260,6 +260,10 @@ class HomeViewModel @Inject constructor(
                 },
             ),
         )
+    }
+
+    private fun navigateToCalendar(startLocalDate: String) = execute {
+        postSideEffect(HomeSideEffect.NavigateToCalendar(startLocalDate))
     }
 
     private fun updateCreateVacationStatus(status: CreateVacationStatus) {

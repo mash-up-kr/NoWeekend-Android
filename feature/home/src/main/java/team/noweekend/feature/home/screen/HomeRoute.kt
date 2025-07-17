@@ -22,6 +22,7 @@ import team.noweekend.feature.home.mvi.rememberHomeSideEffectHandler
 @Composable
 internal fun HomeRoute(
     navigateToCreateVacation: ((Intent.() -> Intent)?, ActivityResultLauncher<Intent>?) -> Unit,
+    navigateToCalendar: (String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
@@ -42,6 +43,7 @@ internal fun HomeRoute(
         navigateToCreateVacation = { intentBuilder, _ ->
             navigateToCreateVacation(intentBuilder, createVacationLauncher)
         },
+        navigateToCalendar = navigateToCalendar,
     )
 
     LaunchedEffect(key1 = Unit) {

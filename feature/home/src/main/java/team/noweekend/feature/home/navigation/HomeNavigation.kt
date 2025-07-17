@@ -9,10 +9,13 @@ import team.noweekend.feature.home.screen.HomeRoute
 
 fun NavGraphBuilder.homeNavGraph(
     navigateToCreateVacation: ((Intent.() -> Intent)?, ActivityResultLauncher<Intent>?) -> Unit,
+    navigateToCalendar: (String) -> Unit,
+
 ) {
     composable<Home> {
         HomeRoute(
             navigateToCreateVacation = navigateToCreateVacation,
+            navigateToCalendar = navigateToCalendar,
         )
     }
 }
