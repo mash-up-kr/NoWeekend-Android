@@ -1,6 +1,5 @@
 package team.noweekend.feature.calendar.component.bottomsheet
 
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
@@ -13,7 +12,6 @@ import team.noweekend.core.design.system.core.component.bottomSheet.rememberNWKB
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.feature.calendar.model.TodoRecordAction
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TodoBottomSheet(
     todo: Todo,
@@ -68,7 +66,7 @@ private fun PreviewTodoBottomSheet() {
                 description = "",
                 todoType = TodoType.Etc(),
                 isDone = false,
-                id = "0"
+                id = "0",
             ),
             onDismissRequest = {},
             onClickAction = {},
