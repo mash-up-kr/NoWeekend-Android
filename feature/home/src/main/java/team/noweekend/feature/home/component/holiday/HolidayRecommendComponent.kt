@@ -19,18 +19,18 @@ import team.noweekend.feature.home.model.HolidayUiModel
 
 internal fun LazyListScope.holidayRecommend(
     holidays: ImmutableList<HolidayUiModel>,
-    onHolidayCardClick: () -> Unit,
+    onHolidayCardClick: (HolidayUiModel) -> Unit,
 ) = item {
     HolidayRecommendComponent(
         holidays = holidays,
-        onHolidayCardClick = onHolidayCardClick,
+        onHolidayCardClick = { onHolidayCardClick(it) },
     )
 }
 
 @Composable
 internal fun HolidayRecommendComponent(
     holidays: ImmutableList<HolidayUiModel>,
-    onHolidayCardClick: () -> Unit,
+    onHolidayCardClick: (HolidayUiModel) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(

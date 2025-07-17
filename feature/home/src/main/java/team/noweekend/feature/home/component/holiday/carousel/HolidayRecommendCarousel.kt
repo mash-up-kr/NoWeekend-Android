@@ -13,7 +13,7 @@ import team.noweekend.feature.home.model.HolidayUiModel
 @Composable
 internal fun HolidayRecommendCarousel(
     holidays: ImmutableList<HolidayUiModel>,
-    onCardClick: () -> Unit,
+    onCardClick: (HolidayUiModel) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val pagerState = rememberPagerState(pageCount = { holidays.size })
@@ -27,7 +27,7 @@ internal fun HolidayRecommendCarousel(
         content = { index ->
             val holiday = holidays.getOrNull(index) ?: return@CarouselLayout
             HolidayCard(
-                onCardClick = onCardClick,
+                onCardClick = { onCardClick(holiday) },
                 date = holiday.date,
                 holiday = holiday.holiday,
             )
