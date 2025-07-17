@@ -66,3 +66,4 @@ private fun Int.toKrPattern(): String {
         else -> "${this}주차"
     }
 }
+
