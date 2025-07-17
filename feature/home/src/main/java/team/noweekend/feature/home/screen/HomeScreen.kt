@@ -25,6 +25,9 @@ import team.noweekend.feature.home.mvi.HomeUiState
 internal fun HomeScreen(
     uiState: HomeUiState,
     onCreateVacationClick: () -> Unit,
+    onHolidayVacationClick: () -> Unit,
+    onRecommendedVacationClick: () -> Unit,
+    onPopularVacationClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -42,7 +45,7 @@ internal fun HomeScreen(
         )
         holidayRecommend(
             holidays = uiState.remainedHolidays,
-            onHolidayCardClick = {},
+            onHolidayCardClick = onHolidayVacationClick,
         )
         itemSpacer(40.dp)
         monthlyVacationRecommendComponent(
@@ -51,10 +54,12 @@ internal fun HomeScreen(
             recommends = uiState.weatherRecommendVacations,
             calendarData = uiState.calendarData,
             selectedDate = uiState.selectedDate,
+            onRecommendedVacationClick = onRecommendedVacationClick,
         )
         itemSpacer(40.dp)
         popularVacationRecommend(
             popularVacations = uiState.popularVacations,
+            onPopularVacationClick = onPopularVacationClick,
         )
     }
 }
@@ -88,6 +93,9 @@ private fun HomeScreenPreview() {
         HomeScreen(
             uiState = HomeUiState.INITIAL_STATE,
             onCreateVacationClick = {},
+            onHolidayVacationClick = {},
+            onRecommendedVacationClick = {},
+            onPopularVacationClick = {},
         )
     }
 }

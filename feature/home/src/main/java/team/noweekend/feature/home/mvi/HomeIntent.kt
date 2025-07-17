@@ -8,4 +8,7 @@ sealed interface HomeIntent : Intent {
     ) : HomeIntent
 
     data object ClickCreateVacation : HomeIntent
+    data object ClickHolidayVacationCard : HomeIntent
+    data object ClickRecommendationVacationCard : HomeIntent
+    data object ClickPopularVacationClick : HomeIntent
 }
