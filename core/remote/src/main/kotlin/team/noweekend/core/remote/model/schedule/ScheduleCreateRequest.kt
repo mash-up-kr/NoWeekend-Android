@@ -7,9 +7,9 @@ import kotlinx.serialization.Serializable
 data class ScheduleCreateRequest(
     @SerialName("title")
     val title: String,
-    @SerialName("date")
+    @SerialName("startDateTime")
     val startDateTime: String,
-    @SerialName("startTime")
+    @SerialName("endDateTime")
     val endDateTime: String,
     @SerialName("category")
     val category: String,
