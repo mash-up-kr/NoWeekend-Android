@@ -43,6 +43,7 @@ googleid = "1.1.1"
 playServicesAuth = "21.0.0"
 graphicsShapesAndroid = "1.0.1"
 lottieCompose = "6.0.0"
+bottomsheetdialogCompose = "1.5.0"
 
 [libraries]
 # androidx
@@ -67,6 +68,7 @@ androidx-foundation = { group = "androidx.compose.foundation", name = "foundatio
 androidx-animation = { module = "androidx.compose.animation:animation", version.ref = "animation" }
 
 # kotlinx
+bottomsheetdialog-compose = { module = "com.holix.android:bottomsheetdialog-compose", version.ref = "bottomsheetdialogCompose" }
 kotlinx-coroutine-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutine" }
 kotlinx-coroutine-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutine" }
 kotlinx-collections-immutable = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version.ref = "kotlinx-immutable" }
