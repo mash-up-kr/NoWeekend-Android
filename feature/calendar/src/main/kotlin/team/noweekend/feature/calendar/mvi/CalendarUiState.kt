@@ -5,6 +5,8 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.ImmutableMap
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.persistentMapOf
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.datetime.LocalDate
 import team.noweekend.core.common.android.mvi.UiState
 import team.noweekend.core.common.kotlin.extension.now
@@ -19,20 +21,21 @@ import team.noweekend.feature.calendar.model.CalendarWeeksDataWithTodoList
 data class CalendarUiState(
     val chooserMonth: LocalDate,
     val calendarMode: CalendarMode,
-    val calendarWeeksData: ImmutableMap<Int, CalendarWeeksDataWithTodoList>,
-    val calendarMonthsData: ImmutableMap<Int, CalendarWeeksDataWithTodoList>,
-    val selectedTodoList: ImmutableList<Todo>,
+    val calendarWeeksData: StateFlow<ImmutableMap<Int, CalendarWeeksDataWithTodoList>>,
+    val calendarMonthsData: StateFlow<ImmutableMap<Int, CalendarWeeksDataWithTodoList>>,
+    val selectedTodoList: StateFlow<ImmutableList<Todo>>,
     val calendarPagerState: CalendarPagerState,
     val calendarState: CalendarState,
     val recommendTodoList: ImmutableList<Todo>,
+    val monthChooserVisible: Boolean = false,
 ) : UiState {
     companion object {
         val Init = CalendarUiState(
             chooserMonth = LocalDate.now(),
-            calendarWeeksData = persistentMapOf(),
-            calendarMonthsData = persistentMapOf(),
+            calendarWeeksData = MutableStateFlow(persistentMapOf()),
+            calendarMonthsData = MutableStateFlow(persistentMapOf()),
             calendarMode = CalendarMode.WEEK,
-            selectedTodoList = persistentListOf(),
+            selectedTodoList = MutableStateFlow(persistentListOf()),
             calendarPagerState = CalendarPagerState(),
             calendarState = CalendarState.Week.default,
             recommendTodoList = persistentListOf(),

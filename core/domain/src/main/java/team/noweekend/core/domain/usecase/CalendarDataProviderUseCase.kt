@@ -85,10 +85,9 @@ class CalendarDataProviderUseCase @Inject constructor(
         return getWeekDates(startedMonday = startedMonday, month = startedMonday.monthNumber)
     }
 
-    suspend fun initWeekCalendar(initPage: Int) {
-        val currentDay: LocalDate = LocalDate.now()
-        _targetDate.update { currentDay }
-        val targetWeekMonday: LocalDate = currentDay.previousOrSame(DayOfWeek.MONDAY)
+    suspend fun initWeekCalendar(initPage: Int, currentDate: LocalDate = LocalDate.now()) {
+        _targetDate.update { currentDate }
+        val targetWeekMonday: LocalDate = currentDate.previousOrSame(DayOfWeek.MONDAY)
 
         val newMap = mapOf(
             initPage - 1 to getWeekDates(targetWeekMonday.minusWeeks(1)),
@@ -288,10 +287,17 @@ class CalendarDataProviderUseCase @Inject constructor(
                 entry.value.copy(
                     dateOfWeeks = entry.value.dateOfWeeks.map { dateOfWeekList ->
                         dateOfWeekList.map { dateOfWeek ->
+                            val scheduleList = dateOfWeek.scheduleList
+                            val updatedScheduleList = scheduleList.map { innerSchedule ->
+                                if (schedule.id == innerSchedule.id) schedule else innerSchedule
+                            }
+                            val imageType = updatedScheduleList.getImageType(
+                                dateOfWeek = dateOfWeek,
+                                localDate = currentLocalDate,
+                            )
                             dateOfWeek.copy(
-                                scheduleList = dateOfWeek.scheduleList.map { innerSchedule ->
-                                    if (schedule.id == innerSchedule.id) schedule else innerSchedule
-                                },
+                                scheduleList = updatedScheduleList,
+                                imageType = imageType,
                             )
                         }
                     },
@@ -313,10 +319,9 @@ class CalendarDataProviderUseCase @Inject constructor(
 
                             dateOfWeek.copy(
                                 scheduleList = updateScheduleList,
-                                imageType = getImageType(
-                                    temperature = updateScheduleList.filter { it.completed }.sumOf { it.temperature },
-                                    isFuture = dateOfWeek.localDate < currentLocalDate,
-                                    hasRest = updateScheduleList.any { it.category == ScheduleCategory.LEAVE },
+                                imageType = updateScheduleList.getImageType(
+                                    localDate = currentLocalDate,
+                                    dateOfWeek = dateOfWeek,
                                 ),
                             )
                         }
