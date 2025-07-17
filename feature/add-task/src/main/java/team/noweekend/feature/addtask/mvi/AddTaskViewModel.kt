@@ -1,6 +1,5 @@
 package team.noweekend.feature.addtask.mvi
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.datetime.LocalDate
@@ -53,7 +52,7 @@ class AddTaskViewModel @Inject constructor(
                         title = title,
                         startDateTime = startDate.toDateTimeString(startTime),
                         endDateTime = endDate.toDateTimeString(endTime),
-                        category = selectedType.tag,
+                        category = selectedType.name,
                         temperature = temperature,
                         alarmOption = "NONE",
                     ),
@@ -110,7 +109,6 @@ class AddTaskViewModel @Inject constructor(
     }
 
     private fun updateTaskType(taskType: ScheduleCategory) {
-        Log.d("AddTaskViewModel", "Selected task type: ${taskType}")
         reduce {
             copy(
                 taskInfo = taskInfo.copy(

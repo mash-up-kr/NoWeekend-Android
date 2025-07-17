@@ -56,7 +56,6 @@ fun LocalDate.toDateTimeString(
     return javaDateTime.format(formatter)
 }
 
-
 private fun Int.toKrPattern(): String {
     return when (this) {
         1 -> "첫째주"

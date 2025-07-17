@@ -27,5 +27,4 @@ data class AddTaskInfo(
             temperature = 5,
         )
     }
-
 }

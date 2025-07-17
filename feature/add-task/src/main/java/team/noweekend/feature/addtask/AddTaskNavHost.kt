@@ -68,6 +68,4 @@ internal fun AddTaskNavHost(
             onChangedTemperature = { viewModel.intent(AddTaskIntent.WriteTemperature(it)) },
         )
     }
-
-
 }
