@@ -45,3 +45,11 @@ sealed interface Onboard : DestinationRoute {
     @Serializable
     data object Schedule : Onboard
 }
+
+sealed interface AddTask : DestinationRoute {
+    @Serializable
+    data object Main : AddTask
+
+    @Serializable
+    data object Detail : AddTask
+}

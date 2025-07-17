@@ -13,6 +13,7 @@ import javax.inject.Inject
 class CalendarNavigationDelegate @Inject constructor(
     @ActivityContext private val context: Context,
     private val detailDateNavigator: DetailDateNavigator,
+    private val addTaskNavigator: DetailDateNavigator,
 ) {
     fun navigateToDetailDate(
         activity: ComponentActivity = context as ComponentActivity,
@@ -29,7 +30,10 @@ class CalendarNavigationDelegate @Inject constructor(
     fun navigateToAddTask(
         activity: ComponentActivity = context as ComponentActivity,
         intentBuilder: (Intent.() -> Intent)? = null,
-        launcher: ActivityResultLauncher<Intent>?,
     ) {
+        addTaskNavigator.navigate(
+            activity,
+            intentBuilder = intentBuilder,
+        )
     }
 }
