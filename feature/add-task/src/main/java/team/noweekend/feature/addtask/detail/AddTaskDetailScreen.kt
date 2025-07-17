@@ -144,6 +144,7 @@ fun AddTaskDetailScreen(
             PassionTemperatureContainer(
                 modifier = Modifier.fillMaxWidth(),
                 onClickAction = onClickAction,
+                temperature = uiState.taskInfo.temperature,
                 onChangedTemperature = onChangedTemperature,
             )
         }
@@ -152,12 +153,13 @@ fun AddTaskDetailScreen(
 
 @Composable
 private fun PassionTemperatureContainer(
+    temperature: Int,
     onClickAction: (String) -> Unit,
     onChangedTemperature: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val lineColor = NWKTheme.color.Semantic.Border.border02
-    val passionTemperatureState = rememberTextFieldState(initialText = "5")
+    val passionTemperatureState = rememberTextFieldState(temperature.toString())
 
     LaunchedEffect(passionTemperatureState.text) {
         onChangedTemperature(passionTemperatureState.text.toString())
@@ -325,9 +327,9 @@ private fun TodoDateContainer(
             onClickToggle = {
                 onToggleStateChanged(
                     if (isAllDay) {
-                        ToggleState.ON
-                    } else {
                         ToggleState.OFF
+                    } else {
+                        ToggleState.ON
                     },
                 )
             },
