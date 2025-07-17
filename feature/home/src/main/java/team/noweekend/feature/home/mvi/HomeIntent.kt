@@ -10,5 +10,11 @@ sealed interface HomeIntent : Intent {
     data object ClickCreateVacation : HomeIntent
     data object ClickHolidayVacationCard : HomeIntent
     data object ClickRecommendationVacationCard : HomeIntent
-    data object ClickPopularVacationClick : HomeIntent
+    data object ClickPopularVacation : HomeIntent
+    sealed interface BottomSheet : HomeIntent {
+        data class ClickAddTaskButton(
+            val title: String,
+        ) : BottomSheet
+        data object DismissTaskTitleBottomSheet : BottomSheet
+    }
 }
