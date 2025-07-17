@@ -64,5 +64,5 @@ private fun Int.toKrPattern(): String {
         4 -> "넷째주"
         5 -> "다섯째주"
         else -> "${this}주차"
-    } 
+    }
 }
