@@ -25,7 +25,6 @@ fun rememberNWKBottomSheetState(
 }
 
 @Stable
-@OptIn(ExperimentalMaterial3Api::class)
 class NWKBottomSheetState(
     val bottomSheetType: BottomSheetType,
     val isDraggable: Boolean,
