@@ -52,8 +52,8 @@ internal fun HomeRoute(
         uiState = uiState,
         onCreateVacationClick = { viewModel.intent(HomeIntent.ClickCreateVacation) },
         onHolidayVacationClick = { viewModel.intent(HomeIntent.ClickHolidayVacationCard(it)) },
-        onRecommendedVacationClick = { viewModel.intent(HomeIntent.ClickRecommendationVacationCard) },
-        onPopularVacationClick = { viewModel.intent(HomeIntent.ClickPopularVacation) },
+        onRecommendedVacationClick = { viewModel.intent(HomeIntent.ClickRecommendationVacationCard(it)) },
+        onPopularVacationClick = { viewModel.intent(HomeIntent.ClickPopularVacation(it)) },
         modifier = modifier,
     )
 

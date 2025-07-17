@@ -2,6 +2,8 @@ package team.noweekend.feature.home.mvi
 
 import team.noweekend.core.common.android.mvi.Intent
 import team.noweekend.feature.home.model.HolidayUiModel
+import team.noweekend.feature.home.model.MonthlyVacationRecommendUiModel
+import team.noweekend.feature.home.model.PopularVacationUiModel
 
 sealed interface HomeIntent : Intent {
     data class CreateVacation(
@@ -13,8 +15,13 @@ sealed interface HomeIntent : Intent {
         val holiday: HolidayUiModel,
     ) : HomeIntent
 
-    data object ClickRecommendationVacationCard : HomeIntent
-    data object ClickPopularVacation : HomeIntent
+    data class ClickRecommendationVacationCard(
+        val recommendationVacation: MonthlyVacationRecommendUiModel,
+    ) : HomeIntent
+
+    data class ClickPopularVacation(
+        val popularVacation: PopularVacationUiModel,
+    ) : HomeIntent
     sealed interface BottomSheet : HomeIntent {
         data class ClickAddTaskButton(
             val title: String,
