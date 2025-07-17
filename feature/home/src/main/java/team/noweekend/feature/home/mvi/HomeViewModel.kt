@@ -8,17 +8,21 @@ import kotlinx.collections.immutable.toImmutableMap
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalTime
 import team.noweekend.core.common.android.base.MVIViewModel
 import team.noweekend.core.common.kotlin.extension.parseLocalDateString
+import team.noweekend.core.common.kotlin.extension.toDateTimeString
 import team.noweekend.core.common.ui.calendar.model.CalendarDateOfWeek
 import team.noweekend.core.common.ui.calendar.model.CalendarWeeksData
 import team.noweekend.core.common.ui.calendar.state.CalendarPagerState.Companion.initialPage
 import team.noweekend.core.domain.usecase.CalendarDataProviderUseCase
+import team.noweekend.core.domain.usecase.CreateAddTaskUseCase
 import team.noweekend.core.domain.usecase.GetHolidayUseCase
 import team.noweekend.core.domain.usecase.GetSandwichRecommendVacationUseCase
 import team.noweekend.core.domain.usecase.GetUserProfileUseCase
 import team.noweekend.core.domain.usecase.GetWeatherRecommendVacationUseCase
 import team.noweekend.core.model.calendar.WeeksData
+import team.noweekend.core.model.schedule.ScheduleCreateParam
 import team.noweekend.core.model.vacation.VacationType
 import team.noweekend.feature.home.mapper.toImageTypeWithId
 import team.noweekend.feature.home.model.HolidayUiModel
@@ -36,6 +40,7 @@ class HomeViewModel @Inject constructor(
     private val getSandwichRecommendVacationUseCase: GetSandwichRecommendVacationUseCase,
     private val getUserProfileUseCase: GetUserProfileUseCase,
     private val calendarDataProviderUseCase: CalendarDataProviderUseCase,
+    private val createScheduleUseCase: CreateAddTaskUseCase,
 ) : MVIViewModel<HomeIntent, HomeSideEffect, HomeUiState>(
     savedStateHandle = savedStateHandle,
 ) {
@@ -65,18 +70,35 @@ class HomeViewModel @Inject constructor(
                 navigateToCreateVacation()
             }
 
-            is HomeIntent.ClickHolidayVacationCard,
-            is HomeIntent.ClickPopularVacation,
-            is HomeIntent.ClickRecommendationVacationCard,
-                -> updateTaskTitleBottomSheetVisibility(true)
+            is HomeIntent.ClickHolidayVacationCard -> {
+                reduce { copy(selectedHoliday = intent.holiday) }
+                updateTaskTitleBottomSheetVisibility(entryType = BottomSheetEntryType.HOLIDAY, showBottomSheet = true)
+            }
+
+            is HomeIntent.ClickPopularVacation -> {
+//                reduce { copy(selectedPopularVacation = ) }
+                updateTaskTitleBottomSheetVisibility(
+                    entryType = BottomSheetEntryType.POPULAR_VACATION,
+                    showBottomSheet = true,
+                )
+            }
+
+            is HomeIntent.ClickRecommendationVacationCard -> {
+//                reduce { copy(selectedPopularVacation = ) }
+                updateTaskTitleBottomSheetVisibility(
+                    entryType = BottomSheetEntryType.WEATHER_RECOMMENDATION,
+                    showBottomSheet = true,
+                )
+            }
 
             is HomeIntent.BottomSheet.ClickAddTaskButton -> {
-                val title = intent.title
-                Log.d("logtag", title)
+                updateTaskTitle(intent.title)
+                createSchedule(taskType = currentState.taskTitleBottomSheetState.entryType)
+                updateTaskTitleBottomSheetVisibility(entryType = BottomSheetEntryType.NOTHING, showBottomSheet = false)
             }
 
             is HomeIntent.BottomSheet.DismissTaskTitleBottomSheet -> {
-                updateTaskTitleBottomSheetVisibility(false)
+                updateTaskTitleBottomSheetVisibility(entryType = BottomSheetEntryType.NOTHING, showBottomSheet = false)
             }
         }
     }
@@ -177,6 +199,59 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    private fun createSchedule(taskType: BottomSheetEntryType) = execute {
+        val param = when (taskType) {
+            BottomSheetEntryType.HOLIDAY -> {
+                ScheduleCreateParam(
+                    title = currentState.taskTitle,
+                    startDateTime = currentState.selectedHoliday.date
+                        .toDateTimeString(LocalTime(9, 0, 0)),
+                    endDateTime = currentState.selectedHoliday.date
+                        .toDateTimeString(LocalTime(18, 0, 0)),
+                    category = "LEAVE",
+                    temperature = 30,
+                    alarmOption = "NONE",
+                )
+            }
+
+            BottomSheetEntryType.WEATHER_RECOMMENDATION -> {
+                ScheduleCreateParam(
+                    title = currentState.taskTitle,
+                    startDateTime = currentState.selectedWeatherRecommendVacation.localDate
+                        .toDateTimeString(LocalTime(9, 0, 0)),
+                    endDateTime = currentState.selectedWeatherRecommendVacation.localDate
+                        .toDateTimeString(LocalTime(18, 0, 0)),
+                    category = "PERSONAL",
+                    temperature = 30,
+                    alarmOption = "NONE",
+                )
+            }
+
+            BottomSheetEntryType.POPULAR_VACATION -> ScheduleCreateParam(
+                title = currentState.taskTitle,
+                startDateTime = currentState.selectedPopularVacation.startLocalDate
+                    .toDateTimeString(LocalTime(9, 0, 0)),
+                endDateTime = currentState.selectedPopularVacation.endLocalDate
+                    ?.toDateTimeString(LocalTime(18, 0, 0))
+                    ?: currentState.selectedPopularVacation.startLocalDate
+                        .toDateTimeString(LocalTime(18, 0, 0)),
+                category = "PERSONAL",
+                temperature = 30,
+                alarmOption = "NONE",
+            )
+
+            BottomSheetEntryType.NOTHING -> return@execute
+        }
+
+        createScheduleUseCase.invoke(param)
+            .onSuccess {
+                
+            }
+            .onFailure {
+                Log.d("logtag", "$it")
+            }
+    }
+
     private fun navigateToCreateVacation() = execute {
         postSideEffect(
             HomeSideEffect.NavigateToCreateVacation(
@@ -191,7 +266,21 @@ class HomeViewModel @Inject constructor(
         reduce { copy(createVacationStatus = status) }
     }
 
-    private fun updateTaskTitleBottomSheetVisibility(showBottomSheet: Boolean) {
-        reduce { copy(showTaskTitleBottomSheet = showBottomSheet) }
+    private fun updateTaskTitleBottomSheetVisibility(
+        entryType: BottomSheetEntryType,
+        showBottomSheet: Boolean,
+    ) {
+        reduce {
+            copy(
+                taskTitleBottomSheetState = BottomSheetState(
+                    entryType = entryType,
+                    showTaskTitleBottomSheet = showBottomSheet,
+                ),
+            )
+        }
+    }
+
+    private fun updateTaskTitle(title: String) {
+        reduce { copy(taskTitle = title) }
     }
 }

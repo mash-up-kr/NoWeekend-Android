@@ -15,6 +15,11 @@ data class HolidayUiModel(
     companion object {
         val INITIAL_DATA: HolidayUiModel = HolidayUiModel(
             date = LocalDate.now(),
+            holiday = "",
+        )
+
+        val DUMMY_DATA: HolidayUiModel = HolidayUiModel(
+            date = LocalDate.now(),
             holiday = "현충일",
         )
     }

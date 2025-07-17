@@ -51,13 +51,13 @@ internal fun HomeRoute(
     HomeScreen(
         uiState = uiState,
         onCreateVacationClick = { viewModel.intent(HomeIntent.ClickCreateVacation) },
-        onHolidayVacationClick = { viewModel.intent(HomeIntent.ClickHolidayVacationCard) },
+        onHolidayVacationClick = { viewModel.intent(HomeIntent.ClickHolidayVacationCard(it)) },
         onRecommendedVacationClick = { viewModel.intent(HomeIntent.ClickRecommendationVacationCard) },
         onPopularVacationClick = { viewModel.intent(HomeIntent.ClickPopularVacation) },
         modifier = modifier,
     )
 
-    if (uiState.showTaskTitleBottomSheet) {
+    if (uiState.taskTitleBottomSheetState.showTaskTitleBottomSheet) {
         TaskTitleBottomSheet(
             onAddTaskClick = { viewModel.intent(HomeIntent.BottomSheet.ClickAddTaskButton(it)) },
             onBottomSheetDismiss = { viewModel.intent(HomeIntent.BottomSheet.DismissTaskTitleBottomSheet) },
