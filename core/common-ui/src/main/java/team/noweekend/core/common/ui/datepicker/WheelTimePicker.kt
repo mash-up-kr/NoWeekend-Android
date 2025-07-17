@@ -27,6 +27,7 @@ import kotlinx.collections.immutable.toImmutableList
 import kotlinx.datetime.LocalTime
 import team.noweekend.core.common.kotlin.extension.CalendarUtils.currentLocalDateTime
 import team.noweekend.core.common.ui.datepicker.core.LocalTimeUtil.convertToLocalTime
+import team.noweekend.core.common.ui.datepicker.core.PaddingDirection
 import team.noweekend.core.common.ui.datepicker.core.WheelPicker
 import team.noweekend.core.common.ui.datepicker.model.Meridiem
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
@@ -91,10 +92,7 @@ fun WheelTimePicker(
         }
         Row(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(
-                    horizontal = 64.dp,
-                ),
+                .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             WheelPicker(
@@ -106,6 +104,7 @@ fun WheelTimePicker(
                 itemList = meridiemList.map { meridiem: Meridiem ->
                     stringResource(id = meridiem.id)
                 }.toImmutableList(),
+                paddingDirection = PaddingDirection.Left,
                 onItemSelected = { index ->
                     selectedMeridiem = meridiemList[index]
                 },
@@ -122,6 +121,7 @@ fun WheelTimePicker(
                 visibleItemCount = 7,
                 initialIndex = currentHourIndex,
                 itemList = hourItemList,
+                paddingDirection = PaddingDirection.Center,
                 onItemSelected = { index ->
                     selectedHour = hourList[index]
                 },
@@ -136,6 +136,7 @@ fun WheelTimePicker(
                     .fillMaxWidth()
                     .weight(1f),
                 visibleItemCount = 7,
+                paddingDirection = PaddingDirection.Right,
                 initialIndex = currentMinuteIndex,
                 itemList = minuteItemList,
                 onItemSelected = { index ->

@@ -3,10 +3,10 @@ package team.noweekend.core.common.ui.datepicker.core
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.gestures.snapping.rememberSnapFlingBehavior
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -26,43 +26,59 @@ import androidx.compose.ui.unit.times
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.flow.collectLatest
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
+import kotlin.math.abs
 
 @Composable
 internal fun <T> WheelPicker(
     visibleItemCount: Int,
     initialIndex: Int,
     itemList: ImmutableList<T>,
+    paddingDirection: PaddingDirection,
     modifier: Modifier = Modifier,
     itemHeight: Dp = 35.dp,
     onItemSelected: (Int) -> Unit = {},
 ) {
     val containerHeight: Dp = visibleItemCount * itemHeight
 
+    val halfVisibleCount = (visibleItemCount - 1) / 2
+
+    val emptyItems = List(halfVisibleCount) { null as T? }
+
+    val extendedList: List<T?> = emptyItems + itemList + emptyItems
+
     val state = rememberLazyListState(initialFirstVisibleItemIndex = initialIndex)
 
     LaunchedEffect(Unit) {
         snapshotFlow { state.layoutInfo.visibleItemsInfo }.collectLatest { list ->
-            val selectedIndex = list.firstOrNull { it.offset == 0 }
-            if (selectedIndex != null) {
-                onItemSelected(selectedIndex.index)
+            val viewportCenter = state.layoutInfo.viewportSize.height / 2
+            val selectedInfo = list.minByOrNull {
+                abs(it.offset + it.size / 2 - viewportCenter)
+            }
+            val selectedIndex = selectedInfo?.index?.minus(halfVisibleCount)
+            if (selectedIndex != null && selectedIndex >= 0 && selectedIndex < itemList.size) {
+                onItemSelected(selectedIndex)
             }
         }
     }
 
     LazyColumn(
         state = state,
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier
+            .fillMaxWidth()
             .height(containerHeight),
-        contentPadding = PaddingValues(vertical = containerHeight / 2 - itemHeight / 2),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
         flingBehavior = rememberSnapFlingBehavior(lazyListState = state),
     ) {
-        itemsIndexed(itemList) { index, it ->
+        itemsIndexed(extendedList) { index, it ->
 
             val isCenter = remember {
                 derivedStateOf {
-                    index == state.layoutInfo.visibleItemsInfo.find { it.offset == 0 }?.index
+                    val viewportCenter = state.layoutInfo.viewportSize.height / 2
+                    val centerInfo = state.layoutInfo.visibleItemsInfo.minByOrNull {
+                        abs(it.offset + it.size / 2 - viewportCenter)
+                    }
+                    index == centerInfo?.index
                 }
             }
 
@@ -74,19 +90,38 @@ internal fun <T> WheelPicker(
                 },
             )
 
+            val paddingModifier = when (paddingDirection) {
+                PaddingDirection.Left -> {
+                    Modifier.padding(start = 64.dp)
+                }
+                PaddingDirection.Right -> {
+                    Modifier.padding(end = 64.dp)
+                }
+                else -> {
+                    Modifier
+                }
+            }
+
             Row(
-                modifier = Modifier.height(itemHeight),
+                modifier = Modifier.fillMaxWidth().then(paddingModifier).height(itemHeight),
                 verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center,
             ) {
-                Text(
-                    text = it.toString(),
-                    style = NWKTheme.typography.heading4.copy(
-                        fontWeight = FontWeight.Normal,
-                    ),
-                    color = color.value,
-                    textAlign = TextAlign.Center,
-                )
+                if (it != null) {
+                    Text(
+                        text = it.toString(),
+                        style = NWKTheme.typography.heading4.copy(
+                            fontWeight = FontWeight.Normal,
+                        ),
+                        color = color.value,
+                        textAlign = TextAlign.Center,
+                    )
+                }
             }
         }
     }
+}
+
+enum class PaddingDirection {
+    Left, Right, Center
 }
