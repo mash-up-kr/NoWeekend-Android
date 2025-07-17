@@ -35,7 +35,7 @@ internal fun LazyListScope.monthlyVacationRecommendComponent(
     recommends: ImmutableList<MonthlyVacationRecommendUiModel>,
     calendarData: ImmutableMap<Int, CalendarWeeksData>,
     selectedDate: LocalDate,
-    onRecommendedVacationClick: () -> Unit,
+    onRecommendedVacationClick: (MonthlyVacationRecommendUiModel) -> Unit,
     modifier: Modifier = Modifier,
 ) = item {
     MonthlyVacationRecommendComponent(
@@ -55,7 +55,7 @@ internal fun MonthlyVacationRecommendComponent(
     recommends: ImmutableList<MonthlyVacationRecommendUiModel>,
     calendarData: ImmutableMap<Int, CalendarWeeksData>,
     selectedDate: LocalDate,
-    onRecommendedVacationClick: () -> Unit,
+    onRecommendedVacationClick: (MonthlyVacationRecommendUiModel) -> Unit,
     modifier: Modifier = Modifier,
     calendarPagerState: CalendarPagerState = rememberCalendarPagerState(),
 ) {
@@ -87,7 +87,7 @@ internal fun MonthlyVacationRecommendComponent(
             MonthlyVacationCard(
                 date = content.localDate,
                 recommendContent = content.recommendContent,
-                onClickRecommendedVacation = onRecommendedVacationClick,
+                onClickRecommendedVacation = { onRecommendedVacationClick(content) },
             )
             if (isLastItem.not()) {
                 NWKHorizontalDivider(thickness = 1.dp)

@@ -20,6 +20,8 @@ import team.noweekend.feature.home.component.popular.popularVacationRecommend
 import team.noweekend.feature.home.component.recommend.monthly.monthlyVacationRecommendComponent
 import team.noweekend.feature.home.component.vacation.createVacation
 import team.noweekend.feature.home.model.HolidayUiModel
+import team.noweekend.feature.home.model.MonthlyVacationRecommendUiModel
+import team.noweekend.feature.home.model.PopularVacationUiModel
 import team.noweekend.feature.home.mvi.HomeUiState
 
 @Composable
@@ -27,8 +29,8 @@ internal fun HomeScreen(
     uiState: HomeUiState,
     onCreateVacationClick: () -> Unit,
     onHolidayVacationClick: (HolidayUiModel) -> Unit,
-    onRecommendedVacationClick: () -> Unit,
-    onPopularVacationClick: () -> Unit,
+    onRecommendedVacationClick: (MonthlyVacationRecommendUiModel) -> Unit,
+    onPopularVacationClick: (PopularVacationUiModel) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -55,7 +57,7 @@ internal fun HomeScreen(
             recommends = uiState.weatherRecommendVacations,
             calendarData = uiState.calendarData,
             selectedDate = uiState.selectedDate,
-            onRecommendedVacationClick = onRecommendedVacationClick,
+            onRecommendedVacationClick = { onRecommendedVacationClick(it) },
         )
         itemSpacer(40.dp)
         popularVacationRecommend(

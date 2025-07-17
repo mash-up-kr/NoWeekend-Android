@@ -76,7 +76,7 @@ class HomeViewModel @Inject constructor(
             }
 
             is HomeIntent.ClickPopularVacation -> {
-//                reduce { copy(selectedPopularVacation = ) }
+                reduce { copy(selectedPopularVacation = intent.popularVacation) }
                 updateTaskTitleBottomSheetVisibility(
                     entryType = BottomSheetEntryType.POPULAR_VACATION,
                     showBottomSheet = true,
@@ -84,7 +84,7 @@ class HomeViewModel @Inject constructor(
             }
 
             is HomeIntent.ClickRecommendationVacationCard -> {
-//                reduce { copy(selectedPopularVacation = ) }
+                reduce { copy(selectedWeatherRecommendVacation = intent.recommendationVacation) }
                 updateTaskTitleBottomSheetVisibility(
                     entryType = BottomSheetEntryType.WEATHER_RECOMMENDATION,
                     showBottomSheet = true,
@@ -245,7 +245,7 @@ class HomeViewModel @Inject constructor(
 
         createScheduleUseCase.invoke(param)
             .onSuccess {
-                
+
             }
             .onFailure {
                 Log.d("logtag", "$it")
