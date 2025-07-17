@@ -1,33 +1,35 @@
 package team.noweekend.core.remote.api.schedule
 
+import team.noweekend.core.remote.model.schedule.ScheduleCreateRequest
 import team.noweekend.core.remote.model.schedule.common.ScheduleModel
 import team.noweekend.core.remote.model.schedule.response.DeleteScheduleResponse
 import team.noweekend.core.remote.model.schedule.response.EditScheduleRequest
 import team.noweekend.core.remote.model.schedule.response.GetScheduleResponse
+import team.noweekend.core.remote.model.schedule.response.ScheduleCreateResponse
 
 interface ScheduleApi {
     suspend fun getSchedule(
         startDate: String,
-        endDate: String
+        endDate: String,
     ): List<GetScheduleResponse>
 
     suspend fun editSchedule(
         id: String,
-        editScheduleRequest: EditScheduleRequest
+        editScheduleRequest: EditScheduleRequest,
     ): ScheduleModel
 
     suspend fun deleteSchedule(
-        id: String
+        id: String,
     ): DeleteScheduleResponse
 
     suspend fun createSchedule(
-        createScheduleRequest: ScheduleModel
-    ): ScheduleModel
+        createScheduleRequest: ScheduleCreateRequest,
+    ): ScheduleCreateResponse
 
     suspend fun changeCompleteSchedule(
-        id :String,
-        isComplete: Boolean
-    ) : ScheduleModel
+        id: String,
+        isComplete: Boolean,
+    ): ScheduleModel
 
     companion object {
         const val SCHEDULE_PATH: String = "/api/v1/schedule"
