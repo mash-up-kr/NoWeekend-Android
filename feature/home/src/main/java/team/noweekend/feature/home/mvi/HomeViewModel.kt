@@ -68,7 +68,7 @@ class HomeViewModel @Inject constructor(
             is HomeIntent.ClickHolidayVacationCard,
             is HomeIntent.ClickPopularVacationClick,
             is HomeIntent.ClickRecommendationVacationCard,
-                -> {
+            -> {
                 updateTaskTitleBottomSheetVisibility(true)
             }
 
