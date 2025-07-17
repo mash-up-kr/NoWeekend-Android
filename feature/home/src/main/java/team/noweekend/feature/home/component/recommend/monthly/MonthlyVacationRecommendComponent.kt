@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -15,6 +16,7 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.ImmutableMap
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.persistentMapOf
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.datetime.LocalDate
 import team.noweekend.core.common.kotlin.extension.now
 import team.noweekend.core.common.ui.calendar.model.CalendarState
@@ -57,6 +59,9 @@ internal fun MonthlyVacationRecommendComponent(
     modifier: Modifier = Modifier,
     calendarPagerState: CalendarPagerState = rememberCalendarPagerState(),
 ) {
+    val calendarDateFlow = remember(calendarData) {
+        MutableStateFlow(calendarData)
+    }
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -68,7 +73,7 @@ internal fun MonthlyVacationRecommendComponent(
         )
         NWKCalender(
             calendarState = CalendarState.Week(
-                pagerData = calendarData,
+                pagerData = calendarDateFlow,
                 pagerState = calendarPagerState.weekPagerState,
                 selectedDate = selectedDate,
                 calendarItemClickable = false,
