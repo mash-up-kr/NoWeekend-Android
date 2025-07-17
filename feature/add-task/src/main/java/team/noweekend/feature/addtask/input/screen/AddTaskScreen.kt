@@ -55,7 +55,7 @@ fun AddTaskScreen(
                                 onClickSave()
                             }
                             .alpha(
-                                if (uiState.taskInfo.title.isEmpty()) 0.8f else 0f,
+                                if (uiState.taskInfo.title.isEmpty()) 0.32f else 1f,
                             ),
                         text = stringResource(NWKStringResource.InputTextSaveLabel),
                         style = NWKTheme.typography.heading6,
@@ -74,7 +74,7 @@ fun AddTaskScreen(
             AddTaskTypeContainer(
                 modifier = Modifier.fillMaxWidth(),
                 onSelectTaskType = onSelectTaskType,
-                selectedType = uiState.selectedType,
+                selectedType = uiState.taskInfo.selectedType,
             )
             AddTaskInputContainer(
                 modifier = Modifier.padding(vertical = NWKTheme.spacing.space300),
@@ -122,7 +122,6 @@ private fun AddTaskInputContainer(title: String, modifier: Modifier = Modifier, 
         isSingLine = false,
         placeholder = stringResource(NWKStringResource.AddTaskInputHint),
         textFieldState = textFieldState,
-        onKeyboardAction = { Log.d("AddTaskScreen", "Keyboard action") },
     )
 }
 
