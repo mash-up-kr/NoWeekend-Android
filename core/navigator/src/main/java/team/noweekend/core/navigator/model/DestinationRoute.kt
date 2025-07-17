@@ -1,6 +1,5 @@
 package team.noweekend.core.navigator.model
 
-import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.Serializable
 import javax.annotation.concurrent.Immutable
 
@@ -12,13 +11,9 @@ sealed interface DestinationRoute
 @Serializable
 data object Home : DestinationRoute
 
-@InternalSerializationApi
 @Serializable
-data class Calendar(
-    val date: String = "",
-) : DestinationRoute
+data object Calendar : DestinationRoute
 
-@InternalSerializationApi
 @Immutable
 @Serializable
 data class DetailDate(

@@ -29,7 +29,7 @@ internal enum class MainTab(
         labelId = NWKStringResource.LabelCalendar,
         selectedIconResId = NWKDrawableResource.CalendarOn,
         unselectedIconResId = NWKDrawableResource.CalendarOff,
-        route = Calendar(),
+        route = Calendar,
     ),
     PROFILE(
         labelId = NWKStringResource.LabelProfile,

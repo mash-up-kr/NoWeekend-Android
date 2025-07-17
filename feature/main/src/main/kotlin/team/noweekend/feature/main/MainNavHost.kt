@@ -33,7 +33,7 @@ internal fun MainNavHost(
         homeNavGraph(
             navigateToCreateVacation = navigateToCreateVacation,
             navigateToCalendar = { date ->
-                navigator.navController.navigate(Calendar(date))
+                navigator.navController.navigate(Calendar)
             },
         )
         calendarNavGraph(
