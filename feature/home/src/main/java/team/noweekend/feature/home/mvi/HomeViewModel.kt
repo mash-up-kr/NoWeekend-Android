@@ -66,10 +66,17 @@ class HomeViewModel @Inject constructor(
             }
 
             is HomeIntent.ClickHolidayVacationCard,
-            is HomeIntent.ClickPopularVacationClick,
+            is HomeIntent.ClickPopularVacation,
             is HomeIntent.ClickRecommendationVacationCard,
-            -> {
-                updateTaskTitleBottomSheetVisibility(true)
+                -> updateTaskTitleBottomSheetVisibility(true)
+
+            is HomeIntent.BottomSheet.ClickAddTaskButton -> {
+                val title = intent.title
+                Log.d("logtag", title)
+            }
+
+            is HomeIntent.BottomSheet.DismissTaskTitleBottomSheet -> {
+                updateTaskTitleBottomSheetVisibility(false)
             }
         }
     }

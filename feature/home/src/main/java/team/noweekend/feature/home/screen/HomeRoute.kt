@@ -53,13 +53,14 @@ internal fun HomeRoute(
         onCreateVacationClick = { viewModel.intent(HomeIntent.ClickCreateVacation) },
         onHolidayVacationClick = { viewModel.intent(HomeIntent.ClickHolidayVacationCard) },
         onRecommendedVacationClick = { viewModel.intent(HomeIntent.ClickRecommendationVacationCard) },
-        onPopularVacationClick = { viewModel.intent(HomeIntent.ClickPopularVacationClick) },
+        onPopularVacationClick = { viewModel.intent(HomeIntent.ClickPopularVacation) },
         modifier = modifier,
     )
 
     if (uiState.showTaskTitleBottomSheet) {
         TaskTitleBottomSheet(
-            onBottomSheetDismiss = {},
+            onAddTaskClick = { viewModel.intent(HomeIntent.BottomSheet.ClickAddTaskButton(it)) },
+            onBottomSheetDismiss = { viewModel.intent(HomeIntent.BottomSheet.DismissTaskTitleBottomSheet) },
         )
     }
 }
