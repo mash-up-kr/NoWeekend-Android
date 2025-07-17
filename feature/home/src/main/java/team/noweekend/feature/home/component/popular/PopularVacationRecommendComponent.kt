@@ -47,7 +47,7 @@ internal fun PopularVacationRecommendComponent(
         PopularVacationRecommendHeader()
         PopularVacationRecommendContent(
             popularVacations = popularVacations,
-            onPopularVacationClick = onPopularVacationClick
+            onPopularVacationClick = onPopularVacationClick,
         )
     }
 }
