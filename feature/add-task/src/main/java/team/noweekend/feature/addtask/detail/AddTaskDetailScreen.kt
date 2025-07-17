@@ -14,12 +14,14 @@ import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.platform.LocalFocusManager
@@ -31,7 +33,6 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
 import team.noweekend.core.common.kotlin.extension.KOREAN_MERIDIEM_HOUR_MINUTE_PATTERN
 import team.noweekend.core.common.kotlin.extension.YEAR_MONTH_DATE_WITH_DAY_OF_WEEK_PATTERN
-import team.noweekend.core.common.kotlin.extension.now
 import team.noweekend.core.common.kotlin.extension.toFormattedString
 import team.noweekend.core.common.ui.datepicker.WheelDatePicker
 import team.noweekend.core.common.ui.datepicker.WheelTimePicker
@@ -44,24 +45,26 @@ import team.noweekend.core.design.system.core.component.toggle.Toggle
 import team.noweekend.core.design.system.core.component.toggle.ToggleState
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.resource.NWKStringResource
+import team.noweekend.feature.addtask.mvi.AddTaskUiState
 
 @Composable
 fun AddTaskDetailScreen(
+    uiState: AddTaskUiState,
     onBackClick: () -> Unit,
     onClickAction: (String) -> Unit,
     onClickInfoSave: () -> Unit,
+    onToggleAllDay: (ToggleState) -> Unit,
+    onSelectedStartDate: (LocalDate) -> Unit,
+    onSelectedStartTime: (LocalTime) -> Unit,
+    onSelectedEndDate: (LocalDate) -> Unit,
+    onSelectedEndTime: (LocalTime) -> Unit,
+    onChangedTemperature: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    var toggleState by remember { mutableStateOf(ToggleState.OFF) }
     var starDateIsClick by remember { mutableStateOf(false) }
     var startTimeIsClick by remember { mutableStateOf(false) }
     var endDateIsClick by remember { mutableStateOf(false) }
     var endTimeIsClick by remember { mutableStateOf(false) }
-    var startDate by remember { mutableStateOf(LocalDate.now()) }
-    var startTIme by remember { mutableStateOf(LocalTime(hour = 0, minute = 0)) }
-    var endDate by remember { mutableStateOf(LocalDate.now()) }
-    var endTime by remember { mutableStateOf(LocalTime(hour = 0, minute = 0)) }
-    val passionTemperatureState = rememberTextFieldState(initialText = "5")
 
     NWKScaffold(
         modifier = modifier,
@@ -72,7 +75,13 @@ fun AddTaskDetailScreen(
                 text = stringResource(NWKStringResource.AddTaskDetailLabel),
                 content = {
                     Text(
-                        modifier = Modifier.clickable { onClickInfoSave() },
+                        modifier = Modifier
+                            .clickable(enabled = uiState.taskInfo.title.isNotEmpty()) {
+                                onClickInfoSave()
+                            }
+                            .alpha(
+                                if (uiState.taskInfo.title.isEmpty()) 0.8f else 0f,
+                            ),
                         text = stringResource(NWKStringResource.InputTextSaveLabel),
                         style = NWKTheme.typography.heading6,
                         color = NWKTheme.color.Toast.toast500,
@@ -91,55 +100,51 @@ fun AddTaskDetailScreen(
         ) {
             TodoDateContainer(
                 modifier = Modifier.fillMaxWidth(),
-                toggleState = toggleState,
-                onToggleStateChanged = { toggleState = it },
+                isAllDay = uiState.taskInfo.isAllDay,
+                onToggleStateChanged = onToggleAllDay,
             )
             TodoTimeContainer(
                 label = stringResource(NWKStringResource.AddTaskStartLabel),
                 modifier = Modifier.fillMaxWidth(),
-                toggleState = toggleState,
                 onClickDate = { starDateIsClick = it },
-                date = startDate,
-                time = startTIme,
+                date = uiState.taskInfo.startDate,
+                time = uiState.taskInfo.startTime,
                 onClickTime = { startTimeIsClick = it },
+                isAllDay = uiState.taskInfo.isAllDay,
             )
             if (starDateIsClick) {
                 WheelDatePicker(
                     wheelDatePickerType = DatePickerType.YearMonth,
-                    onSelectedDate = { startDate = it },
+                    onSelectedDate = onSelectedStartDate,
                 )
             } else if (startTimeIsClick) {
                 WheelTimePicker(
-                    onSelectedTime = {
-                        startTIme = it
-                    },
+                    onSelectedTime = onSelectedStartTime,
                 )
             }
             TodoTimeContainer(
                 label = stringResource(NWKStringResource.AddTaskEndLabel),
                 modifier = Modifier.fillMaxWidth(),
-                toggleState = toggleState,
                 onClickDate = { endDateIsClick = it },
-                date = endDate,
-                time = endTime,
+                date = uiState.taskInfo.endDate,
+                time = uiState.taskInfo.endTime,
                 onClickTime = { endTimeIsClick = it },
+                isAllDay = uiState.taskInfo.isAllDay,
             )
             if (endDateIsClick) {
                 WheelDatePicker(
                     wheelDatePickerType = DatePickerType.YearMonth,
-                    onSelectedDate = { endDate = it },
+                    onSelectedDate = onSelectedEndDate,
                 )
             } else if (endTimeIsClick) {
                 WheelTimePicker(
-                    onSelectedTime = { time ->
-                        endTime = time
-                    },
+                    onSelectedTime = onSelectedEndTime,
                 )
             }
             PassionTemperatureContainer(
                 modifier = Modifier.fillMaxWidth(),
-                textState = passionTemperatureState,
                 onClickAction = onClickAction,
+                onChangedTemperature = onChangedTemperature,
             )
         }
     }
@@ -147,11 +152,16 @@ fun AddTaskDetailScreen(
 
 @Composable
 private fun PassionTemperatureContainer(
-    textState: TextFieldState,
-    modifier: Modifier = Modifier,
     onClickAction: (String) -> Unit,
+    onChangedTemperature: (String) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     val lineColor = NWKTheme.color.Semantic.Border.border02
+    val passionTemperatureState = rememberTextFieldState(initialText = "5")
+
+    LaunchedEffect(passionTemperatureState.text) {
+        onChangedTemperature(passionTemperatureState.text.toString())
+    }
 
     Row(
         modifier = modifier,
@@ -187,7 +197,7 @@ private fun PassionTemperatureContainer(
             NumberInputField(
                 modifier = Modifier.width(70.dp),
                 onClickAction = onClickAction,
-                textState = textState,
+                textState = passionTemperatureState,
             )
             Text(
                 modifier = Modifier.padding(start = NWKTheme.spacing.space150),
@@ -234,7 +244,7 @@ private fun NumberInputField(
 @Composable
 fun TodoTimeContainer(
     label: String,
-    toggleState: ToggleState,
+    isAllDay: Boolean,
     onClickDate: (Boolean) -> Unit,
     onClickTime: (Boolean) -> Unit,
     date: LocalDate,
@@ -266,7 +276,7 @@ fun TodoTimeContainer(
                     pattern = LocalDate.YEAR_MONTH_DATE_WITH_DAY_OF_WEEK_PATTERN,
                 ),
             )
-            if (toggleState == ToggleState.OFF) {
+            if (!isAllDay) {
                 DateLineText(
                     modifier = Modifier.clickable {
                         isTimeClick = !isTimeClick
@@ -285,9 +295,9 @@ fun TodoTimeContainer(
 
 @Composable
 private fun TodoDateContainer(
-    toggleState: ToggleState,
-    modifier: Modifier = Modifier,
+    isAllDay: Boolean,
     onToggleStateChanged: (ToggleState) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier,
@@ -300,7 +310,11 @@ private fun TodoDateContainer(
             color = NWKTheme.color.Semantic.Text.neutral,
         )
         Toggle(
-            toggleState = toggleState,
+            toggleState = if (isAllDay) {
+                ToggleState.ON
+            } else {
+                ToggleState.OFF
+            },
             onToggleStateChanged = { isOn ->
                 if (isOn) {
                     ToggleState.ON
@@ -310,7 +324,7 @@ private fun TodoDateContainer(
             },
             onClickToggle = {
                 onToggleStateChanged(
-                    if (toggleState == ToggleState.OFF) {
+                    if (isAllDay) {
                         ToggleState.ON
                     } else {
                         ToggleState.OFF
@@ -349,5 +363,12 @@ private fun AddTaskDetailScreenPreview() {
         onClickInfoSave = {},
         modifier = Modifier.fillMaxSize(),
         onClickAction = {},
+        onToggleAllDay = {},
+        onSelectedStartDate = {},
+        onSelectedStartTime = {},
+        onSelectedEndDate = {},
+        onSelectedEndTime = {},
+        onChangedTemperature = {},
+        uiState = AddTaskUiState.INITIAL_STATE,
     )
 }

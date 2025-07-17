@@ -13,12 +13,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,15 +26,19 @@ import team.noweekend.core.design.system.core.component.icon.NWKIcon
 import team.noweekend.core.design.system.core.component.input.NWKInputField
 import team.noweekend.core.design.system.core.component.scaffold.NWKScaffold
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
+import team.noweekend.core.model.schedule.ScheduleCategory
 import team.noweekend.core.resource.NWKDrawableResource
 import team.noweekend.core.resource.NWKStringResource
-import team.noweekend.feature.addtask.input.model.AddTaskType
+import team.noweekend.feature.addtask.mvi.AddTaskUiState
 
 @Composable
 fun AddTaskScreen(
-    onBackClick: () -> Unit,
-    onClickDetailInfo: () -> Unit,
-    onClickInfoSave: () -> Unit,
+    uiState: AddTaskUiState,
+    onClickBack: () -> Unit,
+    onClickDetail: () -> Unit,
+    onClickSave: () -> Unit,
+    onSelectTaskType: (ScheduleCategory) -> Unit,
+    onChangedText: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     NWKScaffold(
@@ -44,11 +46,17 @@ fun AddTaskScreen(
         topBar = {
             NWKHeader(
                 modifier = Modifier.fillMaxWidth(),
-                onBackClick = onBackClick,
+                onBackClick = onClickBack,
                 text = stringResource(NWKStringResource.AddTaskHeaderTitle),
                 content = {
                     Text(
-                        modifier = Modifier.clickable { onClickInfoSave() },
+                        modifier = Modifier
+                            .clickable(enabled = uiState.taskInfo.title.isNotEmpty()) {
+                                onClickSave()
+                            }
+                            .alpha(
+                                if (uiState.taskInfo.title.isEmpty()) 0.8f else 0f,
+                            ),
                         text = stringResource(NWKStringResource.InputTextSaveLabel),
                         style = NWKTheme.typography.heading6,
                         color = NWKTheme.color.Toast.toast500,
@@ -65,14 +73,18 @@ fun AddTaskScreen(
         ) {
             AddTaskTypeContainer(
                 modifier = Modifier.fillMaxWidth(),
+                onSelectTaskType = onSelectTaskType,
+                selectedType = uiState.selectedType,
             )
             AddTaskInputContainer(
                 modifier = Modifier.padding(vertical = NWKTheme.spacing.space300),
+                title = uiState.taskInfo.title,
+                onChangedText = onChangedText,
             )
             DetailInfoContainer(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable { onClickDetailInfo() },
+                    .clickable { onClickDetail() },
             )
         }
     }
@@ -98,8 +110,13 @@ private fun DetailInfoContainer(modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun AddTaskInputContainer(modifier: Modifier = Modifier) {
-    val textFieldState = rememberTextFieldState()
+private fun AddTaskInputContainer(title: String, modifier: Modifier = Modifier, onChangedText: (String) -> Unit) {
+    val textFieldState = rememberTextFieldState(title)
+
+    LaunchedEffect(textFieldState.text) {
+        onChangedText(textFieldState.text.toString())
+    }
+
     NWKInputField(
         modifier = modifier,
         isSingLine = false,
@@ -110,9 +127,11 @@ private fun AddTaskInputContainer(modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun AddTaskTypeContainer(modifier: Modifier = Modifier) {
-    var selectedType by remember { mutableStateOf(AddTaskType.COMPANY) }
-
+private fun AddTaskTypeContainer(
+    onSelectTaskType: (ScheduleCategory) -> Unit,
+    selectedType: ScheduleCategory,
+    modifier: Modifier = Modifier,
+) {
     Row(
         modifier = modifier
             .clip(NWKTheme.radius.borderRadius500)
@@ -120,11 +139,12 @@ private fun AddTaskTypeContainer(modifier: Modifier = Modifier) {
             .padding(NWKTheme.spacing.space50),
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
-        AddTaskType.entries.forEach { type ->
+        ScheduleCategory.entries.forEach { type ->
             Text(
                 modifier = Modifier
                     .then(
                         if (selectedType == type) {
+                            Log.d("AddTaskScreen", "Selected type: ${type.tag}")
                             Modifier
                                 .border(
                                     width = 1.dp,
@@ -136,7 +156,7 @@ private fun AddTaskTypeContainer(modifier: Modifier = Modifier) {
                             Modifier
                         },
                     )
-                    .clickable { selectedType = type }
+                    .clickable { onSelectTaskType(type) }
                     .padding(horizontal = 26.dp, vertical = 5.dp),
                 text = type.tag,
                 style = NWKTheme.typography.body1,
@@ -154,9 +174,12 @@ private fun AddTaskTypeContainer(modifier: Modifier = Modifier) {
 @Preview
 private fun AddTaskScreenPreview() {
     AddTaskScreen(
+        uiState = AddTaskUiState.INITIAL_STATE,
+        onClickBack = {},
+        onClickDetail = {},
+        onClickSave = {},
         modifier = Modifier.fillMaxSize(),
-        onClickDetailInfo = {},
-        onClickInfoSave = {},
-        onBackClick = {},
+        onSelectTaskType = {},
+        onChangedText = {},
     )
 }
