@@ -36,7 +36,12 @@ fun CalendarTodoList(
                 todoList = todoList,
             )
         }
-        itemsIndexed(todoList) { index, todo ->
+        itemsIndexed(
+            todoList,
+            key = { index, todo ->
+                todo.id
+            },
+        ) { index, todo ->
             NWKTodoRecord(
                 modifier = Modifier
                     .fillMaxWidth()

@@ -64,15 +64,20 @@ class DetailDateViewModel @Inject constructor(
 
     private suspend fun initState() {
         calendarDateProviderUseCase.monthData.collect { weeksDateMap ->
-            val scheduleList = weeksDateMap.values.toList().map { weeksData ->
-                weeksData.dateOfWeeks.flatten().filter { dateOfWeek ->
-                    dateOfWeek.localDate == uiState.value.date
-                }.map { dateOfWeek ->
-                    dateOfWeek.scheduleList
-                }.flatten()
-            }.flatten().map { schedule ->
-                schedule
-            }.toImmutableList()
+            val scheduleList =
+                weeksDateMap.values.toList().filter { it.month == uiState.value.date.monthNumber }
+                    .flatMap { weeksData ->
+                        val flattenWeeksData = weeksData.dateOfWeeks.flatten()
+
+                        val filteredWeeksData = flattenWeeksData.filter { dateOfWeek ->
+                            dateOfWeek.localDate == uiState.value.date
+                        }
+                        val scheduleList = filteredWeeksData.map { dateOfWeek ->
+                            dateOfWeek.scheduleList
+                        }.flatten()
+
+                        scheduleList.toImmutableList()
+                    }.toImmutableList()
 
             val todoList = scheduleList.map { schedule ->
                 schedule.toTodo()
