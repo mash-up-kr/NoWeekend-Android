@@ -20,5 +20,4 @@ sealed interface DetailDateIntent : Intent {
     data class AddSameTodo(val index: Int) : DetailDateIntent
 
     data object DismissTodo : DetailDateIntent
-
 }

@@ -10,8 +10,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.collections.immutable.persistentListOf
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.datetime.LocalDate
 import team.noweekend.core.common.kotlin.extension.now
 import team.noweekend.core.common.ui.calendar.component.CalendarTodoList
@@ -48,10 +46,9 @@ fun DetailDateScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        val todoList = detailDateUiState.todoList.collectAsStateWithLifecycle()
-        if (todoList.value.isNotEmpty()) {
+        if (detailDateUiState.todoList.isNotEmpty()) {
             CalendarTodoList(
-                todoList = todoList.value,
+                todoList = detailDateUiState.todoList,
                 onClickCheckBox = onClickCheckBox,
                 onClickOptionButton = onClickOptionButton,
             )
