@@ -1,6 +1,7 @@
 package team.noweekend.core.design.system.core.component.bottomSheet
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -53,16 +54,18 @@ fun NWKBottomSheet(
             ),
         ),
     ) {
+        val bottomSheetShape = RoundedCornerShape(
+            topStart = NWKTheme.spacing.space200, topEnd = NWKTheme.spacing.space200,
+        )
 
         Surface(
             modifier = modifier
+                .background(color = containerColor, shape = bottomSheetShape)
                 .navigationBarsPadding()
                 .imePadding(),
             color = containerColor,
             contentColor = contentColor,
-            shape = RoundedCornerShape(
-                topStart = NWKTheme.spacing.space200, topEnd = NWKTheme.spacing.space200,
-            ),
+            shape = bottomSheetShape,
         ) {
             Column(
                 modifier = Modifier
