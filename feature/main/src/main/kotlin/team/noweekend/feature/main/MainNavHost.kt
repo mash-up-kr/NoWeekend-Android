@@ -5,11 +5,15 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.rememberNavController
+import kotlinx.serialization.InternalSerializationApi
+import team.noweekend.core.navigator.model.Calendar
 import team.noweekend.feature.calendar.navigation.calendarNavGraph
 import team.noweekend.feature.home.navigation.homeNavGraph
 import team.noweekend.feature.main.navigation.MainNavigator
 import team.noweekend.feature.profile.navigation.profileNavGraph
 
+@OptIn(InternalSerializationApi::class)
 @Composable
 internal fun MainNavHost(
     navigateToExternalWebBrowser: (String) -> Unit,
@@ -19,6 +23,8 @@ internal fun MainNavHost(
     navigator: MainNavigator,
     modifier: Modifier = Modifier,
 ) {
+    val navController = rememberNavController()
+
     NavHost(
         navController = navigator.navController,
         startDestination = navigator.startDestination,
@@ -26,6 +32,9 @@ internal fun MainNavHost(
     ) {
         homeNavGraph(
             navigateToCreateVacation = navigateToCreateVacation,
+            navigateToCalendar = { date ->
+                navigator.navController.navigate(Calendar)
+            },
         )
         calendarNavGraph(
             navigateToDetailDate = { dateString ->
@@ -39,9 +48,9 @@ internal fun MainNavHost(
                 navigateToAddTodo(
                     {
                         putExtra("type", "")
-                    }
+                    },
                 )
-            }
+            },
         )
         profileNavGraph(
             navigateToExternalWebBrowser = navigateToExternalWebBrowser,

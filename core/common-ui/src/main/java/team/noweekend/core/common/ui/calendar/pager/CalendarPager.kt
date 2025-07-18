@@ -4,7 +4,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.VerticalPager
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import team.noweekend.core.common.ui.calendar.component.CalendarItem
 import team.noweekend.core.common.ui.calendar.model.CalendarDateOfWeek
 import team.noweekend.core.common.ui.calendar.model.CalendarState
@@ -24,10 +26,11 @@ internal fun CalendarPager(
                 userScrollEnabled = userScrollEnabled,
             ) { page ->
 
-                val weekDates = calendarState.pagerData[page]
-                weekDates?.let {
+                val weekDates by calendarState.pagerData.collectAsStateWithLifecycle()
+                val dataList = weekDates[page]
+                dataList?.let {
                     CalendarItem(
-                        dataList = weekDates,
+                        dataList = it,
                         calendarMode = calendarState.mode,
                         calendarItemClickable = calendarState.calendarItemClickable,
                         targetDate = calendarState.selectedDate,
@@ -44,10 +47,12 @@ internal fun CalendarPager(
                 userScrollEnabled = userScrollEnabled,
             ) { page ->
 
-                val monthWeekDates = calendarState.pagerData[page]
-                monthWeekDates?.let {
+                val monthWeekDates by calendarState.pagerData.collectAsStateWithLifecycle()
+                val dataList = monthWeekDates[page]
+
+                dataList?.let {
                     CalendarItem(
-                        dataList = monthWeekDates,
+                        dataList = it,
                         calendarMode = calendarState.mode,
                         calendarItemClickable = calendarState.calendarItemClickable,
                         targetDate = calendarState.selectedDate,

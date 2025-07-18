@@ -2,8 +2,8 @@
 targetSdk = "35"
 compileSdk = "35"
 minimumSdk = "26"
-versionCode = "2"
-versionName = "0.0.2" # X.Y.Z; X = Major, Y = minor, Z = Patch level
+versionCode = "3"
+versionName = "0.0.3" # X.Y.Z; X = Major, Y = minor, Z = Patch level
 
 agp = "8.8.2"
 activityCompose = "1.10.1"
@@ -43,6 +43,7 @@ googleid = "1.1.1"
 playServicesAuth = "21.0.0"
 graphicsShapesAndroid = "1.0.1"
 lottieCompose = "6.0.0"
+bottomsheetdialogCompose = "1.5.0"
 
 [libraries]
 # androidx
@@ -67,11 +68,12 @@ androidx-foundation = { group = "androidx.compose.foundation", name = "foundatio
 androidx-animation = { module = "androidx.compose.animation:animation", version.ref = "animation" }
 
 # kotlinx
+bottomsheetdialog-compose = { module = "com.holix.android:bottomsheetdialog-compose", version.ref = "bottomsheetdialogCompose" }
 kotlinx-coroutine-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutine" }
 kotlinx-coroutine-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutine" }
 kotlinx-collections-immutable = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version.ref = "kotlinx-immutable" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
-kotlinx-datetime = { group = "org.jetbrains.kotlinx" ,name = "kotlinx-datetime", version.ref = "kotlinx-datatime" }
+kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinx-datatime" }
 
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }

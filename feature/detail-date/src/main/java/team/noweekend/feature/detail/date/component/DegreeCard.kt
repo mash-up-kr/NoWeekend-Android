@@ -2,10 +2,8 @@ package team.noweekend.feature.detail.date.component
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -31,14 +29,12 @@ fun DegreeCard(
 ) {
     Box(
         modifier = modifier
-            .width(335.dp)
-            .height(200.dp)
+            .fillMaxWidth()
             .clip(
                 shape = NWKTheme.radius.borderRadius50,
             ),
     ) {
         NWKImage(
-            modifier = Modifier.fillMaxSize(),
             drawableResId = degreeUIModel.getResourceImage(),
         )
 

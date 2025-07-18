@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.flow.collectLatest
+import team.noweekend.feature.home.component.common.bottomsheet.TaskTitleBottomSheet
 import team.noweekend.feature.home.mvi.HomeIntent
 import team.noweekend.feature.home.mvi.HomeSideEffectHandler
 import team.noweekend.feature.home.mvi.HomeUiState
@@ -21,6 +22,7 @@ import team.noweekend.feature.home.mvi.rememberHomeSideEffectHandler
 @Composable
 internal fun HomeRoute(
     navigateToCreateVacation: ((Intent.() -> Intent)?, ActivityResultLauncher<Intent>?) -> Unit,
+    navigateToCalendar: (String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
@@ -41,6 +43,7 @@ internal fun HomeRoute(
         navigateToCreateVacation = { intentBuilder, _ ->
             navigateToCreateVacation(intentBuilder, createVacationLauncher)
         },
+        navigateToCalendar = navigateToCalendar,
     )
 
     LaunchedEffect(key1 = Unit) {
@@ -50,6 +53,16 @@ internal fun HomeRoute(
     HomeScreen(
         uiState = uiState,
         onCreateVacationClick = { viewModel.intent(HomeIntent.ClickCreateVacation) },
+        onHolidayVacationClick = { viewModel.intent(HomeIntent.ClickHolidayVacationCard(it)) },
+        onRecommendedVacationClick = { viewModel.intent(HomeIntent.ClickRecommendationVacationCard(it)) },
+        onPopularVacationClick = { viewModel.intent(HomeIntent.ClickPopularVacation(it)) },
         modifier = modifier,
     )
+
+    if (uiState.taskTitleBottomSheetState.showTaskTitleBottomSheet) {
+        TaskTitleBottomSheet(
+            onAddTaskClick = { viewModel.intent(HomeIntent.BottomSheet.ClickAddTaskButton(it)) },
+            onBottomSheetDismiss = { viewModel.intent(HomeIntent.BottomSheet.DismissTaskTitleBottomSheet) },
+        )
+    }
 }

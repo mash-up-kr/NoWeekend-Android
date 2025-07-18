@@ -19,10 +19,10 @@ import team.noweekend.core.design.system.foundation.theme.NWKTheme
 
 @Composable
 fun CalendarTodoList(
-    todoList: ImmutableList<Todo>,
     onClickCheckBox: (Int) -> Unit,
     onClickOptionButton: (Int) -> Unit,
     modifier: Modifier = Modifier,
+    todoList: ImmutableList<Todo> = persistentListOf(),
 ) {
     val state = rememberLazyListState()
 
@@ -36,7 +36,12 @@ fun CalendarTodoList(
                 todoList = todoList,
             )
         }
-        itemsIndexed(todoList) { index, todo ->
+        itemsIndexed(
+            todoList,
+            key = { index, todo ->
+                todo.id
+            },
+        ) { index, todo ->
             NWKTodoRecord(
                 modifier = Modifier
                     .fillMaxWidth()

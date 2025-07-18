@@ -1,7 +1,9 @@
 package team.noweekend.core.common.kotlin.extension
 
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalTime
 import kotlinx.datetime.toJavaLocalDate
+import kotlinx.datetime.toJavaLocalTime
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 import java.time.temporal.WeekFields
@@ -43,6 +45,15 @@ fun LocalDate.getWeekOfMonth(): String {
     val javaLocalDate = this.toJavaLocalDate()
     val weekFields = WeekFields.of(Locale.getDefault())
     return javaLocalDate.get(weekFields.weekOfMonth()).toKrPattern()
+}
+
+fun LocalDate.toDateTimeString(
+    time: LocalTime,
+    pattern: String = "yyyy-MM-dd'T'HH:mm:ss",
+): String {
+    val javaDateTime = java.time.LocalDateTime.of(this.toJavaLocalDate(), time.toJavaLocalTime())
+    val formatter = DateTimeFormatter.ofPattern(pattern)
+    return javaDateTime.format(formatter)
 }
 
 private fun Int.toKrPattern(): String {

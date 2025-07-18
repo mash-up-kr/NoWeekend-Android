@@ -8,9 +8,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import team.noweekend.core.common.ui.calendar.model.CalendarDateOfWeek
 import team.noweekend.core.common.ui.calendar.model.CalendarMode
 import team.noweekend.core.common.ui.todo.model.Todo
@@ -29,10 +33,10 @@ internal fun CalendarScreen(
     onClickCheckBox: (Int) -> Unit,
     onClickOptionButton: (Int) -> Unit,
     modifier: Modifier = Modifier,
-    todoList: ImmutableList<Todo> = persistentListOf(),
+    todoListState: StateFlow<ImmutableList<Todo>> = MutableStateFlow(persistentListOf()),
 ) {
 
-    val date = remember { derivedStateOf { calendarUiState.value.chooserMonth } }
+    val date = rememberUpdatedState(calendarUiState.value.chooserMonth)
 
 
     Column(
@@ -53,8 +57,9 @@ internal fun CalendarScreen(
             userScrollEnabled = true,
         )
         if (calendarUiState.value.calendarMode == CalendarMode.WEEK) {
+            val todoList = todoListState.collectAsStateWithLifecycle()
             CalendarTodoList(
-                todoList = todoList,
+                todoList = todoList.value,
                 onClickCheckBox = onClickCheckBox,
                 onClickOptionButton = onClickOptionButton,
             )

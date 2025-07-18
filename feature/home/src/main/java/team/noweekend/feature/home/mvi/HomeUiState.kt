@@ -18,6 +18,7 @@ import team.noweekend.feature.home.model.PopularVacationUiModel
 @Stable
 data class HomeUiState(
     val isLoading: Boolean,
+    val taskTitleBottomSheetState: BottomSheetState,
     val averageTemperature: Float,
     val remainingAnnualLeave: Float,
     val createVacationStatus: CreateVacationStatus,
@@ -26,11 +27,19 @@ data class HomeUiState(
     val popularVacations: ImmutableList<PopularVacationUiModel>,
     val calendarData: ImmutableMap<Int, CalendarWeeksData>,
     val selectedDate: LocalDate,
+    val selectedHoliday: HolidayUiModel,
+    val selectedWeatherRecommendVacation: MonthlyVacationRecommendUiModel,
+    val selectedPopularVacation: PopularVacationUiModel,
+    val taskTitle: String,
 ) : UiState {
 
     companion object {
         val INITIAL_STATE: HomeUiState = HomeUiState(
             isLoading = false,
+            taskTitleBottomSheetState = BottomSheetState(
+                entryType = BottomSheetEntryType.NOTHING,
+                showTaskTitleBottomSheet = false,
+            ),
             averageTemperature = 0f,
             remainingAnnualLeave = 0f,
             createVacationStatus = CreateVacationStatus.Default,
@@ -39,8 +48,24 @@ data class HomeUiState(
             popularVacations = persistentListOf(),
             calendarData = persistentMapOf(),
             selectedDate = LocalDate.now(),
+            selectedHoliday = HolidayUiModel.INITIAL_DATA,
+            selectedWeatherRecommendVacation = MonthlyVacationRecommendUiModel.INITIAL_DATA,
+            selectedPopularVacation = PopularVacationUiModel.INITIAL_DATA,
+            taskTitle = "",
         )
     }
+}
+
+data class BottomSheetState(
+    val entryType: BottomSheetEntryType,
+    val showTaskTitleBottomSheet: Boolean,
+)
+
+enum class BottomSheetEntryType {
+    HOLIDAY,
+    WEATHER_RECOMMENDATION,
+    POPULAR_VACATION,
+    NOTHING,
 }
 
 /**

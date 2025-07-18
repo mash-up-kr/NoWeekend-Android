@@ -24,10 +24,12 @@ import team.noweekend.feature.home.model.PopularVacationUiModel.Companion.getSty
 
 internal fun LazyListScope.popularVacationRecommend(
     popularVacations: ImmutableList<PopularVacationUiModel>,
+    onPopularVacationClick: (PopularVacationUiModel) -> Unit,
     modifier: Modifier = Modifier,
 ) = item {
     PopularVacationRecommendComponent(
         popularVacations = popularVacations,
+        onPopularVacationClick = onPopularVacationClick,
         modifier = modifier,
     )
 }
@@ -35,6 +37,7 @@ internal fun LazyListScope.popularVacationRecommend(
 @Composable
 internal fun PopularVacationRecommendComponent(
     popularVacations: ImmutableList<PopularVacationUiModel>,
+    onPopularVacationClick: (PopularVacationUiModel) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -44,6 +47,7 @@ internal fun PopularVacationRecommendComponent(
         PopularVacationRecommendHeader()
         PopularVacationRecommendContent(
             popularVacations = popularVacations,
+            onPopularVacationClick = onPopularVacationClick,
         )
     }
 }
@@ -70,6 +74,7 @@ private fun PopularVacationRecommendHeader(
 @Composable
 private fun PopularVacationRecommendContent(
     popularVacations: ImmutableList<PopularVacationUiModel>,
+    onPopularVacationClick: (PopularVacationUiModel) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val height: Dp = if (popularVacations.size > 2) 500.dp else 250.dp
@@ -88,7 +93,7 @@ private fun PopularVacationRecommendContent(
                     date = it.displayDate,
                     drawableResId = it.imageResourceId,
                     description = it.vacationType.getStyledDescription(),
-                    onCardClick = {},
+                    onCardClick = { onPopularVacationClick(it) },
                 )
             }
         },

@@ -6,6 +6,7 @@ import androidx.compose.runtime.remember
 import kotlinx.datetime.LocalDate
 import team.noweekend.core.common.ui.calendar.model.CalendarDateOfWeek
 import team.noweekend.core.common.ui.calendar.model.CalendarMode
+import team.noweekend.core.common.ui.calendar.state.CalendarPagerState.Companion.initialPage
 import team.noweekend.feature.calendar.mvi.CalendarIntent
 
 
@@ -79,11 +80,16 @@ class IntentBuilder(
         build(CalendarIntent.UpdateCalendarData)
     }
 
-    fun initCalendarData(
-        initPage: Int,
-    ) {
-        build(CalendarIntent.InitCalendar(initPage = initPage))
+    fun initCalendarData() {
+        build(CalendarIntent.InitCalendar(initPage = initialPage))
     }
+
+    fun initCalendarDateWithDate(
+        targetDate: LocalDate,
+    ){
+        build(CalendarIntent.InitCalendarWithDate(initPage = initialPage, targetDate = targetDate))
+    }
+
 
     fun updateTodoList(targetDate: LocalDate) {
         build(CalendarIntent.UpdateTodoList(targetDate = targetDate))
@@ -103,6 +109,10 @@ class IntentBuilder(
 
     fun clickRecommendTodoTag(index: Int) {
         build(CalendarIntent.ClickRecommendTodoTag(index = index))
+    }
+
+    fun clickMonthChooser(){
+        build(CalendarIntent.ClickMonthChooser)
     }
 
 }

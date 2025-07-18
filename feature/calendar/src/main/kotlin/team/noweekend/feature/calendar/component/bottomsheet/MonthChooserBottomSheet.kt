@@ -1,9 +1,8 @@
 package team.noweekend.feature.calendar.component.bottomsheet
 
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -20,17 +19,19 @@ import team.noweekend.core.design.system.core.component.bottomSheet.NWKBottomShe
 import team.noweekend.core.design.system.core.component.bottomSheet.rememberNWKBottomSheetState
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.resource.NWKStringResource.MonthChooseButtonTitle
+import team.noweekend.feature.calendar.model.StableLocalDate
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MonthChooserBottomSheet(
     onClickSelectButton: (LocalDate) -> Unit,
     modifier: Modifier = Modifier,
+    initialDate: StableLocalDate = StableLocalDate(LocalDate.now()),
     bottomSheetTitle: String = "",
     onDismissRequest: () -> Unit = {},
 ) {
 
-    val selectedDate = remember { mutableStateOf(LocalDate.now()) }
+    val selectedDate = remember(initialDate.localDate) { mutableStateOf(initialDate.localDate) }
 
     val nwkBottomSheetState = rememberNWKBottomSheetState(
         bottomSheetType = BottomSheetType.UseButton(
@@ -40,10 +41,9 @@ fun MonthChooserBottomSheet(
             },
             bottomSheetTitle = bottomSheetTitle,
         ),
-        sheetState = rememberModalBottomSheetState(
-            skipPartiallyExpanded = true,
-        ),
+        isDraggable = false,
     )
+
 
     NWKBottomSheet(
         modifier = modifier.fillMaxWidth(),
@@ -52,16 +52,19 @@ fun MonthChooserBottomSheet(
         containerColor = NWKTheme.color.Neutral.white,
         shouldDismissOnBackPress = true,
     ) {
-        Column(
+        Box(
             modifier = Modifier
                 .fillMaxWidth(),
         ) {
             WheelDatePicker(
-                modifier = Modifier.align(Alignment.CenterHorizontally),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.BottomCenter),
                 onSelectedDate = { date ->
                     selectedDate.value = date
                 },
                 wheelDatePickerType = DatePickerType.YearMonth,
+                initialDate = selectedDate.value,
             )
         }
     }

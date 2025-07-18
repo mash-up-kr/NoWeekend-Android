@@ -22,7 +22,7 @@ internal fun CalendarItem(
 ) {
     Column(modifier = modifier) {
         dataList.calendarDateOfWeeks.forEachIndexed { index, dateOfWeeks ->
-            key(index) {
+            key(index, dateOfWeeks) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                 ) {

@@ -6,8 +6,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -27,6 +25,7 @@ import kotlinx.datetime.LocalDate
 import team.noweekend.core.common.kotlin.extension.CalendarUtils.currentLocalDate
 import team.noweekend.core.common.kotlin.extension.CalendarUtils.isLeapYear
 import team.noweekend.core.common.kotlin.extension.CalendarUtils.monthLength
+import team.noweekend.core.common.ui.datepicker.core.PaddingDirection
 import team.noweekend.core.common.ui.datepicker.core.WheelPicker
 import team.noweekend.core.common.ui.datepicker.model.DatePickerType
 import team.noweekend.core.common.ui.datepicker.preview.PreviewWheelDatePickerParameterProvider
@@ -60,7 +59,6 @@ fun WheelDatePicker(
     val monthIndex = monthList.indexOf(currentMonth)
 
     val itemHeight = 35.dp
-    val containerWidth = 335.dp
 
     LaunchedEffect(selectedYear, selectedMonth, selectedDay) {
         val safeSelectedDay: Int = selectedDay.coerceIn(1, selectedMonth.monthLength(isLeapYear(selectedYear)))
@@ -75,7 +73,6 @@ fun WheelDatePicker(
 
     Box(
         modifier = modifier
-            .width(containerWidth)
             .background(color = NWKTheme.color.Semantic.Background.normal),
         contentAlignment = Alignment.Center,
     ) {
@@ -92,8 +89,7 @@ fun WheelDatePicker(
         }
         Row(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 64.dp),
+                .fillMaxWidth(),
         ) {
             val yearItemList = yearList.map { year ->
                 stringResource(id = YearFormat, year)
@@ -105,6 +101,7 @@ fun WheelDatePicker(
                 initialIndex = yearIndex,
                 itemList = yearItemList,
                 itemHeight = itemHeight,
+                paddingDirection = PaddingDirection.Left,
                 onItemSelected = { index ->
                     selectedYear = yearList[index]
                 },
@@ -119,6 +116,11 @@ fun WheelDatePicker(
                 visibleItemCount = 7,
                 initialIndex = monthIndex,
                 itemList = monthItemList,
+                paddingDirection = if (wheelDatePickerType == DatePickerType.YearMonthDay) {
+                    PaddingDirection.Center
+                } else {
+                    PaddingDirection.Right
+                },
                 itemHeight = itemHeight,
                 onItemSelected = { index ->
                     selectedMonth = monthList[index]
@@ -144,6 +146,7 @@ fun WheelDatePicker(
                     initialIndex = dayIndex,
                     itemList = dayItemList,
                     itemHeight = itemHeight,
+                    paddingDirection = PaddingDirection.Right,
                     onItemSelected = { index ->
                         selectedDay = updatedDayList.value[index]
                     },

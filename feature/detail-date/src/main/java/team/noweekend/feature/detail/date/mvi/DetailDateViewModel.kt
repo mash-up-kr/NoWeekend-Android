@@ -6,6 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.datetime.LocalDate
+import kotlinx.serialization.InternalSerializationApi
 import team.noweekend.core.common.android.base.MVIViewModel
 import team.noweekend.core.common.kotlin.extension.parseLocalDateString
 import team.noweekend.core.common.ui.todo.model.Todo
@@ -29,6 +30,7 @@ class DetailDateViewModel @Inject constructor(
 ) : MVIViewModel<DetailDateIntent, DetailDateSideEffect, DetailDateUiState>(
     savedStateHandle = savedStateHandle,
 ) {
+    @OptIn(InternalSerializationApi::class)
     override fun createInitialState(savedStateHandle: SavedStateHandle): DetailDateUiState {
         val date = savedStateHandle.toRoute<DetailDate>().date
         val localDate = LocalDate.parseLocalDateString(date)
@@ -64,15 +66,20 @@ class DetailDateViewModel @Inject constructor(
 
     private suspend fun initState() {
         calendarDateProviderUseCase.monthData.collect { weeksDateMap ->
-            val scheduleList = weeksDateMap.values.toList().map { weeksData ->
-                weeksData.dateOfWeeks.flatten().filter { dateOfWeek ->
-                    dateOfWeek.localDate == uiState.value.date
-                }.map { dateOfWeek ->
-                    dateOfWeek.scheduleList
-                }.flatten()
-            }.flatten().map { schedule ->
-                schedule
-            }.toImmutableList()
+            val scheduleList =
+                weeksDateMap.values.toList().filter { it.month == uiState.value.date.monthNumber }
+                    .flatMap { weeksData ->
+                        val flattenWeeksData = weeksData.dateOfWeeks.flatten()
+
+                        val filteredWeeksData = flattenWeeksData.filter { dateOfWeek ->
+                            dateOfWeek.localDate == uiState.value.date
+                        }
+                        val scheduleList = filteredWeeksData.map { dateOfWeek ->
+                            dateOfWeek.scheduleList
+                        }.flatten()
+
+                        scheduleList.toImmutableList()
+                    }.toImmutableList()
 
             val todoList = scheduleList.map { schedule ->
                 schedule.toTodo()

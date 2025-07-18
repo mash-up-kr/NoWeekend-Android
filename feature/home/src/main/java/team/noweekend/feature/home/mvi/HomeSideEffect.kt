@@ -7,4 +7,8 @@ sealed interface HomeSideEffect : SideEffect {
     data class NavigateToCreateVacation(
         val intentBuilder: (Intent.() -> Intent)?,
     ) : HomeSideEffect
+
+    data class NavigateToCalendar(
+        val startLocalDateTime: String,
+    ) : HomeSideEffect
 }

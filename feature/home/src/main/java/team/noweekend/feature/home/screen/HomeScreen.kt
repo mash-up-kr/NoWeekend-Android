@@ -19,12 +19,18 @@ import team.noweekend.feature.home.component.holiday.holidayRecommend
 import team.noweekend.feature.home.component.popular.popularVacationRecommend
 import team.noweekend.feature.home.component.recommend.monthly.monthlyVacationRecommendComponent
 import team.noweekend.feature.home.component.vacation.createVacation
+import team.noweekend.feature.home.model.HolidayUiModel
+import team.noweekend.feature.home.model.MonthlyVacationRecommendUiModel
+import team.noweekend.feature.home.model.PopularVacationUiModel
 import team.noweekend.feature.home.mvi.HomeUiState
 
 @Composable
 internal fun HomeScreen(
     uiState: HomeUiState,
     onCreateVacationClick: () -> Unit,
+    onHolidayVacationClick: (HolidayUiModel) -> Unit,
+    onRecommendedVacationClick: (MonthlyVacationRecommendUiModel) -> Unit,
+    onPopularVacationClick: (PopularVacationUiModel) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -42,7 +48,7 @@ internal fun HomeScreen(
         )
         holidayRecommend(
             holidays = uiState.remainedHolidays,
-            onHolidayCardClick = {},
+            onHolidayCardClick = { onHolidayVacationClick(it) },
         )
         itemSpacer(40.dp)
         monthlyVacationRecommendComponent(
@@ -51,10 +57,12 @@ internal fun HomeScreen(
             recommends = uiState.weatherRecommendVacations,
             calendarData = uiState.calendarData,
             selectedDate = uiState.selectedDate,
+            onRecommendedVacationClick = { onRecommendedVacationClick(it) },
         )
         itemSpacer(40.dp)
         popularVacationRecommend(
             popularVacations = uiState.popularVacations,
+            onPopularVacationClick = onPopularVacationClick,
         )
     }
 }
@@ -88,6 +96,9 @@ private fun HomeScreenPreview() {
         HomeScreen(
             uiState = HomeUiState.INITIAL_STATE,
             onCreateVacationClick = {},
+            onHolidayVacationClick = {},
+            onRecommendedVacationClick = {},
+            onPopularVacationClick = {},
         )
     }
 }

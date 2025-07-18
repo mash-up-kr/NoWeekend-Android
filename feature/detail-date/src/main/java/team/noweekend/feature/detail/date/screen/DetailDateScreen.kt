@@ -1,10 +1,13 @@
 package team.noweekend.feature.detail.date.screen
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.datetime.LocalDate
 import team.noweekend.core.common.kotlin.extension.now
@@ -32,10 +35,15 @@ fun DetailDateScreen(
         DegreeCard(
             degreeUIModel = detailDateUiState.degreeUiModel,
         )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
         DegreeGauge(
             degree = detailDateUiState.degreeUiModel.degree,
             isAnnualLeave = detailDateUiState.degreeUiModel.isAnnualLeave,
         )
+
+        Spacer(modifier = Modifier.height(16.dp))
 
         if (detailDateUiState.todoList.isNotEmpty()) {
             CalendarTodoList(
