@@ -2,7 +2,6 @@ package team.noweekend.feature.detail.date.mvi
 
 import androidx.compose.runtime.Immutable
 import kotlinx.collections.immutable.ImmutableList
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.datetime.LocalDate
 import team.noweekend.core.common.android.mvi.UiState
 import team.noweekend.core.common.ui.todo.model.Todo
@@ -18,7 +17,6 @@ data class DetailDateUiState(
     val degreeUiModel: DegreeUIModel,
     val todoOptionVisibility: TodoOptionVisibility = TodoOptionVisibility(visible = false),
 ) : UiState
-
 
 @Immutable
 data class TodoOptionVisibility(

@@ -51,20 +51,20 @@ class IntentBuilder(
     }
 
     fun clickAction(todoRecordAction: TodoRecordAction, todoIndex: Int) {
-        when(todoRecordAction){
-            is TodoRecordAction.AddSameAction->{
+        when (todoRecordAction) {
+            is TodoRecordAction.AddSameAction -> {
                 build(DetailDateIntent.AddSameTodo(index = todoIndex))
             }
-            is TodoRecordAction.DeleteAction->{
+            is TodoRecordAction.DeleteAction -> {
                 build(DetailDateIntent.DeleteTodo(index = todoIndex))
             }
-            is TodoRecordAction.EditAction->{
+            is TodoRecordAction.EditAction -> {
                 build(DetailDateIntent.EditTodo(index = todoIndex))
             }
         }
     }
 
-    fun dismissTodoOption(){
+    fun dismissTodoOption() {
         build(DetailDateIntent.DismissTodo)
     }
 }

@@ -5,14 +5,11 @@ import androidx.navigation.toRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
-import kotlinx.serialization.InternalSerializationApi
 import team.noweekend.core.common.android.base.MVIViewModel
 import team.noweekend.core.common.kotlin.extension.parseLocalDateString
 import team.noweekend.core.common.kotlin.extension.toLocalDate
-import team.noweekend.core.common.ui.calendar.state.CalendarPagerState.Companion.initialPage
 import team.noweekend.core.common.ui.todo.model.Todo
 import team.noweekend.core.common.ui.todo.model.TodoType
 import team.noweekend.core.domain.usecase.CalendarDataProviderUseCase
@@ -92,11 +89,9 @@ class DetailDateViewModel @Inject constructor(
     }
 
     private fun clickDirectInput() {
-
     }
 
     private fun addSameTodo(index: Int) {
-
     }
 
     private suspend fun deleteTodo(index: Int) {
@@ -114,12 +109,9 @@ class DetailDateViewModel @Inject constructor(
                 ),
             )
         }
-
     }
 
     private fun editTodo(index: Int) {
-
-
     }
 
     private fun clickTodoOption(index: Int) {
@@ -127,8 +119,8 @@ class DetailDateViewModel @Inject constructor(
             copy(
                 todoOptionVisibility = this.todoOptionVisibility.copy(
                     visible = true,
-                    todoIndex= index,
-                    todoType = todoList[index].todoType
+                    todoIndex = index,
+                    todoType = todoList[index].todoType,
                 ),
             )
         }

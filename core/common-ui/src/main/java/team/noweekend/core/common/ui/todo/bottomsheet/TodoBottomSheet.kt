@@ -59,7 +59,6 @@ fun TodoBottomSheet(
     }
 }
 
-
 @Preview
 @Composable
 private fun PreviewTodoBottomSheet() {
@@ -70,8 +69,6 @@ private fun PreviewTodoBottomSheet() {
             onClickAction = { _, _ -> },
             todoIndex = 0,
 
-            )
+        )
     }
 }
-
-
