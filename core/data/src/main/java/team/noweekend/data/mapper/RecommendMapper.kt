@@ -2,8 +2,8 @@ package team.noweekend.data.mapper
 
 import team.noweekend.core.model.vacation.SandwichRecommendVacation
 import team.noweekend.core.model.vacation.WeatherRecommendVacation
-import team.noweekend.core.remote.model.recommend.SandwichRecommendResponse
-import team.noweekend.core.remote.model.recommend.WeatherRecommendResponseDto
+import team.noweekend.core.remote.model.recommend.response.SandwichRecommendResponse
+import team.noweekend.core.remote.model.recommend.response.WeatherRecommendResponseDto
 
 internal fun WeatherRecommendResponseDto.toDomain(): WeatherRecommendVacation =
     WeatherRecommendVacation(
