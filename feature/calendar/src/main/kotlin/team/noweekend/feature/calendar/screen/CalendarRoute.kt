@@ -32,6 +32,7 @@ import team.noweekend.feature.calendar.mvi.rememberSideEffectHandler
 internal fun CalendarRoute(
     navigateToDetailDate: (String) -> Unit,
     navigateToAddTodo: (Todo) -> Unit,
+    navigateToAddTodoWithDirectInput: () -> Unit,
     modifier: Modifier = Modifier,
     calendarViewModel: CalendarViewModel = hiltViewModel(),
 ) {
@@ -55,6 +56,7 @@ internal fun CalendarRoute(
         updatePreviousWeekPage = intentBuilder::updatePreviousWeekPage,
         navigateToDetailDate = navigateToDetailDate,
         navigateToAddTodo = navigateToAddTodo,
+        navigateToAddTodoWithDirectInput = navigateToAddTodoWithDirectInput,
     )
 
 
@@ -95,7 +97,7 @@ internal fun CalendarRoute(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .padding(bottom = 20.dp, end = 20.dp),
-            onClickDirectInput = {},
+            onClickDirectInput = intentBuilder::clickDirectInput,
             onClickDim = { isExpanded = isExpanded.not() },
         )
 
@@ -131,6 +133,7 @@ private fun CalendarRoutePreview() {
             modifier = Modifier.fillMaxSize(),
             navigateToDetailDate = {},
             navigateToAddTodo = {},
+            navigateToAddTodoWithDirectInput = {}
         )
     }
 }

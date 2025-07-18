@@ -24,6 +24,7 @@ fun rememberSideEffectHandler(
     updateNextMonthPage: (page: Int) -> Unit,
     navigateToDetailDate: (date: String) -> Unit,
     navigateToAddTodo: (todo: Todo) -> Unit,
+    navigateToAddTodoWithDirectInput: () -> Unit,
     calendarPagerState: CalendarPagerState = rememberCalendarPagerState(),
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
 ) = remember(calendarPagerState, coroutineScope) {
@@ -39,10 +40,11 @@ fun rememberSideEffectHandler(
         updatePreviousWeekPage = updatePreviousWeekPage,
         navigateToDetailDate = navigateToDetailDate,
         navigateToAddTodo = navigateToAddTodo,
+        navigateToAddTodoWithDirectInput = navigateToAddTodoWithDirectInput,
         calendarPagerState = calendarPagerState,
         coroutineScope = coroutineScope,
 
-    )
+        )
 }
 
 @Stable
@@ -57,6 +59,7 @@ class CalendarSideEffectHandler(
     private val updateNextMonthPage: (page: Int) -> Unit,
     private val navigateToDetailDate: (date: String) -> Unit,
     private val navigateToAddTodo: (todo: Todo) -> Unit,
+    private val navigateToAddTodoWithDirectInput: () -> Unit,
     private val calendarPagerState: CalendarPagerState,
     private val coroutineScope: CoroutineScope,
 ) : SideEffectHandler<CalendarSideEffect> {
@@ -114,6 +117,10 @@ class CalendarSideEffectHandler(
 
             is CalendarSideEffect.NavigateToAddTodo -> {
                 navigateToAddTodo(sideEffect.todo)
+            }
+
+            is CalendarSideEffect.NavigateToAddTodoWithDirectInput -> {
+                navigateToAddTodoWithDirectInput()
             }
         }
     }

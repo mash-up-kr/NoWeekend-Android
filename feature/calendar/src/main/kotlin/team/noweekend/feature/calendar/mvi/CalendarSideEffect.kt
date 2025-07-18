@@ -16,5 +16,7 @@ sealed interface CalendarSideEffect : SideEffect {
 
     data class NavigateToAddTodo(val todo: Todo) : CalendarSideEffect
 
+    data object NavigateToAddTodoWithDirectInput : CalendarSideEffect
+
 
 }
