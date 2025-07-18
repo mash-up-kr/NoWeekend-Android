@@ -1,4 +1,4 @@
-package team.noweekend.feature.calendar.model
+package team.noweekend.core.common.ui.todo.model
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes

@@ -1,15 +1,15 @@
-package team.noweekend.feature.calendar.component.bottomsheet
+package team.noweekend.core.common.ui.todo.bottomsheet
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import team.noweekend.core.common.ui.todo.model.TodoRecordAction
 import team.noweekend.core.common.ui.todo.model.TodoType
 import team.noweekend.core.design.system.core.component.bottomSheet.BottomSheetType
 import team.noweekend.core.design.system.core.component.bottomSheet.NWKBottomSheet
 import team.noweekend.core.design.system.core.component.bottomSheet.rememberNWKBottomSheetState
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
-import team.noweekend.feature.calendar.model.TodoRecordAction
 
 @Composable
 fun TodoBottomSheet(
@@ -35,7 +35,7 @@ fun TodoBottomSheet(
                     key(action) {
                         TodoRecordActionComponent(
                             todoRecordAction = action,
-                            onClickAction = { recordAction->
+                            onClickAction = { recordAction ->
                                 onClickAction(recordAction, todoIndex)
                             },
                         )
@@ -48,7 +48,7 @@ fun TodoBottomSheet(
                     key(action) {
                         TodoRecordActionComponent(
                             todoRecordAction = action,
-                            onClickAction = { recordAction->
+                            onClickAction = { recordAction ->
                                 onClickAction(recordAction, todoIndex)
                             },
                         )
@@ -67,10 +67,10 @@ private fun PreviewTodoBottomSheet() {
         TodoBottomSheet(
             todoType = TodoType.Etc(),
             onDismissRequest = {},
-            onClickAction = {_,_->},
+            onClickAction = { _, _ -> },
             todoIndex = 0,
 
-        )
+            )
     }
 }
 
