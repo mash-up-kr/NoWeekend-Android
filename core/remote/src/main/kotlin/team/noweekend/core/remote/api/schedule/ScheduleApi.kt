@@ -4,6 +4,7 @@ import team.noweekend.core.remote.model.schedule.ScheduleCreateRequest
 import team.noweekend.core.remote.model.schedule.common.ScheduleModel
 import team.noweekend.core.remote.model.schedule.response.DeleteScheduleResponse
 import team.noweekend.core.remote.model.schedule.response.EditScheduleRequest
+import team.noweekend.core.remote.model.schedule.response.EditScheduleResponse
 import team.noweekend.core.remote.model.schedule.response.GetScheduleResponse
 import team.noweekend.core.remote.model.schedule.response.ScheduleCreateResponse
 
@@ -16,7 +17,7 @@ interface ScheduleApi {
     suspend fun editSchedule(
         id: String,
         editScheduleRequest: EditScheduleRequest,
-    ): ScheduleModel
+    ): EditScheduleResponse
 
     suspend fun deleteSchedule(
         id: String,

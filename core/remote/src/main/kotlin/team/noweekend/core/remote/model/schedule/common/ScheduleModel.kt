@@ -14,3 +14,5 @@ data class ScheduleModel(
     val alarmOption: String,
     val completed: Boolean,
 )
+
+
