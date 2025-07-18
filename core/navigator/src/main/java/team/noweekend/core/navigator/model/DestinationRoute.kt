@@ -1,7 +1,6 @@
 package team.noweekend.core.navigator.model
 
 import android.annotation.SuppressLint
-import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.Serializable
 import javax.annotation.concurrent.Immutable
 
