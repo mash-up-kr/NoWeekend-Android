@@ -26,6 +26,7 @@ object NWKDrawableResource {
     val TextClear: Int = R.drawable.ic_text_clear
     val GoogleLogo: Int = R.drawable.icn_google_logo
     val Location: Int = R.drawable.icn_location
+    val Expandall: Int = R.drawable.icn_expandall
 
     /* Image */
     val Cake: Int = R.drawable.img_cake

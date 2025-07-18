@@ -32,6 +32,19 @@ fun LocalDate.toFormattedString(pattern: String): String {
     return this.toJavaLocalDate().format(DateTimeFormatter.ofPattern(pattern))
 }
 
+fun LocalDate.toIso8601Z(time: LocalTime): String {
+    val dateTime = LocalDateTime(
+        year,
+        monthNumber,
+        dayOfMonth,
+        time.hour,
+        time.minute,
+        time.second,
+        time.nanosecond,
+    )
+    return dateTime.toString() + "Z"
+}
+
 fun LocalDate.Companion.now(): LocalDate = instant.toLocalDate()
 
 fun LocalDate.Companion.parseLocalDateString(isoString: String): LocalDate {

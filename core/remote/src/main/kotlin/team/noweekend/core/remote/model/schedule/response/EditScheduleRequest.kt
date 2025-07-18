@@ -1,14 +1,20 @@
 package team.noweekend.core.remote.model.schedule.response
 
-import team.noweekend.core.remote.model.schedule.common.TimeModel
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class EditScheduleRequest(
+    @SerialName("title")
     val title: String,
-    val startTime: TimeModel,
-    val endTime: TimeModel,
+    @SerialName("startDateTime")
+    val startDateTime: String,
+    @SerialName("endDateTime")
+    val endDateTime: String,
+    @SerialName("category")
     val category: String,
+    @SerialName("temperature")
     val temperature: Int,
-    val allDay: Boolean,
+    @SerialName("alarmOption")
     val alarmOption: String,
 )
-

@@ -18,6 +18,7 @@ class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var homeNavigationDelegate: HomeNavigationDelegate
+
     @Inject
     lateinit var calendarNavigationDelegate: CalendarNavigationDelegate
 
@@ -42,17 +43,19 @@ class MainActivity : ComponentActivity() {
                         )
                     },
                     navigateToExternalWebBrowser = ::openExternalWebBrowser,
-                    navigateToAddTodo = {intentBuilder ->
-                        /* Todo use CalendarNavigationDelgate
-                          ex) calendarNavigationDelegate.navigateToAddTask()
-                         */
+                    navigateToAddTodo = { intentBuilder ->
+                        calendarNavigationDelegate.navigateToAddTask(
+                            activity = this,
+                            intentBuilder = intentBuilder,
+                            launcher = null,
+                        )
                     },
                     navigateToAddTodoWithDirectInput = {
-
+                        calendarNavigationDelegate.navigateToAddTask(this, it, null)
                     },
                     navigateToEditTodo = {
-
-                    }
+                        calendarNavigationDelegate.navigateToAddTask(this, it, null)
+                    },
                 )
             }
         }
