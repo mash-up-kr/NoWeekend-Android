@@ -1,9 +1,11 @@
 package team.noweekend.feature.create.vacation.recommend.mvi
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import team.noweekend.core.common.android.base.MVIViewModel
+import team.noweekend.core.domain.usecase.GetRecommendVacationResultUseCase
 import team.noweekend.feature.create.vacation.recommend.model.RecommendVacationType
 import team.noweekend.feature.create.vacation.recommend.model.RecommendedVacationUiModel
 import javax.inject.Inject
@@ -11,11 +13,12 @@ import javax.inject.Inject
 @HiltViewModel
 class RecommendViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
+    private val getRecommendVacationResultUseCase: GetRecommendVacationResultUseCase,
 ) : MVIViewModel<RecommendIntent, RecommendSideEffect, RecommendUiState>(
     savedStateHandle = savedStateHandle,
 ) {
     init {
-        loading()
+        getRecommendVacationResult()
     }
 
     override fun createInitialState(savedStateHandle: SavedStateHandle): RecommendUiState {
@@ -39,17 +42,23 @@ class RecommendViewModel @Inject constructor(
         postSideEffect(RecommendSideEffect.NavigateToHistoryBack)
     }
 
-    private fun loading() = execute {
+    private fun getRecommendVacationResult() = execute {
         reduce { copy(isLoading = true) }
-        delay(4000L)
-        reduce {
-            copy(
-                recommendedVacation = RecommendedVacationUiModel.INITIAL_DATA.copy(
-                    recommendedContent = "나는 바보입니다",
-                    vacationType = RecommendVacationType.LOCAL,
-                ),
-            )
-        }
-        reduce { copy(isLoading = false) }
+        delay(1200L)
+        getRecommendVacationResultUseCase.invoke()
+            .onSuccess {
+                reduce {
+                    copy(
+                        recommendedVacation = RecommendedVacationUiModel.INITIAL_DATA.copy(
+                            recommendedContent = it.title,
+                            vacationType = RecommendVacationType.LOCAL,
+                        ),
+                    )
+                }
+            }
+            .onFailure {
+                Log.d("logtag", "$it")
+            }
+            .also { reduce { copy(isLoading = false) } }
     }
 }
