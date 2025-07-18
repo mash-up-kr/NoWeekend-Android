@@ -35,4 +35,8 @@ internal class ScheduleRepositoryImpl @Inject constructor(
             .createSchedule(createScheduleRequest = param.toRequest())
             .toDomainModel()
     }
+
+    override suspend fun deleteSchedule(id: String): String {
+        return scheduleApi.deleteSchedule(id = id).data
+    }
 }

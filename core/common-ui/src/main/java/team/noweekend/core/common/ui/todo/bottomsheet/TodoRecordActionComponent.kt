@@ -1,10 +1,9 @@
-package team.noweekend.feature.calendar.component.bottomsheet
+package team.noweekend.core.common.ui.todo.bottomsheet
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -17,20 +16,21 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import team.noweekend.core.common.android.extension.fillMaxWidthOfScreen
+import team.noweekend.core.common.ui.todo.model.TodoRecordAction
 import team.noweekend.core.design.system.core.component.image.NWKImage
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
-import team.noweekend.feature.calendar.model.TodoRecordAction
 
 @Composable
 internal fun TodoRecordActionComponent(
     todoRecordAction: TodoRecordAction,
     modifier: Modifier = Modifier,
-    onClickAction : (TodoRecordAction) -> Unit = {}
+    onClickAction: (TodoRecordAction) -> Unit = {},
 ) {
     Row(
         modifier = modifier
             .fillMaxWidthOfScreen()
-            .height(56.dp).clickable{
+            .height(56.dp)
+            .clickable {
                 onClickAction(todoRecordAction)
             }
             .padding(
@@ -51,7 +51,7 @@ internal fun TodoRecordActionComponent(
         Text(
             text = stringResource(id = todoRecordAction.title),
             style = NWKTheme.typography.body1.copy(
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.SemiBold,
             ),
             color = NWKTheme.color.Semantic.Text.neutral,
         )

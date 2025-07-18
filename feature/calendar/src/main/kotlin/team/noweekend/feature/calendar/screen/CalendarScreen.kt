@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
@@ -33,7 +34,6 @@ internal fun CalendarScreen(
     onClickCheckBox: (Int) -> Unit,
     onClickOptionButton: (Int) -> Unit,
     modifier: Modifier = Modifier,
-    todoListState: StateFlow<ImmutableList<Todo>> = MutableStateFlow(persistentListOf()),
 ) {
 
     val date = rememberUpdatedState(calendarUiState.value.chooserMonth)
@@ -57,7 +57,10 @@ internal fun CalendarScreen(
             userScrollEnabled = true,
         )
         if (calendarUiState.value.calendarMode == CalendarMode.WEEK) {
-            val todoList = todoListState.collectAsStateWithLifecycle()
+            val todoList = calendarUiState.value.selectedTodoList.collectAsStateWithLifecycle()
+            LaunchedEffect(todoList.value) {
+                println(todoList.value)
+            }
             CalendarTodoList(
                 todoList = todoList.value,
                 onClickCheckBox = onClickCheckBox,

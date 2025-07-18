@@ -17,7 +17,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import team.noweekend.core.common.android.extension.fillMaxWidthOfScreen
 import team.noweekend.core.common.ui.fab.FabLayout
+import team.noweekend.core.common.ui.todo.bottomsheet.TodoBottomSheet
+import team.noweekend.core.common.ui.todo.model.Todo
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
+import team.noweekend.core.model.schedule.Schedule
 import team.noweekend.feature.detail.date.mvi.DetailDateSideEffect
 import team.noweekend.feature.detail.date.mvi.DetailDateViewModel
 import team.noweekend.feature.detail.date.mvi.builder.rememberIntentBuilder
@@ -25,6 +28,9 @@ import team.noweekend.feature.detail.date.mvi.builder.rememberIntentBuilder
 @Composable
 internal fun DetailDateRoute(
     navigateToBack: () -> Unit,
+    navigateToAddTodo: (Todo) -> Unit,
+    navigateToAddTodoWithDirectInput: () -> Unit,
+    navigateToEditTodo: (schedule: Schedule) -> Unit,
     modifier: Modifier = Modifier,
     detailDateViewModel: DetailDateViewModel = hiltViewModel(),
 ) {
@@ -41,9 +47,17 @@ internal fun DetailDateRoute(
         }
         detailDateViewModel.sideEffect.collect { sideEffect ->
             when (sideEffect) {
-                is DetailDateSideEffect.NavigateToAddTodo -> {}
                 is DetailDateSideEffect.NavigateToBack -> {
                     navigateToBack()
+                }
+                is DetailDateSideEffect.NavigateToAddTodo -> {
+                    navigateToAddTodo(sideEffect.todo)
+                }
+                is DetailDateSideEffect.NavigateToEditTodo -> {
+                    navigateToEditTodo(sideEffect.schedule)
+                }
+                is DetailDateSideEffect.NavigateToAddTodoWithDirectInput -> {
+                    navigateToAddTodoWithDirectInput()
                 }
             }
         }
@@ -62,7 +76,7 @@ internal fun DetailDateRoute(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .padding(bottom = 20.dp, end = 20.dp),
-            onClickDirectInput = {},
+            onClickDirectInput = intentBuilder::clickDirectInput,
             onClickDim = { isExpanded = isExpanded.not() },
         )
 
@@ -72,8 +86,17 @@ internal fun DetailDateRoute(
                 .padding(horizontal = NWKTheme.spacing.space200),
             detailDateUiState = state.value,
             onClickCheckBox = intentBuilder::changeCompleteSchedule,
-            onClickOptionButton = {},
+            onClickOptionButton = intentBuilder::clickTodoOption,
             onClickBackButton = intentBuilder::clickBackButton,
         )
+
+        if (state.value.todoOptionVisibility.visible) {
+            TodoBottomSheet(
+                todoIndex = state.value.todoOptionVisibility.todoIndex,
+                todoType = state.value.todoOptionVisibility.todoType,
+                onDismissRequest = intentBuilder::dismissTodoOption,
+                onClickAction = intentBuilder::clickAction,
+            )
+        }
     }
 }

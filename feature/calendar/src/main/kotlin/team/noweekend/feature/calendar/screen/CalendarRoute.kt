@@ -18,13 +18,16 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import kotlinx.datetime.toKotlinLocalDate
 import team.noweekend.core.common.android.extension.fillMaxWidthOfScreen
+import team.noweekend.core.common.ui.calendar.model.CalendarMode
+import team.noweekend.core.common.ui.calendar.state.CalendarPagerState.Companion.initialPage
 import team.noweekend.core.common.ui.fab.FabLayout
 import team.noweekend.core.common.ui.todo.model.Todo
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.model.schedule.Schedule
 import team.noweekend.feature.calendar.component.bottomsheet.MonthChooserBottomSheet
-import team.noweekend.feature.calendar.component.bottomsheet.TodoBottomSheet
+import team.noweekend.core.common.ui.todo.bottomsheet.TodoBottomSheet
 import team.noweekend.feature.calendar.model.StableLocalDate
 import team.noweekend.feature.calendar.mvi.CalendarViewModel
 import team.noweekend.feature.calendar.mvi.builder.rememberIntentBuilder
@@ -66,15 +69,20 @@ internal fun CalendarRoute(
 
 
     LaunchedEffect(Unit) {
+        calendarViewModel.sideEffect.collect(calendarSideEffectHandler::handleSideEffect)
+    }
+    LifecycleEventEffect(Lifecycle.Event.ON_START) {
+        intentBuilder.updateCalendarState()
         with(intentBuilder) {
             collectCalendarEvent()
             updateCalendarData()
             getRecommendTodoTagList()
-            calendarViewModel.sideEffect.collect(calendarSideEffectHandler::handleSideEffect)
         }
-    }
-    LifecycleEventEffect(Lifecycle.Event.ON_START) {
-        intentBuilder.updateCalendarState()
+        if(state.value.calendarMode == CalendarMode.MONTH){
+            intentBuilder.initCalendarDateWithDate(
+                targetDate = state.value.calendarState.selectedDate
+            )
+        }
     }
     LaunchedEffect(state.value.calendarMode) {
         with(intentBuilder) {
@@ -116,7 +124,6 @@ internal fun CalendarRoute(
             onClickYearMonthButton = intentBuilder::clickMonthChooser,
             onClickCheckBox = intentBuilder::changeCompleteSchedule,
             onClickOptionButton = intentBuilder::clickTodoOption,
-            todoListState = state.value.selectedTodoList,
         )
 
         if (state.value.monthChooserVisible) {

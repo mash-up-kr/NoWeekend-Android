@@ -1,4 +1,4 @@
-package team.noweekend.feature.calendar.model
+package team.noweekend.core.common.ui.todo.model
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
@@ -21,28 +21,28 @@ sealed interface TodoRecordAction {
 
     data class EditAction(
         override val title: Int = TodoEditActionTitle,
-        override val imageResId: Int = Edit
+        override val imageResId: Int = Edit,
     ) : TodoRecordAction
 
     data class AddSameAction(
         override val title: Int = TodoAddSameActionTitle,
-        override val imageResId: Int = ArrowRight
+        override val imageResId: Int = ArrowRight,
     ) : TodoRecordAction
 
     data class DeleteAction(
         override val title: Int = TodoDeleteActionTitle,
-        override val imageResId: Int = Delete
+        override val imageResId: Int = Delete,
     ) : TodoRecordAction
 
     companion object {
 
         val actionList: ImmutableList<TodoRecordAction> = persistentListOf(
-            EditAction(), AddSameAction(), DeleteAction(),
+            EditAction(),
+            AddSameAction(),
+            DeleteAction(),
         )
 
         val filteredActionList: ImmutableList<TodoRecordAction> =
             actionList.filterNot { it is AddSameAction }.toImmutableList()
     }
 }
-
-

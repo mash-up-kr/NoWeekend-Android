@@ -15,14 +15,15 @@ enum class ImageType {
     ;
 }
 
-fun getImageType(temperature: Int, isFuture: Boolean, hasRest: Boolean): ImageType {
+fun getImageType(temperature: Int, isFuture: Boolean, hasRest: Boolean, hasSchedule: Boolean): ImageType {
     return when {
         hasRest -> ImageType.REST
-        isFuture -> ImageType.FUTURE_SCHEDULE
         temperature in 1..49 -> ImageType.OVER_ZERO_UNDER_FIFTY_DEGREE
         temperature in 50..74 -> ImageType.OVER_FIFTY_UNDER_SEVENTY_FIVE_DEGREE
         temperature >= 75 -> ImageType.BURN_OUT
-        else -> ImageType.NONE
+        hasSchedule -> ImageType.NONE
+        isFuture -> ImageType.FUTURE_SCHEDULE
+        else -> ImageType.FUTURE_SCHEDULE
     }
 }
 
@@ -30,5 +31,10 @@ fun List<Schedule>.getImageType(dateOfWeek: DateOfWeek, localDate: LocalDate): I
     val temperature = this.filter { it.completed }.sumOf { it.temperature }
     val isFuture = dateOfWeek.localDate > localDate
     val hasRest = this.any { it.category == ScheduleCategory.LEAVE }
-    return getImageType(temperature = temperature, isFuture = isFuture, hasRest = hasRest)
+    return getImageType(
+        temperature = temperature,
+        isFuture = isFuture,
+        hasRest = hasRest,
+        hasSchedule = this.isNotEmpty(),
+    )
 }

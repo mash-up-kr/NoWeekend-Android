@@ -1,8 +1,10 @@
 package team.noweekend.core.common.kotlin.extension
 
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
 import kotlinx.datetime.toJavaLocalDate
+import kotlinx.datetime.toJavaLocalDateTime
 import kotlinx.datetime.toJavaLocalTime
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
@@ -54,6 +56,10 @@ fun LocalDate.toDateTimeString(
     val javaDateTime = java.time.LocalDateTime.of(this.toJavaLocalDate(), time.toJavaLocalTime())
     val formatter = DateTimeFormatter.ofPattern(pattern)
     return javaDateTime.format(formatter)
+}
+
+fun LocalDateTime.toDateTimeString(): String {
+    return this.toJavaLocalDateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"))
 }
 
 private fun Int.toKrPattern(): String {

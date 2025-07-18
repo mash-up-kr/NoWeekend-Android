@@ -10,6 +10,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.flow.collectLatest
 import team.noweekend.core.navigator.extra.CREATE_VACATION_ACTIVITY_TYPE
@@ -68,6 +70,10 @@ internal fun HomeRoute(
 
     LaunchedEffect(key1 = Unit) {
         viewModel.sideEffect.collectLatest { sideEffectHandler.handleSideEffect(it) }
+    }
+
+    LifecycleEventEffect(Lifecycle.Event.ON_START) {
+        viewModel.getCalendarData()
     }
 
     HomeScreen(
