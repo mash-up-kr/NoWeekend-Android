@@ -17,7 +17,11 @@ fun Schedule.toTodo(): Todo {
         description = getDescription(allDay = this.allDay, startTime = this.startTime),
         todoType = this.category.toTodoType(),
         isDone = this.completed,
-        id = this.id
+        id = this.id,
+        startDateTime = this.startTime,
+        endDateTime = this.endTime,
+        alarmOption = this.alarmOption.name,
+        temperature = this.temperature,
     )
 }
 

@@ -1,10 +1,12 @@
 package team.noweekend.core.model.schedule
 
+import kotlinx.serialization.Serializable
 import team.noweekend.core.model.alarm.AlarmOption
 
 /**
  * 스케줄 정보
  */
+@Serializable
 data class Schedule(
     /**
      * 스케줄 구분 id
