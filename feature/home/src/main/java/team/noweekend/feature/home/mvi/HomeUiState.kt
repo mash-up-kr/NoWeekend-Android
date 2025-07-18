@@ -14,6 +14,7 @@ import team.noweekend.core.resource.NWKStringResource
 import team.noweekend.feature.home.model.HolidayUiModel
 import team.noweekend.feature.home.model.MonthlyVacationRecommendUiModel
 import team.noweekend.feature.home.model.PopularVacationUiModel
+import team.noweekend.feature.home.model.RecommendResultUiModel
 
 @Stable
 data class HomeUiState(
@@ -31,6 +32,7 @@ data class HomeUiState(
     val selectedWeatherRecommendVacation: MonthlyVacationRecommendUiModel,
     val selectedPopularVacation: PopularVacationUiModel,
     val taskTitle: String,
+    val recommendResult: RecommendResultUiModel,
 ) : UiState {
 
     companion object {
@@ -52,6 +54,7 @@ data class HomeUiState(
             selectedWeatherRecommendVacation = MonthlyVacationRecommendUiModel.INITIAL_DATA,
             selectedPopularVacation = PopularVacationUiModel.INITIAL_DATA,
             taskTitle = "",
+            recommendResult = RecommendResultUiModel.DUMMY_DATA,
         )
     }
 }

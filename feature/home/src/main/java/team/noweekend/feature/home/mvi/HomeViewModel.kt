@@ -18,6 +18,7 @@ import team.noweekend.core.domain.usecase.CalendarDataProviderUseCase
 import team.noweekend.core.domain.usecase.CreateAddTaskUseCase
 import team.noweekend.core.domain.usecase.CreateVacationUseCase
 import team.noweekend.core.domain.usecase.GetHolidayUseCase
+import team.noweekend.core.domain.usecase.GetRecommendVacationResultUseCase
 import team.noweekend.core.domain.usecase.GetSandwichRecommendVacationUseCase
 import team.noweekend.core.domain.usecase.GetUserProfileUseCase
 import team.noweekend.core.domain.usecase.GetWeatherRecommendVacationUseCase
@@ -42,6 +43,7 @@ class HomeViewModel @Inject constructor(
     private val calendarDataProviderUseCase: CalendarDataProviderUseCase,
     private val createScheduleUseCase: CreateAddTaskUseCase,
     private val createVacationUseCase: CreateVacationUseCase,
+    private val getRecommendVacationResultUseCase: GetRecommendVacationResultUseCase,
 ) : MVIViewModel<HomeIntent, HomeSideEffect, HomeUiState>(
     savedStateHandle = savedStateHandle,
 ) {
@@ -118,12 +120,19 @@ class HomeViewModel @Inject constructor(
         updateCreateVacationStatus(CreateVacationStatus.InProgress)
         createVacationUseCase.invoke(days, travelStyle, activityType, restPreference, leisurePreference)
             .onSuccess {
-
+                getRecommendVacationResult()
             }
             .onFailure {
                 Log.d("logtag", "$it")
             }
-//        updateCreateVacationStatus(CreateVacationStatus.Complete)
+    }
+
+    private fun getRecommendVacationResult() = execute {
+        getRecommendVacationResultUseCase.invoke()
+            .getOrElse { Log.d("logtag", "$it") }
+            .also {
+                updateCreateVacationStatus(CreateVacationStatus.Complete)
+            }
     }
 
     private fun getUserProfile() = execute {
