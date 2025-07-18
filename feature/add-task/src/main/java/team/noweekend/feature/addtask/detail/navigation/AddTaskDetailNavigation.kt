@@ -8,6 +8,7 @@ import kotlinx.datetime.LocalTime
 import team.noweekend.core.design.system.core.component.toggle.ToggleState
 import team.noweekend.core.navigator.model.AddTask
 import team.noweekend.feature.addtask.detail.AddTaskDetailRoute
+import team.noweekend.feature.addtask.detail.model.VacationTimeType
 import team.noweekend.feature.addtask.mvi.AddTaskUiState
 
 internal fun NavHostController.navigateToAddTaskDetail() {
@@ -25,6 +26,7 @@ internal fun NavGraphBuilder.addTaskDetailNavigation(
     onSelectedEndDate: (LocalDate) -> Unit,
     onSelectedEndTime: (LocalTime) -> Unit,
     onChangedTemperature: (String) -> Unit,
+    onSelectedVacationTime: (VacationTimeType) -> Unit,
 ) {
     composable<AddTask.Detail> {
         AddTaskDetailRoute(
@@ -38,6 +40,7 @@ internal fun NavGraphBuilder.addTaskDetailNavigation(
             onSelectedEndDate = onSelectedEndDate,
             onSelectedEndTime = onSelectedEndTime,
             onChangedTemperature = onChangedTemperature,
+            onSelectedVacationTime = onSelectedVacationTime,
         )
     }
 }

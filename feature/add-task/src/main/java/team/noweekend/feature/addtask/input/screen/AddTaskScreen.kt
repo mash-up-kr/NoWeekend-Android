@@ -47,7 +47,7 @@ fun AddTaskScreen(
             NWKHeader(
                 modifier = Modifier.fillMaxWidth(),
                 onBackClick = onClickBack,
-                text = stringResource(NWKStringResource.AddTaskHeaderTitle),
+                text = if (uiState.todoId.isEmpty()) stringResource(NWKStringResource.AddTaskHeaderTitle) else "할 일 수정",
                 content = {
                     Text(
                         modifier = Modifier

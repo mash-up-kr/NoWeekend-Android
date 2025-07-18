@@ -6,6 +6,7 @@ import androidx.compose.ui.Modifier
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
 import team.noweekend.core.design.system.core.component.toggle.ToggleState
+import team.noweekend.feature.addtask.detail.model.VacationTimeType
 import team.noweekend.feature.addtask.mvi.AddTaskUiState
 
 @Composable
@@ -20,6 +21,7 @@ fun AddTaskDetailRoute(
     onSelectedEndDate: (LocalDate) -> Unit,
     onSelectedEndTime: (LocalTime) -> Unit,
     onChangedTemperature: (String) -> Unit,
+    onSelectedVacationTime: (VacationTimeType) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     AddTaskDetailScreen(
@@ -34,5 +36,6 @@ fun AddTaskDetailRoute(
         onSelectedEndDate = onSelectedEndDate,
         onSelectedEndTime = onSelectedEndTime,
         onChangedTemperature = onChangedTemperature,
+        onSelectedVacationTime = onSelectedVacationTime,
     )
 }

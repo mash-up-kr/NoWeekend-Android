@@ -5,6 +5,7 @@ import kotlinx.datetime.LocalTime
 import team.noweekend.core.common.android.mvi.Intent
 import team.noweekend.core.design.system.core.component.toggle.ToggleState
 import team.noweekend.core.model.schedule.ScheduleCategory
+import team.noweekend.feature.addtask.detail.model.VacationTimeType
 
 sealed interface AddTaskIntent : Intent {
     data class SelectTaskType(val taskType: ScheduleCategory) : AddTaskIntent
@@ -19,4 +20,5 @@ sealed interface AddTaskIntent : Intent {
     data class SelectEndTime(val date: LocalTime) : AddTaskIntent
     data class WriteTemperature(val temperature: String) : AddTaskIntent
     data class WriteTitle(val title: String) : AddTaskIntent
+    data class SelectVacationTime(val vacationTimeType: VacationTimeType) : AddTaskIntent
 }

@@ -4,20 +4,53 @@ import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
+import kotlinx.serialization.json.Json
 import team.noweekend.core.common.android.base.MVIViewModel
 import team.noweekend.core.common.kotlin.extension.now
 import team.noweekend.core.common.kotlin.extension.toDateTimeString
+import team.noweekend.core.common.kotlin.extension.toIso8601Z
 import team.noweekend.core.design.system.core.component.toggle.ToggleState
 import team.noweekend.core.domain.usecase.CreateAddTaskUseCase
+import team.noweekend.core.domain.usecase.EditScheduleUseCase
+import team.noweekend.core.model.schedule.Schedule
 import team.noweekend.core.model.schedule.ScheduleCategory
 import team.noweekend.core.model.schedule.ScheduleCreateParam
+import team.noweekend.feature.addtask.detail.model.VacationTimeType
+import toLocalDate
+import toLocalTime
 import javax.inject.Inject
 
 @HiltViewModel
 class AddTaskViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val createAddTaskUseCase: CreateAddTaskUseCase,
+    private val editScheduleUseCase: EditScheduleUseCase,
 ) : MVIViewModel<AddTaskIntent, AddTaskSideEffect, AddTaskUiState>(savedStateHandle) {
+    private val scheduleJson = savedStateHandle.get<String>("id") ?: ""
+
+    init {
+        if (scheduleJson.isNotEmpty()) {
+            val schedule = if (scheduleJson.isNotEmpty()) Json.decodeFromString<Schedule>(scheduleJson) else null
+            schedule?.let {
+                reduce {
+                    copy(
+                        todoId = it.id,
+                        taskInfo = taskInfo.copy(
+                            title = it.title,
+                            selectedType = it.category,
+                            isAllDay = it.allDay,
+                            startDate = it.startTime.toLocalDate(),
+                            endDate = it.endTime.toLocalDate(),
+                            startTime = it.startTime.toLocalTime(),
+                            endTime = it.endTime.toLocalTime(),
+                            temperature = it.temperature ?: 5,
+                            selectedVacation = if (it.allDay) VacationTimeType.ALL_DAY else VacationTimeType.MORNING,
+                        ),
+                    )
+                }
+            }
+        }
+    }
 
     override fun createInitialState(savedStateHandle: SavedStateHandle): AddTaskUiState {
         return AddTaskUiState.INITIAL_STATE
@@ -41,29 +74,61 @@ class AddTaskViewModel @Inject constructor(
             is AddTaskIntent.ToggleAllDay -> updateAllDay(intent.toggleState)
             is AddTaskIntent.WriteTemperature -> updateTemperature(intent.temperature)
             is AddTaskIntent.WriteTitle -> updateTitle(intent.title)
+            is AddTaskIntent.SelectVacationTime -> updateVacationTime(intent.vacationTimeType)
+        }
+    }
+
+    private fun updateVacationTime(vacationTimeType: VacationTimeType) {
+        reduce {
+            copy(
+                taskInfo = taskInfo.copy(
+                    selectedVacation = vacationTimeType,
+                ),
+            )
         }
     }
 
     private fun saveAddTaskInfo() {
         execute {
             with(uiState.value.taskInfo) {
-                createAddTaskUseCase(
-                    param = ScheduleCreateParam(
-                        title = title,
-                        startDateTime = startDate.toDateTimeString(startTime),
-                        endDateTime = endDate.toDateTimeString(endTime),
-                        category = selectedType.name,
-                        temperature = temperature,
-                        alarmOption = "NONE",
-                    ),
-                )
-                    .onSuccess {
-                        postSideEffect(AddTaskSideEffect.ShowSuccessToast)
-                        postSideEffect(AddTaskSideEffect.NavigateToCalendar)
-                    }
-                    .onFailure {
-                        postSideEffect(AddTaskSideEffect.ShowErrorToast)
-                    }
+                if (uiState.value.todoId.isEmpty()) {
+                    createAddTaskUseCase(
+                        param = ScheduleCreateParam(
+                            title = title,
+                            startDateTime = startDate.toDateTimeString(startTime),
+                            endDateTime = endDate.toDateTimeString(endTime),
+                            category = selectedType.name,
+                            temperature = temperature,
+                            alarmOption = "NONE",
+                        ),
+                    )
+                        .onSuccess {
+                            postSideEffect(AddTaskSideEffect.ShowSuccessToast)
+                            postSideEffect(AddTaskSideEffect.NavigateToCalendar)
+                        }
+                        .onFailure {
+                            postSideEffect(AddTaskSideEffect.ShowErrorToast)
+                        }
+                } else {
+                    editScheduleUseCase(
+                        id = uiState.value.todoId,
+                        param = ScheduleCreateParam(
+                            title = title,
+                            startDateTime = startDate.toIso8601Z(startTime),
+                            endDateTime = endDate.toIso8601Z(endTime),
+                            category = selectedType.name,
+                            temperature = temperature,
+                            alarmOption = "NONE",
+                        ),
+                    )
+                        .onSuccess {
+                            postSideEffect(AddTaskSideEffect.ShowSuccessToast)
+                            postSideEffect(AddTaskSideEffect.NavigateToCalendar)
+                        }
+                        .onFailure {
+                            postSideEffect(AddTaskSideEffect.ShowErrorToast)
+                        }
+                }
             }
         }
     }
@@ -131,7 +196,7 @@ class AddTaskViewModel @Inject constructor(
             updateStartDate(LocalDate.now())
             updateEndDate(LocalDate.now())
             updateStartTime(LocalTime(0, 0))
-            updateEndTime(LocalTime(0, 0))
+            updateEndTime(LocalTime(23, 59, 59))
         }
     }
 
