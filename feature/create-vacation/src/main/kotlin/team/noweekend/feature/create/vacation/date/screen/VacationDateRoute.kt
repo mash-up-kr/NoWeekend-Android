@@ -17,7 +17,7 @@ import team.noweekend.feature.create.vacation.date.mvi.rememberVacationDateSideE
 @Composable
 internal fun VacationDateRoute(
     navigateToHistoryBack: () -> Unit,
-    navigateToInformation: () -> Unit,
+    navigateToInformation: (String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: VacationDateViewModel = hiltViewModel(),
 ) {
@@ -36,7 +36,7 @@ internal fun VacationDateRoute(
     VacationDateScreen(
         modifier = modifier.fillMaxSize(),
         onBackClick = { viewModel.intent(VacationDateIntent.ClickBackButton) },
-        onNextClick = { viewModel.intent(VacationDateIntent.ClickNextButton) },
+        onNextClick = { viewModel.intent(VacationDateIntent.ClickNextButton(it)) },
         uiState = uiState,
     )
 }

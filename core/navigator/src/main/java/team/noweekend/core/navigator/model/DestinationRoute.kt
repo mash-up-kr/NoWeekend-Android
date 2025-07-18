@@ -1,5 +1,7 @@
 package team.noweekend.core.navigator.model
 
+import android.annotation.SuppressLint
+import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.Serializable
 import javax.annotation.concurrent.Immutable
 
@@ -14,6 +16,7 @@ data object Home : DestinationRoute
 @Serializable
 data object Calendar : DestinationRoute
 
+@SuppressLint("UnsafeOptInUsageError")
 @Immutable
 @Serializable
 data class DetailDate(
@@ -28,8 +31,11 @@ sealed interface CreateVacation : DestinationRoute {
     @Serializable
     data object Date : CreateVacation
 
+    @SuppressLint("UnsafeOptInUsageError")
     @Serializable
-    data object Information : CreateVacation
+    data class Information(
+        val date: Int,
+    ) : CreateVacation
 
     @Serializable
     data object Recommend : CreateVacation

@@ -7,7 +7,7 @@ import team.noweekend.feature.create.vacation.date.screen.VacationDateRoute
 
 internal fun NavGraphBuilder.vacationDateGraph(
     navigateToHistoryBack: () -> Unit,
-    navigateToInformation: () -> Unit,
+    navigateToInformation: (String) -> Unit,
 ) {
     composable<CreateVacation.Date> {
         VacationDateRoute(

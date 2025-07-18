@@ -19,8 +19,8 @@ class VacationDateViewModel @Inject constructor(
 
     override suspend fun handleIntent(intent: VacationDateIntent) {
         when (intent) {
-            VacationDateIntent.ClickBackButton -> navigateToHistoryBack()
-            VacationDateIntent.ClickNextButton -> navigateToInformation()
+            is VacationDateIntent.ClickBackButton -> navigateToHistoryBack()
+            is VacationDateIntent.ClickNextButton -> navigateToInformation(intent.date)
             else -> {}
         }
     }
@@ -29,7 +29,7 @@ class VacationDateViewModel @Inject constructor(
         postSideEffect(VacationDateSideEffect.NavigateToHistoryBack)
     }
 
-    private fun navigateToInformation() = execute {
-        postSideEffect(VacationDateSideEffect.NavigateToInformation)
+    private fun navigateToInformation(date: String) = execute {
+        postSideEffect(VacationDateSideEffect.NavigateToInformation(date))
     }
 }

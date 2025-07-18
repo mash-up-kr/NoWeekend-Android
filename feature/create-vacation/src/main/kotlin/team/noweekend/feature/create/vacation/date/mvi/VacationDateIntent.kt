@@ -4,5 +4,7 @@ import team.noweekend.core.common.android.mvi.Intent
 
 sealed interface VacationDateIntent : Intent {
     data object ClickBackButton : VacationDateIntent
-    data object ClickNextButton : VacationDateIntent
+    data class ClickNextButton(
+        val date: String,
+    ) : VacationDateIntent
 }
