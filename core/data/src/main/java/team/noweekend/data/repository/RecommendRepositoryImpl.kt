@@ -4,7 +4,8 @@ import team.noweekend.core.domain.repository.RecommendRepository
 import team.noweekend.core.model.vacation.SandwichRecommendVacation
 import team.noweekend.core.model.vacation.WeatherRecommendVacation
 import team.noweekend.core.remote.api.recommend.RecommendApi
-import team.noweekend.core.remote.model.recommend.TodoRecommendResponse.Companion.toTagList
+import team.noweekend.core.remote.model.recommend.request.PostRecommendVacationRequest
+import team.noweekend.core.remote.model.recommend.response.TodoRecommendResponse.Companion.toTagList
 import team.noweekend.data.mapper.toDomain
 import javax.inject.Inject
 
@@ -22,5 +23,23 @@ internal class RecommendRepositoryImpl @Inject constructor(
     override suspend fun getRecommendTodoTag(): List<String> {
         val response = recommendApi.getRecommendTodoTag()
         return response.toTagList()
+    }
+
+    override suspend fun postRecommendVacation(
+        days: Int,
+        travelStyle: String,
+        activityType: String,
+        restPreference: String,
+        leisurePreference: String,
+    ) {
+        recommendApi.postRecommendVacation(
+            PostRecommendVacationRequest(
+                days = days,
+                travelStyle = travelStyle,
+                activityType = activityType,
+                restPreference = restPreference,
+                leisurePreference = leisurePreference,
+            ),
+        )
     }
 }

@@ -1,4 +1,4 @@
-package team.noweekend.core.remote.model.recommend
+package team.noweekend.core.remote.model.recommend.response
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

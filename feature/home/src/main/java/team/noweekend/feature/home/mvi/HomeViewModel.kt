@@ -6,7 +6,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.collections.immutable.toImmutableMap
 import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
 import team.noweekend.core.common.android.base.MVIViewModel
@@ -17,6 +16,7 @@ import team.noweekend.core.common.ui.calendar.model.CalendarWeeksData
 import team.noweekend.core.common.ui.calendar.state.CalendarPagerState.Companion.initialPage
 import team.noweekend.core.domain.usecase.CalendarDataProviderUseCase
 import team.noweekend.core.domain.usecase.CreateAddTaskUseCase
+import team.noweekend.core.domain.usecase.CreateVacationUseCase
 import team.noweekend.core.domain.usecase.GetHolidayUseCase
 import team.noweekend.core.domain.usecase.GetSandwichRecommendVacationUseCase
 import team.noweekend.core.domain.usecase.GetUserProfileUseCase
@@ -41,6 +41,7 @@ class HomeViewModel @Inject constructor(
     private val getUserProfileUseCase: GetUserProfileUseCase,
     private val calendarDataProviderUseCase: CalendarDataProviderUseCase,
     private val createScheduleUseCase: CreateAddTaskUseCase,
+    private val createVacationUseCase: CreateVacationUseCase,
 ) : MVIViewModel<HomeIntent, HomeSideEffect, HomeUiState>(
     savedStateHandle = savedStateHandle,
 ) {
@@ -61,9 +62,13 @@ class HomeViewModel @Inject constructor(
     override suspend fun handleIntent(intent: HomeIntent) {
         when (intent) {
             is HomeIntent.CreateVacation -> {
-                updateCreateVacationStatus(CreateVacationStatus.InProgress)
-                
-                updateCreateVacationStatus(CreateVacationStatus.Complete)
+                createVacation(
+                    days = intent.days,
+                    travelStyle = intent.travelStyle,
+                    activityType = intent.activityType,
+                    restPreference = intent.restPreference,
+                    leisurePreference = intent.leisurePreference,
+                )
             }
 
             is HomeIntent.ClickCreateVacation -> {
@@ -101,6 +106,24 @@ class HomeViewModel @Inject constructor(
                 updateTaskTitleBottomSheetVisibility(entryType = BottomSheetEntryType.NOTHING, showBottomSheet = false)
             }
         }
+    }
+
+    private fun createVacation(
+        days: Int,
+        travelStyle: String,
+        activityType: String,
+        restPreference: String,
+        leisurePreference: String,
+    ) = execute {
+        updateCreateVacationStatus(CreateVacationStatus.InProgress)
+        createVacationUseCase.invoke(days, travelStyle, activityType, restPreference, leisurePreference)
+            .onSuccess {
+
+            }
+            .onFailure {
+                Log.d("logtag", "$it")
+            }
+//        updateCreateVacationStatus(CreateVacationStatus.Complete)
     }
 
     private fun getUserProfile() = execute {
