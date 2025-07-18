@@ -7,13 +7,14 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import kotlinx.serialization.InternalSerializationApi
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import team.noweekend.core.navigator.model.Calendar
 import team.noweekend.feature.calendar.navigation.calendarNavGraph
 import team.noweekend.feature.home.navigation.homeNavGraph
 import team.noweekend.feature.main.navigation.MainNavigator
 import team.noweekend.feature.profile.navigation.profileNavGraph
 
-@OptIn(InternalSerializationApi::class)
 @Composable
 internal fun MainNavHost(
     navigateToExternalWebBrowser: (String) -> Unit,
@@ -21,10 +22,10 @@ internal fun MainNavHost(
     navigateToDetailDate: ((Intent.() -> Intent)?) -> Unit,
     navigateToAddTodo: ((Intent.() -> Intent)?) -> Unit,
     navigateToAddTodoWithDirectInput: ((Intent.() -> Intent)?) -> Unit,
+    navigateToEditTodo: ((Intent.() -> Intent)?) -> Unit,
     navigator: MainNavigator,
     modifier: Modifier = Modifier,
 ) {
-    val navController = rememberNavController()
 
     NavHost(
         navController = navigator.navController,
@@ -55,6 +56,15 @@ internal fun MainNavHost(
             navigateToAddTodoWithDirectInput = {
                 navigateToAddTodoWithDirectInput(
                     { this },
+                )
+            },
+            navigateToEditTodo = { schedule ->
+                val json = Json.encodeToString(schedule)
+                println("schedule: $json")
+                navigateToEditTodo(
+                    {
+                        putExtra("id", json)
+                    },
                 )
             },
         )

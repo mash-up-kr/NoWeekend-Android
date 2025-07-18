@@ -49,6 +49,9 @@ class MainActivity : ComponentActivity() {
                     },
                     navigateToAddTodoWithDirectInput = {
 
+                    },
+                    navigateToEditTodo = {
+
                     }
                 )
             }

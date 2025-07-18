@@ -14,6 +14,7 @@ internal fun MainRoute(
     navigateToExternalWebBrowser: (String) -> Unit,
     navigateToAddTodo : ((Intent.() -> Intent)?) -> Unit,
     navigateToAddTodoWithDirectInput: ((Intent.() -> Intent)?) -> Unit,
+    navigateToEditTodo: ((Intent.() -> Intent)?) -> Unit,
     modifier: Modifier = Modifier,
     navigator: MainNavigator = rememberMainNavigator(),
 ) {
@@ -23,6 +24,7 @@ internal fun MainRoute(
         navigateToExternalWebBrowser = navigateToExternalWebBrowser,
         navigateToAddTodo = navigateToAddTodo,
         navigateToAddTodoWithDirectInput = navigateToAddTodoWithDirectInput,
+        navigateToEditTodo = navigateToEditTodo,
         onTabSelected = { navigator.navigate(it) },
         modifier = modifier,
         navigator = navigator,

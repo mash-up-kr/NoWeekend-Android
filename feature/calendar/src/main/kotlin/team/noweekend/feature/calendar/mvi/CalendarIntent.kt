@@ -39,6 +39,12 @@ sealed interface CalendarIntent : Intent {
 
     data object ClickMonthChooser : CalendarIntent
     data object ClickDirectInput : CalendarIntent
+    data class ClickTodoOption(val index: Int) : CalendarIntent
+    data class EditTodo(val index: Int) : CalendarIntent
+    data class DeleteTodo(val index: Int) : CalendarIntent
+    data class AddSameTodo(val index: Int) : CalendarIntent
+
+    data object DismissTodo : CalendarIntent
 
 
 }

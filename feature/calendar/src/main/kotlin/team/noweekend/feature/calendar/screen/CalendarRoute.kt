@@ -22,7 +22,9 @@ import team.noweekend.core.common.android.extension.fillMaxWidthOfScreen
 import team.noweekend.core.common.ui.fab.FabLayout
 import team.noweekend.core.common.ui.todo.model.Todo
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
+import team.noweekend.core.model.schedule.Schedule
 import team.noweekend.feature.calendar.component.bottomsheet.MonthChooserBottomSheet
+import team.noweekend.feature.calendar.component.bottomsheet.TodoBottomSheet
 import team.noweekend.feature.calendar.model.StableLocalDate
 import team.noweekend.feature.calendar.mvi.CalendarViewModel
 import team.noweekend.feature.calendar.mvi.builder.rememberIntentBuilder
@@ -33,6 +35,7 @@ internal fun CalendarRoute(
     navigateToDetailDate: (String) -> Unit,
     navigateToAddTodo: (Todo) -> Unit,
     navigateToAddTodoWithDirectInput: () -> Unit,
+    navigateToEditTodo: (schedule: Schedule) -> Unit,
     modifier: Modifier = Modifier,
     calendarViewModel: CalendarViewModel = hiltViewModel(),
 ) {
@@ -57,6 +60,7 @@ internal fun CalendarRoute(
         navigateToDetailDate = navigateToDetailDate,
         navigateToAddTodo = navigateToAddTodo,
         navigateToAddTodoWithDirectInput = navigateToAddTodoWithDirectInput,
+        navigateToEditTodo = navigateToEditTodo
     )
 
 
@@ -111,7 +115,7 @@ internal fun CalendarRoute(
             onClickDateOfWeek = intentBuilder::updateTargetDate,
             onClickYearMonthButton = intentBuilder::clickMonthChooser,
             onClickCheckBox = intentBuilder::changeCompleteSchedule,
-            onClickOptionButton = {},
+            onClickOptionButton = intentBuilder::clickTodoOption,
             todoListState = state.value.selectedTodoList,
         )
 
@@ -120,6 +124,15 @@ internal fun CalendarRoute(
                 initialDate = StableLocalDate(state.value.chooserMonth),
                 onClickSelectButton = intentBuilder::initCalendarDateWithDate,
                 onDismissRequest = intentBuilder::clickMonthChooser,
+            )
+        }
+
+        if(state.value.todoOptionVisibility.visible){
+            TodoBottomSheet(
+                todoIndex = state.value.todoOptionVisibility.todoIndex,
+                todoType = state.value.todoOptionVisibility.todoType,
+                onDismissRequest = intentBuilder::dismissTodoOption,
+                onClickAction = intentBuilder::clickAction,
             )
         }
     }
@@ -133,7 +146,8 @@ private fun CalendarRoutePreview() {
             modifier = Modifier.fillMaxSize(),
             navigateToDetailDate = {},
             navigateToAddTodo = {},
-            navigateToAddTodoWithDirectInput = {}
+            navigateToAddTodoWithDirectInput = {},
+            navigateToEditTodo = {}
         )
     }
 }
