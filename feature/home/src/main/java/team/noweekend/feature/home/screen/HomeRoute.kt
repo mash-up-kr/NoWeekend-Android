@@ -12,6 +12,11 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.flow.collectLatest
+import team.noweekend.core.navigator.extra.CREATE_VACATION_ACTIVITY_TYPE
+import team.noweekend.core.navigator.extra.CREATE_VACATION_DAYS
+import team.noweekend.core.navigator.extra.CREATE_VACATION_LEISURE_PREFERENCE
+import team.noweekend.core.navigator.extra.CREATE_VACATION_REST_PREFERENCE
+import team.noweekend.core.navigator.extra.CREATE_VACATION_TRAVEL_STYLE
 import team.noweekend.feature.home.component.common.bottomsheet.TaskTitleBottomSheet
 import team.noweekend.feature.home.mvi.HomeIntent
 import team.noweekend.feature.home.mvi.HomeSideEffectHandler
@@ -32,9 +37,24 @@ internal fun HomeRoute(
         rememberLauncherForActivityResult(
             contract = ActivityResultContracts.StartActivityForResult(),
             onResult = { result ->
-                if (result.resultCode == Activity.RESULT_OK) {
-                    // TODO (JaesungLeee) : 사용 연차, 연차 선택 정보 들고와서 API 호출 필요
-                    viewModel.intent(HomeIntent.CreateVacation(""))
+                val resultCode = result.resultCode
+                val data = result.data
+                if (resultCode == Activity.RESULT_OK && data != null) {
+                    val days = data.getIntExtra(CREATE_VACATION_DAYS, 0)
+                    val travelStyle = data.getStringExtra(CREATE_VACATION_TRAVEL_STYLE).orEmpty()
+                    val activityType = data.getStringExtra(CREATE_VACATION_ACTIVITY_TYPE).orEmpty()
+                    val restPreference = data.getStringExtra(CREATE_VACATION_REST_PREFERENCE).orEmpty()
+                    val leisurePreference = data.getStringExtra(CREATE_VACATION_LEISURE_PREFERENCE).orEmpty()
+
+                    viewModel.intent(
+                        HomeIntent.CreateVacation(
+                            days = days,
+                            travelStyle = travelStyle,
+                            activityType = activityType,
+                            restPreference = restPreference,
+                            leisurePreference = leisurePreference,
+                        ),
+                    )
                 }
             },
         )
