@@ -8,7 +8,7 @@ import team.noweekend.core.common.android.mvi.SideEffectHandler
 @Composable
 internal fun rememberInformationSideEffectHandler(
     navigateToHistoryBack: () -> Unit,
-    navigateToHome: () -> Unit,
+    navigateToHome: (Int, String, String, String, String) -> Unit,
 ): InformationSideEffectHandler = remember {
     InformationSideEffectHandler(
         navigateToHistoryBack = navigateToHistoryBack,
@@ -18,12 +18,20 @@ internal fun rememberInformationSideEffectHandler(
 
 internal class InformationSideEffectHandler(
     private val navigateToHistoryBack: () -> Unit,
-    private val navigateToHome: () -> Unit,
+    private val navigateToHome: (Int, String, String, String, String) -> Unit,
 ) : SideEffectHandler<SideEffect> {
     override fun handleSideEffect(sideEffect: SideEffect) {
         when (sideEffect) {
-            InformationSideEffect.NavigateToHistoryBack -> navigateToHistoryBack()
-            InformationSideEffect.NavigateToHome -> navigateToHome()
+            is InformationSideEffect.NavigateToHistoryBack -> navigateToHistoryBack()
+            is InformationSideEffect.NavigateToHome ->{
+                navigateToHome(
+                    sideEffect.days,
+                    sideEffect.travelStyle,
+                    sideEffect.activityType,
+                    sideEffect.restPreference,
+                    sideEffect.leisurePreference,
+                )
+            }
         }
     }
 }

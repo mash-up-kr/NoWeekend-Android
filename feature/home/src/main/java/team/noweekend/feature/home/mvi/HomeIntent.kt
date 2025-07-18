@@ -7,7 +7,11 @@ import team.noweekend.feature.home.model.PopularVacationUiModel
 
 sealed interface HomeIntent : Intent {
     data class CreateVacation(
-        val a: String,
+        val days: Int,
+        val travelStyle: String,
+        val activityType: String,
+        val restPreference: String,
+        val leisurePreference: String,
     ) : HomeIntent
 
     data object ClickCreateVacation : HomeIntent

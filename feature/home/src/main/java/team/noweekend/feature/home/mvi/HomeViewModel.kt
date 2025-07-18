@@ -62,7 +62,7 @@ class HomeViewModel @Inject constructor(
         when (intent) {
             is HomeIntent.CreateVacation -> {
                 updateCreateVacationStatus(CreateVacationStatus.InProgress)
-                delay(5000L) // TODO (JaesungLeee) : API 연동
+                
                 updateCreateVacationStatus(CreateVacationStatus.Complete)
             }
 

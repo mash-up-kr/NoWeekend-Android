@@ -11,18 +11,22 @@ internal class PreviewInformationSelectRadioButtonProvider : PreviewParameterPro
             InformationRadioGroupUiModel(
                 text = "계획형",
                 isSelected = true,
+                tag = "AT_HOME",
             ),
             InformationRadioGroupUiModel(
                 text = "즉흥 자유형",
                 isSelected = true,
+                tag = "AT_HOME",
             ),
             InformationRadioGroupUiModel(
                 text = "야외 활동",
                 isSelected = false,
+                tag = "AT_HOME",
             ),
             InformationRadioGroupUiModel(
                 text = "집콕",
                 isSelected = false,
+                tag = "AT_HOME",
             ),
         )
 }
@@ -35,10 +39,12 @@ internal class PreviewInformationSelectRadioGroupProvider :
                 InformationRadioGroupUiModel(
                     text = "계획형",
                     isSelected = true,
+                    tag = "AT_HOME",
                 ),
                 InformationRadioGroupUiModel(
                     text = "즉흥 자유형",
                     isSelected = false,
+                    tag = "AT_HOME",
                 ),
             ),
         )

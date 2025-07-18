@@ -15,6 +15,7 @@ import team.noweekend.feature.create.vacation.information.model.InformationRadio
 @Stable
 data class InformationUiState(
     val isLoading: Boolean,
+    val days: Int,
     val informationData: ImmutableMap<Int, ImmutableList<InformationRadioGroupUiModel>>,
 ) : UiState {
     val isButtonEnabled: State<Boolean>
@@ -30,6 +31,7 @@ data class InformationUiState(
     companion object {
         val INITIAL_STATE: InformationUiState = InformationUiState(
             isLoading = false,
+            days = 0,
             informationData = persistentMapOf(
                 Pair(
                     1,
@@ -37,10 +39,12 @@ data class InformationUiState(
                         InformationRadioGroupUiModel(
                             text = "계획형",
                             isSelected = false,
+                            tag = "PLANNER",
                         ),
                         InformationRadioGroupUiModel(
                             text = "즉흥 자유형",
                             isSelected = false,
+                            tag = "SPONTANEOUS",
                         ),
                     ),
                 ),
@@ -50,10 +54,12 @@ data class InformationUiState(
                         InformationRadioGroupUiModel(
                             text = "야외 활동",
                             isSelected = false,
+                            tag = "OUTDOOR",
                         ),
                         InformationRadioGroupUiModel(
                             text = "집콕",
                             isSelected = false,
+                            tag = "AT_HOME",
                         ),
                     ),
                 ),
@@ -63,10 +69,12 @@ data class InformationUiState(
                         InformationRadioGroupUiModel(
                             text = "휴식",
                             isSelected = false,
+                            tag = "REST",
                         ),
                         InformationRadioGroupUiModel(
                             text = "자기계발",
                             isSelected = false,
+                            tag = "SELF_DEVELOPMENT",
                         ),
                     ),
                 ),
@@ -76,10 +84,12 @@ data class InformationUiState(
                         InformationRadioGroupUiModel(
                             text = "음식",
                             isSelected = false,
+                            tag = "FOOD",
                         ),
                         InformationRadioGroupUiModel(
                             text = "관광",
                             isSelected = false,
+                            tag = "TOURISM",
                         ),
                     ),
                 ),
@@ -88,6 +98,7 @@ data class InformationUiState(
 
         val DUMMY_STATE: InformationUiState = InformationUiState(
             isLoading = false,
+            days = 0,
             informationData = persistentMapOf(
                 Pair(
                     1,
@@ -95,10 +106,12 @@ data class InformationUiState(
                         InformationRadioGroupUiModel(
                             text = "계획형",
                             isSelected = false,
+                            tag = "PLANNER",
                         ),
                         InformationRadioGroupUiModel(
                             text = "즉흥 자유형",
                             isSelected = false,
+                            tag = "SPONTANEOUS",
                         ),
                     ),
                 ),
@@ -108,10 +121,12 @@ data class InformationUiState(
                         InformationRadioGroupUiModel(
                             text = "야외 활동",
                             isSelected = false,
+                            tag = "OUTDOOR",
                         ),
                         InformationRadioGroupUiModel(
                             text = "집콕",
                             isSelected = false,
+                            tag = "AT_HOME",
                         ),
                     ),
                 ),
@@ -121,10 +136,12 @@ data class InformationUiState(
                         InformationRadioGroupUiModel(
                             text = "휴식",
                             isSelected = false,
+                            tag = "REST",
                         ),
                         InformationRadioGroupUiModel(
                             text = "자기계발",
                             isSelected = false,
+                            tag = "SELF_DEVELOPMENT",
                         ),
                     ),
                 ),
@@ -134,10 +151,12 @@ data class InformationUiState(
                         InformationRadioGroupUiModel(
                             text = "음식",
                             isSelected = false,
+                            tag = "FOOD",
                         ),
                         InformationRadioGroupUiModel(
                             text = "관광",
                             isSelected = false,
+                            tag = "TOURISM",
                         ),
                     ),
                 ),

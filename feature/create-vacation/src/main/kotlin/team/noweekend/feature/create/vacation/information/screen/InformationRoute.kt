@@ -14,7 +14,7 @@ import team.noweekend.feature.create.vacation.information.mvi.rememberInformatio
 @Composable
 internal fun InformationRoute(
     navigateToHistoryBack: () -> Unit,
-    navigateToHome: () -> Unit,
+    navigateToHome: (Int, String, String, String, String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: InformationViewModel = hiltViewModel(),
 ) {
