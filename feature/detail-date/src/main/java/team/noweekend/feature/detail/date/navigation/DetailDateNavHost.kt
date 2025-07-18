@@ -8,7 +8,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import kotlinx.serialization.InternalSerializationApi
+import team.noweekend.core.common.ui.todo.model.Todo
 import team.noweekend.core.design.system.core.component.scaffold.NWKScaffold
+import team.noweekend.core.model.schedule.Schedule
 import team.noweekend.core.navigator.model.DetailDate
 import team.noweekend.feature.detail.date.screen.DetailDateRoute
 
@@ -17,6 +19,9 @@ import team.noweekend.feature.detail.date.screen.DetailDateRoute
 fun DetailDateNavHost(
     startDestination: DetailDate,
     navigateToBack: () -> Unit,
+    navigateToAddTodo: (Todo) -> Unit,
+    navigateToAddTodoWithDirectInput: () -> Unit,
+    navigateToEditTodo: (Schedule) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val navController = rememberNavController()
@@ -34,6 +39,9 @@ fun DetailDateNavHost(
                 DetailDateRoute(
                     modifier = Modifier.fillMaxSize(),
                     navigateToBack = navigateToBack,
+                    navigateToAddTodoWithDirectInput = navigateToAddTodoWithDirectInput,
+                    navigateToEditTodo = navigateToEditTodo,
+                    navigateToAddTodo = navigateToAddTodo,
                 )
             }
         }

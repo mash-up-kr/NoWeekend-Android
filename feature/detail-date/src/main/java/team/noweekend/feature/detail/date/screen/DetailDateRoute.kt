@@ -47,9 +47,17 @@ internal fun DetailDateRoute(
         }
         detailDateViewModel.sideEffect.collect { sideEffect ->
             when (sideEffect) {
-                is DetailDateSideEffect.NavigateToAddTodo -> {}
                 is DetailDateSideEffect.NavigateToBack -> {
                     navigateToBack()
+                }
+                is DetailDateSideEffect.NavigateToAddTodo -> {
+                    navigateToAddTodo(sideEffect.todo)
+                }
+                is DetailDateSideEffect.NavigateToEditTodo -> {
+                    navigateToEditTodo(sideEffect.schedule)
+                }
+                is DetailDateSideEffect.NavigateToAddTodoWithDirectInput -> {
+                    navigateToAddTodoWithDirectInput()
                 }
             }
         }

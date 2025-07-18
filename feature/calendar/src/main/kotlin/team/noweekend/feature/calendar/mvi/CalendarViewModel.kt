@@ -17,10 +17,13 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.toJavaLocalDateTime
+import kotlinx.datetime.toKotlinLocalDate
+import kotlinx.datetime.toKotlinLocalDateTime
 import team.noweekend.core.common.android.base.MVIViewModel
 import team.noweekend.core.common.kotlin.extension.CalendarUtils.plusDays
 import team.noweekend.core.common.kotlin.extension.YEAR_MONTH_DAY_PATTERN
 import team.noweekend.core.common.kotlin.extension.now
+import team.noweekend.core.common.kotlin.extension.toDateTimeString
 import team.noweekend.core.common.kotlin.extension.toFormattedString
 import team.noweekend.core.common.kotlin.extension.toLocalDate
 import team.noweekend.core.common.ui.calendar.model.CalendarDateOfWeek
@@ -563,19 +566,20 @@ class CalendarViewModel @Inject constructor(
         val todo = currentState.selectedTodoList.value[index]
         val todoStartDate = LocalDateTime.parse(todo.startDateTime).toJavaLocalDateTime()
         val todoEndDate = LocalDateTime.parse(todo.endDateTime).toJavaLocalDateTime()
-        val updateStartDateTime = todoStartDate.plusDays(1)
-        val updateEndDateTime = todoEndDate.plusDays(1)
+        val updateStartDateTime = todoStartDate.plusDays(1).toKotlinLocalDateTime().toDateTimeString()
+        val updateEndDateTime = todoEndDate.plusDays(1).toKotlinLocalDateTime().toDateTimeString()
         createAddTaskUseCase(
             param = ScheduleCreateParam(
                 title = todo.title,
-                startDateTime = todo.startDateTime,
-                endDateTime = todo.endDateTime,
+                startDateTime = updateStartDateTime,
+                endDateTime = updateEndDateTime,
                 category = todo.todoType.name,
                 temperature = todo.temperature,
                 alarmOption = todo.alarmOption,
             ),
         )
 
+        initCalendarWithDate(initPage = initialPage, localDate = todoStartDate.toLocalDate().toKotlinLocalDate())
         reduce {
             copy(
                 todoOptionVisibility = TodoOptionVisibility(

@@ -18,11 +18,11 @@ enum class ImageType {
 fun getImageType(temperature: Int, isFuture: Boolean, hasRest: Boolean, hasSchedule: Boolean): ImageType {
     return when {
         hasRest -> ImageType.REST
-        isFuture -> ImageType.FUTURE_SCHEDULE
         temperature in 1..49 -> ImageType.OVER_ZERO_UNDER_FIFTY_DEGREE
         temperature in 50..74 -> ImageType.OVER_FIFTY_UNDER_SEVENTY_FIVE_DEGREE
         temperature >= 75 -> ImageType.BURN_OUT
         hasSchedule -> ImageType.NONE
+        isFuture -> ImageType.FUTURE_SCHEDULE
         else -> ImageType.FUTURE_SCHEDULE
     }
 }

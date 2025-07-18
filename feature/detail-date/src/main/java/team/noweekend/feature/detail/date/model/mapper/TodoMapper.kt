@@ -8,6 +8,7 @@ import team.noweekend.core.common.kotlin.extension.MONTH_DATE_WITH_DAY_OF_WEEK_K
 import team.noweekend.core.common.kotlin.extension.toFormattedString
 import team.noweekend.core.common.ui.todo.model.Todo
 import team.noweekend.core.common.ui.todo.model.TodoType
+import team.noweekend.core.model.alarm.AlarmOption
 import team.noweekend.core.model.schedule.Schedule
 import team.noweekend.core.model.schedule.ScheduleCategory
 
@@ -18,6 +19,11 @@ fun Schedule.toTodo(): Todo {
         todoType = this.category.toTodoType(),
         isDone = this.completed,
         id = this.id,
+        startDateTime = this.startTime,
+        endDateTime = this.endTime,
+        temperature = this.temperature,
+        alarmOption = AlarmOption.valueOf(this.alarmOption.name).name,
+
     )
 }
 
