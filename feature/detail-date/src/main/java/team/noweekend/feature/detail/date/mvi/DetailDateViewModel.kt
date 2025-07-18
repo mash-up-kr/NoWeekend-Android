@@ -1,5 +1,6 @@
 package team.noweekend.feature.detail.date.mvi
 
+
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.toRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -114,12 +115,14 @@ class DetailDateViewModel @Inject constructor(
 
     private suspend fun deleteTodo(index: Int) {
         val todo = currentState.todoList[index]
+
         val todoId = todo.id
         deleteTodoUseCase(id = todoId)
 
         execute {
             initState()
         }
+
 
         reduce {
             copy(
@@ -129,6 +132,7 @@ class DetailDateViewModel @Inject constructor(
             )
         }
     }
+
 
     private suspend fun editTodo(index: Int) {
         val todo = currentState.todoList[index]
@@ -144,6 +148,7 @@ class DetailDateViewModel @Inject constructor(
             completed = todo.isDone,
         )
         postSideEffect(DetailDateSideEffect.NavigateToEditTodo(schedule = schedule))
+
     }
 
     private fun clickTodoOption(index: Int) {

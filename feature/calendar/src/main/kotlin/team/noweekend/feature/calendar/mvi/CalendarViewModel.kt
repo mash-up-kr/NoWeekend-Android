@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.toJavaLocalDateTime
+
 import kotlinx.datetime.toKotlinLocalDate
 import kotlinx.datetime.toKotlinLocalDateTime
 import team.noweekend.core.common.android.base.MVIViewModel
@@ -573,6 +574,7 @@ class CalendarViewModel @Inject constructor(
                 title = todo.title,
                 startDateTime = updateStartDateTime,
                 endDateTime = updateEndDateTime,
+
                 category = todo.todoType.name,
                 temperature = todo.temperature,
                 alarmOption = todo.alarmOption,
@@ -580,6 +582,7 @@ class CalendarViewModel @Inject constructor(
         )
 
         initCalendarWithDate(initPage = initialPage, localDate = todoStartDate.toLocalDate().toKotlinLocalDate())
+
         reduce {
             copy(
                 todoOptionVisibility = TodoOptionVisibility(
