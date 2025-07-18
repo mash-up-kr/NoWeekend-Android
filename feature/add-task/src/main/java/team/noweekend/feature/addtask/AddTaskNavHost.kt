@@ -1,5 +1,6 @@
 package team.noweekend.feature.addtask
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -41,6 +42,8 @@ internal fun AddTaskNavHost(
         }
     }
 
+    Log.d("AddTaskNavHost", "Current State: $uiState")
+
     NavHost(
         modifier = modifier,
         navController = navController,
@@ -66,6 +69,7 @@ internal fun AddTaskNavHost(
             onSelectedEndDate = { viewModel.intent(AddTaskIntent.SelectEndDate(it)) },
             onSelectedEndTime = { viewModel.intent(AddTaskIntent.SelectEndTime(it)) },
             onChangedTemperature = { viewModel.intent(AddTaskIntent.WriteTemperature(it)) },
+            onSelectedVacationTime = { viewModel.intent(AddTaskIntent.SelectVacationTime(it)) },
         )
     }
 }

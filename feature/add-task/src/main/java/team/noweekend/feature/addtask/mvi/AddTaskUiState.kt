@@ -4,11 +4,13 @@ import team.noweekend.core.common.android.mvi.UiState
 import team.noweekend.feature.addtask.model.AddTaskInfo
 
 data class AddTaskUiState(
+    val todoId: String,
     val taskInfo: AddTaskInfo,
     val isLoading: Boolean,
 ) : UiState {
     companion object {
         val INITIAL_STATE = AddTaskUiState(
+            todoId = "",
             taskInfo = AddTaskInfo.Empty,
             isLoading = false,
         )
