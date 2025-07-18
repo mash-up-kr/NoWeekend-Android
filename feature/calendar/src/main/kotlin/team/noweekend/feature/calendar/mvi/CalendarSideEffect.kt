@@ -2,6 +2,7 @@ package team.noweekend.feature.calendar.mvi
 
 import team.noweekend.core.common.android.mvi.SideEffect
 import team.noweekend.core.common.ui.todo.model.Todo
+import team.noweekend.core.model.schedule.Schedule
 
 sealed interface CalendarSideEffect : SideEffect {
     data object CompleteInitMonthCalendar : CalendarSideEffect
@@ -17,6 +18,8 @@ sealed interface CalendarSideEffect : SideEffect {
     data class NavigateToAddTodo(val todo: Todo) : CalendarSideEffect
 
     data object NavigateToAddTodoWithDirectInput : CalendarSideEffect
+
+    data class NavigateToEditTodo(val schedule: Schedule): CalendarSideEffect
 
 
 }

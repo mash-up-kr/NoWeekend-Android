@@ -22,6 +22,7 @@ internal fun MainScreen(
     navigateToDetailDate: ((Intent.() -> Intent)?) -> Unit,
     navigateToAddTodo: ((Intent.() -> Intent)?) -> Unit,
     navigateToAddTodoWithDirectInput: ((Intent.() -> Intent)?) -> Unit,
+    navigateToEditTodo: ((Intent.() -> Intent)?) -> Unit,
     onTabSelected: (MainTab) -> Unit,
     modifier: Modifier = Modifier,
     navigator: MainNavigator = rememberMainNavigator(),
@@ -39,6 +40,7 @@ internal fun MainScreen(
                 navigateToExternalWebBrowser = navigateToExternalWebBrowser,
                 navigateToAddTodo = navigateToAddTodo,
                 navigateToAddTodoWithDirectInput = navigateToAddTodoWithDirectInput,
+                navigateToEditTodo = navigateToEditTodo,
             )
         },
         bottomBar = {
@@ -61,7 +63,8 @@ private fun MainScreenPreview() {
             navigateToExternalWebBrowser = {},
             onTabSelected = {},
             navigateToAddTodo = {},
-            navigateToAddTodoWithDirectInput = {}
+            navigateToAddTodoWithDirectInput = {},
+            navigateToEditTodo = {}
         )
     }
 }

@@ -14,6 +14,7 @@ import team.noweekend.core.common.ui.calendar.model.CalendarMode
 import team.noweekend.core.common.ui.calendar.model.CalendarState
 import team.noweekend.core.common.ui.calendar.state.CalendarPagerState
 import team.noweekend.core.common.ui.todo.model.Todo
+import team.noweekend.core.common.ui.todo.model.TodoType
 import team.noweekend.feature.calendar.model.CalendarWeeksDataWithTodoList
 
 
@@ -28,6 +29,7 @@ data class CalendarUiState(
     val calendarState: CalendarState,
     val recommendTodoList: ImmutableList<Todo>,
     val monthChooserVisible: Boolean = false,
+    val todoOptionVisibility: TodoOptionVisibility = TodoOptionVisibility(visible = false),
 ) : UiState {
     companion object {
         val Init = CalendarUiState(
@@ -42,3 +44,10 @@ data class CalendarUiState(
         )
     }
 }
+
+@Immutable
+data class TodoOptionVisibility(
+    val visible: Boolean,
+    val todoIndex: Int = 0,
+    val todoType: TodoType = TodoType.Personal(),
+)

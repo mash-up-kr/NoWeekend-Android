@@ -28,8 +28,10 @@ import team.noweekend.core.common.ui.todo.model.TodoType
 import team.noweekend.core.domain.usecase.CalendarDataProviderUseCase
 import team.noweekend.core.domain.usecase.ChangeCompleteScheduleUseCase
 import team.noweekend.core.domain.usecase.GetRecommendTodoTagUseCase
+import team.noweekend.core.model.alarm.AlarmOption
 import team.noweekend.core.model.calendar.DateOfWeek
 import team.noweekend.core.model.schedule.Schedule
+import team.noweekend.core.model.schedule.ScheduleCategory
 import team.noweekend.feature.calendar.model.CalendarDateOfWeekWithTodoList
 import team.noweekend.feature.calendar.model.CalendarWeeksDataWithTodoList
 import team.noweekend.feature.calendar.model.CalendarWeeksDataWithTodoList.Companion.toCalendarWeeksData
@@ -87,6 +89,11 @@ class CalendarViewModel @Inject constructor(
             is CalendarIntent.ClickRecommendTodoTag -> clickRecommendTagTodo(index = intent.index)
             is CalendarIntent.ClickMonthChooser -> clickMonthChooser()
             is CalendarIntent.ClickDirectInput -> clickDirectInput()
+            is CalendarIntent.ClickTodoOption -> clickTodoOption(index = intent.index)
+            is CalendarIntent.DismissTodo -> dismissTodo()
+            is CalendarIntent.EditTodo -> editTodo(index = intent.index)
+            is CalendarIntent.DeleteTodo -> deleteTodo(index = intent.index)
+            is CalendarIntent.AddSameTodo -> addSameTodo(index= intent.index)
         }
     }
 
@@ -196,7 +203,8 @@ class CalendarViewModel @Inject constructor(
                 val currentWeekData = calendarDataProviderUseCase.getWeeksData(page = page)
                 if (currentWeekData != null) {
                     val isHasSelectedDate =
-                        currentWeekData.dateOfWeeks.flatten().any { dateOfWeek: DateOfWeek -> dateOfWeek.localDate == currentState.calendarState.selectedDate }
+                        currentWeekData.dateOfWeeks.flatten()
+                            .any { dateOfWeek: DateOfWeek -> dateOfWeek.localDate == currentState.calendarState.selectedDate }
 
                     println(isHasSelectedDate)
 
@@ -204,7 +212,8 @@ class CalendarViewModel @Inject constructor(
                         this.copy(
                             chooserMonth = if (isHasSelectedDate) {
                                 val selectedDate =
-                                    currentWeekData.dateOfWeeks.flatten().find { it.localDate == currentState.calendarState.selectedDate }?.localDate
+                                    currentWeekData.dateOfWeeks.flatten()
+                                        .find { it.localDate == currentState.calendarState.selectedDate }?.localDate
                                 if (selectedDate != null) {
                                     LocalDate(
                                         year = selectedDate.year,
@@ -270,7 +279,7 @@ class CalendarViewModel @Inject constructor(
         reduce {
             this.copy(
                 calendarState = calendarState,
-                chooserMonth = targetDate
+                chooserMonth = targetDate,
             )
         }
 
@@ -515,6 +524,50 @@ class CalendarViewModel @Inject constructor(
 
     private fun clickDirectInput() = execute {
         postSideEffect(CalendarSideEffect.NavigateToAddTodoWithDirectInput)
+    }
+
+    private suspend fun editTodo(index: Int) {
+        val todo = currentState.selectedTodoList.value[index]
+        val schedule = Schedule(
+            id = todo.id,
+            title = todo.title,
+            startTime = todo.startDateTime,
+            endTime = todo.endDateTime,
+            category = ScheduleCategory.valueOf(todo.todoType.name),
+            temperature = todo.temperature,
+            alarmOption = AlarmOption.valueOf(todo.alarmOption),
+            allDay = false, // 무시
+            completed = todo.isDone,
+        )
+        postSideEffect(CalendarSideEffect.NavigateToEditTodo(schedule = schedule))
+    }
+
+    private fun clickTodoOption(index: Int) {
+        reduce {
+            copy(
+                todoOptionVisibility = TodoOptionVisibility(
+                    visible = currentState.todoOptionVisibility.visible.not(),
+                    todoIndex = index,
+                    todoType = currentState.selectedTodoList.value[index].todoType,
+                ),
+            )
+        }
+    }
+
+    private fun dismissTodo() {
+        reduce {
+            copy(
+                todoOptionVisibility = this.todoOptionVisibility.copy(visible = false),
+            )
+        }
+    }
+
+    private suspend  fun deleteTodo(index: Int){
+
+    }
+
+    private suspend  fun addSameTodo(index: Int){
+
     }
 
     private fun <T> Flow<T>.toStateFlow(

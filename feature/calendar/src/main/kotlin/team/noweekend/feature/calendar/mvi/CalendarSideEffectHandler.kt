@@ -11,6 +11,7 @@ import team.noweekend.core.common.android.mvi.SideEffectHandler
 import team.noweekend.core.common.ui.calendar.state.CalendarPagerState
 import team.noweekend.core.common.ui.calendar.state.rememberCalendarPagerState
 import team.noweekend.core.common.ui.todo.model.Todo
+import team.noweekend.core.model.schedule.Schedule
 
 @Composable
 fun rememberSideEffectHandler(
@@ -25,6 +26,7 @@ fun rememberSideEffectHandler(
     navigateToDetailDate: (date: String) -> Unit,
     navigateToAddTodo: (todo: Todo) -> Unit,
     navigateToAddTodoWithDirectInput: () -> Unit,
+    navigateToEditTodo: (schedule: Schedule) -> Unit,
     calendarPagerState: CalendarPagerState = rememberCalendarPagerState(),
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
 ) = remember(calendarPagerState, coroutineScope) {
@@ -41,10 +43,10 @@ fun rememberSideEffectHandler(
         navigateToDetailDate = navigateToDetailDate,
         navigateToAddTodo = navigateToAddTodo,
         navigateToAddTodoWithDirectInput = navigateToAddTodoWithDirectInput,
+        navigateToEditTodo = navigateToEditTodo,
         calendarPagerState = calendarPagerState,
         coroutineScope = coroutineScope,
-
-        )
+    )
 }
 
 @Stable
@@ -60,6 +62,7 @@ class CalendarSideEffectHandler(
     private val navigateToDetailDate: (date: String) -> Unit,
     private val navigateToAddTodo: (todo: Todo) -> Unit,
     private val navigateToAddTodoWithDirectInput: () -> Unit,
+    private val navigateToEditTodo: (schedule: Schedule) -> Unit,
     private val calendarPagerState: CalendarPagerState,
     private val coroutineScope: CoroutineScope,
 ) : SideEffectHandler<CalendarSideEffect> {
@@ -121,6 +124,10 @@ class CalendarSideEffectHandler(
 
             is CalendarSideEffect.NavigateToAddTodoWithDirectInput -> {
                 navigateToAddTodoWithDirectInput()
+            }
+
+            is CalendarSideEffect.NavigateToEditTodo ->{
+                navigateToEditTodo(sideEffect.schedule)
             }
         }
     }

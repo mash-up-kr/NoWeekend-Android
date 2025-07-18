@@ -7,6 +7,7 @@ import kotlinx.datetime.LocalDate
 import team.noweekend.core.common.ui.calendar.model.CalendarDateOfWeek
 import team.noweekend.core.common.ui.calendar.model.CalendarMode
 import team.noweekend.core.common.ui.calendar.state.CalendarPagerState.Companion.initialPage
+import team.noweekend.feature.calendar.model.TodoRecordAction
 import team.noweekend.feature.calendar.mvi.CalendarIntent
 
 
@@ -86,7 +87,7 @@ class IntentBuilder(
 
     fun initCalendarDateWithDate(
         targetDate: LocalDate,
-    ){
+    ) {
         build(CalendarIntent.InitCalendarWithDate(initPage = initialPage, targetDate = targetDate))
     }
 
@@ -111,11 +112,33 @@ class IntentBuilder(
         build(CalendarIntent.ClickRecommendTodoTag(index = index))
     }
 
-    fun clickMonthChooser(){
+    fun clickMonthChooser() {
         build(CalendarIntent.ClickMonthChooser)
     }
 
-    fun clickDirectInput(){
+    fun clickDirectInput() {
         build(CalendarIntent.ClickDirectInput)
+    }
+
+    fun clickTodoOption(index: Int) {
+        build(CalendarIntent.ClickTodoOption(index = index))
+    }
+
+    fun clickAction(todoRecordAction: TodoRecordAction, todoIndex: Int) {
+        when(todoRecordAction){
+            is TodoRecordAction.AddSameAction->{
+                build(CalendarIntent.AddSameTodo(index = todoIndex))
+            }
+            is TodoRecordAction.DeleteAction->{
+                build(CalendarIntent.DeleteTodo(index = todoIndex))
+            }
+            is TodoRecordAction.EditAction->{
+                build(CalendarIntent.EditTodo(index = todoIndex))
+            }
+        }
+    }
+
+    fun dismissTodoOption(){
+        build(CalendarIntent.DismissTodo)
     }
 }
