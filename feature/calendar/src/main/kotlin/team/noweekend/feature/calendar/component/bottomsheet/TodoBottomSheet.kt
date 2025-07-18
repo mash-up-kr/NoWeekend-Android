@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import team.noweekend.core.common.ui.todo.model.Todo
 import team.noweekend.core.common.ui.todo.model.TodoType
 import team.noweekend.core.design.system.core.component.bottomSheet.BottomSheetType
 import team.noweekend.core.design.system.core.component.bottomSheet.NWKBottomSheet
@@ -14,9 +13,10 @@ import team.noweekend.feature.calendar.model.TodoRecordAction
 
 @Composable
 fun TodoBottomSheet(
-    todo: Todo,
+    todoIndex: Int,
+    todoType: TodoType,
     onDismissRequest: () -> Unit,
-    onClickAction: (TodoRecordAction) -> Unit,
+    onClickAction: (TodoRecordAction, todoIndex: Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val nwkBottomSheetState = rememberNWKBottomSheetState(
@@ -29,13 +29,15 @@ fun TodoBottomSheet(
         shouldDismissOnBackPress = true,
         onDismissRequest = onDismissRequest,
     ) {
-        when (todo.todoType) {
+        when (todoType) {
             is TodoType.AnnualLeave -> {
                 TodoRecordAction.filteredActionList.forEach { action ->
                     key(action) {
                         TodoRecordActionComponent(
                             todoRecordAction = action,
-                            onClickAction = onClickAction,
+                            onClickAction = { recordAction->
+                                onClickAction(recordAction, todoIndex)
+                            },
                         )
                     }
                 }
@@ -46,7 +48,9 @@ fun TodoBottomSheet(
                     key(action) {
                         TodoRecordActionComponent(
                             todoRecordAction = action,
-                            onClickAction = onClickAction,
+                            onClickAction = { recordAction->
+                                onClickAction(recordAction, todoIndex)
+                            },
                         )
                     }
                 }
@@ -61,15 +65,11 @@ fun TodoBottomSheet(
 private fun PreviewTodoBottomSheet() {
     NWKTheme {
         TodoBottomSheet(
-            todo = Todo(
-                title = "",
-                description = "",
-                todoType = TodoType.Etc(),
-                isDone = false,
-                id = "0",
-            ),
+            todoType = TodoType.Etc(),
             onDismissRequest = {},
-            onClickAction = {},
+            onClickAction = {_,_->},
+            todoIndex = 0,
+
         )
     }
 }
