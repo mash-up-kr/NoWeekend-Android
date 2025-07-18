@@ -6,6 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.result.ActivityResultLauncher
 import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.scopes.ActivityScoped
+import team.noweekend.core.navigator.feature.AddTaskNavigator
 import team.noweekend.core.navigator.feature.DetailDateNavigator
 import javax.inject.Inject
 
@@ -13,7 +14,7 @@ import javax.inject.Inject
 class CalendarNavigationDelegate @Inject constructor(
     @ActivityContext private val context: Context,
     private val detailDateNavigator: DetailDateNavigator,
-    private val addTaskNavigator: DetailDateNavigator,
+    private val addTaskNavigator: AddTaskNavigator,
 ) {
     fun navigateToDetailDate(
         activity: ComponentActivity = context as ComponentActivity,
@@ -30,10 +31,12 @@ class CalendarNavigationDelegate @Inject constructor(
     fun navigateToAddTask(
         activity: ComponentActivity = context as ComponentActivity,
         intentBuilder: (Intent.() -> Intent)? = null,
+        launcher: ActivityResultLauncher<Intent>?,
     ) {
-        addTaskNavigator.navigate(
+        addTaskNavigator.navigateWithLauncher(
             activity,
             intentBuilder = intentBuilder,
+            launcher = launcher,
         )
     }
 }
