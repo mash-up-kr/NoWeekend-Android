@@ -8,6 +8,8 @@ import team.noweekend.core.model.schedule.ScheduleCategory
 import team.noweekend.core.model.schedule.ScheduleCreateParam
 import team.noweekend.core.remote.model.schedule.ScheduleCreateRequest
 import team.noweekend.core.remote.model.schedule.common.ScheduleModel
+import team.noweekend.core.remote.model.schedule.response.EditScheduleRequest
+import team.noweekend.core.remote.model.schedule.response.EditScheduleResponse
 import team.noweekend.core.remote.model.schedule.response.GetScheduleResponse
 import team.noweekend.core.remote.model.schedule.response.ScheduleCreateResponse
 
@@ -56,5 +58,29 @@ fun ScheduleCreateResponse.toDomainModel(): CreateSchedule {
         endDateTime = this.endDateTime,
         temperature = this.temperature,
         title = this.title,
+    )
+}
+
+fun EditScheduleResponse.toDomainModel(): CreateSchedule {
+    return CreateSchedule(
+        alarmOption = this.alarmOption,
+        category = this.category,
+        completed = this.completed,
+        startDateTime = this.startDateTime,
+        id = this.id,
+        endDateTime = this.endDateTime,
+        temperature = this.temperature,
+        title = this.title,
+    )
+}
+
+fun ScheduleCreateParam.toEditRequest(): EditScheduleRequest {
+    return EditScheduleRequest(
+        title = this.title,
+        startDateTime = this.startDateTime,
+        endDateTime = this.endDateTime,
+        category = this.category,
+        temperature = this.temperature,
+        alarmOption = this.alarmOption,
     )
 }
