@@ -6,13 +6,20 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.text.input.TextFieldState
+import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusManager
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -21,6 +28,9 @@ import androidx.compose.ui.unit.dp
 import team.noweekend.core.design.system.core.component.button.defaults.BoxButtonType
 import team.noweekend.core.design.system.core.component.button.fill.NWKFillButton
 import team.noweekend.core.design.system.core.component.icon.NWKIcon
+import team.noweekend.core.design.system.core.component.input.NWKInputField
+import team.noweekend.core.design.system.core.component.input.status.InputFieldStatus
+import team.noweekend.core.design.system.core.component.input.status.TextInputType
 import team.noweekend.core.design.system.core.component.scaffold.NWKScaffold
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.resource.NWKDrawableResource
@@ -31,11 +41,21 @@ import team.noweekend.feature.create.vacation.date.mvi.VacationDateUiState
 internal fun VacationDateScreen(
     uiState: VacationDateUiState,
     onBackClick: () -> Unit,
-    onNextClick: () -> Unit,
+    onNextClick: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val dateTextFieldState = rememberTextFieldState()
+    val focusManager: FocusManager = LocalFocusManager.current
+    val focusRequester = remember { FocusRequester() }
+
+    LaunchedEffect(key1 = Unit) {
+        focusRequester.requestFocus()
+    }
+
     NWKScaffold(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier
+            .fillMaxSize()
+            .imePadding(),
         topBar = {
             Row(
                 modifier = Modifier
@@ -44,7 +64,14 @@ internal fun VacationDateScreen(
             ) {
                 NWKIcon(
                     resourceId = NWKDrawableResource.ChevronLeft,
-                    modifier = Modifier.size(24.dp).clickable(onClick = onBackClick),
+                    modifier = Modifier
+                        .size(24.dp)
+                        .clickable(
+                            onClick = {
+                                focusManager.clearFocus()
+                                onBackClick()
+                            },
+                        ),
                     tint = NWKTheme.color.Semantic.Text.body,
                 )
             }
@@ -56,6 +83,9 @@ internal fun VacationDateScreen(
                     .padding(paddingValues),
                 remainedDays = uiState.remainedDays,
                 usageDays = uiState.usageDays,
+                dateTextFieldState = dateTextFieldState,
+                focusRequester = focusRequester,
+                focusManager = focusManager,
             )
         },
         bottomBar = {
@@ -66,10 +96,13 @@ internal fun VacationDateScreen(
                         horizontal = 20.dp,
                         vertical = 8.dp,
                     ),
-                onClick = onNextClick,
+                onClick = {
+                    focusManager.clearFocus()
+                    onNextClick(dateTextFieldState.text.toString())
+                },
                 text = "다음",
                 type = BoxButtonType.BLACK,
-                enabled = uiState.isButtonEnabled
+                enabled = uiState.isButtonEnabled,
             )
         },
     )
@@ -77,10 +110,14 @@ internal fun VacationDateScreen(
 
 @Composable
 private fun VacationDateScreenContent(
+    dateTextFieldState: TextFieldState,
+    focusRequester: FocusRequester,
+    focusManager: FocusManager,
     usageDays: Int,
     remainedDays: Int?,
     modifier: Modifier = Modifier,
 ) {
+
     Column(
         modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -108,10 +145,16 @@ private fun VacationDateScreenContent(
             )
         }
         Spacer(Modifier.size(NWKTheme.spacing.space500))
-        TextField(
+        NWKInputField(
+            textFieldState = dateTextFieldState,
             modifier = Modifier.fillMaxWidth(),
-            value = usageDays.toString(),
-            onValueChange = {},
+            placeholder = "1일부터 15일 이내로 입력",
+            inputFieldStatus = InputFieldStatus.DEFAULT,
+            focusRequester = focusRequester,
+            textInputType = TextInputType.DAY,
+            onKeyboardAction = {
+                focusManager.clearFocus()
+            },
         )
     }
 }
