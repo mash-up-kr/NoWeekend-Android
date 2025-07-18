@@ -40,5 +40,9 @@
         <activity
             android:name="team.noweekend.feature.detail.date.DetailDateActivity"
             android:exported="false" />
+
+        <activity
+            android:name="team.noweekend.feature.addtask.AddTaskActivity"
+            android:exported="false" />
     </application>
 </manifest>
