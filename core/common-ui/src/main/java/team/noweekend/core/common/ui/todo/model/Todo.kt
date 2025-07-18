@@ -17,6 +17,10 @@ data class Todo(
     val description: String,
     val todoType: TodoType,
     val isDone: Boolean = false,
+    val startDateTime: String = "",
+    val endDateTime: String = "",
+    val temperature: Int = 0,
+    val alarmOption: String = "",
 ) {
     companion object {
 
@@ -48,6 +52,8 @@ data class Todo(
 
 @Stable
 sealed interface TodoType {
+
+    val name: String
     val title: Int
         @StringRes get
     val color: Color
@@ -57,6 +63,7 @@ sealed interface TodoType {
      * 회사
      */
     data class Company(
+        override val name: String = "COMPANY",
         override val title: Int = NWKStringResource.TodoCompany,
     ) : TodoType {
         override val color: Color
@@ -67,6 +74,7 @@ sealed interface TodoType {
      * 개인
      */
     data class Personal(
+        override val name: String = "PERSONAL",
         override val title: Int = NWKStringResource.TodoPersonal,
     ) : TodoType {
         override val color: Color
@@ -77,6 +85,7 @@ sealed interface TodoType {
      *  연차
      */
     data class AnnualLeave(
+        override val name: String = "LEAVE",
         override val title: Int = NWKStringResource.TodoAnnualLeave,
     ) : TodoType {
         override val color: Color
@@ -87,6 +96,7 @@ sealed interface TodoType {
      * 기타
      */
     data class Etc(
+        override val name: String = "ETC",
         override val title: Int = NWKStringResource.TodoEtc,
     ) : TodoType {
         override val color: Color
