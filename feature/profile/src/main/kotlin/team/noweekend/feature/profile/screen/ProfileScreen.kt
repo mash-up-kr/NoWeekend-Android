@@ -6,6 +6,9 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -19,9 +22,11 @@ import team.noweekend.feature.profile.component.topbar.ProfileTopBar
 import team.noweekend.feature.profile.model.EtcMenu.Companion.etcMenuList
 import team.noweekend.feature.profile.model.InfoMenu.Companion.infoMenuList
 import team.noweekend.feature.profile.model.Menu
+import team.noweekend.feature.profile.mvi.ProfileUiState
 
 @Composable
 internal fun ProfileScreen(
+    uiState: State<ProfileUiState>,
     modifier: Modifier = Modifier,
     onMenuClick: (Menu) -> Unit,
 ) {
@@ -31,11 +36,11 @@ internal fun ProfileScreen(
             .background(color = NWKTheme.color.Neutral.white),
     ) {
         ProfileTopBar(
-            userName = "userName",
+            userName = uiState.value.user.userName,
             onClickEditButton = {},
         )
         VacationBoard(
-            lessVacationCount = 12.5f,
+            lessVacationCount = uiState.value.user.remainingAnnualLeave,
             usedVacationCount = 5.5f,
         )
         MenuLayout(
@@ -46,15 +51,12 @@ internal fun ProfileScreen(
         Spacer(
             modifier = Modifier.height(16.dp),
         )
-
         MenuLayout(
             title = stringResource(id = EtcMenuTitle),
             menuList = etcMenuList,
             onClickMenuItem = onMenuClick,
         )
     }
-
-
 }
 
 
@@ -65,10 +67,9 @@ private fun PreviewProfileScreen(
 ) {
     NWKTheme {
         ProfileScreen(
+            uiState = remember { mutableStateOf(ProfileUiState.INITIAL_STATE) },
             modifier = Modifier.fillMaxSize(),
             onMenuClick = {},
         )
     }
-
-
 }
