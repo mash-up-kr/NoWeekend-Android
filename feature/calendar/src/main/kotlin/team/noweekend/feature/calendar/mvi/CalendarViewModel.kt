@@ -15,23 +15,28 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalDateTime
 import team.noweekend.core.common.android.base.MVIViewModel
-import team.noweekend.core.common.kotlin.extension.CalendarUtils.firstDayOfMonth
 import team.noweekend.core.common.kotlin.extension.YEAR_MONTH_DAY_PATTERN
 import team.noweekend.core.common.kotlin.extension.now
 import team.noweekend.core.common.kotlin.extension.toFormattedString
+import team.noweekend.core.common.kotlin.extension.toLocalDate
 import team.noweekend.core.common.ui.calendar.model.CalendarDateOfWeek
 import team.noweekend.core.common.ui.calendar.model.CalendarMode
 import team.noweekend.core.common.ui.calendar.model.CalendarState
+import team.noweekend.core.common.ui.calendar.state.CalendarPagerState.Companion.initialPage
 import team.noweekend.core.common.ui.todo.model.Todo
 import team.noweekend.core.common.ui.todo.model.TodoType
 import team.noweekend.core.domain.usecase.CalendarDataProviderUseCase
 import team.noweekend.core.domain.usecase.ChangeCompleteScheduleUseCase
+import team.noweekend.core.domain.usecase.CreateAddTaskUseCase
+import team.noweekend.core.domain.usecase.DeleteTodoUseCase
 import team.noweekend.core.domain.usecase.GetRecommendTodoTagUseCase
 import team.noweekend.core.model.alarm.AlarmOption
 import team.noweekend.core.model.calendar.DateOfWeek
 import team.noweekend.core.model.schedule.Schedule
 import team.noweekend.core.model.schedule.ScheduleCategory
+import team.noweekend.core.model.schedule.ScheduleCreateParam
 import team.noweekend.feature.calendar.model.CalendarDateOfWeekWithTodoList
 import team.noweekend.feature.calendar.model.CalendarWeeksDataWithTodoList
 import team.noweekend.feature.calendar.model.CalendarWeeksDataWithTodoList.Companion.toCalendarWeeksData
@@ -44,6 +49,8 @@ class CalendarViewModel @Inject constructor(
     private val calendarDataProviderUseCase: CalendarDataProviderUseCase,
     private val changeCompleteScheduleUseCase: ChangeCompleteScheduleUseCase,
     private val getRecommendTodoTagUseCase: GetRecommendTodoTagUseCase,
+    private val deleteTodoUseCase: DeleteTodoUseCase,
+    private val createAddTaskUseCase: CreateAddTaskUseCase,
     savedStateHandle: SavedStateHandle,
 ) : MVIViewModel<CalendarIntent, CalendarSideEffect, CalendarUiState>(savedStateHandle = savedStateHandle) {
 
@@ -93,7 +100,7 @@ class CalendarViewModel @Inject constructor(
             is CalendarIntent.DismissTodo -> dismissTodo()
             is CalendarIntent.EditTodo -> editTodo(index = intent.index)
             is CalendarIntent.DeleteTodo -> deleteTodo(index = intent.index)
-            is CalendarIntent.AddSameTodo -> addSameTodo(index= intent.index)
+            is CalendarIntent.AddSameTodo -> addSameTodo(index = intent.index)
         }
     }
 
@@ -105,6 +112,13 @@ class CalendarViewModel @Inject constructor(
         }
     }
 
+    private fun dismissMonthChooser() {
+        reduce {
+            this.copy(
+                monthChooserVisible = false,
+            )
+        }
+    }
 
     private suspend fun initCalendar(initPage: Int) {
         when (currentState.calendarMode) {
@@ -123,19 +137,18 @@ class CalendarViewModel @Inject constructor(
      * 1일로 이동
      */
     private suspend fun initCalendarWithDate(initPage: Int, localDate: LocalDate) {
-        val firstLocalDate = localDate.firstDayOfMonth()
         when (val calendarMode = currentState.calendarMode) {
             CalendarMode.WEEK -> {
-                initWeekCalendar(initPage = initPage, currentDate = firstLocalDate)
+                initWeekCalendar(initPage = initPage, currentDate = localDate)
                 postSideEffect(sideEffect = CalendarSideEffect.CompleteInitWeekCalendar)
-                clickMonthChooser()
+                dismissMonthChooser()
                 updateChooserMonth(calendarMode = calendarMode, initPage)
             }
 
             CalendarMode.MONTH -> {
-                initMonthCalendar(initPage = initPage, currentDate = firstLocalDate)
+                initMonthCalendar(initPage = initPage, currentDate = localDate)
                 postSideEffect(sideEffect = CalendarSideEffect.CompleteInitMonthCalendar)
-                clickMonthChooser()
+                dismissMonthChooser()
                 updateChooserMonth(calendarMode = calendarMode, initPage)
             }
         }
@@ -144,18 +157,14 @@ class CalendarViewModel @Inject constructor(
 
     private suspend fun initWeekCalendar(initPage: Int, currentDate: LocalDate = LocalDate.now()) {
         calendarDataProviderUseCase.initWeekCalendar(initPage = initPage, currentDate = currentDate)
-        updateCalendarState(
-            initFirstTodoList = true,
-        )
+        updateCalendarState()
         postSideEffect(sideEffect = CalendarSideEffect.CollectWeekPagerStatePage)
 
     }
 
     private suspend fun initMonthCalendar(initPage: Int, currentDate: LocalDate = currentState.chooserMonth) {
         calendarDataProviderUseCase.initMonthCalendar(page = initPage, currentDate)
-        updateCalendarState(
-            initFirstTodoList = true,
-        )
+        updateCalendarState()
         postSideEffect(sideEffect = CalendarSideEffect.CollectMonthPagerStatePage)
     }
 
@@ -206,7 +215,6 @@ class CalendarViewModel @Inject constructor(
                         currentWeekData.dateOfWeeks.flatten()
                             .any { dateOfWeek: DateOfWeek -> dateOfWeek.localDate == currentState.calendarState.selectedDate }
 
-                    println(isHasSelectedDate)
 
                     reduce {
                         this.copy(
@@ -366,40 +374,10 @@ class CalendarViewModel @Inject constructor(
 
     private fun updateCalendarState(
         calendarMode: CalendarMode = currentState.calendarMode,
-        initFirstTodoList: Boolean = false,
     ) {
-
-        val selectedTodoList = if (initFirstTodoList) {
-            when (calendarMode) {
-                CalendarMode.MONTH -> {
-                    currentState.calendarMonthsData.map { immutableMap ->
-                        immutableMap.toList().mapNotNull { (_, value) ->
-                            value.calendarDateOfWeeksWithTodoList.flatten().find {
-                                it.calendarDateOfWeek.localDate == calendarDataProviderUseCase.targetDate.value
-                            }?.todoList
-                        }.flatten().toImmutableList()
-                    }.toStateFlow(initialValue = persistentListOf())
-                }
-
-                CalendarMode.WEEK -> {
-                    currentState.calendarWeeksData.map { immutableMap ->
-                        immutableMap.toList().mapNotNull { (_, value) ->
-                            value.calendarDateOfWeeksWithTodoList.flatten().find {
-                                it.calendarDateOfWeek.localDate == calendarDataProviderUseCase.targetDate.value
-                            }?.todoList
-                        }.flatten().toImmutableList()
-                    }.toStateFlow(initialValue = persistentListOf())
-                }
-            }
-        } else {
-            currentState.selectedTodoList
-        }
-
-
 
         reduce {
             this.copy(
-                selectedTodoList = selectedTodoList,
                 calendarState = when (calendarMode) {
                     CalendarMode.WEEK -> {
                         val pagerData = this.calendarWeeksData.map { innerMap ->
@@ -562,15 +540,47 @@ class CalendarViewModel @Inject constructor(
         }
     }
 
-    private suspend  fun deleteTodo(index: Int){
+    private suspend fun deleteTodo(index: Int) {
+        val todo = currentState.selectedTodoList.value[index]
+        val todoDate = LocalDateTime.parse(todo.startDateTime).toLocalDate()
+        val todoId = todo.id
+        deleteTodoUseCase(id = todoId)
 
+        initCalendarWithDate(initPage = initialPage, localDate = todoDate)
+
+        reduce {
+            copy(
+                todoOptionVisibility = TodoOptionVisibility(
+                    visible = false,
+                ),
+            )
+        }
     }
 
-    private suspend  fun addSameTodo(index: Int){
+    private suspend fun addSameTodo(index: Int) {
+        val todo = currentState.selectedTodoList.value[index]
+        createAddTaskUseCase(
+            param = ScheduleCreateParam(
+                title = todo.title,
+                startDateTime = todo.startDateTime,
+                endDateTime = todo.endDateTime,
+                category = todo.todoType.name,
+                temperature = todo.temperature,
+                alarmOption = todo.alarmOption,
+            ),
+        )
 
+        reduce {
+            copy(
+                todoOptionVisibility = TodoOptionVisibility(
+                    visible = false,
+                ),
+            )
+        }
     }
 
     private fun <T> Flow<T>.toStateFlow(
         initialValue: T,
-    ): StateFlow<T> = this.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000L), initialValue = initialValue)
+    ): StateFlow<T> =
+        this.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000L), initialValue = initialValue)
 }
