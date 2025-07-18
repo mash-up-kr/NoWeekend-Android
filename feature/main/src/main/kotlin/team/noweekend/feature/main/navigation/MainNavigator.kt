@@ -12,6 +12,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
+import kotlinx.serialization.InternalSerializationApi
 import team.noweekend.core.navigator.model.Calendar
 import team.noweekend.core.navigator.model.DestinationRoute
 import team.noweekend.core.navigator.model.Home
@@ -42,6 +43,7 @@ internal class MainNavigator(
         @Composable
         get() = navController.currentBackStackEntryAsState().value?.destination
 
+    @Suppress("WrongNavigateRouteType")
     fun navigate(tab: MainTab) {
         val navOptions = navOptions {
             popUpTo(navController.graph.findStartDestination().id) {

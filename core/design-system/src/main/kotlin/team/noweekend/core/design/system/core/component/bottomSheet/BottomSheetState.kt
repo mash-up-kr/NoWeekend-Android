@@ -1,6 +1,5 @@
 package team.noweekend.core.design.system.core.component.bottomSheet
 
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember

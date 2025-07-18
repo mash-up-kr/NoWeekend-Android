@@ -7,10 +7,12 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import kotlinx.serialization.InternalSerializationApi
 import team.noweekend.core.design.system.core.component.scaffold.NWKScaffold
 import team.noweekend.core.navigator.model.DetailDate
 import team.noweekend.feature.detail.date.screen.DetailDateRoute
 
+@OptIn(InternalSerializationApi::class)
 @Composable
 fun DetailDateNavHost(
     startDestination: DetailDate,

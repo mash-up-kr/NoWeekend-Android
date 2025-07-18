@@ -9,6 +9,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import kotlinx.datetime.LocalDate
 import team.noweekend.core.common.kotlin.extension.MONTH_DATE_WITH_DAY_OF_WEEK_PATTERN
+import team.noweekend.core.common.kotlin.extension.now
 import team.noweekend.core.common.kotlin.extension.toFormattedString
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.model.vacation.SandwichRecommendVacation
@@ -50,6 +51,12 @@ data class PopularVacationUiModel(
     }
 
     companion object {
+        val INITIAL_DATA: PopularVacationUiModel = PopularVacationUiModel(
+            vacationType = VacationType.HOLIDAY_EXIST,
+            startLocalDate = LocalDate.now(),
+            endLocalDate = null,
+        )
+
         @Composable
         fun VacationType.getStyledDescription(): AnnotatedString {
             return when (this) {

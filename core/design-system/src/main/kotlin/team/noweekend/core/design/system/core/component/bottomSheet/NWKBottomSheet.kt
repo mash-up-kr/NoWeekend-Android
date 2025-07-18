@@ -55,7 +55,9 @@ fun NWKBottomSheet(
     ) {
 
         Surface(
-            modifier = modifier.navigationBarsPadding(),
+            modifier = modifier
+                .navigationBarsPadding()
+                .imePadding(),
             color = containerColor,
             contentColor = contentColor,
             shape = RoundedCornerShape(

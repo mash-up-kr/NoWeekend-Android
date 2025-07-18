@@ -31,6 +31,7 @@ internal fun ProfileRoute(
     }
 
     ProfileScreen(
+        uiState = uiState,
         onMenuClick = { viewModel.intent(ProfileIntent.ClickMenu(it)) },
         modifier = modifier,
     )

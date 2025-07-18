@@ -20,6 +20,7 @@ import team.noweekend.core.design.system.foundation.theme.NWKTheme
 @Composable
 internal fun TaskTitleBottomSheet(
     onBottomSheetDismiss: () -> Unit,
+    onAddTaskClick: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val focusManager: FocusManager = LocalFocusManager.current
@@ -29,7 +30,7 @@ internal fun TaskTitleBottomSheet(
         bottomSheetType = BottomSheetType.UseButton(
             bottomSheetTitle = "연차 제목을 작성하면\n할 일에 추가돼요",
             bottomSheetButtonTitle = "추가하기",
-            onClickButton = {},
+            onClickButton = { onAddTaskClick(titleTextFieldState.text.toString()) },
         ),
         isDraggable = false,
     )
@@ -60,6 +61,7 @@ private fun TaskTitleBottomSheetPreview() {
         NWKScaffold {
             TaskTitleBottomSheet(
                 onBottomSheetDismiss = {},
+                onAddTaskClick = {},
             )
         }
     }

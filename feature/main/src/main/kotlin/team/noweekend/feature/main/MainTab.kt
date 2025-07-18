@@ -3,6 +3,7 @@ package team.noweekend.feature.main
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
+import kotlinx.serialization.InternalSerializationApi
 import team.noweekend.core.navigator.model.Calendar
 import team.noweekend.core.navigator.model.DestinationRoute
 import team.noweekend.core.navigator.model.Home
@@ -22,6 +23,8 @@ internal enum class MainTab(
         unselectedIconResId = NWKDrawableResource.HomeOff,
         route = Home,
     ),
+
+    @OptIn(InternalSerializationApi::class)
     CALENDAR(
         labelId = NWKStringResource.LabelCalendar,
         selectedIconResId = NWKDrawableResource.CalendarOn,

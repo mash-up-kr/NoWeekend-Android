@@ -10,20 +10,24 @@ import team.noweekend.core.common.android.mvi.SideEffectHandler
 @Composable
 internal fun rememberHomeSideEffectHandler(
     navigateToCreateVacation: ((Intent.() -> Intent)?, ActivityResultLauncher<Intent>?) -> Unit,
+    navigateToCalendar: (String) -> Unit,
 ): HomeSideEffectHandler {
     return remember {
         HomeSideEffectHandler(
             navigateToCreateVacation = navigateToCreateVacation,
+            navigateToCalendar = navigateToCalendar,
         )
     }
 }
 
 internal class HomeSideEffectHandler(
     private val navigateToCreateVacation: ((Intent.() -> Intent)?, ActivityResultLauncher<Intent>?) -> Unit,
+    private val navigateToCalendar: (String) -> Unit,
 ) : SideEffectHandler<SideEffect> {
     override fun handleSideEffect(sideEffect: SideEffect) {
         when (sideEffect) {
             is HomeSideEffect.NavigateToCreateVacation -> navigateToCreateVacation(sideEffect.intentBuilder, null)
+            is HomeSideEffect.NavigateToCalendar -> navigateToCalendar(sideEffect.startLocalDateTime)
         }
     }
 }

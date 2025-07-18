@@ -6,6 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.datetime.LocalDate
+import kotlinx.serialization.InternalSerializationApi
 import team.noweekend.core.common.android.base.MVIViewModel
 import team.noweekend.core.common.kotlin.extension.parseLocalDateString
 import team.noweekend.core.common.ui.todo.model.Todo
@@ -29,6 +30,7 @@ class DetailDateViewModel @Inject constructor(
 ) : MVIViewModel<DetailDateIntent, DetailDateSideEffect, DetailDateUiState>(
     savedStateHandle = savedStateHandle,
 ) {
+    @OptIn(InternalSerializationApi::class)
     override fun createInitialState(savedStateHandle: SavedStateHandle): DetailDateUiState {
         val date = savedStateHandle.toRoute<DetailDate>().date
         val localDate = LocalDate.parseLocalDateString(date)
