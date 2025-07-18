@@ -3,6 +3,7 @@ package team.noweekend.feature.detail.date.mvi.builder
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
+import team.noweekend.core.common.ui.todo.model.TodoRecordAction
 import team.noweekend.feature.detail.date.mvi.DetailDateIntent
 
 @Composable
@@ -39,5 +40,31 @@ class IntentBuilder(
 
     fun clickBackButton() {
         build(DetailDateIntent.ClickBackButton)
+    }
+
+    fun clickDirectInput() {
+        build(DetailDateIntent.ClickDirectInput)
+    }
+
+    fun clickTodoOption(index: Int) {
+        build(DetailDateIntent.ClickTodoOption(index = index))
+    }
+
+    fun clickAction(todoRecordAction: TodoRecordAction, todoIndex: Int) {
+        when(todoRecordAction){
+            is TodoRecordAction.AddSameAction->{
+                build(DetailDateIntent.AddSameTodo(index = todoIndex))
+            }
+            is TodoRecordAction.DeleteAction->{
+                build(DetailDateIntent.DeleteTodo(index = todoIndex))
+            }
+            is TodoRecordAction.EditAction->{
+                build(DetailDateIntent.EditTodo(index = todoIndex))
+            }
+        }
+    }
+
+    fun dismissTodoOption(){
+        build(DetailDateIntent.DismissTodo)
     }
 }

@@ -12,4 +12,13 @@ sealed interface DetailDateIntent : Intent {
     data class ClickRecommendTodoTag(val index: Int) : DetailDateIntent
 
     data object ClickBackButton : DetailDateIntent
+
+    data object ClickDirectInput : DetailDateIntent
+    data class ClickTodoOption(val index: Int) : DetailDateIntent
+    data class EditTodo(val index: Int) : DetailDateIntent
+    data class DeleteTodo(val index: Int) : DetailDateIntent
+    data class AddSameTodo(val index: Int) : DetailDateIntent
+
+    data object DismissTodo : DetailDateIntent
+
 }

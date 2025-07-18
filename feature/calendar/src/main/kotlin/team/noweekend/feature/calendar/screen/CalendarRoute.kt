@@ -24,7 +24,7 @@ import team.noweekend.core.common.ui.todo.model.Todo
 import team.noweekend.core.design.system.foundation.theme.NWKTheme
 import team.noweekend.core.model.schedule.Schedule
 import team.noweekend.feature.calendar.component.bottomsheet.MonthChooserBottomSheet
-import team.noweekend.feature.calendar.component.bottomsheet.TodoBottomSheet
+import team.noweekend.core.common.ui.todo.bottomsheet.TodoBottomSheet
 import team.noweekend.feature.calendar.model.StableLocalDate
 import team.noweekend.feature.calendar.mvi.CalendarViewModel
 import team.noweekend.feature.calendar.mvi.builder.rememberIntentBuilder

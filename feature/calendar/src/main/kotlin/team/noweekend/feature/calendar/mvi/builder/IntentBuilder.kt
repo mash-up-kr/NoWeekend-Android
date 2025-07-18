@@ -7,7 +7,7 @@ import kotlinx.datetime.LocalDate
 import team.noweekend.core.common.ui.calendar.model.CalendarDateOfWeek
 import team.noweekend.core.common.ui.calendar.model.CalendarMode
 import team.noweekend.core.common.ui.calendar.state.CalendarPagerState.Companion.initialPage
-import team.noweekend.feature.calendar.model.TodoRecordAction
+import team.noweekend.core.common.ui.todo.model.TodoRecordAction
 import team.noweekend.feature.calendar.mvi.CalendarIntent
 
 

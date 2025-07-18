@@ -5,14 +5,20 @@ import androidx.navigation.toRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.InternalSerializationApi
 import team.noweekend.core.common.android.base.MVIViewModel
 import team.noweekend.core.common.kotlin.extension.parseLocalDateString
+import team.noweekend.core.common.kotlin.extension.toLocalDate
+import team.noweekend.core.common.ui.calendar.state.CalendarPagerState.Companion.initialPage
 import team.noweekend.core.common.ui.todo.model.Todo
 import team.noweekend.core.common.ui.todo.model.TodoType
 import team.noweekend.core.domain.usecase.CalendarDataProviderUseCase
 import team.noweekend.core.domain.usecase.ChangeCompleteScheduleUseCase
+import team.noweekend.core.domain.usecase.CreateAddTaskUseCase
+import team.noweekend.core.domain.usecase.DeleteTodoUseCase
 import team.noweekend.core.domain.usecase.GetRecommendTodoTagUseCase
 import team.noweekend.core.model.schedule.Schedule
 import team.noweekend.core.model.schedule.ScheduleCategory
@@ -26,11 +32,12 @@ class DetailDateViewModel @Inject constructor(
     private val calendarDateProviderUseCase: CalendarDataProviderUseCase,
     private val changeCompleteScheduleUseCase: ChangeCompleteScheduleUseCase,
     private val getRecommendTodoTagUseCase: GetRecommendTodoTagUseCase,
+    private val deleteTodoUseCase: DeleteTodoUseCase,
+    private val createAddTaskUseCase: CreateAddTaskUseCase,
     savedStateHandle: SavedStateHandle,
 ) : MVIViewModel<DetailDateIntent, DetailDateSideEffect, DetailDateUiState>(
     savedStateHandle = savedStateHandle,
 ) {
-    @OptIn(InternalSerializationApi::class)
     override fun createInitialState(savedStateHandle: SavedStateHandle): DetailDateUiState {
         val date = savedStateHandle.toRoute<DetailDate>().date
         val localDate = LocalDate.parseLocalDateString(date)
@@ -61,6 +68,77 @@ class DetailDateViewModel @Inject constructor(
             is DetailDateIntent.GetRecommendTodoTagList -> getRecommendTodoTag()
             is DetailDateIntent.ClickRecommendTodoTag -> clickRecommendTodoTag(index = intent.index)
             is DetailDateIntent.ClickBackButton -> clickBackButton()
+            is DetailDateIntent.ClickDirectInput -> {}
+            is DetailDateIntent.AddSameTodo -> {
+                addSameTodo(intent.index)
+            }
+
+            is DetailDateIntent.DeleteTodo -> {
+                deleteTodo(index = intent.index)
+            }
+
+            is DetailDateIntent.DismissTodo -> {
+                dismissTodo()
+            }
+
+            is DetailDateIntent.EditTodo -> {
+                editTodo(intent.index)
+            }
+
+            is DetailDateIntent.ClickTodoOption -> {
+                clickTodoOption(intent.index)
+            }
+        }
+    }
+
+    private fun clickDirectInput() {
+
+    }
+
+    private fun addSameTodo(index: Int) {
+
+    }
+
+    private suspend fun deleteTodo(index: Int) {
+        val todo = currentState.todoList[index]
+        val todoDate = LocalDateTime.parse(todo.startDateTime).toLocalDate()
+        val todoId = todo.id
+        deleteTodoUseCase(id = todoId)
+
+        initState()
+
+        reduce {
+            copy(
+                todoOptionVisibility = TodoOptionVisibility(
+                    visible = false,
+                ),
+            )
+        }
+
+    }
+
+    private fun editTodo(index: Int) {
+
+
+    }
+
+    private fun clickTodoOption(index: Int) {
+        reduce {
+            copy(
+                todoOptionVisibility = this.todoOptionVisibility.copy(
+                    visible = true,
+                    todoIndex= index,
+                    todoType = todoList[index].todoType
+                ),
+            )
+        }
+    }
+
+    private fun dismissTodo() {
+        reduce {
+            copy(
+                todoOptionVisibility = this.todoOptionVisibility.copy(visible = false),
+            )
         }
     }
 

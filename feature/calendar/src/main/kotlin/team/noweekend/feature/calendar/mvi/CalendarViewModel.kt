@@ -16,7 +16,9 @@ import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.toJavaLocalDateTime
 import team.noweekend.core.common.android.base.MVIViewModel
+import team.noweekend.core.common.kotlin.extension.CalendarUtils.plusDays
 import team.noweekend.core.common.kotlin.extension.YEAR_MONTH_DAY_PATTERN
 import team.noweekend.core.common.kotlin.extension.now
 import team.noweekend.core.common.kotlin.extension.toFormattedString
@@ -559,6 +561,10 @@ class CalendarViewModel @Inject constructor(
 
     private suspend fun addSameTodo(index: Int) {
         val todo = currentState.selectedTodoList.value[index]
+        val todoStartDate = LocalDateTime.parse(todo.startDateTime).toJavaLocalDateTime()
+        val todoEndDate = LocalDateTime.parse(todo.endDateTime).toJavaLocalDateTime()
+        val updateStartDateTime = todoStartDate.plusDays(1)
+        val updateEndDateTime = todoEndDate.plusDays(1)
         createAddTaskUseCase(
             param = ScheduleCreateParam(
                 title = todo.title,
