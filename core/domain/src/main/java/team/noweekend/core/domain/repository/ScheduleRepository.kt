@@ -17,4 +17,6 @@ interface ScheduleRepository {
     ): Schedule
 
     suspend fun createSchedule(param: ScheduleCreateParam): CreateSchedule
+
+    suspend fun deleteSchedule(id: String): String
 }

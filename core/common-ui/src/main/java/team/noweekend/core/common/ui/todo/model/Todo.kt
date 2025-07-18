@@ -62,6 +62,7 @@ sealed interface TodoType {
     /**
      * 회사
      */
+    @Immutable
     data class Company(
         override val name: String = "COMPANY",
         override val title: Int = NWKStringResource.TodoCompany,
@@ -73,6 +74,7 @@ sealed interface TodoType {
     /**
      * 개인
      */
+    @Immutable
     data class Personal(
         override val name: String = "PERSONAL",
         override val title: Int = NWKStringResource.TodoPersonal,
@@ -84,6 +86,7 @@ sealed interface TodoType {
     /**
      *  연차
      */
+    @Immutable
     data class AnnualLeave(
         override val name: String = "LEAVE",
         override val title: Int = NWKStringResource.TodoAnnualLeave,
@@ -95,6 +98,7 @@ sealed interface TodoType {
     /**
      * 기타
      */
+    @Immutable
     data class Etc(
         override val name: String = "ETC",
         override val title: Int = NWKStringResource.TodoEtc,

@@ -66,15 +66,15 @@ internal fun CalendarRoute(
 
 
     LaunchedEffect(Unit) {
+        calendarViewModel.sideEffect.collect(calendarSideEffectHandler::handleSideEffect)
+    }
+    LifecycleEventEffect(Lifecycle.Event.ON_START) {
+        intentBuilder.updateCalendarState()
         with(intentBuilder) {
             collectCalendarEvent()
             updateCalendarData()
             getRecommendTodoTagList()
-            calendarViewModel.sideEffect.collect(calendarSideEffectHandler::handleSideEffect)
         }
-    }
-    LifecycleEventEffect(Lifecycle.Event.ON_START) {
-        intentBuilder.updateCalendarState()
     }
     LaunchedEffect(state.value.calendarMode) {
         with(intentBuilder) {
@@ -116,7 +116,6 @@ internal fun CalendarRoute(
             onClickYearMonthButton = intentBuilder::clickMonthChooser,
             onClickCheckBox = intentBuilder::changeCompleteSchedule,
             onClickOptionButton = intentBuilder::clickTodoOption,
-            todoListState = state.value.selectedTodoList,
         )
 
         if (state.value.monthChooserVisible) {

@@ -73,6 +73,7 @@ class CalendarDataProviderUseCase @Inject constructor(
                         temperature = dateWithSchedules.dailyTemperature,
                         isFuture = isFuture,
                         hasRest = hasRest,
+                        hasSchedule = dateWithSchedules.schedules.isNotEmpty(),
                     ),
                     scheduleList = dateWithSchedules.schedules,
                 )
@@ -249,6 +250,7 @@ class CalendarDataProviderUseCase @Inject constructor(
                         temperature = dateWithSchedules.dailyTemperature,
                         isFuture = isFuture,
                         hasRest = hasRest,
+                        hasSchedule = dateWithSchedules.schedules.isNotEmpty(),
                     ),
                     scheduleList = dateWithSchedules.schedules,
                 )

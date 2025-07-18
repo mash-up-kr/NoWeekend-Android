@@ -1,9 +1,11 @@
 package team.noweekend.core.common.kotlin.extension
 
+import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
 import kotlinx.datetime.toJavaLocalDateTime
 import kotlinx.datetime.toJavaLocalTime
+import kotlinx.datetime.toKotlinLocalDate
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
@@ -19,6 +21,10 @@ fun LocalDateTime.toFormattedString(pattern: String): String {
         ZoneId.systemDefault(),
     )
     return javaLocalDateTime.format(formatter)
+}
+
+fun LocalDateTime.toLocalDate(): LocalDate {
+    return this.toJavaLocalDateTime().toLocalDate().toKotlinLocalDate()
 }
 
 fun LocalTime.toFormattedString(pattern: String): String {

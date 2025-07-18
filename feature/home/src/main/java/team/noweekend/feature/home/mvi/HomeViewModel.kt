@@ -51,7 +51,6 @@ class HomeViewModel @Inject constructor(
         getPopularRecommendVacations()
         getRemainedHolidays()
         getWeatherRecommendVacation()
-        getCalendarData()
         getUserProfile()
     }
 
@@ -204,7 +203,7 @@ class HomeViewModel @Inject constructor(
             }
     }
 
-    private fun getCalendarData() = execute {
+    fun getCalendarData() = execute {
         calendarDataProviderUseCase.initWeekCalendar(initialPage)
         val weeksDate: Map<Int, WeeksData> = calendarDataProviderUseCase.weeksDate.value
 
