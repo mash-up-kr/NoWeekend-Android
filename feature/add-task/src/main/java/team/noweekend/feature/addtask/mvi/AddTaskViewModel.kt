@@ -7,6 +7,7 @@ import kotlinx.datetime.LocalTime
 import kotlinx.serialization.json.Json
 import team.noweekend.core.common.android.base.MVIViewModel
 import team.noweekend.core.common.kotlin.extension.now
+import team.noweekend.core.common.kotlin.extension.plusHours
 import team.noweekend.core.common.kotlin.extension.toDateTimeString
 import team.noweekend.core.common.kotlin.extension.toIso8601Z
 import team.noweekend.core.design.system.core.component.toggle.ToggleState
@@ -154,12 +155,25 @@ class AddTaskViewModel @Inject constructor(
     }
 
     private fun updateStartTime(time: LocalTime) {
-        reduce {
-            copy(
-                taskInfo = taskInfo.copy(
-                    startTime = time,
-                ),
-            )
+        if (uiState.value.taskInfo.selectedType == ScheduleCategory.LEAVE
+            && uiState.value.taskInfo.selectedVacation != VacationTimeType.ALL_DAY
+        ) {
+            reduce {
+                copy(
+                    taskInfo = taskInfo.copy(
+                        startTime = time,
+                    ),
+                )
+            }
+            updateEndTime(time.plusHours(4))
+        } else {
+            reduce {
+                copy(
+                    taskInfo = taskInfo.copy(
+                        startTime = time,
+                    ),
+                )
+            }
         }
     }
 

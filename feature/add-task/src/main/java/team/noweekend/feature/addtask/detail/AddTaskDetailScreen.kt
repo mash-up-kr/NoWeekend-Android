@@ -147,7 +147,7 @@ fun AddTaskDetailScreen(
                 )
             }
             if (
-                uiState.taskInfo.selectedVacation != VacationTimeType.MORNING ||
+                uiState.taskInfo.selectedVacation != VacationTimeType.MORNING &&
                 uiState.taskInfo.selectedVacation != VacationTimeType.AFTERNOON
             ) {
                 TodoTimeContainer(
@@ -403,7 +403,7 @@ fun TodoTimeContainer(
                     pattern = LocalDate.YEAR_MONTH_DATE_WITH_DAY_OF_WEEK_PATTERN,
                 ),
             )
-            if (!isAllDay || selectedVacation != VacationTimeType.ALL_DAY) {
+            if (selectedVacation != VacationTimeType.ALL_DAY) {
                 DateLineText(
                     modifier = Modifier.clickable {
                         isTimeClick = !isTimeClick

@@ -27,6 +27,15 @@ fun LocalDateTime.toLocalDate(): LocalDate {
     return this.toJavaLocalDateTime().toLocalDate().toKotlinLocalDate()
 }
 
+
+fun LocalTime.plusHours(hours: Int): LocalTime {
+    val secondsInDay = 24 * 60 * 60
+    val totalSeconds = (this.toSecondOfDay() + hours * 60 * 60) % secondsInDay
+    // 만약 음수가 나오면 하루를 더해줌
+    val normalizedSeconds = if (totalSeconds < 0) totalSeconds + secondsInDay else totalSeconds
+    return LocalTime.fromSecondOfDay(normalizedSeconds)
+}
+
 fun LocalTime.toFormattedString(pattern: String): String {
     val javaLocalTime = this.toJavaLocalTime()
     val formatter = DateTimeFormatter.ofPattern(pattern)

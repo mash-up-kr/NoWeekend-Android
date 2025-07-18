@@ -5,6 +5,10 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import dagger.hilt.android.AndroidEntryPoint
 import team.noweekend.core.common.android.extension.showToast
+import team.noweekend.core.navigator.delegate.CalendarNavigationDelegate
+import team.noweekend.core.navigator.feature.AddTaskNavigator
+import team.noweekend.core.navigator.feature.MainNavigator
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class AddTaskActivity : ComponentActivity() {
