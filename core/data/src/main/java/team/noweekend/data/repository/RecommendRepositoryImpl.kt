@@ -1,6 +1,7 @@
 package team.noweekend.data.repository
 
 import team.noweekend.core.domain.repository.RecommendRepository
+import team.noweekend.core.model.vacation.RecommendVacationResult
 import team.noweekend.core.model.vacation.SandwichRecommendVacation
 import team.noweekend.core.model.vacation.WeatherRecommendVacation
 import team.noweekend.core.remote.api.recommend.RecommendApi
@@ -41,5 +42,9 @@ internal class RecommendRepositoryImpl @Inject constructor(
                 leisurePreference = leisurePreference,
             ),
         )
+    }
+
+    override suspend fun getRecommendVacation(): RecommendVacationResult {
+        return recommendApi.getRecommendVacation().toDomain()
     }
 }

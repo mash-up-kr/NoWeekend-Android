@@ -4,6 +4,7 @@ import io.ktor.client.HttpClient
 import team.noweekend.core.remote.base.getApiCall
 import team.noweekend.core.remote.base.postApiCall
 import team.noweekend.core.remote.model.recommend.request.PostRecommendVacationRequest
+import team.noweekend.core.remote.model.recommend.response.RecommendVacationResultResponse
 import team.noweekend.core.remote.model.recommend.response.SandwichRecommendResponse
 import team.noweekend.core.remote.model.recommend.response.TodoRecommendResponse
 import team.noweekend.core.remote.model.recommend.response.WeatherRecommendResponse
@@ -31,6 +32,12 @@ class RecommendApiImpl @Inject constructor(
         client.postApiCall<String>(
             path = "/api/v1/recommend/vacation",
             body = requestBody,
+        )
+    }
+
+    override suspend fun getRecommendVacation(): RecommendVacationResultResponse {
+        return client.getApiCall<RecommendVacationResultResponse>(
+            path = "/api/v1/recommend/vacation",
         )
     }
 }

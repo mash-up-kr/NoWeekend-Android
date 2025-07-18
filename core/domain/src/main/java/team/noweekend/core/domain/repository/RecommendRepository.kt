@@ -1,5 +1,6 @@
 package team.noweekend.core.domain.repository
 
+import team.noweekend.core.model.vacation.RecommendVacationResult
 import team.noweekend.core.model.vacation.SandwichRecommendVacation
 import team.noweekend.core.model.vacation.WeatherRecommendVacation
 
@@ -14,4 +15,6 @@ interface RecommendRepository {
         restPreference: String,
         leisurePreference: String,
     )
+
+    suspend fun getRecommendVacation(): RecommendVacationResult
 }
